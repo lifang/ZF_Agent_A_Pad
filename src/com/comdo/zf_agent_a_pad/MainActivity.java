@@ -1,4 +1,6 @@
-package com.example.zf_agent_a_pad;
+package com.comdo.zf_agent_a_pad;
+
+import com.example.zf_agent_a_pad.R;
 
 import android.app.Activity;
 import android.os.Bundle;
