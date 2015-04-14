@@ -21,10 +21,17 @@ public class Config {
 	public static int ROWS = 10;
 	public static String token = "123";
 	public static final int CODE = 1;
+
 	public static final String POSLIST = PATHS + "good/list";
-	// upload image url
+
+	public static String getmes=PATHS+"message/receiver/getAll";
 	public static final String UPLOAD_IMAGE = PATHS
-			+ "/comment/upload/tempImage";
+			+ "comment/upload/tempImage";
+	public static final String SHARED = "zfandroid";
+	public static String CITY = "上海";
+	public static boolean isFRIST = false;
+
+
 	static Gson gson = new Gson();
 	// Apply List
 	public static final String APPLY_LIST = PATHS + "/apply/getApplyList";
@@ -53,6 +60,7 @@ public class Config {
 	// Terminal detail
 	public static final String TERMINAL_DETAIL = PATHS
 			+ "/terminal/getApplyDetails";
+
 
 	public static boolean CheckIsLogin(Context c) {
 		return true;
