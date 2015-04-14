@@ -14,7 +14,10 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
+import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
+import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -34,12 +37,14 @@ import android.os.Message;
 import android.os.Parcelable;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -65,6 +70,9 @@ public class PosListActivity extends Activity implements OnClickListener,IXListV
 	private String keyword;
 	List<PosEntity>  myList = new ArrayList<PosEntity>();
 	List<PosEntity>  moreList = new ArrayList<PosEntity>();
+	private ImageView im_sy, im_ghc, im_mess, im_wd;
+	private TextView textsy, textghc, textmes, textwd;
+	private LinearLayout set;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -108,7 +116,7 @@ public class PosListActivity extends Activity implements OnClickListener,IXListV
 
 	private Intent i;
 	private LinearLayout ll_listflag;
-	private LinearLayout ll_back;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,12 +124,20 @@ public class PosListActivity extends Activity implements OnClickListener,IXListV
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.poslist_activity);
 		initView();
-		//getData();
 		Search();
 	}
 	private void initView() {
-		ll_back = (LinearLayout)findViewById(R.id.titleback_linear_back);
-		ll_back.setOnClickListener(this);
+		textsy = (TextView) findViewById(R.id.textsy);
+		textghc = (TextView) findViewById(R.id.textghc);
+		textmes = (TextView) findViewById(R.id.textmes);
+		textwd = (TextView) findViewById(R.id.textwd);
+
+		im_sy = (ImageView) findViewById(R.id.laa1);
+		im_ghc = (ImageView) findViewById(R.id.igw);
+		im_mess = (ImageView) findViewById(R.id.im_mess);
+		im_wd = (ImageView) findViewById(R.id.im_wd);
+		set = (LinearLayout) findViewById(R.id.set);
+		set.setOnClickListener(this);
 		ll_listflag = (LinearLayout)findViewById(R.id.ll_listflag);
 		ll_mr=(LinearLayout) findViewById(R.id.ll_mr);
 		ll_mr.setOnClickListener(this);
@@ -167,6 +183,27 @@ public class PosListActivity extends Activity implements OnClickListener,IXListV
 		});
 		Xlistview.setAdapter(myAdapter1);
 		changList();
+	}
+	private void changTabBg() {
+		/*
+		 * im_sy.setBackgroundResource(R.drawable.home);
+		 * im_ghc.setBackgroundResource(R.drawable.good);
+		 * im_mess.setBackgroundResource(R.drawable.message);
+		 * im_wd.setBackgroundResource(R.drawable.mine);
+		 * textsy.setTextColor(getResources().getColor(R.color.white));
+		 * textghc.setTextColor(getResources().getColor(R.color.white));
+		 * textmes.setTextColor(getResources().getColor(R.color.white));
+		 * textwd.setTextColor(getResources().getColor(R.color.white));
+		 */
+		im_sy.setBackgroundResource(R.drawable.home2);
+		im_ghc.setBackgroundResource(R.drawable.shopping2);
+		im_mess.setBackgroundResource(R.drawable.message2);
+		im_wd.setBackgroundResource(R.drawable.mine2);
+		textsy.setTextColor(getResources().getColor(R.color.white));
+		textghc.setTextColor(getResources().getColor(R.color.white));
+		textmes.setTextColor(getResources().getColor(R.color.white));
+		textwd.setTextColor(getResources().getColor(R.color.white));
+
 	}
 	private void changList() {
 		port1 = (ImageView)findViewById(R.id.port_list1);
@@ -272,6 +309,22 @@ public class PosListActivity extends Activity implements OnClickListener,IXListV
 			Search();
 			Xlistview.setSelection(0);
 			break;	
+		case R.id.main_rl_sy:
+
+			break;
+		case R.id.main_rl_gwc:
+
+			break;
+		case R.id.main_rl_pos1:
+
+
+			break;
+		case R.id.main_rl_my:
+
+			break;
+		case R.id.set:
+			showSet();
+			break;
 		default:
 			break;
 		}
@@ -319,7 +372,11 @@ public class PosListActivity extends Activity implements OnClickListener,IXListV
 		Search();
 	}
 	 
-	
+	private void showSet() {
+		SetPopWindow set = new SetPopWindow(this);
+		set.showAtLocation(findViewById(R.id.main), Gravity.CENTER
+				| Gravity.CENTER, 0, 0);
+	}
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -365,8 +422,8 @@ public class PosListActivity extends Activity implements OnClickListener,IXListV
 
 	}
 	private void Search() {
-		//Toast.makeText(getApplicationContext(), page+"", 1000).show();
-		Config.PostSearch(getApplicationContext(), keyword,1,12,page,orderType,new HttpCallback<Page<PosEntity>>(this) {
+
+		Config.PostSearch(getApplicationContext(),1,2, keyword,1,12,page,orderType,new HttpCallback<Page<PosEntity>>(this) {
 			@Override
 			public void onSuccess(Page<PosEntity> data) {
 				if(myList.size()!=0&&data.getList().size()==0){

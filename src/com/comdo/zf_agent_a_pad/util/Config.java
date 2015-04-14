@@ -66,16 +66,17 @@ public class Config {
 		return true;
 
 	}
-	public static void PostSearch(Context context, String keys, int city_id,
+	public static void PostSearch(Context context, int agentId,int type,String keys, int city_id,
 			int rows, int page, int orderType, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
 		params.put("keys", keys);
 		params.put("city_id", city_id);
 		params.put("rows", rows);
 		params.put("page", page);
 		params.put("orderType", orderType);
-
-		params.put("has_purchase", Posport.has_purchase);
+		params.put("type", type);
+		params.put("hasLease", Posport.has_purchase);
 		params.put("minPrice", Posport.minPrice);
 		params.put("maxPrice", Posport.maxPrice);
 		try {

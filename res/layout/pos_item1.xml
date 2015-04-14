@@ -87,7 +87,7 @@
                         android:gravity="left"
                         android:maxLines="1"
                         android:text="$999.00"
-                        android:textColor="@color/bgtitle"
+                        android:textColor="#FF611D"
                         android:textSize="@dimen/textbig"  />
 
                     <TextView
@@ -179,7 +179,7 @@
                         android:gravity="left"
                         android:maxLines="1"
                         android:text="$999.00"
-                        android:textColor="@color/bgtitle"
+                         android:textColor="#FF611D"
                         android:textSize="@dimen/textbig"  />
 
                     <TextView
@@ -271,7 +271,7 @@
                         android:gravity="left"
                         android:maxLines="1"
                         android:text="$999.00"
-                        android:textColor="@color/bgtitle"
+                          android:textColor="#FF611D"
                         android:textSize="@dimen/textbig"  />
 
                     <TextView
@@ -363,7 +363,7 @@
                         android:gravity="left"
                         android:maxLines="1"
                         android:text="$999.00"
-                        android:textColor="@color/bgtitle"
+                          android:textColor="#FF611D"
                         android:textSize="@dimen/textbig"  />
 
                     <TextView

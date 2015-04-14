@@ -52,6 +52,8 @@ public class PosAdapter extends BaseAdapter {
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.pos_item, null);
+			holder.tv_yj=(TextView)convertView.findViewById(R.id.tv_yj);
+			holder.tv_least=(TextView)convertView.findViewById(R.id.tv_least);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.tv_price = (TextView) convertView
 					.findViewById(R.id.tv_price);
@@ -75,13 +77,13 @@ public class PosAdapter extends BaseAdapter {
 		holder.content1.setText(list.get(position).getModel_number());
 		holder.tv_td.setText(list.get(position).getPay_channe());
 		holder.ys.setText("" + list.get(position).getVolume_number());
-
-
+		holder.tv_yj.setText("原价:￥"+((double)list.get(position).getPurchase_price()/100));
+		holder.tv_least.setText("最小起批量:"+list.get(position).getFloor_purchase_quantity());
 		return convertView;
 	}
 
 	public final class ViewHolder {
-		public TextView title, ys, tv_price, content1, tv_td;
+		public TextView title, ys, tv_price, content1, tv_td,tv_least,tv_yj;
 		public CheckBox item_cb;
 		public ImageView im;
 
