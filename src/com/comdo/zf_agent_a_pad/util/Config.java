@@ -89,7 +89,7 @@ public class Config {
 			e.printStackTrace();
 		}
 		new HttpRequest(context, callback).post(Config.POSLIST, params);
-		System.out.println("����--" + params.toString());
+		System.out.println("参数--" + params.toString());
 	}
 	public static void getApplyList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
