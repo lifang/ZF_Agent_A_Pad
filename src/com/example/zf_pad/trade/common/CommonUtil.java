@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.comdo.zf_agent_a_pad.common.JsonParser;
+import com.comdo.zf_agent_a_pad.common.Response;
 import com.comdo.zf_agent_a_pad.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.google.gson.reflect.TypeToken;
@@ -87,12 +89,11 @@ public class CommonUtil {
 				}
 			}
 		}
-		//Response<List<Province>> data = JsonParser.fromJson(result,
-		//		new TypeToken<List<Province>>() {
-		//		});
-		//List<Province> provinces = data.getResult();
-		//return provinces;
-		return null;
+		Response<List<Province>> data = JsonParser.fromJson(result,
+				new TypeToken<List<Province>>() {
+				});
+		List<Province> provinces = data.getResult();
+		return provinces;
 	}
 
 	public static void showDatePicker(FragmentActivity activity,
