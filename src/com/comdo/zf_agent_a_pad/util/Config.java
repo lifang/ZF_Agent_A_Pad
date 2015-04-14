@@ -12,6 +12,7 @@ import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.google.gson.Gson;
 
 import android.content.Context;
+import android.util.Log;
 
 public class Config {
 
@@ -21,12 +22,13 @@ public class Config {
 	public static int ROWS = 10;
 	public static String token = "123";
 	public static final int CODE = 1;
+<<<<<<< HEAD
 
 	public static final String POSLIST = PATHS + "good/list";
 
+=======
+>>>>>>> 6b51111d49294903d900810bce443f20b6a8261c
 	public static String getmes=PATHS+"message/receiver/getAll";
-	public static final String UPLOAD_IMAGE = PATHS
-			+ "comment/upload/tempImage";
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
@@ -60,8 +62,14 @@ public class Config {
 	// Terminal detail
 	public static final String TERMINAL_DETAIL = PATHS
 			+ "/terminal/getApplyDetails";
+<<<<<<< HEAD
 
 
+=======
+    // Get msglist
+	public static final String GET_MSGLIST = PATHS
+			+ "message/receiver/getAll";
+>>>>>>> 6b51111d49294903d900810bce443f20b6a8261c
 	public static boolean CheckIsLogin(Context c) {
 		return true;
 
@@ -159,5 +167,15 @@ public class Config {
 		params.put("terminalsId", terminalId);
 		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(TERMINAL_DETAIL, params);
+	}
+	public static void getMsgList(Context context,int customerId,
+			int page,int rows,HttpCallback callback){
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("page", page);
+		params.put("rows", rows);
+		new HttpRequest(context, callback).post(GET_MSGLIST, params);
+		Log.e("params", String.valueOf(params));
+		Log.e("url", GET_MSGLIST);
 	}
 }

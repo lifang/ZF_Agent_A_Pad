@@ -8,6 +8,7 @@ public class Constants {
 	/**
 	 * The intent data among city selection
 	 */
+	public static final int SUCCESS_CODE = 1;
 	public static class CityIntent {
 		public static final String SELECTED_PROVINCE = "selected_province";
 		public static final String SELECTED_CITY = "selected_city";

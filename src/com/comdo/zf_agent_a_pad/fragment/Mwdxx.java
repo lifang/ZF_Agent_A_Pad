@@ -17,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.adapter.MessageAdapter;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
+import com.comdo.zf_agent_a_pad.entity.TerminalDetail;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -32,6 +34,7 @@ public class Mwdxx extends Fragment implements IXListViewListener{
 	private View view;
 	private MessageAdapter myAdapter;
 	private List<MessageEntity> datamsg ;
+	List<MessageEntity> moreList = new ArrayList<MessageEntity>();
 	private XListView xlistview;
 	private int rows = Config.ROWS;
 	private int page=1;
@@ -62,82 +65,24 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
     }
     return view;
 }
-private void getData() {/*
-
-	// TODO Auto-generated method stub
-
-	RequestParams params = new RequestParams();
-
-	params.put("customer_id", 80);
-	params.put("page", page);
-	params.put("pageSize", rows);
-	params.setUseJsonStreamer(true);
-	MyApplication.getInstance().getClient()
-			.post(Url, params, new AsyncHttpResponseHandler() {
-
-				@Override
-				public void onSuccess(int statusCode, Header[] headers,
-						byte[] responseBody) {
-					System.out.println("-onSuccess---");
-					String responseMsg = new String(responseBody)
-							.toString();
-					Log.e("LJP", responseMsg);
-					Gson gson = new Gson();
-					JSONObject jsonobject = null;
-					int code = 0;
-					try {
-						jsonobject = new JSONObject(responseMsg);
-						 
-						 
-						code = jsonobject.getInt("code");
-						
-						if(code==-2){
-						 
-						}else if(code==1){
-							
-							String res =jsonobject.getString("result");
-							System.out.println("`res``"+res);
-							jsonobject = new JSONObject(res);
-							moreList.clear();
-							
-			 				moreList = gson.fromJson(jsonobject.getString("content") ,
-								new TypeToken<List<MessageEntity>>() {
-								}.getType());
-			 					 	
-			 						if (moreList.size()==0) {
-			 							Toast.makeText(getApplicationContext(),
-			 									"û�и�������", Toast.LENGTH_SHORT).show();
-			 							Xlistview.getmFooterView().setState2(2);
-			 					 
-			 						} 
-			 						 
-			 				myList.addAll(moreList);
-			 				handler.sendEmptyMessage(0);
-	 
-							
-							
-						}else{
-							Toast.makeText(getActivity(), jsonobject.getString("message"),
-									Toast.LENGTH_SHORT).show();
-						}
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					 
-				}
-
-				@Override
-				public void onFailure(int statusCode, Header[] headers,
-						byte[] responseBody, Throwable error) {
-					// TODO Auto-generated method stub
-					error.printStackTrace();
-				}
-			});
-	 
-
+private void getData() {
 	
-*/}
+	Config.getMsgList(getActivity(), 80, page, rows, new HttpCallback<MessageEntity>(getActivity()) {
+
+		@Override
+		public void onSuccess(MessageEntity data) {
+			// TODO Auto-generated method stub
+			Toast.makeText(getActivity(), String.valueOf(data), Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public TypeToken<MessageEntity> getTypeToken() {
+			// TODO Auto-generated method stub
+			return new TypeToken<MessageEntity>() {
+			};
+		}
+	});
+}
 private void initview() {
 	datamsg=new ArrayList<MessageEntity>();
 	myAdapter=new MessageAdapter(datamsg, getActivity().getBaseContext());
