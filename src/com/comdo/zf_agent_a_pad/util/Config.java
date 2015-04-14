@@ -3,24 +3,29 @@ package com.comdo.zf_agent_a_pad.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
+import com.comdo.zf_agent_a_pad.entity.Posport;
+import com.google.gson.Gson;
 
 import android.content.Context;
 
 public class Config {
 
-	public final static String PATHS = "http://114.215.149.242:18080/ZFMerchant/api/";
+	public final static String PATHS = "http://114.215.149.242:28080/ZFAgent/api/";
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
 	public static String token = "123";
 	public static final int CODE = 1;
-
+	public static final String POSLIST = PATHS + "good/list";
 	// upload image url
 	public static final String UPLOAD_IMAGE = PATHS
 			+ "/comment/upload/tempImage";
-
+	static Gson gson = new Gson();
 	// Apply List
 	public static final String APPLY_LIST = PATHS + "/apply/getApplyList";
 	// Apply Detail
@@ -53,7 +58,39 @@ public class Config {
 		return true;
 
 	}
+	public static void PostSearch(Context context, String keys, int city_id,
+			int rows, int page, int orderType, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("keys", keys);
+		params.put("city_id", city_id);
+		params.put("rows", rows);
+		params.put("page", page);
+		params.put("orderType", orderType);
 
+		params.put("has_purchase", Posport.has_purchase);
+		params.put("minPrice", Posport.minPrice);
+		params.put("maxPrice", Posport.maxPrice);
+		try {
+			params.put("brands_id",
+					new JSONArray(gson.toJson(Posport.brands_id)));
+			params.put("category", new JSONArray(gson.toJson(Posport.category)));
+			params.put("pay_channel_id",
+					new JSONArray(gson.toJson(Posport.pay_channel_id)));
+			params.put("pay_card_id",
+					new JSONArray(gson.toJson(Posport.pay_card_id)));
+			params.put("trade_type_id",
+					new JSONArray(gson.toJson(Posport.trade_type_id)));
+			params.put("sale_slip_id",
+					new JSONArray(gson.toJson(Posport.sale_slip_id)));
+			params.put("tDate", new JSONArray(gson.toJson(Posport.tDate)));
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new HttpRequest(context, callback).post(Config.POSLIST, params);
+		System.out.println("����--" + params.toString());
+	}
 	public static void getApplyList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();

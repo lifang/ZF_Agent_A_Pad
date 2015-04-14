@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import com.comdo.zf_agent_a_pad.activity.PosListActivity;
+import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.entity.PicEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.util.Config;
@@ -52,7 +54,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 	private ArrayList<String> mal = new ArrayList<String>();
 	private ArrayList<PicEntity> myList = new ArrayList<PicEntity>();
 	private ViewPager view_pager;
-	private ImageView[] indicator_imgs;// 存放引到图片数组
+	private ImageView[] indicator_imgs;// 瀛樻斁寮曞埌鍥剧墖鏁扮粍
 	private View item;
 	private LayoutInflater inflater;
 	private int index_ima = 0;
@@ -68,8 +70,8 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 				Toast.makeText(getActivity(), (String) msg.obj,
 						Toast.LENGTH_SHORT).show();
 				break;
-			case 2: // 网络有问题
-				Toast.makeText(getActivity(), "网络未连接", Toast.LENGTH_SHORT)
+			case 2: // 缃戠粶鏈夐棶棰�
+				Toast.makeText(getActivity(), "网络连接错误", Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case 3:
@@ -128,7 +130,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.main_rl_pos: //我要进货
 
-			//startActivity(new Intent(getActivity(), PosListActivity.class));
+			startActivity(new Intent(getActivity(), PosListActivity.class));
 			
 			break;
 		case R.id.main_rl_renzhen: // 订单管理
@@ -144,10 +146,10 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			startActivity(new Intent(getActivity(), ApplyListActivity.class));
 			break;
 		case R.id.main_rl_zdgl: // 终端管理
-			if (Config.CheckIsLogin(getActivity())) {
-			//startActivity(new Intent(getActivity(),
-			//		TerminalManagerActivity.class));
-			}
+//			if (Config.CheckIsLogin(getActivity())) {
+			startActivity(new Intent(getActivity(),
+					TerminalManagerActivity.class));
+//			}
 			break;
 		default:
 			break;
