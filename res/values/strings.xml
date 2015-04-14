@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">ZF_Agent_A_Pad</string>
-  <string name="action_settings">Settings</string>
+    <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">加载更多</string>
@@ -16,5 +16,125 @@
     <string name="forgetpass">找回密码</string>
     <string name="refresh_toomuch">刷新频繁，请稍后再试</string>
     <string name="remeberpass">忘记密码</string>
+    <!-- ====================================================== -->
+    <!-- 开通认证 -->
+    <!-- ====================================================== -->
+    <string name="title_apply">开通认证</string>
+    <string name="toast_upload_failed">上传图片失败</string>
+    <string name="title_apply_open">开通申请</string>
+    <string name="title_apply_choose_merchant">选择商户</string>
+    <string name="title_apply_choose_gender">选择性别</string>
+    <string name="title_apply_choose_channel">选择支付通道</string>
+    <string name="apply_button_open">申请开通</string>
+    <string name="apply_button_reopen">重新申请开通</string>
+    <string name="apply_button_video">视频认证</string>
+    <string name="apply_public">对公</string>
+    <string name="apply_private">对私</string>
+    <string name="apply_detail_brand">POS品牌</string>
+    <string name="apply_detail_model">POS型号</string>
+    <string name="apply_detail_serial">终 端 号</string>
+    <string name="apply_detail_channel">支付通道</string>
+    <string name="toast_no_sdcard">SD卡未挂载</string>
+
+    <string-array name="apply_detail_merchant_keys">
+        <item>选择已有商户</item>
+        <item>姓名</item>
+        <item>店铺名称(商户名)</item>
+        <item>性别</item>
+        <item>选择生日</item>
+        <item>身份证号</item>
+        <item>电话</item>
+        <item>邮箱</item>
+        <item>选择所在地</item>
+    </string-array>
+    <string-array name="apply_detail_gender">
+        <item>男</item>
+        <item>女</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="my_apply_detail_merchant_keys">
+        <item>选择已有商户</item>
+        <item>姓名</item>
+        <item>店铺名称</item>
+        <item>性别</item>
+        <item>选择生日</item>
+        <item>身份证号</item>
+        <item>电话</item>
+        <item>邮箱</item>
+        <item>选择所在地</item>
+    </string-array>
+    <string-array name="my_apply_detail_bank_keys">
+        <item>结算银行名称</item>
+        <item>结算银行代码</item>
+        <item>结算银行账户</item>
+        <item>税务登记证号</item>
+        <item>组织机构号</item>
+        <item>支付通道</item>
+    </string-array>
+    <string-array name="apply_detail_upload">
+        <item>选择照片</item>
+        <item>拍照上传</item>
+    </string-array>
+    <string-array name="apply_detail_view">
+        <item>查看照片</item>
+        <item>选择照片</item>
+        <item>拍照上传</item>
+    </string-array>
+
+    <string name="apply_upload_photo">上传图片</string>
+    <string name="apply_uploading">上传中...</string>
+    <string name="apply_upload_again">重新上传</string>
+    <string name="apply_upload_success">上传成功</string>
+    <string name="terminal_add_channel">指定支付通道</string>
+    <string name="terminal_add_number">填入终端号</string>
+    <string name="terminal_add_name">填入商户名称</string>
+    <string name="title_city_select">选择城市</string>
+    <string name="load_data_failed">操作失败</string>
+    <string name="parse_data_failed">解析数据失败</string>
+    <string name="network_info">无法连接到网络</string>
+    <string name="button_submit">提交</string>
+    <string name="apply_bank_input">请输入银行名称</string>
+    <string name="apply_bank_result">搜索结果</string>
+    <string name="title_apply_choose_bank">选择银行</string>
+    <string name="after_sale_trace_record">追踪记录:</string>
+    <!-- ====================================================== -->
+    <!-- 终端管理 -->
+    <!-- ====================================================== -->
+    <string name="title_terminal_management">终端管理</string>
+    <string name="terminal_id">终端号</string>
+    <string name="postype">POS机</string>
+    <string name="paychannel">支付通道</string>
+    <string name="openstate">开通状态</string>
+    <string name="openstates">开通状态:</string>
+    <string name="title_terminal_detail_management">终端详情</string>
+    <string name="terminal_button_video">视频认证</string>
+    <string name="terminal_button_pos">找回POS密码</string>
+    <string name="terminal_button_sync">同步</string>
+    <string name="terminal_button_open">开通申请</string>
+    <string name="terminal_button_reopen">重新开通申请</string>
+    <string name="terminal_no_detail">暂无终端详情</string>
+    <string name="terminal_category_apply">终端信息</string>
+    <string name="terminal_no_open_detail">暂无开通详情</string>
+    <string name="terminal_category_open">开通详情</string>
+    <string name="apply_progress_no_data">无查询结果,请填写正确的手机号码!</string>
+
+    <string-array name="terminal_apply_keys">
+        <item>终 端 号</item>
+        <item>POS品牌</item>
+        <item>POS型号</item>
+        <item>支付平台</item>
+        <item>商 户 名</item>
+        <item>商户电话</item>
+        <item>订 单 号</item>
+        <item>订购时间</item>
+    </string-array>
+
+    <string name="terminal_type">交易类型</string>
+    <string name="terminal_rate">费率</string>
+    <string name="terminal_status">开通状态</string>
+    <string name="notation_percent">%</string>
+    <string name="button_cancel">取消</string>
+    <string name="button_copy">复制</string>
+    <string name="toast_copy_password">密码已复制到剪贴板</string>
 
 </resources>
