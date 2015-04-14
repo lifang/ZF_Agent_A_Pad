@@ -2,6 +2,7 @@ package com.comdo.zf_agent_a_pad.activity;
 
 
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
+import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.example.zf_agent_a_pad.R;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements OnClickListener{
 	private M_MianFragment f_sy;
+	private Mwdxx f_xx;
 	private ImageView im_sy,im_ghc,im_mess,im_wd;
 	private TextView textsy,textghc,textmes,textwd;
 	private RelativeLayout re_shopcar,re_myinfo,re_mine,re_sy;
@@ -58,10 +60,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
 		
 	}
 	private void changTabBg() {
-		im_sy.setBackgroundResource(R.drawable.home);
+		/*im_sy.setBackgroundResource(R.drawable.home);
 		im_ghc.setBackgroundResource(R.drawable.good);
 		im_mess.setBackgroundResource(R.drawable.message);
 		im_wd.setBackgroundResource(R.drawable.mine);
+		textsy.setTextColor(getResources().getColor(R.color.white));
+		textghc.setTextColor(getResources().getColor(R.color.white));
+		textmes.setTextColor(getResources().getColor(R.color.white));
+		textwd.setTextColor(getResources().getColor(R.color.white));*/
+		im_sy.setBackgroundResource(R.drawable.home2);
+		im_ghc.setBackgroundResource(R.drawable.shopping2);
+		im_mess.setBackgroundResource(R.drawable.message2);
+		im_wd.setBackgroundResource(R.drawable.mine2);
 		textsy.setTextColor(getResources().getColor(R.color.white));
 		textghc.setTextColor(getResources().getColor(R.color.white));
 		textmes.setTextColor(getResources().getColor(R.color.white));
@@ -86,7 +96,13 @@ switch (view.getId()) {
 		
 			break;
 		case R.id.main_rl_pos1:
-		
+			changTabBg();
+			im_mess.setBackgroundResource(R.drawable.message);
+			textmes.setTextColor(getResources().getColor(R.color.o));
+			if (f_xx == null)
+			f_xx=new Mwdxx();
+			getSupportFragmentManager().beginTransaction()
+			.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case R.id.main_rl_my:
 		
