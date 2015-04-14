@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 
 import com.comdo.zf_agent_a_pad.entity.PicEntity;
+import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
@@ -140,7 +141,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			//startActivity(new Intent(getActivity(), SystemMessage.class));
 			break;
 		case R.id.main_rl_lxwm://开通认证
-			//startActivity(new Intent(getActivity(), ContactUs.class));
+			startActivity(new Intent(getActivity(), ApplyListActivity.class));
 			break;
 		case R.id.main_rl_zdgl: // 终端管理
 			if (Config.CheckIsLogin(getActivity())) {
