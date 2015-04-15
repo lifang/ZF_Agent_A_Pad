@@ -8,7 +8,193 @@
 package com.example.zf_agent_a_pad;
 
 public final class R {
+    public static final class array {
+        public static final int after_sale_change=0x7f080013;
+        public static final int after_sale_lease=0x7f080014;
+        public static final int after_sale_maintian=0x7f080011;
+        public static final int after_sale_number=0x7f08000f;
+        public static final int after_sale_return=0x7f080012;
+        public static final int after_sale_terminal=0x7f080010;
+        public static final int apply_detail_gender=0x7f080016;
+        public static final int apply_detail_merchant_keys=0x7f080015;
+        public static final int apply_detail_upload=0x7f080019;
+        public static final int apply_detail_view=0x7f08001a;
+        public static final int cancel_status=0x7f080003;
+        public static final int change_status=0x7f080004;
+        public static final int lease_status=0x7f080006;
+        public static final int maintain_status=0x7f080001;
+        public static final int mine_myinfo=0x7f08000a;
+        public static final int mine_shjl_tabs=0x7f080009;
+        public static final int my_apply_detail_bank_keys=0x7f080018;
+        public static final int my_apply_detail_merchant_keys=0x7f080017;
+        public static final int return_status=0x7f080002;
+        public static final int terminal_apply_keys=0x7f08001b;
+        public static final int terminal_status=0x7f080007;
+        public static final int title_after_sale_detail=0x7f08000e;
+        public static final int title_after_sale_list=0x7f08000d;
+        public static final int trade_flow_tabs=0x7f080008;
+        public static final int trade_item_bank=0x7f08000c;
+        public static final int trade_item_commercial=0x7f08000b;
+        public static final int trade_status=0x7f080000;
+        public static final int update_status=0x7f080005;
+    }
     public static final class attr {
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int isAutoLoadOnBottom=0x7f010002;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int isDropDownStyle=0x7f010000;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int isOnBottomStyle=0x7f010001;
+    }
+    public static final class color {
+        public static final int B4B4B4=0x7f040034;
+        public static final int C0075FF=0x7f040040;
+        public static final int E8E8E7=0x7f040035;
+        public static final int F3F2F2=0x7f04000e;
+        public static final int F3F3F3=0x7f040036;
+        public static final int F6F9FA=0x7f040037;
+        public static final int FB9401=0x7f040041;
+        public static final int NoRead=0x7f040055;
+        public static final int Viewc=0x7f040006;
+        public static final int Viewc2=0x7f040007;
+        public static final int adadad=0x7f04002b;
+        public static final int background_dark=0x7f040051;
+        public static final int background_pressed=0x7f040052;
+        public static final int background_tab=0x7f040053;
+        public static final int bantouming=0x7f040009;
+        public static final int bf873e=0x7f040030;
+        public static final int bg0etitle=0x7f040054;
+        public static final int bg_0AB2FF=0x7f04003c;
+        public static final int bg_1FB8FE=0x7f04003b;
+        public static final int bg_575D5F=0x7f04003d;
+        public static final int bg_FF0404=0x7f04003e;
+        public static final int bg_FF1F1F=0x7f04003f;
+        public static final int bg_item=0x7f04000d;
+        public static final int bgtitle=0x7f040003;
+        public static final int black=0x7f040047;
+        public static final int blank_button_selector=0x7f040056;
+        /**  1dp 线条的颜色 
+         */
+        public static final int button_bg_hui_color=0x7f04004a;
+        /**  其他 
+         */
+        public static final int c6c6c6=0x7f04002e;
+        public static final int c838383=0x7f040042;
+        public static final int d3d3d3=0x7f040022;
+        public static final int d7d7d7=0x7f040028;
+        public static final int de4747=0x7f040025;
+        /**  drop down list footer font color 
+         */
+        public static final int drop_down_list_footer_font_color=0x7f040002;
+        /**  drop down list header font color 
+         */
+        public static final int drop_down_list_header_font_color=0x7f040000;
+        /**  drop down list header second font color 
+         */
+        public static final int drop_down_list_header_second_font_color=0x7f040001;
+        public static final int e1e1e1=0x7f04001d;
+        public static final int e5e5e5=0x7f04002f;
+        public static final int edithinit=0x7f04004c;
+        public static final int f1f1f1=0x7f04001a;
+        public static final int f26e26=0x7f040024;
+        public static final int f4f4f4=0x7f040019;
+        public static final int f6d9d9d9=0x7f04001e;
+        public static final int f6e6cd=0x7f040021;
+        public static final int f6f4f4f4=0x7f04001f;
+        public static final int f8f8f8=0x7f04001b;
+        /**  主题色 
+         */
+        public static final int ff9900=0x7f040023;
+        /**  透明白色 
+         */
+        public static final int fffefe=0x7f040015;
+        public static final int ffffff=0x7f040018;
+        /**  订单详情浅灰色背景 
+         */
+        public static final int line_color=0x7f040049;
+        /**  new  FF1F1F color 
+         */
+        public static final int mybutton=0x7f04003a;
+        public static final int normal_button_disabled=0x7f04004e;
+        /**  订单详情 item 红色 
+ 按钮颜色 
+         */
+        public static final int normal_button_enabled=0x7f04004d;
+        public static final int normal_button_pressed=0x7f04004f;
+        public static final int o=0x7f040044;
+        /**  深灰色 
+         */
+        public static final int oederdetail_item_red=0x7f04004b;
+        public static final int oederdetails_bg=0x7f040048;
+        public static final int prebuttom=0x7f04002c;
+        public static final int progress_bg=0x7f040039;
+        public static final int rad=0x7f040020;
+        public static final int seekbar_bg=0x7f040038;
+        /**  头部白色的字体颜色 
+         */
+        public static final int t000000=0x7f040016;
+        public static final int t0094d4=0x7f040027;
+        public static final int t04b900=0x7f040026;
+        /**  文字色  rad 
+         */
+        public static final int t333333=0x7f040029;
+        public static final int t65727f=0x7f040031;
+        public static final int t699f4c=0x7f040033;
+        public static final int t828282=0x7f04002a;
+        public static final int t9f4c4c=0x7f040032;
+        public static final int t9f8150=0x7f04001c;
+        public static final int text292929=0x7f04000c;
+        public static final int text535252=0x7f040004;
+        public static final int text5a5a5a=0x7f040008;
+        public static final int text6c6c6c6=0x7f04000b;
+        /**  页面上方 蓝色块 
+         */
+        public static final int text_read=0x7f040046;
+        public static final int textc9c9c9=0x7f040005;
+        /**  黑色 
+         */
+        public static final int tmffffff=0x7f040017;
+        /**  白色 
+         */
+        public static final int top_bg_color=0x7f040045;
+        public static final int touming=0x7f04000a;
+        /**  底部透明白色 
+         */
+        public static final int touming7f=0x7f040011;
+        /**  透明白色 
+         */
+        public static final int toumingbai=0x7f040010;
+        /**  透明黑色 
+         */
+        public static final int toumingf6=0x7f040012;
+        /**  透明白色 
+         */
+        public static final int toumingf6f1=0x7f040014;
+        /**  透明白色 
+         */
+        public static final int toumingf6f4=0x7f040013;
+        public static final int trade_statistic_bg=0x7f040050;
+        public static final int transparent=0x7f04000f;
+        public static final int tv_red=0x7f04002d;
+        public static final int white=0x7f040043;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -18,22 +204,394 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050007;
+        public static final int activity_vertical_margin=0x7f050008;
+        public static final int alertheight=0x7f05004a;
+        public static final int alertll=0x7f05004b;
+        /**  弹窗 
+ 弹窗 
+         */
+        public static final int alertwidth=0x7f050049;
+        public static final int d_10dp=0x7f050018;
+        public static final int d_11dp=0x7f050019;
+        public static final int d_12dp=0x7f05001a;
+        public static final int d_13dp=0x7f05001b;
+        public static final int d_14dp=0x7f05001c;
+        public static final int d_15dp=0x7f05001d;
+        public static final int d_16dp=0x7f05001e;
+        public static final int d_17dp=0x7f05001f;
+        public static final int d_18dp=0x7f050020;
+        public static final int d_1dp=0x7f05000f;
+        public static final int d_20dp=0x7f050023;
+        public static final int d_2dp=0x7f050010;
+        public static final int d_30dp=0x7f050024;
+        public static final int d_34dp=0x7f05002a;
+        public static final int d_36dp=0x7f050021;
+        public static final int d_3dp=0x7f050011;
+        public static final int d_48dp=0x7f050022;
+        public static final int d_4dp=0x7f050012;
+        public static final int d_5dp=0x7f050013;
+        public static final int d_64dp=0x7f05002e;
+        public static final int d_6dp=0x7f050014;
+        public static final int d_7dp=0x7f050015;
+        public static final int d_8dp=0x7f050016;
+        public static final int d_9dp=0x7f050017;
+        /**  订单确认 
+ 订单确认 
+         */
+        public static final int ddheight=0x7f050051;
+        public static final int ddheight1=0x7f050052;
+        public static final int ddimg=0x7f050053;
+        public static final int ddrl_height=0x7f050055;
+        /**  订单编辑框 
+ 订单编辑框 
+         */
+        public static final int ddrl_width=0x7f050054;
+        public static final int dlheight=0x7f05004e;
+        public static final int dlimg=0x7f05004d;
+        public static final int dlpad=0x7f050050;
+        /**  登陆 
+ 登陆 
+         */
+        public static final int dltext=0x7f05004c;
+        public static final int dlwidth=0x7f05004f;
+        public static final int drop_down_list_footer_button_height=0x7f050006;
+        public static final int drop_down_list_footer_button_margin_left=0x7f050005;
+        public static final int drop_down_list_footer_progress_bar_height=0x7f050004;
+        public static final int drop_down_list_header_padding_bottom=0x7f050001;
+        public static final int drop_down_list_header_padding_top=0x7f050000;
+        public static final int drop_down_list_header_progress_bar_height=0x7f050003;
+        public static final int drop_down_list_header_release_min_distance=0x7f050002;
+        public static final int edheight=0x7f050048;
+        /**  编辑框 
+ 编辑框 
+         */
+        public static final int edwidth=0x7f050047;
+        public static final int goodimg=0x7f050068;
+        /**  首页 
+ 首页 
+         */
+        public static final int iconma=0x7f050038;
+        public static final int itemheight=0x7f05003c;
+        /**  POS机列表 
+ POS机列表 
+         */
+        public static final int itemheight1=0x7f05003a;
+        public static final int itemwidth1=0x7f05003b;
+        public static final int leftfristtop=0x7f05003f;
+        public static final int leftitemheight=0x7f050040;
+        /**  我的 
+ 我的 
+         */
+        public static final int leftwidth=0x7f05003e;
+        public static final int mainvpheight=0x7f050039;
+        public static final int margin_left=0x7f05000b;
+        public static final int margin_left2=0x7f05000c;
+        public static final int margin_right=0x7f05000d;
+        public static final int margin_right2=0x7f05000e;
+        public static final int margin_title=0x7f05000a;
+        public static final int normai_button_height=0x7f050032;
+        public static final int normai_button_width=0x7f050031;
+        public static final int normai_height=0x7f050035;
+        public static final int normai_height1=0x7f050036;
+        public static final int normai_height3=0x7f050037;
+        public static final int normal_height1=0x7f050060;
+        public static final int normal_height2=0x7f050061;
+        public static final int normal_height3=0x7f050069;
+        public static final int normal_width1=0x7f050062;
+        public static final int normal_width2=0x7f050063;
+        public static final int normal_width3=0x7f050064;
+        public static final int normal_width4=0x7f050065;
+        public static final int normal_width5=0x7f05006a;
+        public static final int order_image=0x7f050066;
+        public static final int order_image1=0x7f050067;
+        public static final int postimg=0x7f05003d;
+        public static final int s_12sp=0x7f05002b;
+        public static final int s_13sp=0x7f05002c;
+        public static final int s_14sp=0x7f05002d;
+        public static final int s_17sp=0x7f050025;
+        public static final int s_18sp=0x7f050026;
+        public static final int s_19sp=0x7f050027;
+        public static final int s_20sp=0x7f050028;
+        public static final int s_24sp=0x7f050029;
+        public static final int sp_height=0x7f050057;
+        /**  下拉选择框 
+ 下拉选择框 
+         */
+        public static final int sp_width=0x7f050056;
+        public static final int sy_bt_height=0x7f050034;
+        public static final int sy_rl_margin=0x7f050033;
+        public static final int textbig=0x7f050043;
+        public static final int textbig1=0x7f050042;
+        /**  文字大小 
+ 文字大小 
+         */
+        public static final int textbigs=0x7f050041;
+        public static final int textmid=0x7f050044;
+        public static final int textmids=0x7f050045;
+        public static final int textsmall=0x7f050046;
+        /**  Default screen margins, per the Android Design guidelines. 
+ Default screen margins, per the Android Design guidelines. 
+         */
+        public static final int titilepad=0x7f05002f;
+        public static final int titilepad1=0x7f050030;
+        public static final int titleback_height=0x7f050009;
+        public static final int zc_land_h=0x7f05005b;
+        public static final int zc_land_w=0x7f05005a;
+        public static final int zc_margin=0x7f05005c;
+        public static final int zc_margin_top=0x7f05005d;
+        public static final int zc_margin_top1=0x7f05005e;
+        public static final int zc_margin_top2=0x7f05005f;
+        public static final int zc_rl_h=0x7f050059;
+        /**  注册找回密码 
+ 注册找回密码 
+         */
+        public static final int zc_rl_w=0x7f050058;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int back=0x7f020000;
+        public static final int blank_button_disabled=0x7f020001;
+        public static final int blank_button_enabled=0x7f020002;
+        public static final int blank_button_pressed=0x7f020003;
+        public static final int blank_button_selector=0x7f020004;
+        public static final int delete_sure=0x7f020005;
+        public static final int dialog_background_dark=0x7f020006;
+        public static final int drop_down_list_arrow=0x7f020007;
+        public static final int ed_adress=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int icon_selected=0x7f02000a;
+        public static final int item_pressed=0x7f02000b;
+        public static final int normal_button_disabled=0x7f02000c;
+        public static final int normal_button_enabled=0x7f02000d;
+        public static final int normal_button_pressed=0x7f02000e;
+        public static final int normal_button_selector=0x7f02000f;
+        public static final int tab_bg=0x7f020010;
+    }
+    public static final class id {
+        public static final int dialogRoot=0x7f0a000f;
+        public static final int dialog_icon=0x7f0a0010;
+        public static final int dialog_text=0x7f0a0011;
+        public static final int drop_down_list_footer_button=0x7f0a0013;
+        public static final int drop_down_list_footer_progress_bar=0x7f0a0012;
+        public static final int drop_down_list_header_default_text=0x7f0a0017;
+        public static final int drop_down_list_header_default_text_layout=0x7f0a0015;
+        public static final int drop_down_list_header_image=0x7f0a0016;
+        public static final int drop_down_list_header_progress_bar=0x7f0a0014;
+        public static final int drop_down_list_header_second_text=0x7f0a0018;
+        public static final int next_sure=0x7f0a002c;
+        public static final int search=0x7f0a002b;
+        public static final int tab_widget=0x7f0a0000;
+        public static final int textView1=0x7f0a0019;
+        public static final int titleback_image_back=0x7f0a0028;
+        public static final int titleback_linear_back=0x7f0a0027;
+        public static final int titleback_text_title=0x7f0a002a;
+        public static final int trade_account=0x7f0a0030;
+        public static final int trade_agent=0x7f0a0020;
+        public static final int trade_agent_name=0x7f0a0021;
+        public static final int trade_amount=0x7f0a0032;
+        public static final int trade_bank_key_container=0x7f0a0008;
+        public static final int trade_bank_value_container=0x7f0a0009;
+        public static final int trade_client=0x7f0a001a;
+        public static final int trade_client_channel=0x7f0a002e;
+        public static final int trade_client_name=0x7f0a001b;
+        public static final int trade_client_number=0x7f0a0034;
+        public static final int trade_client_selected=0x7f0a002d;
+        public static final int trade_commercial_key_container=0x7f0a0006;
+        public static final int trade_commercial_value_container=0x7f0a0007;
+        public static final int trade_container=0x7f0a0025;
+        public static final int trade_detail_amount=0x7f0a0003;
+        public static final int trade_detail_poundage=0x7f0a0004;
+        public static final int trade_detail_status=0x7f0a0002;
+        public static final int trade_detail_time=0x7f0a0005;
+        public static final int trade_end=0x7f0a001e;
+        public static final int trade_end_date=0x7f0a001f;
+        public static final int trade_receive_account=0x7f0a0031;
+        public static final int trade_record_list=0x7f0a0026;
+        public static final int trade_search=0x7f0a0022;
+        public static final int trade_search_content=0x7f0a0024;
+        public static final int trade_start=0x7f0a001c;
+        public static final int trade_start_date=0x7f0a001d;
+        public static final int trade_statistic=0x7f0a0023;
+        public static final int trade_statistic_amount=0x7f0a000a;
+        public static final int trade_statistic_channel=0x7f0a000e;
+        public static final int trade_statistic_client=0x7f0a000d;
+        public static final int trade_statistic_count=0x7f0a000b;
+        public static final int trade_statistic_time=0x7f0a000c;
+        public static final int trade_status=0x7f0a0033;
+        public static final int trade_time=0x7f0a002f;
+        public static final int tv_back=0x7f0a0029;
+        public static final int view_pager=0x7f0a0001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int activity_trade_client=0x7f030001;
+        public static final int activity_trade_flow=0x7f030002;
+        public static final int activity_trade_item=0x7f030003;
+        public static final int activity_trade_statistic=0x7f030004;
+        public static final int dialog_dark=0x7f030005;
+        public static final int drop_down_list_footer=0x7f030006;
+        public static final int drop_down_list_header=0x7f030007;
+        public static final int fragment_trade_flow=0x7f030008;
+        public static final int fragment_trade_flow_list=0x7f030009;
+        public static final int title_back=0x7f03000a;
+        public static final int trade_client_item=0x7f03000b;
+        public static final int trade_flow_item=0x7f03000c;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int main=0x7f090000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050002;
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050001;
+        public static final int action_settings=0x7f060009;
+        public static final int after_sale_apply_time=0x7f060046;
+        public static final int after_sale_cancel=0x7f06003a;
+        public static final int after_sale_cancel_material_title=0x7f06004c;
+        public static final int after_sale_change=0x7f06003b;
+        public static final int after_sale_change_material_title=0x7f06004e;
+        public static final int after_sale_change_title=0x7f06004d;
+        public static final int after_sale_lease=0x7f06003d;
+        public static final int after_sale_lease_material_title=0x7f060051;
+        public static final int after_sale_lease_title=0x7f060050;
+        public static final int after_sale_maintain=0x7f060038;
+        public static final int after_sale_maintain_title=0x7f060049;
+        public static final int after_sale_mark_company=0x7f060058;
+        public static final int after_sale_mark_number=0x7f060059;
+        public static final int after_sale_material_name=0x7f060052;
+        public static final int after_sale_material_unsubmit=0x7f060054;
+        public static final int after_sale_material_view=0x7f060053;
+        public static final int after_sale_return=0x7f060039;
+        public static final int after_sale_return_material_title=0x7f06004b;
+        public static final int after_sale_return_title=0x7f06004a;
+        public static final int after_sale_status=0x7f06003f;
+        public static final int after_sale_terminal=0x7f06003e;
+        public static final int after_sale_terminal_title=0x7f060048;
+        public static final int after_sale_trace_record=0x7f060047;
+        public static final int after_sale_update=0x7f06003c;
+        public static final int after_sale_update_material_title=0x7f06004f;
+        public static final int app_name=0x7f060008;
+        public static final int apply_bank_input=0x7f060070;
+        public static final int apply_bank_result=0x7f060071;
+        public static final int apply_button_open=0x7f06005f;
+        public static final int apply_button_reopen=0x7f060060;
+        public static final int apply_button_video=0x7f060061;
+        public static final int apply_detail_brand=0x7f060064;
+        public static final int apply_detail_channel=0x7f060067;
+        public static final int apply_detail_model=0x7f060065;
+        public static final int apply_detail_serial=0x7f060066;
+        public static final int apply_private=0x7f060063;
+        public static final int apply_progress_no_data=0x7f060083;
+        public static final int apply_public=0x7f060062;
+        public static final int apply_upload_again=0x7f06006b;
+        public static final int apply_upload_photo=0x7f060069;
+        public static final int apply_upload_success=0x7f06006c;
+        public static final int apply_uploading=0x7f06006a;
+        public static final int button_cancel=0x7f060088;
+        public static final int button_cancel_apply=0x7f060040;
+        public static final int button_copy=0x7f060089;
+        public static final int button_pay=0x7f060041;
+        public static final int button_pay_maintain=0x7f060044;
+        public static final int button_submit=0x7f060045;
+        public static final int button_submit_cancel=0x7f060043;
+        public static final int button_submit_flow=0x7f060042;
+        public static final int city_current=0x7f060034;
+        public static final int drop_down_list_footer_default_text=0x7f060004;
+        public static final int drop_down_list_footer_loading_text=0x7f060005;
+        public static final int drop_down_list_footer_no_more_text=0x7f060006;
+        public static final int drop_down_list_header_default_text=0x7f060000;
+        public static final int drop_down_list_header_loading_text=0x7f060003;
+        public static final int drop_down_list_header_pull_text=0x7f060001;
+        public static final int drop_down_list_header_release_text=0x7f060002;
+        public static final int forgetpass=0x7f060014;
+        public static final int hello_world=0x7f06000a;
+        public static final int hintname=0x7f060012;
+        public static final int hintpass=0x7f060013;
+        public static final int image_content=0x7f060007;
+        public static final int load_data_failed=0x7f06001f;
+        public static final int loading_data=0x7f06001d;
+        public static final int network_info=0x7f060020;
+        public static final int no_internet=0x7f060011;
+        public static final int notation_day=0x7f060022;
+        public static final int notation_percent=0x7f060087;
+        public static final int notation_yuan=0x7f060021;
+        public static final int openstate=0x7f060077;
+        public static final int openstates=0x7f060078;
+        public static final int parse_data_failed=0x7f06001e;
+        public static final int paychannel=0x7f060076;
+        public static final int postype=0x7f060075;
+        public static final int refresh_toomuch=0x7f060015;
+        public static final int remeberpass=0x7f060016;
+        public static final int terminal_add_channel=0x7f06006d;
+        public static final int terminal_add_name=0x7f06006f;
+        public static final int terminal_add_number=0x7f06006e;
+        public static final int terminal_button_open=0x7f06007d;
+        public static final int terminal_button_pos=0x7f06007b;
+        public static final int terminal_button_reopen=0x7f06007e;
+        public static final int terminal_button_sync=0x7f06007c;
+        public static final int terminal_button_video=0x7f06007a;
+        public static final int terminal_category_apply=0x7f060080;
+        public static final int terminal_category_open=0x7f060082;
+        public static final int terminal_id=0x7f060074;
+        public static final int terminal_no_detail=0x7f06007f;
+        public static final int terminal_no_open_detail=0x7f060081;
+        public static final int terminal_rate=0x7f060085;
+        public static final int terminal_status=0x7f060086;
+        public static final int terminal_type=0x7f060084;
+        /**  售后记录 
+         */
+        public static final int title_after_sale=0x7f060035;
+        public static final int title_after_sale_mark=0x7f060036;
+        public static final int title_after_sale_pay=0x7f060037;
+        public static final int title_apply_choose_bank=0x7f060072;
+        public static final int title_apply_choose_channel=0x7f06005e;
+        public static final int title_apply_choose_gender=0x7f06005d;
+        public static final int title_apply_choose_merchant=0x7f06005c;
+        public static final int title_apply_open=0x7f06005b;
+        public static final int title_city_select=0x7f06001b;
+        public static final int title_terminal_detail_management=0x7f060079;
+        /**  ====================================================== 
+ 终端管理 
+ ====================================================== 
+         */
+        public static final int title_terminal_management=0x7f060073;
+        public static final int title_trade_client=0x7f060018;
+        public static final int title_trade_detail=0x7f06001a;
+        /**  交易流水模块 
+         */
+        public static final int title_trade_flow=0x7f060017;
+        public static final int title_trade_statistic=0x7f060019;
+        public static final int toast_add_mark_success=0x7f060057;
+        public static final int toast_cancel_apply_success=0x7f060055;
+        public static final int toast_copy_password=0x7f06008a;
+        public static final int toast_end_date_error=0x7f06001c;
+        public static final int toast_no_sdcard=0x7f060068;
+        public static final int toast_resubmit_cancel_success=0x7f060056;
+        /**  ====================================================== 
+ 开通认证 
+ ====================================================== 
+         */
+        public static final int toast_upload_failed=0x7f06005a;
+        public static final int trade_account=0x7f06002a;
+        public static final int trade_amount=0x7f06002e;
+        public static final int trade_channel=0x7f060030;
+        public static final int trade_charge=0x7f060031;
+        public static final int trade_client=0x7f060023;
+        public static final int trade_client_number=0x7f06002c;
+        public static final int trade_count=0x7f06002f;
+        public static final int trade_end_date=0x7f060025;
+        public static final int trade_finished=0x7f06002d;
+        public static final int trade_flow_title=0x7f060028;
+        public static final int trade_item_bank_info=0x7f060033;
+        public static final int trade_item_commercial_info=0x7f060032;
+        public static final int trade_receive_account=0x7f06002b;
+        public static final int trade_search=0x7f060026;
+        public static final int trade_start_date=0x7f060024;
+        public static final int trade_statistic=0x7f060027;
+        public static final int trade_time=0x7f060029;
+        public static final int xlistview_footer_hint_normal=0x7f06000f;
+        public static final int xlistview_footer_hint_ready=0x7f060010;
+        public static final int xlistview_header_hint_loading=0x7f06000d;
+        public static final int xlistview_header_hint_normal=0x7f06000b;
+        public static final int xlistview_header_hint_ready=0x7f06000c;
+        public static final int xlistview_header_last_time=0x7f06000e;
     }
     public static final class style {
         /** 
@@ -57,10 +615,108 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070005;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070006;
+        public static final int ButtonBlank=0x7f070021;
+        public static final int ButtonNormal=0x7f070020;
+        public static final int CutLine=0x7f070018;
+        public static final int CutLine_Table=0x7f070023;
+        public static final int Dialog=0x7f070009;
+        public static final int Divider=0x7f070007;
+        public static final int Divider_Table=0x7f070022;
+        public static final int EditTextItem=0x7f07001f;
+        public static final int FrameItem=0x7f07001e;
+        public static final int Progress=0x7f070008;
+        public static final int TextBase=0x7f07000a;
+        public static final int TextCity=0x7f070017;
+        public static final int TextDetail_Info=0x7f070016;
+        public static final int TextDetail_Title=0x7f070015;
+        public static final int TextDetail_Top=0x7f07000b;
+        public static final int TextGrid=0x7f070019;
+        public static final int TextItem=0x7f07000c;
+        public static final int TextItem_Record=0x7f07001c;
+        public static final int TextItem_Relative=0x7f07000d;
+        public static final int TextStatistic=0x7f070013;
+        public static final int TextStatistic_Small=0x7f070014;
+        public static final int TextTrace=0x7f07000e;
+        public static final int TextTrace_Big=0x7f070011;
+        public static final int TextTrace_Comment=0x7f07001d;
+        public static final int TextTrace_Left=0x7f07000f;
+        public static final int TextTrace_Left_Key=0x7f070025;
+        public static final int TextTrace_Record=0x7f07001b;
+        public static final int TextTrace_Right=0x7f070010;
+        public static final int TextTrace_Right_Value=0x7f070026;
+        public static final int TextTrace_Small=0x7f07001a;
+        public static final int TextTrace_Statistic=0x7f070012;
+        public static final int TextTrace_Table=0x7f070024;
+        public static final int drop_down_list_footer_font_style=0x7f070004;
+        public static final int drop_down_list_footer_progress_bar_style=0x7f070001;
+        public static final int drop_down_list_header_font_style=0x7f070002;
+        public static final int drop_down_list_header_progress_bar_style=0x7f070000;
+        public static final int drop_down_list_header_second_font_style=0x7f070003;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a drop_down_list_attr.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #drop_down_list_attr_isAutoLoadOnBottom com.example.zf_agent_a_pad:isAutoLoadOnBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #drop_down_list_attr_isDropDownStyle com.example.zf_agent_a_pad:isDropDownStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #drop_down_list_attr_isOnBottomStyle com.example.zf_agent_a_pad:isOnBottomStyle}</code></td><td></td></tr>
+           </table>
+           @see #drop_down_list_attr_isAutoLoadOnBottom
+           @see #drop_down_list_attr_isDropDownStyle
+           @see #drop_down_list_attr_isOnBottomStyle
+         */
+        public static final int[] drop_down_list_attr = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.example.zf_agent_a_pad.R.attr#isAutoLoadOnBottom}
+          attribute's value can be found in the {@link #drop_down_list_attr} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.zf_agent_a_pad:isAutoLoadOnBottom
+        */
+        public static final int drop_down_list_attr_isAutoLoadOnBottom = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.example.zf_agent_a_pad.R.attr#isDropDownStyle}
+          attribute's value can be found in the {@link #drop_down_list_attr} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.zf_agent_a_pad:isDropDownStyle
+        */
+        public static final int drop_down_list_attr_isDropDownStyle = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.example.zf_agent_a_pad.R.attr#isOnBottomStyle}
+          attribute's value can be found in the {@link #drop_down_list_attr} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.zf_agent_a_pad:isOnBottomStyle
+        */
+        public static final int drop_down_list_attr_isOnBottomStyle = 1;
+    };
 }
