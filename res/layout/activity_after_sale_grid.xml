@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/e9e8e8"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="35dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/order_layout"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center" >
+
+                <View
+                    android:id="@+id/orderView"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/bgtitle" />
+
+                <TextView
+                    android:id="@+id/after_sale_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/orderView"
+                    android:gravity="center"
+                    android:text="售后单"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cancel_layout"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="@color/e9e8e8"
+                android:gravity="center" >
+
+                <View
+                    android:id="@+id/cancelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/bgtitle"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/after_sale_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="注销"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/update_layout"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="@color/e9e8e8"
+                android:gravity="center" >
+
+                <View
+                    android:id="@+id/updateView"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/bgtitle"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/after_sale_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="更新资料"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/titilepad"
+        android:layout_marginRight="@dimen/titilepad"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/margin_left2"
+            android:layout_marginRight="@dimen/margin_left2"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/selState_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="选择状态"
+                android:textColor="@color/text292929"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:id="@+id/selState_layout"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/selState_tv"
+                android:background="@drawable/selection_state" >
+
+                <TextView
+                    android:id="@+id/state_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="全部"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/search_layout"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/after_sale_search" >
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/list_title"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_left"
+            android:layout_marginTop="10dp"
+            android:background="@color/e9e8e8"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/dataTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="售后单号"
+                android:textColor="@color/text292929"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="终端号"
+                android:textColor="@color/text292929"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="申请日期"
+                android:textColor="@color/text292929"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/stateTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="售后状态"
+                android:textColor="@color/text292929"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/text292929"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/eva_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_left"
+            android:layout_marginTop="10dp"
+            android:background="@color/ffffff"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <include layout="@layout/include_norecord" />
+        </LinearLayout>
+
+        <com.comdo.zf_agent_a_pad.util.XListView
+            android:id="@+id/mListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_left"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+</LinearLayout>
