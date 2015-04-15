@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
-
-import android.content.Context;
-import android.util.Log;
+import org.json.JSONException;
 
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
+import com.comdo.zf_agent_a_pad.entity.Posport;
+import com.google.gson.Gson;
+//github.com/lifang/ZF_Agent_A_Pad
+import android.content.Context;
+
+import android.util.Log;
 
 public class Config {
 
@@ -19,15 +23,16 @@ public class Config {
 	public static int ROWS = 10;
 	public static String token = "123";
 	public static final int CODE = 1;
+
+	public static final String POSLIST = PATHS + "good/list";
+
 	public static String getmes=PATHS+"message/receiver/getAll";
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
 
-	// upload image url
-	public static final String UPLOAD_IMAGE = PATHS
-			+ "/comment/upload/tempImage";
 
+	static Gson gson = new Gson();
 	// Apply List
 	public static final String APPLY_LIST = PATHS + "/apply/getApplyList";
 	// Apply Detail
@@ -36,7 +41,9 @@ public class Config {
 	// Get the Merchant Detail
 	public static final String APPLY_MERCHANT_DETAIL = PATHS
 			+ "/apply/getMerchant";
-
+	// upload image url
+	public static final String UPLOAD_IMAGE = PATHS
+			+ "/comment/upload/tempImage";
 	// Get the Channel List
 	public static final String APPLY_CHANNEL_LIST = PATHS
 			+ "/apply/getChannels";
@@ -92,7 +99,40 @@ public class Config {
 		return true;
 
 	}
+	public static void PostSearch(Context context, int agentId,int type,String keys, int city_id,
+			int rows, int page, int orderType, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("keys", keys);
+		params.put("city_id", city_id);
+		params.put("rows", rows);
+		params.put("page", page);
+		params.put("orderType", orderType);
+		params.put("type", type);
+		params.put("hasLease", Posport.has_purchase);
+		params.put("minPrice", Posport.minPrice);
+		params.put("maxPrice", Posport.maxPrice);
+		try {
+			params.put("brands_id",
+					new JSONArray(gson.toJson(Posport.brands_id)));
+			params.put("category", new JSONArray(gson.toJson(Posport.category)));
+			params.put("pay_channel_id",
+					new JSONArray(gson.toJson(Posport.pay_channel_id)));
+			params.put("pay_card_id",
+					new JSONArray(gson.toJson(Posport.pay_card_id)));
+			params.put("trade_type_id",
+					new JSONArray(gson.toJson(Posport.trade_type_id)));
+			params.put("sale_slip_id",
+					new JSONArray(gson.toJson(Posport.sale_slip_id)));
+			params.put("tDate", new JSONArray(gson.toJson(Posport.tDate)));
 
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new HttpRequest(context, callback).post(Config.POSLIST, params);
+		System.out.println("参数--" + params.toString());
+	}
 	public static void getApplyList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();

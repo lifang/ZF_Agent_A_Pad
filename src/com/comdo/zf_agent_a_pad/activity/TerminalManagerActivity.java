@@ -349,7 +349,7 @@ public class TerminalManagerActivity extends Activity implements
 
 	private void loadData() {
 
-		Config.getTerminalApplyList(this, 80, page + 1, rows,
+		Config.getTerminalApplyList(this, 1, page + 1, rows,
 				new HttpCallback<Page<TerminalManagerEntity>>(this) {
 					@Override
 					public void onSuccess(Page<TerminalManagerEntity> data) {

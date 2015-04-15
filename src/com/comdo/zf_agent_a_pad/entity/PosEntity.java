@@ -3,7 +3,13 @@ package com.comdo.zf_agent_a_pad.entity;
 public class PosEntity {
 
 	private Boolean has_lease;
-	
+	private int purchase_price;
+	public int getPurchase_price() {
+		return purchase_price;
+	}
+	public void setPurchase_price(int purchase_price) {
+		this.purchase_price = purchase_price;
+	}
 	public Boolean getHas_lease() {
 		return has_lease;
 	}

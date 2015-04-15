@@ -3,7 +3,7 @@ package com.comdo.zf_agent_a_pad.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import com.comdo.zf_agent_a_pad_trade.entity.City;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
 
 public class Province implements Serializable{
     private int id;
