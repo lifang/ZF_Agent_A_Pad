@@ -1,16 +1,188 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.zf_agent_a_pad.MainActivity" >
-
-    <TextView
+    android:orientation="horizontal" >
+    
+<LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:paddingLeft="@dimen/zc_margin_top2"
+        android:paddingRight="@dimen/zc_margin_top2"
+        android:layout_height="fill_parent"
+        android:background="#262729"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/main_rl_sy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normai_height1" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:duplicateParentState="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/laa1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/home"
+                    android:duplicateParentState="true" />
+
+                <TextView
+                    android:id="@+id/textsy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/laa1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/textsmall"
+                    android:text="首页"
+                    android:textColor="#006FD5"
+                    android:textSize="@dimen/textmids" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_rl_gwc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sy_rl_margin" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:duplicateParentState="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/igw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/good1"
+                    android:duplicateParentState="true" />
+
+                <TextView
+                    android:id="@+id/textghc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/igw"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/textsmall"
+                    android:text="全部商品"
+                    android:textColor="#f3f2f2"
+                    android:textSize="@dimen/textmids" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_rl_pos1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/sy_rl_margin"  >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:duplicateParentState="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/im_mess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/message1"
+                    android:duplicateParentState="true" />
+
+                <TextView
+                    android:id="@+id/textmes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/im_mess"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/textsmall"
+                    android:text="我的消息"
+                    android:textColor="#f3f2f2"
+                    android:textSize="@dimen/textmids" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_rl_my"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/sy_rl_margin"  >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:duplicateParentState="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/im_wd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/mine1"
+                    android:duplicateParentState="true" />
+
+                <TextView
+                    android:id="@+id/textwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textmes"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/textsmall"
+                    android:text="我的"
+                    android:textColor="#f3f2f2"
+                    android:textSize="@dimen/textmids" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/sy_bt_height"
+                android:id="@+id/set"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="@dimen/normai_height1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageView
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/set" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+<fragment 
+    android:id="@+id/m_fragment"
+     android:name="com.comdo.zf_agent_a_pad.fragment.MianFragment"  
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"/>
+</LinearLayout>

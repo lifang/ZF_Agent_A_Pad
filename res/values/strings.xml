@@ -16,6 +16,25 @@
     <string name="forgetpass">找回密码</string>
     <string name="refresh_toomuch">刷新频繁，请稍后再试</string>
     <string name="remeberpass">忘记密码</string>
+    <!-- ====================================================== -->
+    <!-- 开通认证 -->
+    <!-- ====================================================== -->
+    <string name="title_apply">开通认证</string>
+    <string name="toast_upload_failed">上传图片失败</string>
+    <string name="title_apply_open">开通申请</string>
+    <string name="title_apply_choose_merchant">选择商户</string>
+    <string name="title_apply_choose_gender">选择性别</string>
+    <string name="title_apply_choose_channel">选择支付通道</string>
+    <string name="apply_button_open">申请开通</string>
+    <string name="apply_button_reopen">重新申请开通</string>
+    <string name="apply_button_video">视频认证</string>
+    <string name="apply_public">对公</string>
+    <string name="apply_private">对私</string>
+    <string name="apply_detail_brand">POS品牌</string>
+    <string name="apply_detail_model">POS型号</string>
+    <string name="apply_detail_serial">终 端 号</string>
+    <string name="apply_detail_channel">支付通道</string>
+    <string name="toast_no_sdcard">SD卡未挂载</string>
 
     <!-- 交易流水模块 -->
 
@@ -204,23 +223,6 @@
     <string name="after_sale_mark_company">物流公司</string>
     <string name="after_sale_mark_number">物流单号</string>
     <!-- ====================================================== -->
-    <!-- 开通认证 -->
-    <!-- ====================================================== -->
-    <string name="toast_upload_failed">上传图片失败</string>
-    <string name="title_apply_open">开通申请</string>
-    <string name="title_apply_choose_merchant">选择商户</string>
-    <string name="title_apply_choose_gender">选择性别</string>
-    <string name="title_apply_choose_channel">选择支付通道</string>
-    <string name="apply_button_open">申请开通</string>
-    <string name="apply_button_reopen">重新申请开通</string>
-    <string name="apply_button_video">视频认证</string>
-    <string name="apply_public">对公</string>
-    <string name="apply_private">对私</string>
-    <string name="apply_detail_brand">POS品牌</string>
-    <string name="apply_detail_model">POS型号</string>
-    <string name="apply_detail_serial">终 端 号</string>
-    <string name="apply_detail_channel">支付通道</string>
-    <string name="toast_no_sdcard">SD卡未挂载</string>
 
     <string-array name="apply_detail_merchant_keys">
         <item>选择已有商户</item>
@@ -317,4 +319,5 @@
   <string name="button_copy">复制</string> 
   <string name="toast_copy_password">密码已复制到剪贴板</string> 
     
+
 </resources>
