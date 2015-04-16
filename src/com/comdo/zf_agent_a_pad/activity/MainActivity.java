@@ -1,6 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
+import com.comdo.zf_agent_a_pad.fragment.Mmy;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
@@ -24,7 +25,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private TextView textsy, textghc, textmes, textwd;
 	private RelativeLayout re_shopcar, re_myinfo, re_mine, re_sy;
 	private LinearLayout set;
-
+	private Mmy f_my;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -112,7 +113,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case R.id.main_rl_my:
-
+			changTabBg();
+			im_wd.setBackgroundResource(R.drawable.mine);
+			textwd.setTextColor(getResources().getColor(R.color.o));
+			if(f_my==null)
+				f_my=new Mmy();
+			getSupportFragmentManager().beginTransaction()
+			.replace(R.id.m_fragment, f_my).commit();
 			break;
 		case R.id.set:
 			showSet();

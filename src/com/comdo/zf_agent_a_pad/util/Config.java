@@ -22,19 +22,11 @@ public class Config {
 	public static int ROWS = 10;
 	public static String token = "123";
 	public static final int CODE = 1;
-<<<<<<< HEAD
 
-	public static final String POSLIST = PATHS + "good/list";
+	// upload image url
+	public static final String UPLOAD_IMAGE = PATHS
+			+ "/comment/upload/tempImage";
 
-=======
->>>>>>> 6b51111d49294903d900810bce443f20b6a8261c
-	public static String getmes=PATHS+"message/receiver/getAll";
-	public static final String SHARED = "zfandroid";
-	public static String CITY = "上海";
-	public static boolean isFRIST = false;
-
-
-	static Gson gson = new Gson();
 	// Apply List
 	public static final String APPLY_LIST = PATHS + "/apply/getApplyList";
 	// Apply Detail
@@ -43,7 +35,10 @@ public class Config {
 	// Get the Merchant Detail
 	public static final String APPLY_MERCHANT_DETAIL = PATHS
 			+ "/apply/getMerchant";
-
+	public static final String SHARED = "zfandroid";
+	public static String CITY = "上海";
+	public static boolean isFRIST = false;
+	static Gson gson = new Gson();
 	// Get the Channel List
 	public static final String APPLY_CHANNEL_LIST = PATHS
 			+ "/apply/getChannels";
@@ -62,14 +57,14 @@ public class Config {
 	// Terminal detail
 	public static final String TERMINAL_DETAIL = PATHS
 			+ "/terminal/getApplyDetails";
-<<<<<<< HEAD
 
-
-=======
-    // Get msglist
-	public static final String GET_MSGLIST = PATHS
-			+ "message/receiver/getAll";
->>>>>>> 6b51111d49294903d900810bce443f20b6a8261c
+	// get code
+	public static final String GETCODE4PHONE = PATHS
+			+ "/user/sendPhoneVerificationCodeReg";
+	// Get msglist
+		public static final String GET_MSGLIST = PATHS
+				+ "message/receiver/getAll";
+		public static final String POSLIST = PATHS + "good/list";
 	public static boolean CheckIsLogin(Context c) {
 		return true;
 
@@ -106,8 +101,8 @@ public class Config {
 			e.printStackTrace();
 		}
 		new HttpRequest(context, callback).post(Config.POSLIST, params);
-		System.out.println("参数--" + params.toString());
-	}
+		}
+		
 	public static void getApplyList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -167,6 +162,14 @@ public class Config {
 		params.put("terminalsId", terminalId);
 		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(TERMINAL_DETAIL, params);
+	}
+	public static void AddAdres1(Context context, String codeNumber,
+
+	HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+
+		new HttpRequest(context, callback).post(GETCODE4PHONE, params);
 	}
 	public static void getMsgList(Context context,int customerId,
 			int page,int rows,HttpCallback callback){
