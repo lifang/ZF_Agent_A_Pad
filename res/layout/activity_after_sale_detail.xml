@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/titilepad"
+        android:layout_marginRight="@dimen/titilepad" >
+
+        <TextView
+            android:id="@+id/apply_state_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="申请状态"
+            android:textColor="@color/text292929"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/apply_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/apply_state_text"
+            android:layout_marginTop="12dp"
+            android:text="待处理"
+            android:textColor="@color/text292929"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/apply_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/apply_state_text"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/apply_state"
+            android:text="申请时间"
+            android:textColor="@color/text292929"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/apply_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/apply_time"
+            android:layout_below="@+id/apply_time"
+            android:layout_marginTop="5dp"
+            android:text="申请单号"
+            android:textColor="@color/text292929"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/update_operation"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/apply_state_text"
+            android:background="@drawable/bg_right_white"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="取消申请"
+            android:textColor="@color/bgtitle"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#e3e1e1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/titilepad"
+        android:layout_marginRight="@dimen/titilepad"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/terminal_infoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="终端信息"
+            android:textColor="@color/text292929"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="#aacef0" />
+
+        <TextView
+            android:id="@+id/terminal_noTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text292929"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/terminal_info_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:id="@+id/terminal_no_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/terminal_no_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="终  端  号"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/terminal_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/terminal_no_text"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/terminal_no_text"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/terminal_brand_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/terminal_brand_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="POS品牌"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/terminal_brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/terminal_brand_text"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/terminal_brand_text"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/terminal_model_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/terminal_model_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="POS型号"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/terminal_model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/terminal_model_text"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/terminal_model_text"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/terminal_pay_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/terminal_pay_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="支付通道"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/terminal_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/terminal_pay_text"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/terminal_pay_text"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/terminal_name_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/terminal_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="商  户  名"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/terminal_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/terminal_name_text"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/terminal_name_text"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/terminal_phone_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/terminal_phone_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="商户电话"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/terminal_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/terminal_phone_text"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/terminal_phone_text"
+                    android:textColor="@color/text292929"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resource_info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/cancel_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="注销申请资料"
+                android:textColor="@color/text292929"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#aacef0" />
+
+            <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
+                android:id="@+id/resource_infoListView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="#e5e4e4"
+                android:divider="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addr_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="收货地址"
+                android:textColor="@color/text292929"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#aacef0" />
+
+            <TextView
+                android:id="@+id/addrTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text292929"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reason_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="售后原因"
+                android:textColor="@color/text292929"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
+                android:background="#aacef0" />
+
+            <TextView
+                android:id="@+id/sale_why"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="申请状态"
+                android:textColor="@color/text292929"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/F3F2F2"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="追踪记录"
+                android:textColor="@color/text6c6c6c6"
+                android:textSize="11sp" />
+
+            <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
+                android:id="@+id/his_lv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#e5e4e4"
+                android:divider="@null" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

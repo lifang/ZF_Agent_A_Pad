@@ -6,6 +6,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.app.Activity;
+import android.app.Application;
+import android.app.Service;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Vibrator;
+import android.util.Log;
+import android.widget.TextView;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.GeofenceClient;
@@ -15,15 +24,13 @@ import com.comdo.zf_agent_a_pad.entity.MyShopCar.Good;
 import com.comdo.zf_agent_a_pad.entity.UserEntity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
+import com.example.zf_agent_a_pad.R;
 import com.loopj.android.http.AsyncHttpClient;
-import android.app.Activity;
-import android.app.Application;
-import android.app.Service;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.Vibrator;
-import android.util.Log;
-import android.widget.TextView;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  
  
  
@@ -70,7 +77,17 @@ public class MyApplication extends Application{
 		MyApplication.versionCode = versionCode;
 	}
 
-
+AsyncHttpClient client = new AsyncHttpClient(); //  
+	
+	public AsyncHttpClient getClient() {
+		//client.setTimeout(6000);
+		client.setTimeout(10000);// 设置超时时间
+    	client.setMaxConnections(10);
+		return client;
+	}
+	public void setClient(AsyncHttpClient client) {
+		this.client = client;
+	}
 	public static List<Good> comfirmList=new LinkedList<Good>();
 	
 	public static List<Good> getComfirmList() {
@@ -80,17 +97,7 @@ public class MyApplication extends Application{
 		MyApplication.comfirmList = comfirmList;
 	}
 	private static String token="";
-	AsyncHttpClient client = new AsyncHttpClient(); //  
-	
-	public AsyncHttpClient getClient() {
-		//client.setTimeout(6000);
-		client.setTimeout(10000);// ���ó�ʱʱ��
-    	client.setMaxConnections(10);
-		return client;
-	}
-	public void setClient(AsyncHttpClient client) {
-		this.client = client;
-	}
+
 	public static String getToken() {
 		return token;
 	}
@@ -127,6 +134,9 @@ public class MyApplication extends Application{
 	public void onCreate() {
 		super.onCreate();
 		mInstance = this;
+		
+		initImageLoader(mInstance);
+		
 		mLocationClient = new LocationClient(this.getApplicationContext());
 		mMyLocationListener = new MyLocationListener();
 		mLocationClient.registerLocationListener(mMyLocationListener);
@@ -140,29 +150,28 @@ public class MyApplication extends Application{
 			this.NewUser=ue;
 		}
 		
-//		initImageLoader(getApplicationContext());
-//		SDKInitializer.initialize(this);
-//		  PackageManager packageManager = getPackageManager();
-//          // getPackageName()���㵱ǰ��İ���0����ǻ�ȡ�汾��Ϣ
-//          PackageInfo packInfo;
-//		try {
-//			packInfo = packageManager.getPackageInfo(getPackageName(),0);
-//			  int version = packInfo.versionCode;
-//			 setVersionCode(version+"");
-//		} catch (NameNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	}
+	public static void initImageLoader(Context context) {
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+				context).threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.discCacheFileNameGenerator(new Md5FileNameGenerator())
+				.tasksProcessingOrder(QueueProcessingType.LIFO)
+				.writeDebugLogs() // Remove for release app
+				.build();
+		ImageLoader.getInstance().init(config);
+	}
+	public static DisplayImageOptions getDisplayOption() {
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+		  .showStubImage(R.drawable.imgloading)			// 设置图片下载期间显示的图片
+		  .showImageForEmptyUri(R.drawable.imgloading)	// 设置图片Uri为空或是错误的时候显示的图片
+		  .showImageOnFail(R.drawable.imgloading)		// 设置图片加载或解码过程中发生错误显示的图片	
+		  .cacheInMemory(true)						// 设置下载的图片是否缓存在内存中
+		  .cacheOnDisc(true)							// 设置下载的图片是否缓存在SD卡中
+		  .build();									// 创建配置过得DisplayImageOption对象	
+		return options;
 	}
 	
-//	private void initImageLoader(Context context) {
-//		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-//				context).memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-//				.memoryCacheSize(2 * 1024 * 1024)
-//				.discCacheSize(50 * 1024 * 1024).discCacheFileCount(100)
-//				.build();
-//		ImageLoader.getInstance().init(config);
-//	}
 	public static MyApplication getInstance() {
 		return mInstance;
 	}

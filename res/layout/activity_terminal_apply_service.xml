@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9000"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="430dp"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/close"
+                android:layout_width="@dimen/dlimg"
+                android:layout_height="@dimen/dlimg"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/zc_margin_top"
+                android:background="@drawable/lgclose"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="申请售后"
+                android:textColor="#292929"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#484849" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/textbig"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/zc_land_h"
+            android:paddingRight="@dimen/zc_land_h" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp" >
+
+                <TextView
+                    android:id="@+id/apply_detail_key"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择终端"
+                    android:textColor="#292929"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/select_client"
+                    android:layout_width="230dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/ed_adress"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingRight="30dp"
+                        android:textColor="@color/text6c6c6c6"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择地址"
+                    android:textColor="#292929"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="230dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/ed_adress"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingRight="30dp"
+                        android:textColor="@color/text6c6c6c6"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp" >
+
+                <TextView
+                    android:id="@+id/login_img_pass2"
+                    android:text="售后原因"
+                    android:textColor="#292929"
+                    android:textSize="20sp" 
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:layout_width="230dp"
+                        android:layout_height="200dp"
+                        android:gravity="left"
+                        android:paddingRight="30dp"
+                        android:textColor="@color/text6c6c6c6"
+                        android:background="@drawable/shape"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        
+
+            <Button
+                android:id="@+id/terminal_submit"
+                style="@style/ButtonNormal"
+                android:enabled="false"
+                android:text="@string/button_submit"
+                android:layout_marginBottom="48dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
+import com.comdo.zf_agent_a_pad.fragment.Mmy;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
@@ -9,6 +10,7 @@ import com.example.zf_agent_a_pad.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,11 +26,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private TextView textsy, textghc, textmes, textwd;
 	private RelativeLayout re_shopcar, re_myinfo, re_mine, re_sy;
 	private LinearLayout set;
-
+	private Mmy f_my;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Display display = getWindowManager().getDefaultDisplay();
+		Config.ScreenWidth=display.getWidth();
+		Config.ScreenHeight=display.getHeight();
 		f_sy = new M_MianFragment();
 
 		getSupportFragmentManager().beginTransaction()
@@ -112,7 +117,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case R.id.main_rl_my:
-
+			changTabBg();
+			im_wd.setBackgroundResource(R.drawable.mine);
+			textwd.setTextColor(getResources().getColor(R.color.o));
+			if(f_my==null)
+				f_my=new Mmy();
+			getSupportFragmentManager().beginTransaction()
+			.replace(R.id.m_fragment, f_my).commit();
 			break;
 		case R.id.set:
 			showSet();

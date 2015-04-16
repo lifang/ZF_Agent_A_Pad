@@ -2,10 +2,6 @@ package com.comdo.zf_agent_a_pad.fragment;
 
 public class Constants {
 
-	/**
-	 * TODO: This just a TEST constant
-	 */
-	public static int TEST_CUSTOMER = 80;
 
 	public static class ShowWebImageIntent {
 		public static final String IMAGE_URLS = "image_urls";
@@ -16,6 +12,7 @@ public class Constants {
 	/**
 	 * The intent data among city selection
 	 */
+	public static int TEST_CUSTOMER = 1;
 	public static class CityIntent {
 		public static final String SELECTED_PROVINCE = "selected_province";
 		public static final String SELECTED_CITY = "selected_city";

@@ -111,7 +111,7 @@ public class ApplyListActivity extends Activity implements
 	}
 
 	private void loadData() {
-		Config.getApplyList(this, 80, page + 1, rows,
+		Config.getApplyList(this, 1, page + 1, rows,
 				new HttpCallback<List<TerminalManagerEntity>>(this) {
 					@Override
 					public void onSuccess(List<TerminalManagerEntity> data) {

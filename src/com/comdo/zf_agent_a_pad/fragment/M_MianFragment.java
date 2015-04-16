@@ -7,41 +7,30 @@ package com.comdo.zf_agent_a_pad.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
-import com.comdo.zf_agent_a_pad.activity.PosListActivity;
-import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
-import com.comdo.zf_agent_a_pad.entity.PicEntity;
-import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
+import com.comdo.zf_agent_a_pad.activity.PosListActivity;
+import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
+import com.comdo.zf_agent_a_pad.activity.UserManageListActivity;
+import com.comdo.zf_agent_a_pad.entity.PicEntity;
+import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.example.zf_agent_a_pad.R;
 
 public class M_MianFragment extends Fragment implements OnClickListener {
 	private View view;
@@ -139,8 +128,11 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			}
 			break;
 		case R.id.main_rl_xtgg: // 售后记录
-
-			//startActivity(new Intent(getActivity(), SystemMessage.class));
+			startActivity(new Intent(getActivity(), AfterSaleActivity.class));
+			break;
+		case R.id.main_rl_wylc: // 售后记录
+			startActivity(new Intent(getActivity(), UserManageListActivity.class));
+			
 			break;
 		case R.id.main_rl_lxwm://开通认证
 			startActivity(new Intent(getActivity(), ApplyListActivity.class));

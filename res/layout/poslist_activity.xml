@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#FFFFFF"
-    android:id="@+id/main"
     android:orientation="horizontal" >
 
     <LinearLayout
@@ -182,7 +182,7 @@
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
-    >
+
     </LinearLayout>
 
     <LinearLayout
@@ -381,9 +381,10 @@
 
                 <TextView
                     android:id="@+id/tv_pg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/sy_bt_height"
+                    android:layout_height="@dimen/titleback_height"
                     android:layout_marginRight="10dp"
+                    android:gravity="center"
                     android:text="批购"
                     android:textColor="@color/bgtitle"
                     android:textSize="@dimen/textmid" />
@@ -391,14 +392,18 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
+                    android:layout_marginBottom="@dimen/normal_width3"
+                    android:layout_marginTop="@dimen/normal_width3"
                     android:background="#ADAEAF" />
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_dg"
+                    android:layout_width="@dimen/sy_bt_height"
+                    android:layout_height="@dimen/titleback_height"
                     android:layout_marginLeft="10dp"
+                    android:gravity="center"
                     android:text="代购"
+                    android:textColor="#292929"
                     android:textSize="@dimen/textmid" />
             </LinearLayout>
         </RelativeLayout>
@@ -418,8 +423,8 @@
             android:layout_marginTop="16dp"
             android:background="#E9E8E8"
             android:gravity="center_vertical"
-            android:visibility="gone"
-            android:paddingLeft="@dimen/postimg" >
+            android:paddingLeft="@dimen/postimg"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/textView1"

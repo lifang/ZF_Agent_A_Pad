@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+  	android:orientation="vertical"
+  	android:background="#f8f8f8"
+  	 > 
+
+	 <LinearLayout
+        android:id="@+id/eva_nodata"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:background="#f8f8f8"
+        android:orientation="horizontal" 
+        android:visibility="gone">
+
+        <include layout="@layout/include_norecord" />
+    </LinearLayout>
+ 
+		<com.comdo.zf_agent_a_pad.util.XListView
+        android:id="@+id/x_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#f8f8f8"
+       android:paddingLeft="@dimen/titilepad"
+       android:paddingRight="@dimen/titilepad"
+        android:fadingEdge="none"
+        android:scrollbars="none" />
+</LinearLayout>

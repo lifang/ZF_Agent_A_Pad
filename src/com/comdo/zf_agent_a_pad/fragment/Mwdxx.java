@@ -3,13 +3,8 @@ package com.comdo.zf_agent_a_pad.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +14,11 @@ import android.widget.Toast;
 import com.comdo.zf_agent_a_pad.adapter.MessageAdapter;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
-import com.comdo.zf_agent_a_pad.entity.TerminalDetail;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 public class Mwdxx extends Fragment implements IXListViewListener{
 	private View view;

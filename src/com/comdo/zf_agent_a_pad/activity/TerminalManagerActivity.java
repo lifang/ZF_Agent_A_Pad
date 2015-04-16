@@ -1,6 +1,5 @@
 package com.comdo.zf_agent_a_pad.activity;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +43,10 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENE
 public class TerminalManagerActivity extends Activity implements
 		XListView.IXListViewListener {
 
-
 	private LinearLayout titleback_linear_back;
 	private TextView titleback_text_title;
-	private ImageView titleback_image_back,searchView;
-	
+	private ImageView titleback_image_back, searchView;
+	private Button service, bind;
 	private LayoutInflater mInflater;
 	private XListView mTerminalList;
 	private List<TerminalManagerEntity> mTerminalItems;
@@ -81,6 +79,8 @@ public class TerminalManagerActivity extends Activity implements
 		titleback_text_title = (TextView) findViewById(R.id.titleback_text_title);
 		titleback_image_back = (ImageView) findViewById(R.id.titleback_image_back);
 		searchView = (ImageView) findViewById(R.id.search);
+		service = (Button) findViewById(R.id.apply_button_service);
+		bind = (Button) findViewById(R.id.apply_button_bind);
 		mTerminalItems = new ArrayList<TerminalManagerEntity>();
 		mAdapter = new TerminalListAdapter();
 
@@ -217,7 +217,7 @@ public class TerminalManagerActivity extends Activity implements
 			button.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.shape_o));
 			button.setText(res);
-			button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+			button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 			button.setTextColor(getResources().getColorStateList(
 					R.color.mybutton));
 			if (null != tag) {
@@ -245,28 +245,42 @@ public class TerminalManagerActivity extends Activity implements
 	}
 
 	private void initBtnListeners() {
-		
+
 		titleback_linear_back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				TerminalManagerActivity.this.finish();
 			}
 		});
-		
+
 		titleback_image_back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				TerminalManagerActivity.this.finish();
 			}
 		});
-		
-		titleback_text_title.setText(getString(R.string.title_terminal_management));
-		
-		
+
+		titleback_text_title
+				.setText(getString(R.string.title_terminal_management));
+
 		searchView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-//				startActivityForResult(new Intent(TerminalManagerActivity.this, TerminalAddActivity.class), REQUEST_ADD);
+
+			}
+		});
+		service.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivityForResult(new Intent(TerminalManagerActivity.this,
+						TerminalApplyServiceActivity.class), REQUEST_ADD);
+			}
+		});
+		bind.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivityForResult(new Intent(TerminalManagerActivity.this,
+						TerminalApplyBindActivity.class), REQUEST_ADD);
 			}
 		});
 		mSyncListener = new View.OnClickListener() {
@@ -281,7 +295,8 @@ public class TerminalManagerActivity extends Activity implements
 			public void onClick(View view) {
 				TerminalManagerEntity item = (TerminalManagerEntity) view
 						.getTag();
-				Intent intent = new Intent(TerminalManagerActivity.this, ApplyDetailActivity.class);
+				Intent intent = new Intent(TerminalManagerActivity.this,
+						ApplyDetailActivity.class);
 				intent.putExtra(TERMINAL_ID, item.getId());
 				intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
 				intent.putExtra(TERMINAL_STATUS, item.getOpenState());
@@ -293,7 +308,8 @@ public class TerminalManagerActivity extends Activity implements
 			public void onClick(View view) {
 				TerminalManagerEntity item = (TerminalManagerEntity) view
 						.getTag();
-				Config.findPosPassword(TerminalManagerActivity.this, item.getId(),
+				Config.findPosPassword(TerminalManagerActivity.this, item
+						.getId(),
 						new HttpCallback(TerminalManagerActivity.this) {
 							@Override
 							public void onSuccess(Object data) {

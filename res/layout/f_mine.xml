@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="@dimen/leftwidth"
+        android:layout_height="fill_parent"
+        android:background="#64666A"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/ll_dd"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/leftfristtop"
+            android:layout_marginTop="@dimen/leftfristtop"
+            >
+
+            <TextView
+                android:id="@+id/tv_myinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的信息"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/o"
+                android:textSize="@dimen/textbig" />
+
+            <ImageView
+                android:id="@+id/im1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            
+        		android:layout_alignParentRight="true"
+        		android:layout_marginTop="3dp"
+                android:src="@drawable/sanjiao" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#817f7f" />
+
+        <RelativeLayout
+             android:id="@+id/ll_shjl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/leftitemheight"
+            
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_manager_shopper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下级代理商管理"
+                android:layout_centerInParent="true"
+                android:textColor="#E3E2E3"
+                android:textSize="@dimen/textbig" />
+
+            <ImageView
+                android:id="@+id/im2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:src="@drawable/sanjiao" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#817f7f" />
+
+        <RelativeLayout
+             android:id="@+id/ll_myinfo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/leftitemheight"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_distribute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="配货"
+                android:layout_centerInParent="true"
+                android:textColor="#E3E2E3"
+                android:textSize="@dimen/textbig" />
+            <ImageView
+                android:id="@+id/im3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:src="@drawable/sanjiao" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#817f7f" />
+
+        <RelativeLayout
+             android:id="@+id/ll_mysh"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/leftitemheight"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_transgoods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="调货"
+                android:layout_centerInParent="true"
+                android:textColor="#E3E2E3"
+                android:textSize="@dimen/textbig" />
+            <ImageView
+                android:id="@+id/im4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:src="@drawable/sanjiao" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#817f7f" />
+
+        <RelativeLayout
+             android:id="@+id/ll_plan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/leftitemheight"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_staffmanagr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="员工管理"
+                android:layout_centerInParent="true"
+                android:textColor="#E3E2E3"
+                android:textSize="@dimen/textbig" />
+            <ImageView
+                android:id="@+id/im5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:src="@drawable/sanjiao" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#817f7f" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+<fragment 
+    android:id="@+id/f_mine"
+     android:name="com.comdo.zf_agent_a_pad.fragment.MineMyinfo" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"/>
+       
+    </LinearLayout>
+
+</LinearLayout>

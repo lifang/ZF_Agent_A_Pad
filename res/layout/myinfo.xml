@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_myinfo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/bg"
+        android:orientation="vertical"
+        android:paddingTop="14dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40dp" >
+
+ 
+           <TextView 
+               android:id="@+id/tv_jichuinfo"
+               android:layout_width="120dp"
+               android:layout_height="50dp"
+               android:text="基础信息"
+               android:gravity="center"
+               android:textSize="18sp"
+               android:textColor="#727171"
+               android:background="@drawable/tab_bg"
+                />
+             <TextView 
+               android:id="@+id/tv_safe"
+               android:layout_width="120dp"
+               android:layout_height="50dp"
+               android:text="安全"
+                 android:gravity="center"
+                android:textSize="18sp"
+               android:textColor="#727171"
+               android:layout_marginLeft="20dp"
+               
+              />
+             <TextView 
+               android:id="@+id/tv_manageradress"
+               android:layout_width="120dp"
+               android:layout_height="50dp"
+               android:text="地址管理"
+              android:gravity="center"
+                android:textSize="18sp"
+               android:textColor="#727171"
+               android:layout_marginLeft="20dp"
+               
+                />  
+           
+
+        </LinearLayout>
+    </LinearLayout>
+<fragment 
+    android:id="@+id/fm"
+    android:name="com.comdo.zf_agent_a_pad.fragment.Mybaseinfo"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"/>
+
+</LinearLayout>
