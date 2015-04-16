@@ -9,6 +9,7 @@ import com.example.zf_agent_a_pad.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Display display = getWindowManager().getDefaultDisplay();
+		Config.ScreenWidth=display.getWidth();
+		Config.ScreenHeight=display.getHeight();
 		f_sy = new M_MianFragment();
 
 		getSupportFragmentManager().beginTransaction()
