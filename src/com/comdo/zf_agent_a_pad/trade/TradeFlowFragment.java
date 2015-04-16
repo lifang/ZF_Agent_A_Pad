@@ -82,11 +82,11 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 	private TradeRecordListAdapter mAdapter;
 	private List<TradeRecord> mRecords;
 	private boolean hasSearched = false;
-
-	public static TradeFlowFragment newInstance(int tradeType) {
+	
+	public static TradeFlowFragment newInstance(int mTradeType) {
 		TradeFlowFragment fragment = new TradeFlowFragment();
 		Bundle args = new Bundle();
-		args.putInt(TRADE_TYPE, tradeType);
+		args.putInt(TRADE_TYPE, mTradeType);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -161,6 +161,30 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		mTradeSearchContent = (LinearLayout) header
 				.findViewById(R.id.trade_search_content);
 
+		TextView payAccountTxt = (TextView) header.findViewById(R.id.payAccountTxt);
+		TextView recieveAccountTxt = (TextView) header.findViewById(R.id.recieveAccountTxt);
+		
+		switch (mTradeType) {
+		case TRANSFER:
+		case CONSUME:
+			break;
+		case REPAYMENT:
+			recieveAccountTxt.setText("转入账号");
+			break;
+		case LIFE_PAY:
+			payAccountTxt.setText("账户名");
+			recieveAccountTxt.setText("账户号码");
+			break;
+		case PHONE_PAY:
+			payAccountTxt.setText("手机号码");
+			recieveAccountTxt.setVisibility(View.GONE);
+			break;
+
+		default:
+			break;
+		}
+		
+		
 		mTradeClient.setOnClickListener(this);
 		mTradeStart.setOnClickListener(this);
 		mTradeEnd.setOnClickListener(this);
@@ -407,18 +431,12 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 			switch (mTradeType) {
 			case TRANSFER:
 			case REPAYMENT:
+			case CONSUME:
 				// holder.tvAccountKey.setText(getString(R.string.trade_pay_account));
 				// holder.tvReceiveAccountKey.setText(getString(R.string.trade_receive_account));
 
 				holder.tvAccount.setText(record.getPayFromAccount());
 				holder.tvReceiveAccount.setText(record.getPayIntoAccount());
-				break;
-			case CONSUME:
-				// holder.tvAccountKey.setText(getString(R.string.trade_close_time));
-				// holder.tvReceiveAccountKey.setText(getString(R.string.trade_poundage));
-
-				holder.tvAccount.setText(record.getTradedTimeStr());
-				holder.tvReceiveAccount.setText(record.getPoundage() + "");
 				break;
 			case LIFE_PAY:
 				// holder.tvAccountKey.setText(getString(R.string.trade_account_name));

@@ -198,6 +198,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/payAccountTxt"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -207,6 +208,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/recieveAccountTxt"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -216,6 +218,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/terminalNoTxt"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"

@@ -44,7 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter> -->
         </activity>
-        
+        <!-- 交易流水 start -->
          <activity
             android:name="com.comdo.zf_agent_a_pad.trade.TradeFlowActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -64,6 +64,12 @@
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.trade.TradeAgentActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.trade.TradeDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
