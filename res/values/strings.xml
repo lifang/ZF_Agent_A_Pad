@@ -157,6 +157,7 @@
     <string name="terminal_no_open_detail">暂无开通详情</string>
     <string name="terminal_category_open">开通详情</string>
     <string name="apply_progress_no_data">无查询结果,请填写正确的手机号码!</string>
+    <string name="title_trade_client">选择终端</string>
 
     <string-array name="terminal_apply_keys">
         <item>终 端 号</item>
