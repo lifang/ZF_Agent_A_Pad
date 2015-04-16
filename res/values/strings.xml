@@ -80,7 +80,47 @@
         <item>选择照片</item>
         <item>拍照上传</item>
     </string-array>
-
+  <string-array name="title_after_sale_detail">
+        <item>维修详情</item>
+        <item>退货详情</item>
+        <item>注销详情</item>
+        <item>换货详情</item>
+        <item>更新资料详情</item>
+        <item>租赁退还详情</item>
+    </string-array>
+	<string-array name="after_sale_lease">
+		<item>退款金额</item>
+		<item>联 系 人</item>
+		<item>联系电话</item>
+	</string-array>
+	<string-array name="after_sale_change">
+		<item>收货地址</item>
+		<item>换货原因</item>
+	</string-array>
+		<string-array name="after_sale_return">
+		<item>退款金额</item>
+		<item>退款银行</item>
+		<item>退款账号</item>
+		<item>退款原因</item>
+	</string-array>
+		<string-array name="after_sale_maintian">
+		<item>收货地址</item>
+		<item>维修费用</item>
+		<item>故障描述</item>
+	</string-array>
+		<string-array name="after_sale_terminal">
+		<item>终 端 号</item>
+		<item>POS品牌</item>
+		<item>POS型号</item>
+		<item>支付平台</item>
+		<item>商 户 名</item>
+		<item>商户电话</item>
+		<item>租    金</item>
+		<item>租赁押金</item>
+		<item>租赁时长</item>
+		<item>最长租赁日期</item>
+		<item>最短租赁日期</item>
+	</string-array>
     <string name="apply_upload_photo">上传图片</string>
     <string name="apply_uploading">上传中...</string>
     <string name="apply_upload_again">重新上传</string>
@@ -117,6 +157,7 @@
     <string name="terminal_no_open_detail">暂无开通详情</string>
     <string name="terminal_category_open">开通详情</string>
     <string name="apply_progress_no_data">无查询结果,请填写正确的手机号码!</string>
+    <string name="title_trade_client">选择终端</string>
 
     <string-array name="terminal_apply_keys">
         <item>终 端 号</item>
@@ -136,5 +177,32 @@
     <string name="button_cancel">取消</string>
     <string name="button_copy">复制</string>
     <string name="toast_copy_password">密码已复制到剪贴板</string>
-
+    <string name="notation_yuan">￥</string>
+    <string name="notation_day">天</string>
+    <string name="after_sale_terminal">终端号</string>
+    <string name="after_sale_terminal_title">终端信息</string>
+    <string name="after_sale_status">状态</string>
+    <string name="button_cancel_apply">取消申请</string>
+    <string name="button_pay">付款</string>
+    <string name="button_submit_flow">提交物流信息</string>
+    <string name="button_submit_cancel">重新提交注销</string>
+    <string name="button_pay_maintain">支付维修费</string>
+    <string name="after_sale_apply_time">申请时间:</string>
+    <string name="after_sale_maintain_title">维修信息</string>
+    <string name="after_sale_return_title">退货信息</string>
+    <string name="after_sale_return_material_title">注销所需资料</string>
+    <string name="after_sale_cancel_material_title">注销申请资料</string>
+    <string name="after_sale_change_title">换货信息</string>
+    <string name="after_sale_change_material_title">换货所需资料</string>
+	<string name="after_sale_update_material_title">申请更新资料</string>
+	<string name="after_sale_lease_title">退货信息</string>
+	<string name="after_sale_lease_material_title">租赁退还申请资料</string>
+	<string name="after_sale_material_name">资料名称</string>
+	<string name="after_sale_material_view">点击查看</string>
+	<string name="after_sale_material_unsubmit">未提交</string>
+	<string name="toast_cancel_apply_success">取消申请成功</string>
+	<string name="toast_resubmit_cancel_success">重新提交注销成功</string>
+	<string name="toast_add_mark_success">提交物流信息成功</string>
+	<string name="after_sale_mark_company">物流公司</string>
+	<string name="after_sale_mark_number">物流单号</string>
 </resources>

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.trade.entity.City;
+
 public class Province implements Serializable{
     private int id;
     private String name;
