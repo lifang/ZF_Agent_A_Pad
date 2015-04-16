@@ -14,7 +14,7 @@
     <color name="bg_item">#FE783E</color>
     <color name="F3F2F2">#F3F2F2</color>
     <color name="transparent">#9000</color>
-    
+    <color name="bg">#E9E8E8</color>
     
  <!-- 透明白色 -->
     <color name="toumingbai">#f6f0f0f0</color>
@@ -65,6 +65,7 @@
     <color name="t699f4c">#699f4c</color>
     <color name="B4B4B4">#B4B4B4</color>
     <color name="E8E8E7">#E8E8E7</color>
+     <color name="e9e8e8">#e9e8e8</color>
     <color name="F3F3F3">#F3F3F3</color>
     <color name="F6F9FA">#F6F9FA</color>
     <color name="seekbar_bg">#e5e5e5</color>

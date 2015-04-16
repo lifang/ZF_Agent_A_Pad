@@ -81,42 +81,43 @@ containing a value of this type.
         public static final int isOnBottomStyle=0x7f010001;
     }
     public static final class color {
-        public static final int B4B4B4=0x7f050034;
-        public static final int C0075FF=0x7f050040;
-        public static final int E8E8E7=0x7f050035;
+        public static final int B4B4B4=0x7f050035;
+        public static final int C0075FF=0x7f050042;
+        public static final int E8E8E7=0x7f050036;
         public static final int F3F2F2=0x7f05000e;
-        public static final int F3F3F3=0x7f050036;
-        public static final int F6F9FA=0x7f050037;
-        public static final int FB9401=0x7f050041;
-        public static final int NoRead=0x7f050055;
+        public static final int F3F3F3=0x7f050038;
+        public static final int F6F9FA=0x7f050039;
+        public static final int FB9401=0x7f050043;
+        public static final int NoRead=0x7f050057;
         public static final int Viewc=0x7f050006;
         public static final int Viewc2=0x7f050007;
-        public static final int adadad=0x7f05002b;
-        public static final int background_dark=0x7f050051;
-        public static final int background_pressed=0x7f050052;
-        public static final int background_tab=0x7f050053;
+        public static final int adadad=0x7f05002c;
+        public static final int background_dark=0x7f050053;
+        public static final int background_pressed=0x7f050054;
+        public static final int background_tab=0x7f050055;
         public static final int bantouming=0x7f050009;
-        public static final int bf873e=0x7f050030;
-        public static final int bg0etitle=0x7f050054;
-        public static final int bg_0AB2FF=0x7f05003c;
-        public static final int bg_1FB8FE=0x7f05003b;
-        public static final int bg_575D5F=0x7f05003d;
-        public static final int bg_FF0404=0x7f05003e;
-        public static final int bg_FF1F1F=0x7f05003f;
+        public static final int bf873e=0x7f050031;
+        public static final int bg=0x7f050010;
+        public static final int bg0etitle=0x7f050056;
+        public static final int bg_0AB2FF=0x7f05003e;
+        public static final int bg_1FB8FE=0x7f05003d;
+        public static final int bg_575D5F=0x7f05003f;
+        public static final int bg_FF0404=0x7f050040;
+        public static final int bg_FF1F1F=0x7f050041;
         public static final int bg_item=0x7f05000d;
         public static final int bgtitle=0x7f050003;
-        public static final int black=0x7f050047;
-        public static final int blank_button_selector=0x7f050056;
+        public static final int black=0x7f050049;
+        public static final int blank_button_selector=0x7f050058;
         /**  1dp 线条的颜色 
          */
-        public static final int button_bg_hui_color=0x7f05004a;
+        public static final int button_bg_hui_color=0x7f05004c;
         /**  其他 
          */
-        public static final int c6c6c6=0x7f05002e;
-        public static final int c838383=0x7f050042;
-        public static final int d3d3d3=0x7f050022;
-        public static final int d7d7d7=0x7f050028;
-        public static final int de4747=0x7f050025;
+        public static final int c6c6c6=0x7f05002f;
+        public static final int c838383=0x7f050044;
+        public static final int d3d3d3=0x7f050023;
+        public static final int d7d7d7=0x7f050029;
+        public static final int de4747=0x7f050026;
         /**  drop down list footer font color 
          */
         public static final int drop_down_list_footer_font_color=0x7f050002;
@@ -126,91 +127,92 @@ containing a value of this type.
         /**  drop down list header second font color 
          */
         public static final int drop_down_list_header_second_font_color=0x7f050001;
-        public static final int e1e1e1=0x7f05001d;
-        public static final int e5e5e5=0x7f05002f;
-        public static final int edithinit=0x7f05004c;
-        public static final int f1f1f1=0x7f05001a;
-        public static final int f26e26=0x7f050024;
-        public static final int f4f4f4=0x7f050019;
-        public static final int f6d9d9d9=0x7f05001e;
-        public static final int f6e6cd=0x7f050021;
-        public static final int f6f4f4f4=0x7f05001f;
-        public static final int f8f8f8=0x7f05001b;
+        public static final int e1e1e1=0x7f05001e;
+        public static final int e5e5e5=0x7f050030;
+        public static final int e9e8e8=0x7f050037;
+        public static final int edithinit=0x7f05004e;
+        public static final int f1f1f1=0x7f05001b;
+        public static final int f26e26=0x7f050025;
+        public static final int f4f4f4=0x7f05001a;
+        public static final int f6d9d9d9=0x7f05001f;
+        public static final int f6e6cd=0x7f050022;
+        public static final int f6f4f4f4=0x7f050020;
+        public static final int f8f8f8=0x7f05001c;
         /**  主题色 
          */
-        public static final int ff9900=0x7f050023;
+        public static final int ff9900=0x7f050024;
         /**  透明白色 
          */
-        public static final int fffefe=0x7f050015;
-        public static final int ffffff=0x7f050018;
+        public static final int fffefe=0x7f050016;
+        public static final int ffffff=0x7f050019;
         /**  订单详情浅灰色背景 
          */
-        public static final int line_color=0x7f050049;
+        public static final int line_color=0x7f05004b;
         /**  new  FF1F1F color 
          */
-        public static final int mybutton=0x7f05003a;
-        public static final int normal_button_disabled=0x7f05004e;
+        public static final int mybutton=0x7f05003c;
+        public static final int normal_button_disabled=0x7f050050;
         /**  订单详情 item 红色 
  按钮颜色 
          */
-        public static final int normal_button_enabled=0x7f05004d;
-        public static final int normal_button_pressed=0x7f05004f;
-        public static final int o=0x7f050044;
+        public static final int normal_button_enabled=0x7f05004f;
+        public static final int normal_button_pressed=0x7f050051;
+        public static final int o=0x7f050046;
         /**  深灰色 
          */
-        public static final int oederdetail_item_red=0x7f05004b;
-        public static final int oederdetails_bg=0x7f050048;
-        public static final int prebuttom=0x7f05002c;
-        public static final int progress_bg=0x7f050039;
-        public static final int rad=0x7f050020;
-        public static final int seekbar_bg=0x7f050038;
+        public static final int oederdetail_item_red=0x7f05004d;
+        public static final int oederdetails_bg=0x7f05004a;
+        public static final int prebuttom=0x7f05002d;
+        public static final int progress_bg=0x7f05003b;
+        public static final int rad=0x7f050021;
+        public static final int seekbar_bg=0x7f05003a;
         /**  头部白色的字体颜色 
          */
-        public static final int t000000=0x7f050016;
-        public static final int t0094d4=0x7f050027;
-        public static final int t04b900=0x7f050026;
+        public static final int t000000=0x7f050017;
+        public static final int t0094d4=0x7f050028;
+        public static final int t04b900=0x7f050027;
         /**  文字色  rad 
          */
-        public static final int t333333=0x7f050029;
-        public static final int t65727f=0x7f050031;
-        public static final int t699f4c=0x7f050033;
-        public static final int t828282=0x7f05002a;
-        public static final int t9f4c4c=0x7f050032;
-        public static final int t9f8150=0x7f05001c;
+        public static final int t333333=0x7f05002a;
+        public static final int t65727f=0x7f050032;
+        public static final int t699f4c=0x7f050034;
+        public static final int t828282=0x7f05002b;
+        public static final int t9f4c4c=0x7f050033;
+        public static final int t9f8150=0x7f05001d;
         public static final int text292929=0x7f05000c;
         public static final int text535252=0x7f050004;
         public static final int text5a5a5a=0x7f050008;
         public static final int text6c6c6c6=0x7f05000b;
         /**  页面上方 蓝色块 
          */
-        public static final int text_read=0x7f050046;
+        public static final int text_read=0x7f050048;
         public static final int textc9c9c9=0x7f050005;
         /**  黑色 
          */
-        public static final int tmffffff=0x7f050017;
+        public static final int tmffffff=0x7f050018;
         /**  白色 
          */
-        public static final int top_bg_color=0x7f050045;
+        public static final int top_bg_color=0x7f050047;
         public static final int touming=0x7f05000a;
         /**  底部透明白色 
          */
-        public static final int touming7f=0x7f050011;
+        public static final int touming7f=0x7f050012;
         /**  透明白色 
          */
-        public static final int toumingbai=0x7f050010;
+        public static final int toumingbai=0x7f050011;
         /**  透明黑色 
          */
-        public static final int toumingf6=0x7f050012;
+        public static final int toumingf6=0x7f050013;
         /**  透明白色 
          */
-        public static final int toumingf6f1=0x7f050014;
+        public static final int toumingf6f1=0x7f050015;
         /**  透明白色 
          */
-        public static final int toumingf6f4=0x7f050013;
-        public static final int trade_statistic_bg=0x7f050050;
+        public static final int toumingf6f4=0x7f050014;
+        public static final int trade_statistic_bg=0x7f050052;
         public static final int transparent=0x7f05000f;
-        public static final int tv_red=0x7f05002d;
-        public static final int white=0x7f050043;
+        public static final int tv_red=0x7f05002e;
+        public static final int white=0x7f050045;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
