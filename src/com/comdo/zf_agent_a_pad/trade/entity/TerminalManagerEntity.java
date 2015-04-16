@@ -8,19 +8,19 @@ public class TerminalManagerEntity {
 	private int id;
 	
 	@SerializedName("serial_num")
-	private String posPortID;// �ն˺�
+	private String posPortID;// 终端号
 
 	@SerializedName("brandsName")
-	private String pos;// POS��
+	private String pos;// POS机
 
 	@SerializedName("model_number")
-	private String posname;// POS��
+	private String posname;// POS机
 	
 	@SerializedName("channelName")
-	private String payChannel;// ֧��ͨ��
+	private String payChannel;// 支付通道
 
 	@SerializedName("status")
-	private int openState;// ��ͨ״̬
+	private int openState;// 开通状态
 
 	public int getId() {
 		return id;
