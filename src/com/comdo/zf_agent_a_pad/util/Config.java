@@ -57,6 +57,11 @@ public class Config {
 	public static int GOODID = -1;
 	public static int goodId;
 	public static String getmes=PATHS+"message/receiver/getAll";
+
+	// upload image url
+	public static final String UPLOAD_IMAGE = PATHS
+			+ "/comment/upload/tempImage";
+
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
@@ -70,8 +75,6 @@ public class Config {
 	public static final String APPLY_MERCHANT_DETAIL = PATHS
 			+ "/apply/getMerchant";
 	// upload image url
-	public static final String UPLOAD_IMAGE = PATHS
-			+ "/comment/upload/tempImage";
 	// Get the Channel List
 	public static final String APPLY_CHANNEL_LIST = PATHS
 			+ "/apply/getChannels";
@@ -90,6 +93,7 @@ public class Config {
 	// Terminal detail
 	public static final String TERMINAL_DETAIL = PATHS
 			+ "/terminal/getApplyDetails";
+
 
 	// Get msglist
 	public static final String GET_MSGLIST = PATHS + "message/receiver/getAll";
@@ -173,9 +177,13 @@ public class Config {
 			e.printStackTrace();
 		}
 		new HttpRequest(context, callback).post(Config.POSLIST, params);
+
 		System.out.println("参数--" + params.toString());
 		System.out.println("url--" + Config.POSLIST);
 	}
+
+
+		
 
 	public static void getApplyList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
