@@ -10,6 +10,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
 import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.google.gson.Gson;
+import com.loopj.android.http.RequestParams;
 //github.com/lifang/ZF_Agent_A_Pad
 import android.content.Context;
 
@@ -33,34 +34,33 @@ public class Config {
 
 	static Gson gson = new Gson();
 	// Apply List
-	public static final String APPLY_LIST = PATHS + "/apply/getApplyList";
+	public static final String APPLY_LIST = PATHS + "apply/getApplyList";
 	// Apply Detail
-	public static final String APPLY_DETAIL = PATHS + "/apply/getApplyDetails";
+	public static final String APPLY_DETAIL = PATHS + "apply/getApplyDetails";
 
 	// Get the Merchant Detail
 	public static final String APPLY_MERCHANT_DETAIL = PATHS
-			+ "/apply/getMerchant";
+			+ "apply/getMerchant";
 	// upload image url
 	public static final String UPLOAD_IMAGE = PATHS
-			+ "/comment/upload/tempImage";
+			+ "comment/upload/tempImage";
 	// Get the Channel List
-	public static final String APPLY_CHANNEL_LIST = PATHS
-			+ "/apply/getChannels";
+	public static final String APPLY_CHANNEL_LIST = PATHS + "apply/getChannels";
 
 	// Get the Bank List
-	public static final String APPLY_BANK_LIST = PATHS + "/apply/ChooseBank";
+	public static final String APPLY_BANK_LIST = PATHS + "apply/ChooseBank";
 
 	// find pos password
 	public static final String TERMINAL_FIND_POS = PATHS
-			+ "/terminal/Encryption";
+			+ "terminal/Encryption";
 
 	// Terminal list
 	public static final String TERMINAL_APPLY_LIST = PATHS
-			+ "/terminal/getApplyList";
+			+ "terminal/getApplyList";
 
 	// Terminal detail
 	public static final String TERMINAL_DETAIL = PATHS
-			+ "/terminal/getApplyDetails";
+			+ "terminal/getApplyDetails";
 	// Get msglist
 	public static final String GET_MSGLIST = PATHS + "message/receiver/getAll";
 
@@ -102,7 +102,13 @@ public class Config {
 
 	// get code
 	public static final String GETCODE4PHONE = PATHS
-			+ "/user/sendPhoneVerificationCodeReg";
+			+ "user/sendPhoneVerificationCodeReg";
+
+	// select pos
+	public static final String SELECTPOS = PATHS + "terminal/screeningPosName";
+
+	// apply submit
+	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
 
 	public static boolean CheckIsLogin(Context c) {
 		return true;
@@ -145,19 +151,23 @@ public class Config {
 		System.out.println("参数--" + params.toString());
 	}
 
-	public static void getApplyList(Context context, int customerId, int page,
+	public static void getApplyList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customersId", customerId);
+		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
+		// RequestParams params2 =new RequestParams();
+		// params2.put("customersId", customerId);
+		// params2.put("page", page);
+		// params2.put("rows", rows);
+		// params2.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(APPLY_LIST, params);
 	}
 
-	public static void getApplyDetail(Context context, int customerId,
-			int terminalId, int status, HttpCallback callback) {
+	public static void getApplyDetail(Context context, int terminalId,
+			int status, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customerId", customerId);
 		params.put("terminalsId", terminalId);
 		params.put("status", status);
 		new HttpRequest(context, callback).post(APPLY_DETAIL, params);
@@ -189,10 +199,10 @@ public class Config {
 		new HttpRequest(context, callback).post(TERMINAL_FIND_POS, params);
 	}
 
-	public static void getTerminalApplyList(Context context, int customerId,
+	public static void getTerminalApplyList(Context context, int agentId,
 			int page, int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customersId", customerId);
+		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(TERMINAL_APPLY_LIST, params);
@@ -329,5 +339,18 @@ public class Config {
 		params.put("codeNumber", codeNumber);
 
 		new HttpRequest(context, callback).post(GETCODE4PHONE, params);
+	}
+
+	public static void selectPOS(Context context, int customerId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+
+		new HttpRequest(context, callback).post(SELECTPOS, params);
+	}
+
+	public static void submitApply(Context context, Map<String, Object> params,
+			HttpCallback callback) {
+		new HttpRequest(context, callback).post(APPLY_SUBMIT, params);
 	}
 }

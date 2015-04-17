@@ -24,6 +24,9 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.Page;
+import com.comdo.zf_agent_a_pad.common.PageApply;
+import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.Tools;
@@ -112,20 +115,26 @@ public class ApplyListActivity extends Activity implements
 
 	private void loadData() {
 		Config.getApplyList(this, 1, page + 1, rows,
-				new HttpCallback<List<TerminalManagerEntity>>(this) {
+				new HttpCallback<PageApply<TerminalManagerEntity>>(this) {
 					@Override
-					public void onSuccess(List<TerminalManagerEntity> data) {
-						if (null == data || data.size() <= 0)
+					public void onSuccess(PageApply<TerminalManagerEntity> data) {
+						if (null == data || data.getList().size() <= 0)
 							noMoreData = true;
 
-						mTerminalItems.addAll(data);
+						mTerminalItems.addAll(data.getList());
 						page++;
 						mAdapter.notifyDataSetChanged();
 					}
+					
+					@Override
+					public void onFailure(String message) {
+						// TODO Auto-generated method stub
+						super.onFailure(message);
+					}
 
 					@Override
-					public TypeToken<List<TerminalManagerEntity>> getTypeToken() {
-						return new TypeToken<List<TerminalManagerEntity>>() {
+					public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
+						return new TypeToken<PageApply<TerminalManagerEntity>>() {
 						};
 					}
 				});

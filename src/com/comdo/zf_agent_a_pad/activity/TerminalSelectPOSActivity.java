@@ -1,4 +1,4 @@
-package com.comdo.zf_agent_a_pad.trade;
+package com.comdo.zf_agent_a_pad.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.entity.SelectPOS;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChooseItem;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
@@ -22,7 +23,7 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.CHOOSE_ITE
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TITLE;
 
-public class ApplyChooseActivity extends ListActivity {
+public class TerminalSelectPOSActivity extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +31,21 @@ public class ApplyChooseActivity extends ListActivity {
 		setContentView(R.layout.activity_simple_list);
 
 		String title = getIntent().getStringExtra(CHOOSE_TITLE);
-		List<ApplyChooseItem> chooseItems = (List<ApplyChooseItem>) getIntent()
+		List<SelectPOS> posItems = (List<SelectPOS>) getIntent()
 				.getSerializableExtra(CHOOSE_ITEMS);
 		int selectedId = getIntent().getIntExtra(SELECTED_ID, 0);
 
 		new TitleMenuUtil(this, title).show();
 
 		final List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
-		if (chooseItems != null) {
-			for (ApplyChooseItem chooseItem : chooseItems) {
-				Map<String, Object> item = new HashMap<String, Object>();
-				item.put("id", chooseItem.getId());
-				item.put("name", chooseItem.getTitle());
-				item.put(
-						"selected",
-						chooseItem.getId() == selectedId ? R.drawable.icon_selected
-								: null);
-				items.add(item);
-			}
+		for (SelectPOS selectPOS : posItems) {
+			Map<String, Object> item = new HashMap<String, Object>();
+			item.put("id", selectPOS.getId());
+			item.put("name", selectPOS.getTitle());
+			item.put("selected",
+					selectPOS.getId() == selectedId ? R.drawable.icon_selected
+							: null);
+			items.add(item);
 		}
 		final SimpleAdapter adapter = new SimpleAdapter(this, items,
 				R.layout.simple_list_item, new String[] { "id", "name",

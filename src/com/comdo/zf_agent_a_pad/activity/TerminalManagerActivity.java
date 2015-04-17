@@ -13,15 +13,19 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
+import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
@@ -30,6 +34,7 @@ import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_MERCHANT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_ADD;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
@@ -52,6 +57,8 @@ public class TerminalManagerActivity extends Activity implements
 	private List<TerminalManagerEntity> mTerminalItems;
 	private TerminalListAdapter mAdapter;
 
+	private Spinner spinner;
+	private ArrayAdapter<String> adapter;
 	private int page = 0;
 	private int total = 0;
 	private final int rows = 10;
@@ -80,6 +87,7 @@ public class TerminalManagerActivity extends Activity implements
 		titleback_image_back = (ImageView) findViewById(R.id.titleback_image_back);
 		searchView = (ImageView) findViewById(R.id.search);
 		service = (Button) findViewById(R.id.apply_button_service);
+		spinner = (Spinner) findViewById(R.id.spinner);
 		bind = (Button) findViewById(R.id.apply_button_bind);
 		mTerminalItems = new ArrayList<TerminalManagerEntity>();
 		mAdapter = new TerminalListAdapter();
@@ -95,6 +103,22 @@ public class TerminalManagerActivity extends Activity implements
 		mTerminalList.setPullLoadEnable(true);
 
 		mTerminalList.setAdapter(mAdapter);
+
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, getResources()
+						.getStringArray(R.array.terminalAllStatus));
+		spinner.setAdapter(adapter);
+
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+
+		});
 	}
 
 	class TerminalListAdapter extends BaseAdapter {
@@ -366,9 +390,10 @@ public class TerminalManagerActivity extends Activity implements
 	private void loadData() {
 
 		Config.getTerminalApplyList(this, 1, page + 1, rows,
-				new HttpCallback<Page<TerminalManagerEntity>>(this) {
+				new HttpCallback<PageTerminal<TerminalManagerEntity>>(this) {
 					@Override
-					public void onSuccess(Page<TerminalManagerEntity> data) {
+					public void onSuccess(
+							PageTerminal<TerminalManagerEntity> data) {
 						if (null != data.getList()) {
 							mTerminalItems.addAll(data.getList());
 						}
@@ -393,8 +418,8 @@ public class TerminalManagerActivity extends Activity implements
 					}
 
 					@Override
-					public TypeToken<Page<TerminalManagerEntity>> getTypeToken() {
-						return new TypeToken<Page<TerminalManagerEntity>>() {
+					public TypeToken<PageTerminal<TerminalManagerEntity>> getTypeToken() {
+						return new TypeToken<PageTerminal<TerminalManagerEntity>>() {
 						};
 					}
 				});
