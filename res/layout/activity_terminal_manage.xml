@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-       <RelativeLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:background="#006fd5"
@@ -45,7 +45,70 @@
             android:layout_marginRight="11dp"
             android:src="@drawable/ic_search" />
     </RelativeLayout>
-    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/apply_button_service"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/blank_button_selector"
+                android:text="申请售后"
+                android:textColor="#006fd5"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/apply_button_bind"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/normal_button_selector"
+                android:text="为用户绑定终端"
+                android:textColor="#ffffffff"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/apply_detail_key"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="选择终端状态"
+                android:textColor="#292929"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:id="@+id/trade_client"
+                android:layout_width="230dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal" >
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ed_adress"
+                    android:drawSelectorOnTop="true"
+                    android:spinnerMode="dropdown" />
+   
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
     <com.comdo.zf_agent_a_pad.util.XListView
         android:id="@+id/terminal_list"
         android:layout_width="match_parent"

@@ -90,6 +90,8 @@ public class Constants {
 		public static final String TERMINAL_STATUS = "terminal_status";
 		public static final String CHANNEL_ID = "channel_id";
 		public static final String CHANNEL_NAME = "channel_name";
+		
+
 	}
 
 	/**
