@@ -1,6 +1,9 @@
 package com.comdo.zf_agent_a_pad.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -8,7 +11,14 @@ import org.json.JSONException;
 
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
+import com.comdo.zf_agent_a_pad.entity.ApplyneedEntity;
+import com.comdo.zf_agent_a_pad.entity.ChanelEntitiy;
+import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
+import com.comdo.zf_agent_a_pad.entity.Goodlist;
+import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
+import com.comdo.zf_agent_a_pad.entity.tDates;
+import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 //github.com/lifang/ZF_Agent_A_Pad
@@ -25,13 +35,32 @@ public class Config {
 	public static String token = "123";
 	public static final int CODE = 1;
 
-	public static final String POSLIST = PATHS + "good/list";
+	public static int ScreenWidth=0;
+	public static int ScreenHeight=0;
 
-	public static String getmes = PATHS + "message/receiver/getAll";
+	public static final String POSLIST = PATHS + "good/list";
+	public static final String GOODDETAIL = PATHS + "good/goodinfo";
+	public static final String paychannel_info = PATHS + "paychannel/info";
+	public static String goodcomment = PATHS + "comment/list";
+	public static final String POSPORT = PATHS + "good/search";
+	public static final String POSTHOT = PATHS + "index/pos_list";
+	public static GoodinfoEntity gfe = null;
+	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
+	public static ArrayList<tDates> tDates = new ArrayList<tDates>();
+	public static ArrayList<other_rate> other_rate = new ArrayList<other_rate>();
+	public static List<ApplyneedEntity> pub = new LinkedList<ApplyneedEntity>();
+	public static List<ApplyneedEntity> single = new LinkedList<ApplyneedEntity>();
+	public static List<PosEntity> myList = new ArrayList<PosEntity>();
+	public static List<Goodlist> list = new ArrayList<Goodlist>();
+	public static String suportare;
+	public static String suportcl;
+	public static String tv_sqkt;
+	public static int GOODID = -1;
+	public static int goodId;
+	public static String getmes=PATHS+"message/receiver/getAll";
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
-
 	static Gson gson = new Gson();
 	// Apply List
 	public static final String APPLY_LIST = PATHS + "apply/getApplyList";
@@ -44,6 +73,7 @@ public class Config {
 	// upload image url
 	public static final String UPLOAD_IMAGE = PATHS
 			+ "comment/upload/tempImage";
+
 	// Get the Channel List
 	public static final String APPLY_CHANNEL_LIST = PATHS + "apply/getChannels";
 
@@ -61,6 +91,8 @@ public class Config {
 	// Terminal detail
 	public static final String TERMINAL_DETAIL = PATHS
 			+ "terminal/getApplyDetails";
+
+
 	// Get msglist
 	public static final String GET_MSGLIST = PATHS + "message/receiver/getAll";
 
@@ -110,6 +142,7 @@ public class Config {
 	// apply submit
 	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
 
+
 	public static boolean CheckIsLogin(Context c) {
 		return true;
 
@@ -148,11 +181,14 @@ public class Config {
 			e.printStackTrace();
 		}
 		new HttpRequest(context, callback).post(Config.POSLIST, params);
+
 		System.out.println("参数--" + params.toString());
+		System.out.println("url--" + Config.POSLIST);
 	}
 
-	public static void getApplyList(Context context, int agentId, int page,
-			int rows, HttpCallback callback) {
+
+
+	public static void getApplyList(Context context, int agentId, int page,			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("page", page);

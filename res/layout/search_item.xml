@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48dp"
+    
+    android:id="@+id/search_rl_tiem"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/search_item_tv"
+        android:layout_height="48dp"
+        android:layout_width="fill_parent"
+        android:gravity="center_vertical"
+        android:text="123"
+        android:layout_marginLeft="15dp"
+        android:duplicateParentState="true"
+     
+        android:textSize="16sp" />
+
+</LinearLayout>

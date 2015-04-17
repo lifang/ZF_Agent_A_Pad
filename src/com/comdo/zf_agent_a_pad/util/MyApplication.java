@@ -77,7 +77,17 @@ public class MyApplication extends Application{
 		MyApplication.versionCode = versionCode;
 	}
 
-
+AsyncHttpClient client = new AsyncHttpClient(); //  
+	
+	public AsyncHttpClient getClient() {
+		//client.setTimeout(6000);
+		client.setTimeout(10000);// 设置超时时间
+    	client.setMaxConnections(10);
+		return client;
+	}
+	public void setClient(AsyncHttpClient client) {
+		this.client = client;
+	}
 	public static List<Good> comfirmList=new LinkedList<Good>();
 	
 	public static List<Good> getComfirmList() {
@@ -87,17 +97,7 @@ public class MyApplication extends Application{
 		MyApplication.comfirmList = comfirmList;
 	}
 	private static String token="";
-	AsyncHttpClient client = new AsyncHttpClient(); //  
-	
-	public AsyncHttpClient getClient() {
-		//client.setTimeout(6000);
-		client.setTimeout(10000);// ���ó�ʱʱ��
-    	client.setMaxConnections(10);
-		return client;
-	}
-	public void setClient(AsyncHttpClient client) {
-		this.client = client;
-	}
+
 	public static String getToken() {
 		return token;
 	}
