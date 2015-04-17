@@ -94,6 +94,14 @@ public class Config {
 	public static final String USER_DELECTAGENTUSER = PATHS + "user/delectAgentUser";
 	//用户管理--获得该代理商下面某个用户的相关终端列表
 	public static final String USER_GETTERMINALS = PATHS + "user/getTerminals";
+	//库存管理列表
+	public static final String STOCK_LIST = PATHS + "stock/list";
+	//库存管理详情（下级代理商列表）
+	public static final String STOCK_INFO = PATHS + "stock/info";
+	//库存管理商品重命名
+	public static final String STOCK_RENAME = PATHS + "stock/rename";
+	//库存管理详情（下级代理商终端列表）
+	public static final String STOCK_TERMINALLIST = PATHS + "stock/terminallist";
 	
 	public static boolean CheckIsLogin(Context c) {
 		return true;
@@ -333,6 +341,64 @@ public class Config {
 		params.put("track_number", track_number);
 		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(AGENTS_ADDMARK, params);
+	}
+	public static void stockList(
+			Context context,
+			int agentId,
+			int page,
+			int rows,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("page", page);
+		params.put("rows", rows);
+		new HttpRequest(context, callback).post(STOCK_LIST, params);
+	}
+	public static void stockInfo(
+			Context context,
+			int agentId,
+			int paychannelId,
+			int goodId,
+			String agentname,
+			int page,
+			int rows,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("paychannelId", paychannelId);
+		params.put("goodId", goodId);
+		params.put("agentname", agentname);
+		params.put("page", page);
+		params.put("rows", rows);
+		new HttpRequest(context, callback).post(STOCK_LIST, params);
+	}
+	public static void stockRename(
+			Context context,
+			int agentId,
+			int goodId,
+			String goodname,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("goodId", goodId);
+		params.put("goodname", goodname);
+		new HttpRequest(context, callback).post(STOCK_RENAME, params);
+	}
+	public static void stockTerminallist(
+			Context context,
+			int agentId,
+			int paychannelId,
+			int goodId,
+			int page,
+			int rows,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("paychannelId", paychannelId);
+		params.put("goodId", goodId);
+		params.put("page", page);
+		params.put("rows", rows);
+		new HttpRequest(context, callback).post(STOCK_TERMINALLIST, params);
 	}
 	
 }

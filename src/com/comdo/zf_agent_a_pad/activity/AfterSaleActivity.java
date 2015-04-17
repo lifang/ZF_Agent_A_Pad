@@ -35,6 +35,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AfterSaleEntity;
 import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -233,7 +234,7 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	private void setDialog(final int position) {
 
 		dialog = new Dialog(this, R.style.MyDialog);
-		dialog.setContentView(R.layout.dialog_edit);
+		dialog.setContentView(R.layout.dialog_edit_aftersale);
 		dialog.setCancelable(false);
 		dialog.show();
 
@@ -249,7 +250,7 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 				computer_name = "";
 				track_number = "";
 				dialog.dismiss();
-				hideSoftKeyboard(AfterSaleActivity.this);
+				MyApplication.hideSoftKeyboard(AfterSaleActivity.this);
 			}
 		});
 		dialog_button_ok.setOnClickListener(new OnClickListener() {
@@ -260,7 +261,7 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 					if (!dialog_textNo.getText().toString().equals("")) {
 						computer_name = dialog_text.getText().toString();
 						track_number = dialog_textNo.getText().toString();
-						hideSoftKeyboard(AfterSaleActivity.this);
+						MyApplication.hideSoftKeyboard(AfterSaleActivity.this);
 						agentsAddMark(position);
 					}else {
 						Toast.makeText(AfterSaleActivity.this, "物流单号不能为空", Toast.LENGTH_SHORT).show();
@@ -459,11 +460,5 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 		mListView.stopRefresh();
 		mListView.stopLoadMore();
 		mListView.setRefreshTime(Tools.getHourAndMin());
-	}
-	
-	//隐藏软键盘
-	public static void hideSoftKeyboard(Activity activity){
-		InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-		inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 	}
 }

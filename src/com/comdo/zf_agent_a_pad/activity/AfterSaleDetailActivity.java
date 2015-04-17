@@ -22,6 +22,7 @@ import com.comdo.zf_agent_a_pad.entity.AfterSaleDetailCancelEntity;
 import com.comdo.zf_agent_a_pad.entity.AfterSaleDetailOrderEntity;
 import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
@@ -230,7 +231,7 @@ public class AfterSaleDetailActivity extends Activity{
 	private void setDialog() {
 
 		dialog = new Dialog(this, R.style.MyDialog);
-		dialog.setContentView(R.layout.dialog_edit);
+		dialog.setContentView(R.layout.dialog_edit_aftersale);
 		dialog.setCancelable(false);
 		dialog.show();
 
@@ -246,7 +247,7 @@ public class AfterSaleDetailActivity extends Activity{
 				computer_name = "";
 				track_number = "";
 				dialog.dismiss();
-				AfterSaleActivity.hideSoftKeyboard(AfterSaleDetailActivity.this);
+				MyApplication.hideSoftKeyboard(AfterSaleDetailActivity.this);
 			}
 		});
 		dialog_button_ok.setOnClickListener(new OnClickListener() {
@@ -257,7 +258,7 @@ public class AfterSaleDetailActivity extends Activity{
 					if (!dialog_textNo.getText().toString().equals("")) {
 						computer_name = dialog_text.getText().toString();
 						track_number = dialog_textNo.getText().toString();
-						AfterSaleActivity.hideSoftKeyboard(AfterSaleDetailActivity.this);
+						MyApplication.hideSoftKeyboard(AfterSaleDetailActivity.this);
 						agentsAddMark();
 					}else {
 						Toast.makeText(AfterSaleDetailActivity.this, "物流单号不能为空", Toast.LENGTH_SHORT).show();

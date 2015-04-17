@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
 import com.comdo.zf_agent_a_pad.activity.PosListActivity;
+import com.comdo.zf_agent_a_pad.activity.StockListActivity;
 import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.activity.UserManageListActivity;
 import com.comdo.zf_agent_a_pad.entity.PicEntity;
@@ -104,7 +105,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 	}
 	@Override
 	public void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		
 	}
@@ -130,9 +130,11 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		case R.id.main_rl_xtgg: // 售后记录
 			startActivity(new Intent(getActivity(), AfterSaleActivity.class));
 			break;
-		case R.id.main_rl_wylc: // 售后记录
+		case R.id.main_rl_wylc: //用户管理
 			startActivity(new Intent(getActivity(), UserManageListActivity.class));
-			
+			break;
+		case R.id.main_rl_Forum: //库存管理
+			startActivity(new Intent(getActivity(), StockListActivity.class));
 			break;
 		case R.id.main_rl_lxwm://开通认证
 			startActivity(new Intent(getActivity(), ApplyListActivity.class));

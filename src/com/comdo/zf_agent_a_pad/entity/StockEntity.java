@@ -1,22 +1,19 @@
 package com.comdo.zf_agent_a_pad.entity;
 
-/**
- * Created by holin on 4/12/15.
- */
 public class StockEntity {
 
     private String good_brand;
-    private String picurl;
-    private String paychannel;
-    private String goodname;
-    private String Model_number;
-
     private int hoitoryCount;
     private int totalCount;
     private int openCount;
     private int paychannel_id;
+    private String picurl;
+    private String paychannel;
+    private String goodname;
     private int agentCount;
     private int good_id;
+    private String Model_number;
+
 
     public String getGood_brand() {
         return good_brand;

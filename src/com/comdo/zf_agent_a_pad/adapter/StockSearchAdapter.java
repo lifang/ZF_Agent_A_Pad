@@ -14,7 +14,7 @@ import com.comdo.zf_agent_a_pad.entity.StockAgentEntity;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 
-public class SelectStateAdapter<T> extends BaseAdapter {
+public class StockSearchAdapter<T> extends BaseAdapter {
 
 	private List<T> dictIndustries;
 
@@ -30,7 +30,7 @@ public class SelectStateAdapter<T> extends BaseAdapter {
 		this.selectPosition = selectPosition;
 	}
 
-	public SelectStateAdapter(Context context, List<T> dictIndustries) {
+	public StockSearchAdapter(Context context, List<T> dictIndustries) {
 		this.dictIndustries = dictIndustries;
 		this.mContext = context;
 		inflater = LayoutInflater.from(context);
@@ -58,7 +58,7 @@ public class SelectStateAdapter<T> extends BaseAdapter {
 
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.item_list_job_choice,
+			convertView = inflater.inflate(R.layout.item_list_stock_search,
 					parent, false);
 			viewHolder.nameTextView = (TextView) convertView
 					.findViewById(R.id.nameTextViews);
@@ -70,9 +70,15 @@ public class SelectStateAdapter<T> extends BaseAdapter {
 
 		viewHolder = (ViewHolder) convertView.getTag();
 
-		if (dictIndustries.get(0) instanceof String) {
-			viewHolder.nameTextView.setText(((String) dictIndustries
-					.get(position)));
+		if (dictIndustries.get(0) instanceof StockAgentEntity) {
+			if (StringUtil.isNull(((StockAgentEntity) dictIndustries
+					.get(position)).getCompany_name())) {
+				viewHolder.nameTextView.setText("-");
+			}else {
+				viewHolder.nameTextView.setText(((StockAgentEntity) dictIndustries
+						.get(position)).getCompany_name());
+			}
+
 		}
 		return convertView;
 	}
