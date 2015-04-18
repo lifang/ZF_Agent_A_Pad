@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.R.integer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +41,7 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 	private LinearLayout eva_nodata;
 	private boolean onRefresh_number = true;
 	private String ids[]=new String []{};
+	private int idArray[];
 	private UserMLAdapter myAdapter;
 	List<UserMLEntity> myList = new ArrayList<UserMLEntity>();
 	private Handler handler = new Handler() {
@@ -92,15 +94,15 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 		Xlistview.setXListViewListener(this);
 		Xlistview.setDivider(null);
 		Xlistview.setAdapter(myAdapter);
-		
+
 		Xlistview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(UserManageListActivity.this,UserManageDetailActivity.class);
-//				intent.putExtra("customersId", "80");
-//				intent.putExtra("customersName", "dfaf");
+				//				intent.putExtra("customersId", "80");
+				//				intent.putExtra("customersName", "dfaf");
 				intent.putExtra("customersId", myList.get(position-2).getCustomersId());
 				intent.putExtra("customersName", myList.get(position-2).getName());
 				startActivity(intent);
@@ -173,26 +175,24 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 	public void deleteItem(final int position) {
 		ids=new String[1];
 		ids[0]= myList.get(position).getCustomersId();
-		Gson gson = new Gson();
-		try {
-			Config.userDelectAgentUser(this, new JSONArray(gson.toJson(ids)), Constants.TEST_CUSTOMER,
-					new HttpCallback(this) {
-				@Override
-				public void onSuccess(Object data) {
-					myList.remove(position);
-					Toast.makeText(UserManageListActivity.this, "删除成功！", Toast.LENGTH_SHORT).show();
-					myAdapter.notifyDataSetChanged();
-				}
+		Gson gson = new Gson();//new JSONArray(gson.toJson(ids))
+		idArray = new int[ids.length];
+		idArray[0] = Integer.parseInt(ids[0]);
+		Config.userDelectAgentUser(this,idArray, Constants.TEST_CUSTOMER,
+				new HttpCallback(this) {
+			@Override
+			public void onSuccess(Object data) {
+				myList.remove(position);
+				Toast.makeText(UserManageListActivity.this, "删除成功！", Toast.LENGTH_SHORT).show();
+				myAdapter.notifyDataSetChanged();
+			}
 
-				@Override
-				public TypeToken getTypeToken() {
-					return null;
-				}
+			@Override
+			public TypeToken getTypeToken() {
+				return null;
+			}
 
-			});
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		});
 
 	}
 }
