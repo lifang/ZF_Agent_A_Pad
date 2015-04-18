@@ -1,6 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_ADD;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ARRAY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TOTAL;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,8 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
+import com.comdo.zf_agent_a_pad.entity.TerminalAddressEntity;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -34,20 +38,18 @@ import com.google.gson.reflect.TypeToken;
  */
 public class TerminalApplyServiceActivity extends Activity implements
 		View.OnClickListener {
-
-	private View mChooseChannel;
-	private TextView mPayChannel;
-	private int mChannelId;
-	private String mChannelName;
+	private TextView client_names;
+	private int mTerminalNum;
+	private String mTerminalArray;
 	private LinearLayout select_client;
-	private EditText mTerminalNumber;
-	private EditText mShopName;
+	private EditText reason;
 	private Button mSubmitBtn;
 
-	private String terminalNum, shopName;
+	private String mReceiver, mPhoneNum, mAddress, mReason;
 
+	private Spinner spinner;
 	private ArrayAdapter<String> adapter;
-
+	public static final int REQUEST_SELECT_CLIENT = 1000;
 	private Button close;
 
 	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
@@ -59,43 +61,66 @@ public class TerminalApplyServiceActivity extends Activity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_terminal_apply_service);
 
-
 		items = new ArrayList<Map<String, Object>>();
 
-//		API.getChannelList(this, new HttpCallback<List<TerminalChannel>>(this) {
-//
-//			@Override
-//			public void onSuccess(List<TerminalChannel> data) {
-//				for (TerminalChannel channel : data) {
-//					Map<String, Object> item = new HashMap<String, Object>();
-//					item.put("id", channel.getId());
-//					item.put("name", channel.getName());
-//					list.add(channel.getName());
-//					items.add(item);
-//				}
-//				myHandler.sendEmptyMessage(1);
-//
-//			}
-//
-//			@Override
-//			public TypeToken<List<TerminalChannel>> getTypeToken() {
-//				return new TypeToken<List<TerminalChannel>>() {
-//				};
-//			}
-//		});
+		Config.getAddressee(this, 80,
+				new HttpCallback<List<TerminalAddressEntity>>(this) {
+					@Override
+					public void onSuccess(List<TerminalAddressEntity> data) {
 
+						for (TerminalAddressEntity entity : data) {
+							Map<String, Object> item = new HashMap<String, Object>();
+							item.put("receiver", entity.getReceiver());
+							item.put("address", entity.getAddress());
+							item.put("moblephone", entity.getMoblephone());
+							list.add(entity.getAddress());
+							items.add(item);
+						}
 
+						myHandler.sendEmptyMessage(1);
+					}
 
-		// mChooseChannel.setOnClickListener(this);
+					@Override
+					public void onFailure(String message) {
+						super.onFailure(message);
+					}
 
-//		mTerminalNumber = (EditText) findViewById(R.id.terminal_num);
-//		mShopName = (EditText) findViewById(R.id.shop_name);
-//		mSubmitBtn = (Button) findViewById(R.id.terminal_submit);
-//
-//		mTerminalNumber.addTextChangedListener(mTextWatcher);
-//		mShopName.addTextChangedListener(mTextWatcher);
-//		mSubmitBtn.setOnClickListener(this);
-		select_client=(LinearLayout) findViewById(R.id.select_client);
+					@Override
+					public TypeToken<List<TerminalAddressEntity>> getTypeToken() {
+						return new TypeToken<List<TerminalAddressEntity>>() {
+						};
+					}
+				});
+
+		spinner = (Spinner) findViewById(R.id.spinner);
+
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, list);
+		adapter.setDropDownViewResource(R.layout.drop_down_item);
+		spinner.setAdapter(adapter);
+
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+
+				mAddress = String.valueOf(items.get(arg2).get("address"));
+				mReceiver = String.valueOf(items.get(arg2).get("receiver"));
+				mPhoneNum = String.valueOf(items.get(arg2).get("moblephone"));
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+
+		});
+
+		client_names = (TextView) findViewById(R.id.client_names);
+		reason = (EditText) findViewById(R.id.reason);
+		reason.addTextChangedListener(mTextWatcher);
+		mSubmitBtn = (Button) findViewById(R.id.terminal_submit);
+		mSubmitBtn.setOnClickListener(this);
+		select_client = (LinearLayout) findViewById(R.id.select_client);
 		select_client.setOnClickListener(this);
 		close = (Button) findViewById(R.id.close);
 		close.setOnClickListener(this);
@@ -108,6 +133,7 @@ public class TerminalApplyServiceActivity extends Activity implements
 			switch (msg.what) {
 			case 1:
 
+				adapter.notifyDataSetChanged();
 
 				break;
 
@@ -120,6 +146,7 @@ public class TerminalApplyServiceActivity extends Activity implements
 	private final TextWatcher mTextWatcher = new TextWatcherAdapter() {
 
 		public void afterTextChanged(final Editable gitDirEditText) {
+			mReason = reason.getText().toString();
 			updateUIWithValidation();
 		}
 	};
@@ -131,12 +158,11 @@ public class TerminalApplyServiceActivity extends Activity implements
 	}
 
 	private void updateUIWithValidation() {
-		final boolean enabled = mChannelId > 0 && mTerminalNumber.length() > 0
-				&& mShopName.length() > 0;
-//		mSubmitBtn.setEnabled(enabled);
+		final boolean enabled = mAddress.length() > 0 && mReceiver.length() > 0
+				&& mPhoneNum.length() > 0 && mReason.length() > 0
+				&& mTerminalArray.length() > 0 && mTerminalNum > 0;
+		mSubmitBtn.setEnabled(enabled);
 	}
-
-
 
 	@Override
 	public void onClick(View view) {
@@ -144,31 +170,53 @@ public class TerminalApplyServiceActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			// if (check()) {
-//			API.addTerminal(TerminalApplyServiceActivity.this, MyApplication.getInstance().NewUser.getId(), mChannelId,
-//					mTerminalNumber.getText().toString(), mShopName.getText()
-//							.toString(), new HttpCallback(
-//							TerminalApplyServiceActivity.this) {
-//						@Override
-//						public void onSuccess(Object data) {
-//							setResult(RESULT_OK);
-//							finish();
-//						}
-//
-//						@Override
-//						public TypeToken getTypeToken() {
-//							return null;
-//						}
-//					});
-			// }
+			Config.submitAgent(this, 1, mTerminalNum, mAddress, mReason,
+					mTerminalArray, mReceiver, mPhoneNum,
+					new HttpCallback(this) {
+						@Override
+						public void onSuccess(Object data) {
+
+							CommonUtil.toastShort(
+									TerminalApplyServiceActivity.this,
+									getResources().getString(
+											R.string.terminal_apply_success));
+							finish();
+						}
+
+						@Override
+						public TypeToken getTypeToken() {
+							return null;
+						}
+					});
+
 			break;
 		case R.id.close:
 			this.finish();
 			break;
 		case R.id.select_client:
-			startActivityForResult(new Intent(TerminalApplyServiceActivity.this,
-					TerminalApplySelectActivity.class), REQUEST_ADD);
+			Intent intent = new Intent(TerminalApplyServiceActivity.this,
+					TerminalApplySelectActivity.class);
+			intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
+			intent.putExtra(TERMINAL_ARRAY, mTerminalArray);
+			startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 			break;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(final int requestCode, int resultCode,
+			final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		switch (requestCode) {
+		case REQUEST_SELECT_CLIENT: {
+			mTerminalNum = data.getIntExtra(TERMINAL_TOTAL, 0);
+			mTerminalArray = data.getStringExtra(TERMINAL_ARRAY);
+			client_names.setText(mTerminalArray);
+			break;
+		}
+
 		}
 	}
 

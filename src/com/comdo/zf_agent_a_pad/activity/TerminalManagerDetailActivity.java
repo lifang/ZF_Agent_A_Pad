@@ -146,7 +146,7 @@ public class TerminalManagerDetailActivity extends Activity {
 	}
 
 	private void loadData() {
-		Config.getTerminalDetail(this, mTerminalId, 80,
+		Config.getTerminalDetail(this, mTerminalId,
 				new HttpCallback<TerminalDetail>(this) {
 					@Override
 					public void onSuccess(TerminalDetail data) {
@@ -269,7 +269,8 @@ public class TerminalManagerDetailActivity extends Activity {
 		for (int i = 0; i < rates.size(); i++) {
 
 			TerminalRate rate = rates.get(i);
-
+			if (rate == null)
+				continue;
 			TableRow tableRow = new TableRow(this);
 			LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT);
@@ -423,7 +424,6 @@ public class TerminalManagerDetailActivity extends Activity {
 		// findViewById(R.id.category_key_container);
 		// LinearLayout valueContainer = (LinearLayout)
 		// findViewById(R.id.category_value_container);
-		//
 		// title.setText(getString(titleRes));
 
 		LinearLayout terminalCategory = (LinearLayout) mInflater.inflate(

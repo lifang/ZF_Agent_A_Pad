@@ -35,8 +35,8 @@ public class Config {
 	public static String token = "123";
 	public static final int CODE = 1;
 
-	public static int ScreenWidth=0;
-	public static int ScreenHeight=0;
+	public static int ScreenWidth = 0;
+	public static int ScreenHeight = 0;
 
 	public static final String POSLIST = PATHS + "good/list";
 	public static final String GOODDETAIL = PATHS + "good/goodinfo";
@@ -57,7 +57,7 @@ public class Config {
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
-	public static String getmes=PATHS+"message/receiver/getAll";
+	public static String getmes = PATHS + "message/receiver/getAll";
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
@@ -92,6 +92,24 @@ public class Config {
 	public static final String TERMINAL_DETAIL = PATHS
 			+ "terminal/getApplyDetails";
 
+	// terminal marchants
+	public static final String TERMINAL_MERCHANTS = PATHS
+			+ "terminal/getMerchants";
+
+	// terminal bind
+	public static final String TERMINAL_BIND = PATHS
+			+ "terminal/bindingTerminals";
+
+	// terminal bind sms
+	public static final String TERMINAL_BIND_SMS = PATHS
+			+ "terminal/sendPhoneVerificationCodeReg";
+
+	// terminal add customer
+	public static final String ADD_CUSTOMER = PATHS + "terminal/addCustomer";
+
+	// terminal get address
+	public static final String TERMINAL_GET_ADDRESS = PATHS
+			+ "terminal/getAddressee";
 
 	// Get msglist
 	public static final String GET_MSGLIST = PATHS + "message/receiver/getAll";
@@ -142,7 +160,6 @@ public class Config {
 	// apply submit
 	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
 
-
 	public static boolean CheckIsLogin(Context c) {
 		return true;
 
@@ -186,9 +203,8 @@ public class Config {
 		System.out.println("url--" + Config.POSLIST);
 	}
 
-
-
-	public static void getApplyList(Context context, int agentId, int page,			int rows, HttpCallback callback) {
+	public static void getApplyList(Context context, int agentId, int page,
+			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("page", page);
@@ -245,10 +261,9 @@ public class Config {
 	}
 
 	public static void getTerminalDetail(Context context, int terminalId,
-			int customerId, HttpCallback callback) {
+			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("terminalsId", terminalId);
-		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(TERMINAL_DETAIL, params);
 	}
 
@@ -389,4 +404,63 @@ public class Config {
 			HttpCallback callback) {
 		new HttpRequest(context, callback).post(APPLY_SUBMIT, params);
 	}
+
+	public static void getMerchants(Context context, int agentId, int page,
+			int rows, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("page", page);
+		params.put("rows", rows);
+		new HttpRequest(context, callback).post(TERMINAL_MERCHANTS, params);
+	}
+
+	public static void bindingTerminal(Context context, String terminalsNum,
+			int userId, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("terminalsNum", terminalsNum);
+		params.put("userId", userId);
+		new HttpRequest(context, callback).post(TERMINAL_BIND, params);
+	}
+
+	public static void sendPhoneVerificationCodeReg(Context context,
+			String codeNumber, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+		new HttpRequest(context, callback).post(TERMINAL_BIND_SMS, params);
+	}
+
+	public static void addCustomer(Context context, String codeNumber,
+			String name, String password, int cityId, int agentId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+		params.put("name", name);
+		params.put("password", password);
+		params.put("cityId", cityId);
+		params.put("agentId", agentId);
+		new HttpRequest(context, callback).post(ADD_CUSTOMER, params);
+	}
+
+	public static void getAddressee(Context context, int customerId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		new HttpRequest(context, callback).post(TERMINAL_GET_ADDRESS, params);
+	}
+
+	public static void submitAgent(Context context, int customerId,
+			int terminalsQuantity, String address, String reason,
+			String terminalsList, String reciver, String phone,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("terminalsQuantity", terminalsQuantity);
+		params.put("address", address);
+		params.put("reason", reason);
+		params.put("terminalsList", terminalsList);
+		params.put("reciver", reciver);
+		params.put("phone", phone);
+		new HttpRequest(context, callback).post(TERMINAL_GET_ADDRESS, params);
+	}
+
 }

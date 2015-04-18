@@ -2,6 +2,8 @@ package com.comdo.zf_agent_a_pad.entity;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Leo on 2015/3/4.
  */
@@ -9,6 +11,7 @@ public class TerminalDetail {
 
 	private TerminalApply applyDetails;
 
+	@SerializedName("openingInfos")
 	private TerminalTenancy tenancy;
 
 	private List<TerminalOpen> openingDetails;

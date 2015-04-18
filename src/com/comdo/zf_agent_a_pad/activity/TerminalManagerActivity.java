@@ -3,6 +3,8 @@ package com.comdo.zf_agent_a_pad.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
+import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -57,6 +59,7 @@ public class TerminalManagerActivity extends Activity implements
 	private List<TerminalManagerEntity> mTerminalItems;
 	private TerminalListAdapter mAdapter;
 
+	private int mStatus;
 	private Spinner spinner;
 	private ArrayAdapter<String> adapter;
 	private int page = 0;
@@ -79,6 +82,7 @@ public class TerminalManagerActivity extends Activity implements
 
 	}
 
+	@SuppressLint("NewApi")
 	private void initViews() {
 		mInflater = LayoutInflater.from(this);
 		mTerminalList = (XListView) findViewById(R.id.terminal_list);
@@ -90,7 +94,7 @@ public class TerminalManagerActivity extends Activity implements
 		spinner = (Spinner) findViewById(R.id.spinner);
 		bind = (Button) findViewById(R.id.apply_button_bind);
 		mTerminalItems = new ArrayList<TerminalManagerEntity>();
-		mAdapter = new TerminalListAdapter();
+		mAdapter = new TerminalListAdapter(mTerminalItems);
 
 		LinearLayout listHeader = (LinearLayout) mInflater.inflate(
 				R.layout.terminal_list_header, null);
@@ -107,11 +111,29 @@ public class TerminalManagerActivity extends Activity implements
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, getResources()
 						.getStringArray(R.array.terminalAllStatus));
+		adapter.setDropDownViewResource(R.layout.drop_down_item);
 		spinner.setAdapter(adapter);
 
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
+					int status, long arg3) {
+
+				if (status != 0) {
+					mStatus = status;
+					List<TerminalManagerEntity> list = new ArrayList<TerminalManagerEntity>();
+
+					for (TerminalManagerEntity item : mTerminalItems)
+						if (item.getOpenState() == mStatus)
+
+							list.add(item);
+
+					mAdapter = new TerminalListAdapter(list);
+				} else {
+					mAdapter = new TerminalListAdapter(mTerminalItems);
+				}
+
+				mAdapter.notifyDataSetChanged();
+				mTerminalList.setAdapter(mAdapter);
 
 			}
 
@@ -122,17 +144,23 @@ public class TerminalManagerActivity extends Activity implements
 	}
 
 	class TerminalListAdapter extends BaseAdapter {
-		TerminalListAdapter() {
+
+		private List<TerminalManagerEntity> list;
+
+		TerminalListAdapter(List<TerminalManagerEntity> list) {
+
+			this.list = list;
+
 		}
 
 		@Override
 		public int getCount() {
-			return mTerminalItems.size();
+			return list.size();
 		}
 
 		@Override
 		public TerminalManagerEntity getItem(int i) {
-			return mTerminalItems.get(i);
+			return list.get(i);
 		}
 
 		@Override

@@ -66,20 +66,20 @@
                     android:textSize="20sp" />
 
                 <LinearLayout
-                    android:id="@+id/trade_client"
+                    android:id="@+id/getspinnerdata"
                     android:layout_width="230dp"
-                    android:layout_height="fill_parent"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/ed_adress"
                     android:orientation="horizontal" >
 
-                    <TextView
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:paddingRight="30dp"
-                        android:textColor="@color/text6c6c6c6"
-                        android:textSize="20sp" />
+                    <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ed_adress"
+                    android:drawSelectorOnTop="true"
+                    android:spinnerMode="dropdown" />
+   
                 </LinearLayout>
             </LinearLayout>
 
@@ -135,11 +135,14 @@
                     android:background="@drawable/shape"
                     android:orientation="horizontal" >
 
-                    <TextView
+                    <EditText
+                        android:id="@+id/terminal_num"
                         android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:paddingRight="30dp"
+                        android:background="@null"
+                        android:singleLine="true"
                         android:textColor="@color/text6c6c6c6"
                         android:textSize="20sp" />
                 </LinearLayout>

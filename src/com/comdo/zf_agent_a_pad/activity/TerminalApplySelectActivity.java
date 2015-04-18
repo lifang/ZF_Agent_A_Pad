@@ -2,7 +2,11 @@ package com.comdo.zf_agent_a_pad.activity;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.CHOOSE_ITEMS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.CHOOSE_TITLE;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CHANNEL;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BILLING;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_CHANNEL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +34,11 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.SelectPOS;
+import com.comdo.zf_agent_a_pad.trade.ApplyChannelActivity;
+import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -43,10 +50,11 @@ public class TerminalApplySelectActivity extends Activity implements
 		View.OnClickListener {
 
 	private View mChooseChannel;
-	private TextView mPayChannel;
+	private TextView mPayChannel,selectedpos,selectedchannel;
 	private int mChannelId;
 	private String mChannelName;
-
+	private String posName;
+	private int posID;
 	private EditText mTerminalNumber;
 	private EditText mShopName;
 	private Button mSubmitBtn;
@@ -56,7 +64,7 @@ public class TerminalApplySelectActivity extends Activity implements
 	private ArrayAdapter<String> adapter;
 
 	private Button close;
-	private LinearLayout titleback_linear_back, posselect;
+	private LinearLayout channelselect, posselect;
 	private TextView titleback_text_title;
 	private ImageView titleback_image_back, searchView;
 	private Button service, bind;
@@ -68,6 +76,8 @@ public class TerminalApplySelectActivity extends Activity implements
 	final List<String> list = new ArrayList<String>();
 	private List<SelectPOS> selectPOS;
 
+	private ApplyChannel mChosenChannel;
+	private ApplyChannel.Billing mChosenBilling;
 	public static final int REQUEST_CHOOSE_POS = 1000;
 
 	@Override
@@ -75,13 +85,17 @@ public class TerminalApplySelectActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_terminal_select);
-		// new TitleMenuUtil(this,
-		// getString(R.string.title_trade_client)).show();
+		 new TitleMenuUtil(this,
+		 getString(R.string.title_trade_client)).show();
 
 		items = new ArrayList<Map<String, Object>>();
 
 		posselect = (LinearLayout) findViewById(R.id.posselect);
 		posselect.setOnClickListener(this);
+		selectedpos = (TextView) findViewById(R.id.selectedpos);
+		channelselect=(LinearLayout) findViewById(R.id.channelselect);
+		channelselect.setOnClickListener(this);
+		selectedchannel = (TextView) findViewById(R.id.selectedchannel);
 		// close = (Button) findViewById(R.id.close);
 		// close.setOnClickListener(this);
 	}
@@ -206,80 +220,6 @@ public class TerminalApplySelectActivity extends Activity implements
 			break;
 		case R.id.posselect:
 
-			// RequestParams params = new RequestParams();
-			// params.put("customerId", 1);
-			// params.setUseJsonStreamer(true);
-			// MyApplication
-			// .getInstance()
-			// .getClient()
-			// .post(Config.SELECTPOS, params,
-			// new AsyncHttpResponseHandler() {
-			//
-			// @Override
-			// public void onSuccess(int statusCode,
-			// Header[] headers, byte[] responseBody) {
-			// String responseMsg = new String(
-			// responseBody).toString();
-			//
-			// Log.e("LJP", responseMsg);
-			// Gson gson = new Gson();
-			// JSONObject jsonobject = null;
-			// int code = 0;
-			//
-			// try {
-			// jsonobject = new JSONObject(responseMsg);
-			//
-			// code = jsonobject.getInt("code");
-			//
-			// if (code == -2) {
-			// Toast.makeText(
-			// getApplicationContext(),
-			// jsonobject
-			// .getString("message"),
-			// Toast.LENGTH_SHORT).show();
-			// } else if (code == 1) {
-			//
-			// String res = jsonobject
-			// .getString("result");
-			// System.out.println("`res``" + res);
-			// selectPOS = gson
-			// .fromJson(
-			// res,
-			// new TypeToken<List<SelectPOS>>() {
-			// }.getType());
-			// Intent intent = new Intent(
-			// TerminalApplySelectActivity.this,
-			// ApplyChooseActivity.class);
-			// intent.putExtra(CHOOSE_TITLE, getResources()
-			// .getString(R.string.title_pos_select));
-			// intent.putExtra(SELECTED_ID, 0);
-			// intent.putExtra(CHOOSE_ITEMS, selectPOS);
-			// startActivityForResult(intent, 10000);
-			//
-			// } else {
-			// Toast.makeText(
-			// getApplicationContext(),
-			// jsonobject
-			// .getString("message"),
-			// Toast.LENGTH_SHORT).show();
-			// }
-			//
-			// } catch (JSONException e) {
-			// e.printStackTrace();
-			// }
-			//
-			// }
-			//
-			// @Override
-			// public void onFailure(int statusCode,
-			// Header[] headers, byte[] responseBody,
-			// Throwable error) {
-			// error.printStackTrace();
-			//
-			// }
-			//
-			// });
-
 			Config.selectPOS(TerminalApplySelectActivity.this, 1,
 					new HttpCallback<List<SelectPOS>>(
 							TerminalApplySelectActivity.this) {
@@ -309,12 +249,21 @@ public class TerminalApplySelectActivity extends Activity implements
 						}
 					});
 			break;
+		case R.id.channelselect:
+			Intent intent = new Intent(TerminalApplySelectActivity.this,
+					ApplyChannelActivity.class);
+			intent.putExtra(SELECTED_CHANNEL, mChosenChannel);
+			intent.putExtra(SELECTED_BILLING, mChosenBilling);
+			startActivityForResult(intent, REQUEST_CHOOSE_CHANNEL);
+			break;	
+			
 		case R.id.close:
 			this.finish();
 			break;
 
 		}
 	}
+
 	@Override
 	protected void onActivityResult(final int requestCode, int resultCode,
 			final Intent data) {
@@ -323,12 +272,20 @@ public class TerminalApplySelectActivity extends Activity implements
 			return;
 		switch (requestCode) {
 		case REQUEST_CHOOSE_POS: {
-			
 
-//			mMerchantId = data.getIntExtra(SELECTED_ID, 0);
-//			mMerchantId = data.getIntExtra(SELECTED_ID, 0);
+			posID = data.getIntExtra(SELECTED_ID, 0);
+			posName = data.getStringExtra(SELECTED_TITLE);
+			selectedpos.setText(posName);
 			break;
 
+		}
+		
+		case REQUEST_CHOOSE_CHANNEL:{
+			mChosenChannel = (ApplyChannel) data
+					.getSerializableExtra(SELECTED_CHANNEL);
+			mChosenBilling = (ApplyChannel.Billing) data
+					.getSerializableExtra(SELECTED_BILLING);
+			selectedchannel.setText(mChosenChannel.getName());
 		}
 		}
 	}
