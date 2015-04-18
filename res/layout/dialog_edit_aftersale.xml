@@ -70,6 +70,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="取消"
+                  android:background="@drawable/bg_right_white"
                 android:textColor="@color/text6c6c6c6"
                 android:textSize="16sp" />
 
@@ -82,8 +83,9 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_right_bgtitle"
                 android:text="确定"
-                android:textColor="@color/text6c6c6c6"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
