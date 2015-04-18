@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="fill_parent" >
 
     <RelativeLayout
@@ -27,5 +28,8 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/e9e8e8" />
+</LinearLayout>

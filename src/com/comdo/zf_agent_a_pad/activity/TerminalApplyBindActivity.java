@@ -20,10 +20,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
+import com.comdo.zf_agent_a_pad.entity.UserInfo;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -33,25 +36,21 @@ import com.google.gson.reflect.TypeToken;
 public class TerminalApplyBindActivity extends Activity implements
 		View.OnClickListener {
 
-	private View mChooseChannel;
-	private TextView mPayChannel;
 	private int mChannelId;
-	private String mChannelName;
-
+	private Spinner spinner;
 	private LinearLayout createUser;
-
+	private int page = 0;
+	private final int rows = 10;
 	private EditText mTerminalNumber;
-	private EditText mShopName;
 	private Button mSubmitBtn;
 
-	private String terminalNum, shopName;
-
+	public static final int REQUEST_CREATE_USER = 1000;
 	private ArrayAdapter<String> adapter;
 
 	private Button close;
 
 	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
-	final List<String> list = new ArrayList<String>();
+	final List<String> listString = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,39 +60,62 @@ public class TerminalApplyBindActivity extends Activity implements
 
 		items = new ArrayList<Map<String, Object>>();
 
-		// API.getChannelList(this, new
-		// HttpCallback<List<TerminalChannel>>(this) {
-		//
-		// @Override
-		// public void onSuccess(List<TerminalChannel> data) {
-		// for (TerminalChannel channel : data) {
-		// Map<String, Object> item = new HashMap<String, Object>();
-		// item.put("id", channel.getId());
-		// item.put("name", channel.getName());
-		// list.add(channel.getName());
-		// items.add(item);
-		// }
-		// myHandler.sendEmptyMessage(1);
-		//
-		// }
-		//
-		// @Override
-		// public TypeToken<List<TerminalChannel>> getTypeToken() {
-		// return new TypeToken<List<TerminalChannel>>() {
-		// };
-		// }
-		// });
+		Config.getMerchants(this, 1, page + 1, rows,
+				new HttpCallback<PageTerminal<UserInfo>>(this) {
+					@Override
+					public void onSuccess(PageTerminal<UserInfo> data) {
 
-		// mChooseChannel.setOnClickListener(this);
+						for (UserInfo userInfo : data.getList()) {
+							Map<String, Object> item = new HashMap<String, Object>();
+							item.put("id", userInfo.getId());
+							item.put("name", userInfo.getName());
+							listString.add(userInfo.getName());
+							items.add(item);
+						}
 
-		// mTerminalNumber = (EditText) findViewById(R.id.terminal_num);
-		// mShopName = (EditText) findViewById(R.id.shop_name);
-//		mSubmitBtn = (Button) findViewById(R.id.terminal_submit);
+						myHandler.sendEmptyMessage(1);
+					}
+
+					@Override
+					public void onFailure(String message) {
+						super.onFailure(message);
+					}
+
+					@Override
+					public TypeToken<PageTerminal<UserInfo>> getTypeToken() {
+						return new TypeToken<PageTerminal<UserInfo>>() {
+						};
+					}
+				});
+
+		spinner = (Spinner) findViewById(R.id.spinner);
+
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, listString);
+		// adapter.setDropDownViewResource(R.layout.drop_down_item);
+		spinner.setAdapter(adapter);
+
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+
+				mChannelId = (Integer) items.get(arg2).get("id");
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+
+		});
 		createUser = (LinearLayout) findViewById(R.id.create_user);
 		createUser.setOnClickListener(this);
-//		mTerminalNumber.addTextChangedListener(mTextWatcher);
-//		mShopName.addTextChangedListener(mTextWatcher);
-//		mSubmitBtn.setOnClickListener(this);
+
+		mTerminalNumber = (EditText) findViewById(R.id.terminal_num);
+		mSubmitBtn = (Button) findViewById(R.id.terminal_submit);
+
+		mTerminalNumber.addTextChangedListener(mTextWatcher);
+		mSubmitBtn.setOnClickListener(this);
 
 		close = (Button) findViewById(R.id.close);
 		close.setOnClickListener(this);
@@ -105,6 +127,8 @@ public class TerminalApplyBindActivity extends Activity implements
 
 			switch (msg.what) {
 			case 1:
+
+				adapter.notifyDataSetChanged();
 
 				break;
 
@@ -128,21 +152,9 @@ public class TerminalApplyBindActivity extends Activity implements
 	}
 
 	private void updateUIWithValidation() {
-		final boolean enabled = mChannelId > 0 && mTerminalNumber.length() > 0
-				&& mShopName.length() > 0;
-//		mSubmitBtn.setEnabled(enabled);
+		final boolean enabled = mChannelId > 0 && mTerminalNumber.length() > 0;
+		mSubmitBtn.setEnabled(enabled);
 	}
-
-	// @Override
-	// protected void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	// super.onActivityResult(requestCode, resultCode, data);
-	// if (resultCode == RESULT_OK) {
-	// mChannelId = data.getIntExtra(CHANNEL_ID, 0);
-	// mChannelName = data.getStringExtra(CHANNEL_NAME);
-	// mPayChannel.setText(mChannelName);
-	// }
-	// }
 
 	@Override
 	public void onClick(View view) {
@@ -150,24 +162,25 @@ public class TerminalApplyBindActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			// if (check()) {
-			// API.addTerminal(TerminalApplyServiceActivity.this,
-			// MyApplication.getInstance().NewUser.getId(), mChannelId,
-			// mTerminalNumber.getText().toString(), mShopName.getText()
-			// .toString(), new HttpCallback(
-			// TerminalApplyServiceActivity.this) {
-			// @Override
-			// public void onSuccess(Object data) {
-			// setResult(RESULT_OK);
-			// finish();
-			// }
-			//
-			// @Override
-			// public TypeToken getTypeToken() {
-			// return null;
-			// }
-			// });
-			// }
+			Config.bindingTerminal(this, mTerminalNumber.getText().toString(),
+					mChannelId,
+					new HttpCallback(TerminalApplyBindActivity.this) {
+						@Override
+						public void onSuccess(Object data) {
+
+							CommonUtil.toastShort(
+									TerminalApplyBindActivity.this,
+									getResources().getString(
+											R.string.terminal_add_success));
+							finish();
+						}
+
+						@Override
+						public TypeToken getTypeToken() {
+							return null;
+						}
+					});
+
 			break;
 		case R.id.close:
 			this.finish();
@@ -175,10 +188,8 @@ public class TerminalApplyBindActivity extends Activity implements
 		case R.id.create_user:
 			// TODO:
 			startActivityForResult(new Intent(TerminalApplyBindActivity.this,
-					TerminalApplyCreateActivity.class), 1);
+					TerminalApplyCreateActivity.class), REQUEST_CREATE_USER);
 			break;
-
 		}
 	}
-
 }

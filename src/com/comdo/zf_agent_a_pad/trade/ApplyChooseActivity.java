@@ -37,14 +37,17 @@ public class ApplyChooseActivity extends ListActivity {
 		new TitleMenuUtil(this, title).show();
 
 		final List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
-		for (ApplyChooseItem chooseItem : chooseItems) {
-			Map<String, Object> item = new HashMap<String, Object>();
-			item.put("id", chooseItem.getId());
-			item.put("name", chooseItem.getTitle());
-			item.put("selected",
-					chooseItem.getId() == selectedId ? R.drawable.icon_selected
-							: null);
-			items.add(item);
+		if (chooseItems != null) {
+			for (ApplyChooseItem chooseItem : chooseItems) {
+				Map<String, Object> item = new HashMap<String, Object>();
+				item.put("id", chooseItem.getId());
+				item.put("name", chooseItem.getTitle());
+				item.put(
+						"selected",
+						chooseItem.getId() == selectedId ? R.drawable.icon_selected
+								: null);
+				items.add(item);
+			}
 		}
 		final SimpleAdapter adapter = new SimpleAdapter(this, items,
 				R.layout.simple_list_item, new String[] { "id", "name",
