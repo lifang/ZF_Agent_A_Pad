@@ -93,21 +93,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		switch (view.getId()) {
 
 		case R.id.main_rl_sy:
+			Config.TABID=1;
 			changTabBg();
 			im_sy.setBackgroundResource(R.drawable.home);
 			textsy.setTextColor(getResources().getColor(R.color.bgtitle));
 			 if (f_sy == null)
 			f_sy = new M_MianFragment();
-
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.m_fragment, f_sy).commit();
 			break;
 		case R.id.main_rl_gwc:
-	
+			Config.TABID=2;
 			Intent i=new Intent(MainActivity.this,PosListActivity.class);
 			startActivity(i);
 			break;
 		case R.id.main_rl_pos1:
+			Config.TABID=3;
 			changTabBg();
 			im_mess.setBackgroundResource(R.drawable.message);
 			textmes.setTextColor(getResources().getColor(R.color.bgtitle));
@@ -117,6 +118,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case R.id.main_rl_my:
+			Config.TABID=4;
 			changTabBg();
 			im_wd.setBackgroundResource(R.drawable.mine);
 			textwd.setTextColor(getResources().getColor(R.color.o));
@@ -138,5 +140,45 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		SetPopWindow set = new SetPopWindow(this);
 		set.showAtLocation(findViewById(R.id.main), Gravity.CENTER
 				| Gravity.CENTER, 0, 0);
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		switch (Config.TABID) {
+		case 1:
+			changTabBg();
+			im_sy.setBackgroundResource(R.drawable.home);
+			textsy.setTextColor(getResources().getColor(R.color.bgtitle));
+			 if (f_sy == null)
+			f_sy = new M_MianFragment();
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.m_fragment, f_sy).commit();
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			changTabBg();
+			im_mess.setBackgroundResource(R.drawable.message);
+			textmes.setTextColor(getResources().getColor(R.color.bgtitle));
+			if (f_xx == null)
+				f_xx = new Mwdxx();
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.m_fragment, f_xx).commit();
+			break;
+		case 4:
+			changTabBg();
+			im_wd.setBackgroundResource(R.drawable.mine);
+			textwd.setTextColor(getResources().getColor(R.color.o));
+			if(f_my==null)
+				f_my=new Mmy();
+			getSupportFragmentManager().beginTransaction()
+			.replace(R.id.m_fragment, f_my).commit();
+			
+			break;
+
+		default:
+			break;
+		}
 	}
 }
