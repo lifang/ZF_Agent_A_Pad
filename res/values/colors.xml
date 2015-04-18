@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="bgtitle">#FF6624</color>
+    <color name="bgtitle">#006FD5</color>
     <color name="text535252">#535252</color>
 <color name="textc9c9c9">#c9c9c9</color>
     <color name="Viewc">#e1e0e0</color>
@@ -71,7 +71,7 @@
     <color name="seekbar_bg">#e5e5e5</color>
     <color name="progress_bg">#FF9900</color>
     <!-- new  FF1F1F color -->
-	<color name="mybutton">#FD8936</color>
+	<color name="mybutton">#006FD5</color>
     <color name="bg_1FB8FE">#1FB8FE</color>
     <color name="bg_0AB2FF">#0AB2FF</color>
     <color name="bg_575D5F">#575D5F</color>
@@ -100,10 +100,9 @@
  <!-- 订单详情 item 红色 -->
 
     <!-- 按钮颜色 -->
-    <color name="normal_button_enabled">#FD6A00</color>
-    <color name="normal_button_disabled">#F8AE79</color>
-    <color name="normal_button_pressed">#C54800</color>
-    
+    <color name="normal_button_enabled">#006fd5</color>
+    <color name="normal_button_disabled">#aacae9</color>
+    <color name="normal_button_pressed">#025caf</color>
 
     <color name="trade_statistic_bg">#212029</color>
     <color name="background_dark">#9f000000</color>

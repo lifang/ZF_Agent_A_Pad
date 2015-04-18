@@ -71,5 +71,12 @@
         <item>商  户  名</item>
         <item>商户电话</item>
     </string-array>
-
+    <string-array name="terminalAllStatus">
+        <item>全部</item>
+        <item>已开通</item>
+        <item>部分开通</item>
+        <item>未开通</item>
+        <item>已注销</item>
+        <item>已停用</item>
+    </string-array>
 </resources>

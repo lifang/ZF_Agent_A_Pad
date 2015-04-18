@@ -1,5 +1,4 @@
 package com.comdo.zf_agent_a_pad.util;
-
  
  
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -225,7 +225,6 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 			 for(City cc:mCities ){
 				 if(location.getCity()!=null&&!location.getCity().equals("")){
 					 if(cc.getName().endsWith(location.getCity())){
-						 System.out.println("��ǰ���� ID----"+cc.getId());
 						 setCITYID(cc.getId());
 					 }
 				 } 
@@ -248,5 +247,9 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 			e.printStackTrace();
 		}
 	}
-	
+	//隐藏软键盘
+	public static void hideSoftKeyboard(Activity activity){
+		InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+		inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+	}
 }
