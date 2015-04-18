@@ -1,6 +1,9 @@
 package com.comdo.zf_agent_a_pad.trade;
 
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,11 +23,13 @@ public class TradeStatisticActivity extends Activity {
     public static final String START_DATE = "start_date";
     public static final String END_DATE = "end_date";
     public static final String CLIENT_NUMBER = "client_number";
+    public static final String SONAGEHNTID = "sonagentId";
 
     private int mTradeType;
     private String mStartDate;
     private String mEndDate;
-    private String mClientNumber;
+    private String terminalNumber;
+    private int tradeAgentId;
 
     private TextView statisticAmount;
     private TextView statisticCount;
@@ -39,16 +44,19 @@ public class TradeStatisticActivity extends Activity {
         mTradeType = intent.getIntExtra(TRADE_TYPE, 1);
         mStartDate = intent.getStringExtra(START_DATE);
         mEndDate = intent.getStringExtra(END_DATE);
-        mClientNumber = intent.getStringExtra(CLIENT_NUMBER);
+        terminalNumber = intent.getStringExtra(CLIENT_NUMBER);
+        tradeAgentId = intent.getIntExtra(SONAGEHNTID,1);
 
         setContentView(R.layout.activity_trade_statistic);
         initViews();
 
-        API.getTradeRecordStatistic(this, mTradeType, mClientNumber, mStartDate, mEndDate,
+        API.getTradeRecordStatistic(this, mTradeType,1,tradeAgentId, terminalNumber, mStartDate, mEndDate,1,
                 new HttpCallback<TradeStatistic>(this) {
                     @Override
                     public void onSuccess(TradeStatistic data) {
-                        statisticAmount.setText("" + data.getAmountTotal());
+                    	DecimalFormat df = (DecimalFormat)NumberFormat.getInstance();
+            			df.applyPattern("0.00");
+                        statisticAmount.setText(getString(R.string.notation_yuan) + df.format(data.getAmountTotal()*1.0f/100));
                         statisticCount.setText("" + data.getTradeTotal());
                         statisticTime.setText(mStartDate.replaceAll("-", "/") + " - " + mEndDate.replaceAll("-", "/"));
                         statisticClient.setText(data.getTerminalNumber());

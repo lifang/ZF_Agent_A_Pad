@@ -3,6 +3,10 @@ package com.comdo.zf_agent_a_pad.trade;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_TYPE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_RECORD_ID;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -38,17 +42,19 @@ public class TradeDetailActivity extends Activity {
 //        new TitleMenuUtil(this, getString(R.string.title_trade_detail)).show();
         initialViews();
 
-        int typeId = getIntent().getIntExtra(TRADE_TYPE, 0);
         int recordId = getIntent().getIntExtra(TRADE_RECORD_ID, 0);
-        API.getTradeRecordDetail(this, typeId, recordId, new HttpCallback<TradeDetail>(this) {
+        API.getTradeRecordDetail(this, recordId, 1,1, new HttpCallback<TradeDetail>(this) {
             @Override
             public void onSuccess(TradeDetail data) {
 
+            	DecimalFormat df = (DecimalFormat)NumberFormat.getInstance();
+    			df.applyPattern("0.00");
+            	
                 Resources resources = getResources();
                 String[] tradeStatuses = resources.getStringArray(R.array.trade_status);
                 mTradeStatus.setText(tradeStatuses[data.getTradedStatus()]);
-                mTradeAmount.setText(getString(R.string.notation_yuan) + data.getAmount());
-                mTradePoundage.setText(getString(R.string.notation_yuan) + data.getPoundage());
+                mTradeAmount.setText(getString(R.string.notation_yuan) + df.format(data.getAmount()*1.0f/100));
+                mTradePoundage.setText(getString(R.string.notation_yuan) + df.format(data.getPoundage()*1.0f/100));
                 mTradeTime.setText(data.getTradedTimeStr());
 
                 String[] commercialKeys = resources.getStringArray(R.array.trade_item_commercial);
@@ -78,7 +84,7 @@ public class TradeDetailActivity extends Activity {
                             : i == 2 ? data.getPayIntoAccount()
                             : i == 3 ? data.getPayChannelName()
                             : i == 4 ? data.getProfitPrice() + ""
-                            : i == 5 ? data.getAmount() + ""
+                            : i == 5 ? df.format(data.getAmount()*1.0f/100) + ""
                             : i == 6 ? data.getTradedTimeStr()
                             : i == 7 ? tradeStatuses[data.getTradedStatus()]
                             : i == 8 ? data.getBatchNumber()

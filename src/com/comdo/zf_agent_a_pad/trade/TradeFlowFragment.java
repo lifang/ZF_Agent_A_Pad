@@ -30,6 +30,8 @@ import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.CLIENT_NUM
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.AGENT_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.AGENT_NAME;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.END_DATE;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.SONAGEHNTID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_CLIENT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_AGENT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.START_DATE;
@@ -126,7 +129,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 			mTradeClientName.setText(tradeClientName);
 		}
 		if (!TextUtils.isEmpty(tradeAgentName)) {
-			mTradeClientName.setText(tradeAgentName);
+			mTradeAgentName.setText(tradeAgentName);
 		}
 		if (!TextUtils.isEmpty(tradeStartDate)) {
 			mTradeStartDate.setText(tradeStartDate);
@@ -211,7 +214,6 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 						Intent intent = new Intent(getActivity(),
 								TradeDetailActivity.class);
 						intent.putExtra(TRADE_RECORD_ID, record.getId());
-						intent.putExtra(TRADE_TYPE, mTradeType);
 						startActivity(intent);
 					}
 				});
@@ -274,8 +276,8 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		case R.id.trade_search:
 			hasSearched = true;
 			mTradeSearchContent.setVisibility(View.VISIBLE);
-			API.getTradeRecordList(getActivity(), mTradeType, tradeClientName,
-					tradeStartDate, tradeEndDate, 1, 100,
+			API.getTradeRecordList(getActivity(),1,tradeAgentId, mTradeType, tradeClientName,
+					tradeStartDate, tradeEndDate, 1, 10,
 					new HttpCallback<Page<TradeRecord>>(getActivity()) {
 
 						@Override
@@ -299,6 +301,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 			intent.putExtra(CLIENT_NUMBER, tradeClientName);
 			intent.putExtra(START_DATE, tradeStartDate);
 			intent.putExtra(END_DATE, tradeEndDate);
+			intent.putExtra(SONAGEHNTID, tradeAgentId);
 			startActivity(intent);
 			break;
 		}
@@ -457,8 +460,12 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 					R.array.trade_status)[record.getTradedStatus()]);
 			holder.tvTime.setText(record.getTradedTimeStr());
 			holder.tvClientNumber.setText(record.getTerminalNumber());
+			
+			DecimalFormat df = (DecimalFormat)NumberFormat.getInstance();
+			df.applyPattern("0.00");
+			
 			holder.tvAmount.setText(getString(R.string.notation_yuan)
-					+ record.getAmount());
+					+ df.format(record.getAmount()*1.0f/100));
 
 			return convertView;
 		}

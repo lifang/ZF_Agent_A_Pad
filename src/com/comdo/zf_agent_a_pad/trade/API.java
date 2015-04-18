@@ -45,13 +45,13 @@ public class API {
 			+ "/ZFAgent/api/trade/record/getAgents";
 	// trade record list
 	public static final String TRADE_RECORD_LIST = SCHEMA + HOST
-			+ "/ZFMerchant/api/trade/record/getTradeRecords/%d/%s/%s/%s/%d/%d";
+			+ "/ZFAgent/api/trade/record/getTradeRecords";
 	// trade record statistic
 	public static final String TRADE_RECORD_STATISTIC = SCHEMA + HOST
-			+ "/ZFMerchant/api/trade/record/getTradeRecordTotal/%d/%s/%s/%s";
+			+ "/ZFAgent/api/trade/record/getTradeRecordTotal";
 	// trade record detail
 	public static final String TRADE_RECORD_DETAIL = SCHEMA + HOST
-			+ "/ZFMerchant/api/trade/record/getTradeRecord/%d/%d";
+			+ "/ZFAgent/api/trade/getTradeRecord";
 
 	// After sale record list
 	public static final String AFTER_SALE_MAINTAIN_LIST = SCHEMA + HOST
@@ -190,38 +190,55 @@ public class API {
 	 	public static String UPDATE_FILE=SCHEMA + HOST
 	 			+"/ZFMerchant/api/merchant/upload/file";
 	 	
-	 	public static void getTerminalList(Context context, int customerId,
+	 	public static void getTerminalList(Context context, int agentId,
 	 			HttpCallback callback) {
-	 		new HttpRequest(context, callback).post(String.format(TERMINAL_LIST,
-	 				customerId));
+	 		Map<String, Object> params = new HashMap<String, Object>();
+			params.put("agentId", agentId);
+	 		new HttpRequest(context, callback).post(TERMINAL_LIST,params);
 	 	}
 	 	
-	 	public static void getAgentList(Context context, int customerId,
+	 	public static void getAgentList(Context context, int agentId,
 				HttpCallback callback) {
-			new HttpRequest(context, callback).post(String.format(TERMINAL_LIST,
-					customerId));
+	 		Map<String, Object> params = new HashMap<String, Object>();
+			params.put("agentId", agentId);
+			new HttpRequest(context, callback).post(AGENT_LIST,params);
 		}
 	 	
 	 	
-	 	public static void getTradeRecordDetail(Context context, int typeId,
-				int recordId, HttpCallback callback) {
-			new HttpRequest(context, callback).post(String.format(
-					TRADE_RECORD_DETAIL, typeId, recordId));
+	 	public static void getTradeRecordDetail(Context context,int recordId,int agentId,int isHaveProfit, HttpCallback callback) {
+	 		Map<String, Object> params = new HashMap<String, Object>();
+	 		params.put("id", recordId);
+	 		params.put("agentId", agentId);
+	 		params.put("isHaveProfit", isHaveProfit);
+			new HttpRequest(context, callback).post(TRADE_RECORD_DETAIL,params);
 		}
 	 	
-	 	public static void getTradeRecordList(Context context, int tradeTypeId,
+	 	public static void getTradeRecordList(Context context,int agentId,int sonagentId, int tradeTypeId,
 				String terminalNumber, String startTime, String endTime, int page,
 				int rows, HttpCallback callback) {
-			new HttpRequest(context, callback).post(String.format(
-					TRADE_RECORD_LIST, tradeTypeId, terminalNumber, startTime,
-					endTime, page, rows));
+	 		Map<String, Object> params = new HashMap<String, Object>();
+	 		params.put("tradeTypeId", tradeTypeId);
+	 		params.put("agentId", agentId);
+	 		params.put("sonagentId", sonagentId);
+	 		params.put("terminalNumber", terminalNumber);
+	 		params.put("startTime", startTime);
+	 		params.put("endTime", endTime);
+	 		params.put("page", page);
+			params.put("rows", rows);
+			new HttpRequest(context, callback).post(TRADE_RECORD_LIST, params);
 		}
 	 	
-	 	public static void getTradeRecordStatistic(Context context,
-				int tradeTypeId, String terminalNumber, String startTime,
-				String endTime, HttpCallback callback) {
-			new HttpRequest(context, callback).post(String.format(
-					TRADE_RECORD_STATISTIC, tradeTypeId, terminalNumber, startTime,
-					endTime));
+	 	public static void getTradeRecordStatistic(Context context,int agentId,int sonagentId, int tradeTypeId,
+				String terminalNumber, String startTime, String endTime,
+				int isHaveProfit, HttpCallback callback) {
+	 		Map<String, Object> params = new HashMap<String, Object>();
+	 		params.put("tradeTypeId", tradeTypeId);
+	 		params.put("agentId", agentId);
+	 		params.put("sonagentId", sonagentId);
+	 		params.put("terminalNumber", terminalNumber);
+	 		params.put("startTime", startTime);
+	 		params.put("endTime", endTime);
+	 		params.put("isHaveProfit", isHaveProfit);
+			new HttpRequest(context, callback).post(TRADE_RECORD_STATISTIC, params);
 		}
 }

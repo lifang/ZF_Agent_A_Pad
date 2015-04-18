@@ -106,6 +106,7 @@ public class HttpRequest {
 
 	public void post(String url) {
 		HttpEntity entity = null;
+		Log.e("--url--", url);
 		post(url, entity);
 	}
 }

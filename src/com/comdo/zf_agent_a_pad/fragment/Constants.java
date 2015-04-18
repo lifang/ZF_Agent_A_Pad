@@ -46,6 +46,7 @@ public class Constants {
 		public static final String AGENT_NAME = "agent_name";
 		public static final String START_DATE = "start_date";
 		public static final String END_DATE = "end_date";
+		public static final String SONAGEHNTID = "sonagentId";
 
 	}
 		/**

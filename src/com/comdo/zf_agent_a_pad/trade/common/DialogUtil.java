@@ -24,7 +24,7 @@ public class DialogUtil {
         lp.width = (int) (0.6 * screenW);
 
         TextView titleText = (TextView) dialog.findViewById(R.id.dialog_text);
-        titleText.setText("º”‘ÿ ˝æ›...");
+        titleText.setText("Âä†ËΩΩÊï∞ÊçÆ...");
         return dialog;
     }
 
