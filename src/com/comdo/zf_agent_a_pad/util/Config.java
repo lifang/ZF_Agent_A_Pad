@@ -20,7 +20,8 @@ import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.google.gson.Gson;
-//github.com/lifang/ZF_Agent_A_Pad
+import com.loopj.android.http.RequestParams;
+
 import android.content.Context;
 
 import android.util.Log;
@@ -43,6 +44,10 @@ public class Config {
 	public static String goodcomment = PATHS + "comment/list";
 	public static final String POSPORT = PATHS + "good/search";
 	public static final String POSTHOT = PATHS + "index/pos_list";
+	public static final String SHOPORDER = PATHS + "order/shop";
+	public static final String ZDORDER = PATHS + "order/lease";
+	public static final String ORDERLIST = PATHS + "order/orderSearch";
+	
 	public static GoodinfoEntity gfe = null;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
 	public static ArrayList<tDates> tDates = new ArrayList<tDates>();
@@ -51,6 +56,8 @@ public class Config {
 	public static List<ApplyneedEntity> single = new LinkedList<ApplyneedEntity>();
 	public static List<PosEntity> myList = new ArrayList<PosEntity>();
 	public static List<Goodlist> list = new ArrayList<Goodlist>();
+	public static final String ChooseAdress = PATHS
+			+ "agents/getAddressList/";
 	public static String suportare;
 	public static String suportcl;
 	public static String tv_sqkt;
@@ -181,9 +188,47 @@ public class Config {
 		System.out.println("参数--" + params.toString());
 		System.out.println("url--" + Config.POSLIST);
 	}
+	public static void GOODCONFIRM(Context context, int customerId, int goodId,
+			int paychannelId, int quantity, int addressId, String comment,
+			int is_need_invoice, int invoice_type, String invoice_info,
 
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("goodId", goodId);
+		params.put("paychannelId", paychannelId);
+		params.put("quantity", quantity);
+		params.put("addressId", addressId);
+		params.put("comment", comment);
+		params.put("is_need_invoice", is_need_invoice);
+		params.put("invoice_type", invoice_type);
+		params.put("invoice_info", invoice_info);
+		System.out.println("参数--" + params.toString());
+		new HttpRequest(context, callback).post(Config.SHOPORDER, params);
+		// new HttpRequest(context, callback).post(Config.ZDORDER, params);
+	}
 
-		
+	public static void GOODCONFIRM1(Context context, int customerId,
+			int goodId, int paychannelId, int quantity, int addressId,
+			String comment, int is_need_invoice, int invoice_type,
+			String invoice_info,
+
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("goodId", goodId);
+		params.put("paychannelId", paychannelId);
+		params.put("quantity", quantity);
+		params.put("addressId", addressId);
+		params.put("comment", comment);
+		params.put("is_need_invoice", is_need_invoice);
+		params.put("invoice_type", invoice_type);
+		params.put("invoice_info", invoice_info);
+		System.out.println("参数--" + params.toString());
+		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
+		new HttpRequest(context, callback).post(Config.ZDORDER, params);
+	}
+
 
 	public static void getApplyList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
@@ -369,5 +414,24 @@ public class Config {
 		params.put("codeNumber", codeNumber);
 
 		new HttpRequest(context, callback).post(GETCODE4PHONE, params);
+	}
+	public static void GetAdressList(Context context, int  customerId,
+			HttpCallback callback) {
+		RequestParams params=new RequestParams();
+		params.put("customerId", customerId);
+		params.setUseJsonStreamer(true);
+		new HttpRequest(context, callback).post(ChooseAdress, params);
+		Log.e("customerId", customerId+"");
+		Log.e("GET_ADDRESS_LIST", ChooseAdress);
+	}
+	public static void GetOrderList(Context context, int  customerId,String type,
+			HttpCallback callback) {
+		RequestParams params=new RequestParams();
+		params.put("customerId", customerId);
+		params.put("p", type);
+		params.setUseJsonStreamer(true);
+		new HttpRequest(context, callback).post(ORDERLIST, params);
+		Log.e("customerId", customerId+"");
+		Log.e("GET_ADDRESS_LIST", ORDERLIST);
 	}
 }

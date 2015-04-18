@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
+import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.activity.UserManageListActivity;
@@ -124,7 +125,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.main_rl_renzhen: // 订单管理
 			if (Config.CheckIsLogin(getActivity())) {
-			//startActivity(new Intent(getActivity(), ApplyListActivity.class));
+			startActivity(new Intent(getActivity(), OrderList.class));
 			}
 			break;
 		case R.id.main_rl_xtgg: // 售后记录

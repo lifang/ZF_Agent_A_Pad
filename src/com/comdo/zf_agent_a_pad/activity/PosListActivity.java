@@ -68,7 +68,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 	private int list_port = 1;
 	private double maxPrice = 0, minPrice = 0;
 	private boolean isSearch = false;
-	private String keyword;
+	private String keyword="";
 	List<PosEntity> myList = new ArrayList<PosEntity>();
 	List<PosEntity> moreList = new ArrayList<PosEntity>();
 	private ImageView im_sy, im_ghc, im_mess, im_wd;
@@ -141,6 +141,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		textwd = (TextView) findViewById(R.id.textwd);
 
 		im_sy = (ImageView) findViewById(R.id.laa1);
+		im_sy.setOnClickListener(this);
 		im_ghc = (ImageView) findViewById(R.id.igw);
 		im_mess = (ImageView) findViewById(R.id.im_mess);
 		im_wd = (ImageView) findViewById(R.id.im_wd);
@@ -262,12 +263,12 @@ public class PosListActivity extends Activity implements OnClickListener,
 			PosListActivity.this.finish();
 			break;
 		case R.id.pos_select:
-			 i = new Intent(PosListActivity.this,PosPortActivity.class);
+			i = new Intent(PosListActivity.this, PosPortActivity.class);
 			startActivityForResult(i, 1);
 			break;
 		case R.id.et_search:
-			Intent i = new Intent(PosListActivity.this,PosSearch1.class);
-			 startActivityForResult(i, 2);
+			Intent i = new Intent(PosListActivity.this, PosSearch1.class);
+			startActivityForResult(i, 2);
 			break;
 		case R.id.ll_mr:
 			orderType = 0;
@@ -342,7 +343,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 
 			break;
 		case R.id.main_rl_gwc:
-			finish();
+
 			break;
 		case R.id.main_rl_pos1:
 
@@ -352,6 +353,9 @@ public class PosListActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.set:
 			showSet();
+			break;
+		case R.id.laa1:
+			finish();
 			break;
 		default:
 			break;

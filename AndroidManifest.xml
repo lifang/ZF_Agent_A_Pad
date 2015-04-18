@@ -177,6 +177,24 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.GoodConfirm"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.LeaseConfirm"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.OrderList"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
     </application>
 
 </manifest>
