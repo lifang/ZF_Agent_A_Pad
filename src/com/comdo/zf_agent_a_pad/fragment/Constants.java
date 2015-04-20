@@ -32,7 +32,11 @@ public class Constants {
 	 */
 	public static class TradeIntent {
 		public static final int REQUEST_TRADE_CLIENT = 0;
+		public static final int REQUEST_TRADE_AGENT = 1;
 
+		public static final String AGENT_ID = "agent_id";
+		public static final String AGENT_NAME = "agent_name";
+		public static final String SONAGEHNTID = "sonagentId";
 		public static final String TRADE_TYPE = "trade_type";
 		public static final String TRADE_RECORD_ID = "trade_record_id";
 		public static final String CLIENT_NUMBER = "client_number";
