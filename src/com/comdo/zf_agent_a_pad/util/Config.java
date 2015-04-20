@@ -35,8 +35,8 @@ public class Config {
 	public static String token = "123";
 	public static final int CODE = 1;
 
-	public static int ScreenWidth=0;
-	public static int ScreenHeight=0;
+	public static int ScreenWidth = 0;
+	public static int ScreenHeight = 0;
 
 	public static final String POSLIST = PATHS + "good/list";
 	public static final String GOODDETAIL = PATHS + "good/goodinfo";
@@ -47,7 +47,7 @@ public class Config {
 	public static final String SHOPORDER = PATHS + "order/shop";
 	public static final String ZDORDER = PATHS + "order/lease";
 	public static final String ORDERLIST = PATHS + "order/orderSearch";
-	
+
 	public static GoodinfoEntity gfe = null;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
 	public static ArrayList<tDates> tDates = new ArrayList<tDates>();
@@ -56,83 +56,83 @@ public class Config {
 	public static List<ApplyneedEntity> single = new LinkedList<ApplyneedEntity>();
 	public static List<PosEntity> myList = new ArrayList<PosEntity>();
 	public static List<Goodlist> list = new ArrayList<Goodlist>();
-	public static final String ChooseAdress = PATHS
-			+ "agents/getAddressList/";
+	public static final String ChooseAdress = PATHS + "agents/getAddressList/";
 	public static String suportare;
 	public static String suportcl;
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
-	public static String getmes=PATHS+"message/receiver/getAll";
+	public static String getmes = PATHS + "message/receiver/getAll";
 
 	// upload image url
 	public static final String UPLOAD_IMAGE = PATHS
-			+ "/comment/upload/tempImage";
+			+ "comment/upload/tempImage";
+
+	// upload register url
+	public static final String UPLOAD_REGISTER = PATHS
+			+ "agent/upload/register";
 
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
 	static Gson gson = new Gson();
 	// Apply List
-	public static final String APPLY_LIST = PATHS + "/apply/getApplyList";
+	public static final String APPLY_LIST = PATHS + "apply/getApplyList";
 	// Apply Detail
-	public static final String APPLY_DETAIL = PATHS + "/apply/getApplyDetails";
+	public static final String APPLY_DETAIL = PATHS + "apply/getApplyDetails";
 
 	// Get the Merchant Detail
 	public static final String APPLY_MERCHANT_DETAIL = PATHS
-			+ "/apply/getMerchant";
+			+ "apply/getMerchant";
 	// upload image url
 	// Get the Channel List
-	public static final String APPLY_CHANNEL_LIST = PATHS
-			+ "/apply/getChannels";
+	public static final String APPLY_CHANNEL_LIST = PATHS + "apply/getChannels";
 
 	// Get the Bank List
-	public static final String APPLY_BANK_LIST = PATHS + "/apply/ChooseBank";
+	public static final String APPLY_BANK_LIST = PATHS + "apply/ChooseBank";
 
 	// find pos password
 	public static final String TERMINAL_FIND_POS = PATHS
-			+ "/terminal/Encryption";
+			+ "terminal/Encryption";
 
 	// Terminal list
-		public static final String TERMINAL_APPLY_LIST = PATHS
-				+ "terminal/getApplyList";
+	public static final String TERMINAL_APPLY_LIST = PATHS
+			+ "terminal/getApplyList";
 
-		// Terminal detail
-		public static final String TERMINAL_DETAIL = PATHS
-				+ "terminal/getApplyDetails";
+	// Terminal detail
+	public static final String TERMINAL_DETAIL = PATHS
+			+ "terminal/getApplyDetails";
 
-		// terminal marchants
-		public static final String TERMINAL_MERCHANTS = PATHS
-				+ "terminal/getMerchants";
+	// terminal marchants
+	public static final String TERMINAL_MERCHANTS = PATHS
+			+ "terminal/getMerchants";
 
-		// terminal bind
-		public static final String TERMINAL_BIND = PATHS
-				+ "terminal/bindingTerminals";
+	// terminal bind
+	public static final String TERMINAL_BIND = PATHS
+			+ "terminal/bindingTerminals";
 
-		// terminal bind sms
-		public static final String TERMINAL_BIND_SMS = PATHS
-				+ "terminal/sendPhoneVerificationCodeReg";
+	// terminal bind sms
+	public static final String TERMINAL_BIND_SMS = PATHS
+			+ "terminal/sendPhoneVerificationCodeReg";
 
-		// terminal add customer
-		public static final String ADD_CUSTOMER = PATHS + "terminal/addCustomer";
+	// terminal add customer
+	public static final String ADD_CUSTOMER = PATHS + "terminal/addCustomer";
 
-		// terminal get address
-		public static final String TERMINAL_GET_ADDRESS = PATHS
-				+ "terminal/getAddressee";
-
+	// terminal get address
+	public static final String TERMINAL_GET_ADDRESS = PATHS
+			+ "terminal/getAddressee";
 
 	// terminal submitAgent
-	public static final String TERMINAL_SUBMIT = PATHS
-			+ "terminal/submitAgent";
-	
-    // terminal batchTerminalNum
+	public static final String TERMINAL_SUBMIT = PATHS + "terminal/submitAgent";
+
+	// terminal batchTerminalNum
 	public static final String TERMINAL_BATCH_TERMINALNUM = PATHS
 			+ "terminal/batchTerminalNum";
-	
+
 	// terminal screeningTerminalNum
 	public static final String TERMINAL_SCREEN_TERMINALNUM = PATHS
 			+ "terminal/screeningTerminalNum";
-	
+
 	// Get msglist
 	public static final String GET_MSGLIST = PATHS + "message/receiver/getAll";
 
@@ -171,21 +171,67 @@ public class Config {
 			+ "user/delectAgentUser";
 	// 用户管理--获得该代理商下面某个用户的相关终端列表
 	public static final String USER_GETTERMINALS = PATHS + "user/getTerminals";
-	//库存管理列表
-		public static final String STOCK_LIST = PATHS + "stock/list";
-		//库存管理详情（下级代理商列表）
-		public static final String STOCK_INFO = PATHS + "stock/info";
-		//库存管理商品重命名
-		public static final String STOCK_RENAME = PATHS + "stock/rename";
-		//库存管理详情（下级代理商终端列表）
-		public static final String STOCK_TERMINALLIST = PATHS + "stock/terminallist";
+	// 库存管理列表
+	public static final String STOCK_LIST = PATHS + "stock/list";
+	// 库存管理详情（下级代理商列表）
+	public static final String STOCK_INFO = PATHS + "stock/info";
+	// 库存管理商品重命名
+	public static final String STOCK_RENAME = PATHS + "stock/rename";
+	// 库存管理详情（下级代理商终端列表）
+	public static final String STOCK_TERMINALLIST = PATHS
+			+ "stock/terminallist";
 	// get code
 	public static final String GETCODE4PHONE = PATHS
-			+ "/user/sendPhoneVerificationCodeReg";
+			+ "user/sendPhoneVerificationCodeReg";
 	// select pos
-		public static final String SELECTPOS = PATHS + "terminal/screeningPosName";
+	public static final String SELECTPOS = PATHS + "terminal/screeningPosName";
 	// apply submit
 	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
+
+	// login
+	public static final String LOGIN = PATHS + "agent/agentLogin";
+
+	// find pass phone
+	public static final String GETPHONEPASS = PATHS
+			+ "agent/sendPhoneVerificationCode";
+
+	// find pass email
+	public static final String GETEMAILPASS = PATHS
+			+ "agent/sendEmailVerificationCode";
+
+	// find pass
+	public static final String FIND_PASS = PATHS + "agent/updatePassword";
+
+	public static void login(Context context, String username, String password,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("username", username);
+		params.put("password", password);
+		new HttpRequest(context, callback).post(LOGIN, params);
+	}
+
+	public static void getPhonePass(Context context, String codeNumber,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+		new HttpRequest(context, callback).post(GETPHONEPASS, params);
+	}
+
+	public static void getEmailPass(Context context, String codeNumber,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+		new HttpRequest(context, callback).post(GETEMAILPASS, params);
+	}
+
+	public static void updatePassword(Context context, String username,
+			String password, String code, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("username", username);
+		params.put("password", password);
+		params.put("code", code);
+		new HttpRequest(context, callback).post(FIND_PASS, params);
+	}
 
 	public static boolean CheckIsLogin(Context c) {
 		return true;
@@ -229,6 +275,7 @@ public class Config {
 		System.out.println("参数--" + params.toString());
 		System.out.println("url--" + Config.POSLIST);
 	}
+
 	public static void GOODCONFIRM(Context context, int customerId, int goodId,
 			int paychannelId, int quantity, int addressId, String comment,
 			int is_need_invoice, int invoice_type, String invoice_info,
@@ -269,7 +316,6 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
 		new HttpRequest(context, callback).post(Config.ZDORDER, params);
 	}
-
 
 	public static void getApplyList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
@@ -338,7 +384,7 @@ public class Config {
 		params.put("terminalsId", terminalId);
 		new HttpRequest(context, callback).post(TERMINAL_DETAIL, params);
 	}
-	
+
 	public static void getMsgList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -456,27 +502,17 @@ public class Config {
 		new HttpRequest(context, callback).post(AGENTS_ADDMARK, params);
 	}
 
-
-	public static void stockList(
-			Context context,
-			int agentId,
-			int page,
-			int rows,
-			HttpCallback callback) {
+	public static void stockList(Context context, int agentId, int page,
+			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(STOCK_LIST, params);
 	}
-	public static void stockInfo(
-			Context context,
-			int agentId,
-			int paychannelId,
-			int goodId,
-			String agentname,
-			int page,
-			int rows,
+
+	public static void stockInfo(Context context, int agentId,
+			int paychannelId, int goodId, String agentname, int page, int rows,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
@@ -487,25 +523,18 @@ public class Config {
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(STOCK_LIST, params);
 	}
-	public static void stockRename(
-			Context context,
-			int agentId,
-			int goodId,
-			String goodname,
-			HttpCallback callback) {
+
+	public static void stockRename(Context context, int agentId, int goodId,
+			String goodname, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("goodId", goodId);
 		params.put("goodname", goodname);
 		new HttpRequest(context, callback).post(STOCK_RENAME, params);
 	}
-	public static void stockTerminallist(
-			Context context,
-			int agentId,
-			int paychannelId,
-			int goodId,
-			int page,
-			int rows,
+
+	public static void stockTerminallist(Context context, int agentId,
+			int paychannelId, int goodId, int page, int rows,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
@@ -515,7 +544,7 @@ public class Config {
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(STOCK_TERMINALLIST, params);
 	}
-	
+
 	public static void AddAdres1(Context context, String codeNumber,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -523,26 +552,28 @@ public class Config {
 
 		new HttpRequest(context, callback).post(GETCODE4PHONE, params);
 	}
-	public static void GetAdressList(Context context, int  customerId,
+
+	public static void GetAdressList(Context context, int customerId,
 			HttpCallback callback) {
-		RequestParams params=new RequestParams();
+		RequestParams params = new RequestParams();
 		params.put("customerId", customerId);
 		params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ChooseAdress, params);
-		Log.e("customerId", customerId+"");
+		Log.e("customerId", customerId + "");
 		Log.e("GET_ADDRESS_LIST", ChooseAdress);
 	}
-	public static void GetOrderList(Context context, int  customerId,String type,
-			HttpCallback callback) {
-		RequestParams params=new RequestParams();
+
+	public static void GetOrderList(Context context, int customerId,
+			String type, HttpCallback callback) {
+		RequestParams params = new RequestParams();
 		params.put("customerId", customerId);
 		params.put("p", type);
 		params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ORDERLIST, params);
-		Log.e("customerId", customerId+"");
+		Log.e("customerId", customerId + "");
 		Log.e("GET_ADDRESS_LIST", ORDERLIST);
 	}
-	
+
 	public static void selectPOS(Context context, int customerId,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -550,11 +581,12 @@ public class Config {
 
 		new HttpRequest(context, callback).post(SELECTPOS, params);
 	}
-	
+
 	public static void submitApply(Context context, Map<String, Object> params,
 			HttpCallback callback) {
 		new HttpRequest(context, callback).post(APPLY_SUBMIT, params);
 	}
+
 	public static void getMerchants(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -613,17 +645,16 @@ public class Config {
 		new HttpRequest(context, callback).post(TERMINAL_SUBMIT, params);
 	}
 
-
 	public static void batchTerminalNum(Context context, String[] serialNum,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("serialNum", serialNum);
-		new HttpRequest(context, callback).post(TERMINAL_BATCH_TERMINALNUM, params);
+		new HttpRequest(context, callback).post(TERMINAL_BATCH_TERMINALNUM,
+				params);
 	}
-	
-	public static void screeningTerminalNum(Context context, String title,int channelsId,
-			int minPrice,int maxPrice,
-			int agentId,
+
+	public static void screeningTerminalNum(Context context, String title,
+			int channelsId, int minPrice, int maxPrice, int agentId,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("title", title);
@@ -631,7 +662,8 @@ public class Config {
 		params.put("minPrice", minPrice);
 		params.put("maxPrice", maxPrice);
 		params.put("agentId", agentId);
-		new HttpRequest(context, callback).post(TERMINAL_SCREEN_TERMINALNUM, params);
+		new HttpRequest(context, callback).post(TERMINAL_SCREEN_TERMINALNUM,
+				params);
 	}
 
 }
