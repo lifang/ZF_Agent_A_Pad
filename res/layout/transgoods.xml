@@ -17,10 +17,10 @@
     android:text="选择代理商"
     android:textColor="#4C4C4C"
     android:textSize="18sp"/>
-    <TextView 
+    <Spinner 
+        android:id="@+id/mySpinner" 
     android:layout_width="300dp"
     android:layout_height="45dp"
-    android:text="川西数码"
     android:textSize="18sp"
     android:textColor="#868788"
     android:layout_marginLeft="20dp"
@@ -59,6 +59,7 @@
     android:textColor="#868788"
     android:layout_marginLeft="20dp"/>
     <TextView 
+        android:id="@+id/tv_time_right"
     android:layout_width="200dp"
     android:layout_height="45dp"
     android:text="2014-12-27"

@@ -2,6 +2,9 @@ package com.comdo.zf_agent_a_pad.fragment;
 
 import java.security.MessageDigest;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,7 +40,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	}
 	try {
 		view = inflater.inflate(R.layout.changepaw, container, false);
-		
+		init();
 	} catch (InflateException e) {
 
 	}
@@ -48,7 +51,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
-	init();
+	
 	btn_save.setOnClickListener(new OnClickListener() {
 		
 		@Override
@@ -58,7 +61,25 @@ public void onStart() {
 		}
 	});
 }
-protected void changepaw() {}
+protected void changepaw() {
+	Config.changePaw(getActivity(), 80,
+			et_oldpaw.getText().toString(), 
+			et_newpaw.getText().toString(), 
+			new HttpCallback(getActivity()) {
+
+				@Override
+				public void onSuccess(Object data) {
+					CommonUtil.toastShort(getActivity(), "密码修改成功");
+					
+				}
+
+				@Override
+				public TypeToken getTypeToken() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+			});
+}
 private void init() {
 	et_oldpaw=(EditText) view.findViewById(R.id.et_oldpaw);
 	et_newpaw=(EditText) view.findViewById(R.id.et_newpaw);

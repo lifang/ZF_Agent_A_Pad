@@ -59,9 +59,9 @@ public class StaffmanagerAdapter extends BaseAdapter{
 		else{
 			holdel=(ViewHoldel) convertView.getTag();
 		}
-		holdel.tv_loginid.setText(datastaff.get(position).getLoginid());
+		holdel.tv_loginid.setText(datastaff.get(position).getUsername());
 		holdel.tv_name.setText(datastaff.get(position).getName());
-		holdel.tv_time.setText(datastaff.get(position).getTime());
+		holdel.tv_time.setText(datastaff.get(position).getCreatedAt());
 		return convertView;
 	}
 	public static class ViewHoldel{

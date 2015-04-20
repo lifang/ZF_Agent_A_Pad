@@ -18,6 +18,7 @@ public class DistributeAdapter extends BaseAdapter{
 	private List<DistributeEntity> datadistribut;
 	private Context context;
 	private LayoutInflater mInflater;
+	public static int pp;
 	public DistributeAdapter(List<DistributeEntity> datadistribut,Context context){
 		super();
 		this.datadistribut=datadistribut;
@@ -42,7 +43,7 @@ public class DistributeAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHoldel holdel;
 		if(convertView == null){
 			mInflater=LayoutInflater.from(context);
@@ -56,13 +57,14 @@ public class DistributeAdapter extends BaseAdapter{
 		else{
 			holdel=(ViewHoldel) convertView.getTag();
 		}
-		holdel.tv_with.setText(datadistribut.get(position).getWith());
-		holdel.tv_time.setText(datadistribut.get(position).getTime());
-		holdel.tv_amount.setText(datadistribut.get(position).getAmount());
+		holdel.tv_with.setText(datadistribut.get(position).getCompany_name());
+		holdel.tv_time.setText(datadistribut.get(position).getCreated_at());
+		holdel.tv_amount.setText(datadistribut.get(position).getQuantity());
 		convertView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				pp=position;
 				Message msg=Distribute.myHandler.obtainMessage();
 				msg.what=0;
 				msg.sendToTarget();

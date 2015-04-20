@@ -10,11 +10,20 @@ import org.json.JSONObject;
 
 import com.comdo.zf_agent_a_pad.adapter.AddressManagerAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AddressManager;
+import com.comdo.zf_agent_a_pad.entity.MessageEntity;
+import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,8 +43,13 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Mine_adress extends Fragment implements OnClickListener{
@@ -53,6 +67,14 @@ public class Mine_adress extends Fragment implements OnClickListener{
 	//private int id=MyApplication.NewUser.getId();
 	public static int[] idd;
 	public static int type=0;
+	private EditText login_edit_name,mobile_phone,zip_code,detail_address;
+	private TextView area,tv_title;
+	private Button btn_save;
+	private CheckBox cb;
+	private int isDefault;
+	private int cityId;
+	private AlertDialog.Builder builder;
+	private boolean isEdit=false;
 	//private TextView info,safe,manageradress,score;
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +87,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	}
 	try {
 		view = inflater.inflate(R.layout.manageradress, container, false);
-		
+		init();
 	} catch (InflateException e) {
 	
 	}
@@ -75,110 +97,74 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
-	init();
 	getData();
-	/*myHandler=new Handler(){
+	myHandler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
-			if(msg.what==1){
-				isclickitem=true;
-				Intent intent=new Intent(getActivity(),AdressEdit.class);
-				intent.putExtra("position", AddressManagerAdapter.pp);
-				startActivity(intent);
+			switch (msg.what) {
+			case 0:
+				list.setAdapter(addressadapter);
+				break;
+			case 1:
+
+				if(dataadress.size()!=0){
+					dataadress.clear();
+				}
+				getData();
+			
+				break;
+			case 2:
+				isEdit=true;
+				opendialog();
+				
+				break;
+			default:
+				break;
 			}
+			
 		};
-	};*/
+	};
 }
 private void getData() {
 	if(!Tools.isConnect(getActivity())){
 		CommonUtil.toastShort(getActivity(), "网络异常");
 		return;
 	}
-		/*MyApplication.getInstance().getClient().post(API.GET_ADRESS+id, new AsyncHttpResponseHandler() {
-			private Dialog loadingDialog;
+	Config.GetAdressList(getActivity(), 80, new HttpCallback<List<AddressManager>>(getActivity()) {
 
-			@Override
-			public void onStart() {	
-				super.onStart();
-				loadingDialog = DialogUtil.getLoadingDialg(getActivity());
-				loadingDialog.show();
+		@Override
+		public void onSuccess(List<AddressManager> data) {
+			
+			if(dataadress.size()!=0&&data.size()==0){
+				Toast.makeText(getActivity(), "没有更多数据!", 1000).show();
 			}
-			@Override
-			public void onFinish() {
-				super.onFinish();
-				loadingDialog.dismiss();
-			}
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-				Mine_Address.isclickitem=false;
-				String responseMsg = new String(responseBody)
-				.toString();
-				Log.e("print", responseMsg); 
-				Gson gson = new Gson();						
-				JSONObject jsonobject = null;
-				String code = null;
-				try {
-					jsonobject = new JSONObject(responseMsg);
-					code = jsonobject.getString("code");
-					int a =jsonobject.getInt("code");
-					if(a==Config.CODE){ 
-						JSONArray result =jsonobject.getJSONArray("result");
-						idd=new int[result.length()];
-						for(int i=0;i<result.length();i++){
-							type=result.getJSONObject(i).getInt("isDefault");
-							Log.e("type", String.valueOf(type));
-			                if(result.getJSONObject(i).getInt("isDefault")==1){
-			                	Message msg=AddressManagerAdapter.myHandler.obtainMessage();
-			                	msg.what=1;
-			                	msg.sendToTarget();
-			                }
-							idd[i]=result.getJSONObject(i).getInt("id");
-							if(result.getJSONObject(i).getInt("isDefault")==1){
-								dataadress.add(new AddressManager(i, 
-										result.getJSONObject(i).getString("receiver"),
-										result.getJSONObject(i).getString("city"),
-										result.getJSONObject(i).getString("address"),
-										result.getJSONObject(i).getString("zipCode"),
-										result.getJSONObject(i).getString("moblephone"),
-										"默认"));
-							}
-							else{
-								dataadress.add(new AddressManager(i, 
-										result.getJSONObject(i).getString("receiver"),
-										result.getJSONObject(i).getString("city"),
-										result.getJSONObject(i).getString("address"),
-										result.getJSONObject(i).getString("zipCode"),
-										result.getJSONObject(i).getString("moblephone"),
-										"  "));
-							}
-							dataadress.add(new AddressManager(i, 
-									result.getJSONObject(i).getString("receiver"),
-									result.getJSONObject(i).getString("city"), 
-									result.getJSONObject(i).getString("address"), 
-									result.getJSONObject(i).getString("zipCode"),
-									result.getJSONObject(i).getString("moblephone")));
-							
-						}
-					
-						list.setAdapter(addressadapter);
+			else{
+				dataadress.addAll(data);
+				idd=new int[data.size()];
+				for(int i=0;i<idd.length;i++){
+					idd[i]=(int) data.get(i).getId();
+				}
+				for(int i=0;i<dataadress.size();i++){
+					if(dataadress.get(i).getIsDefault().equals("1")){
+						dataadress.get(i).setIsDefault("默认");
 					}
 					else{
-						
+						dataadress.get(i).setIsDefault("");
 					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					Toast.makeText(getActivity(), String.valueOf(j), Toast.LENGTH_SHORT).show();
 				}
-				
+			}
+			if(dataadress.size()!=0){
+				myHandler.sendEmptyMessage(0);	
 			}
 			
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					byte[] responseBody, Throwable error) {
-				// TODO Auto-generated method stub
-				
-			}
-		});*/
+		}
+
+		@Override
+		public TypeToken<List<AddressManager>> getTypeToken() {
+			// TODO Auto-generated method stub
+			return new TypeToken<List<AddressManager>>() {
+			};
+		}
+	});
 		
 	}
 private void init() {
@@ -186,11 +172,6 @@ private void init() {
 	dataadress=new ArrayList<AddressManager>();
 	addressadapter=new AddressManagerAdapter(dataadress, getActivity().getBaseContext());
 	list=(ListView) view.findViewById(R.id.list);
-	for(int i=0;i<8;i++){
-		dataadress.add(new AddressManager(i,
-				"111111", "111111", "111111", "111111", "111111", "111111"));
-	}
-	list.setAdapter(addressadapter);
 	btn_add=(Button) view.findViewById(R.id.btn_add);
 	btn_add.setOnClickListener(this);
 	}
@@ -202,23 +183,147 @@ public void onClick(View v) {
 	startActivity(intent);*/
 		opendialog();
 		break;
-
+	case R.id.btn_save:
+		if(isEdit){
+			changeAddress();
+		}
+		else{
+			addAddresss();
+		}
+		
+		break;
+	case R.id.area:
+		Intent intent = new Intent(getActivity(),
+				CityProvinceActivity.class);
+		//intent.putExtra(CITY_NAME, cityName);
+		//startActivityForResult(intent, REQUEST_CITY);
+		startActivityForResult(intent, com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY);
+		break;
 	default:
 		break;
 	}
 	
 }
+private void changeAddress() {
+	Config.changeAdres(getActivity(), idd[AddressManagerAdapter.pp],
+			String.valueOf(cityId), login_edit_name.getText().toString(), 
+			mobile_phone.getText().toString(), 
+			zip_code.getText().toString(), 
+			detail_address.getText().toString(),80, isDefault, new HttpCallback(getActivity()) {
+
+				@Override
+				public void onSuccess(Object data) {
+					CommonUtil.toastShort(getActivity(), "修改地址成功");
+					getData();
+					
+				}
+@Override
+public void onFailure(String message) {
+	// TODO Auto-generated method stub
+	super.onFailure(message);
+}
+				@Override
+				public TypeToken getTypeToken() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+			});
+	
+}
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	// TODO Auto-generated method stub
+	super.onActivityResult(requestCode, resultCode, data);
+	switch (requestCode) {
+	//case REQUEST_CITY:
+	//case com.example.zf_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY:
+	case com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY:
+		if(CityProvinceActivity.isClickconfirm){
+			City mMerchantCity = (City) data.getSerializableExtra(com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_CITY);
+			cityId=mMerchantCity.getId() ;
+			area.setText(mMerchantCity.getName());
+			Log.e("1", area.getText().toString());
+			CityProvinceActivity.isClickconfirm=false;
+			/*cityId = data.getIntExtra(CITY_ID, 0);
+			cityName = data.getStringExtra(CITY_NAME);
+			tv_city_select.setText(cityName);*/
+		}
+		
+		break;
+	
+	default:
+		break;
+	}
+}
+private void addAddresss() {
+	Config.AddAdress(getActivity(), String.valueOf(cityId), login_edit_name.getText().toString(), 
+			mobile_phone.getText().toString(), 
+			zip_code.getText().toString(), 
+			detail_address.getText().toString(), isDefault, 80, new HttpCallback(getActivity()) {
+
+				@Override
+				public void onSuccess(Object data) {
+					CommonUtil.toastShort(getActivity(), "添加地址成功");
+					myHandler.sendEmptyMessage(1);
+				}
+
+				@Override
+				public TypeToken getTypeToken() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+			});
+	
+}
 private void opendialog() {
-	final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	builder = new AlertDialog.Builder(getActivity());
 	LayoutInflater factory = LayoutInflater.from(getActivity());
 	final View textEntryView = factory.inflate(R.layout.addaddress, null);
 	// builder.setTitle("自定义输入框");
      builder.setView(textEntryView);
-    
+     login_edit_name=(EditText) textEntryView.findViewById(R.id.login_edit_name);
+     mobile_phone=(EditText) textEntryView.findViewById(R.id.mobile_phone);
+     zip_code=(EditText) textEntryView.findViewById(R.id.zip_code);
+     detail_address=(EditText) textEntryView.findViewById(R.id.detail_address);
+     area=(TextView) textEntryView.findViewById(R.id.area);
+     btn_save=(Button) textEntryView.findViewById(R.id.btn_save);
+     cb=(CheckBox) textEntryView.findViewById(R.id.cb);
+     tv_title=(TextView) textEntryView.findViewById(R.id.tv_title);
+     btn_save.setOnClickListener(this);
+     area.setOnClickListener(this);
      //final AlertDialog dialog = builder.show();
      //dialog=builder.show();
      builder.create().show();
-	
+     if(isEdit){
+    	 tv_title.setText("编辑地址") ;
+    	 login_edit_name.setText(dataadress.get(AddressManagerAdapter.pp).getReceiver());
+    	 mobile_phone.setText(dataadress.get(AddressManagerAdapter.pp).getMoblephone());
+    	 zip_code.setText(dataadress.get(AddressManagerAdapter.pp).getZipCode());
+    	 detail_address.setText(dataadress.get(AddressManagerAdapter.pp).getAddress());
+    	 area.setText(dataadress.get(AddressManagerAdapter.pp).getCity());
+    	 if(dataadress.get(AddressManagerAdapter.pp).getIsDefault().equals("默认")){
+    		 cb.setBackgroundResource(R.drawable.cb_y);
+    		 isDefault=1;
+    	 }
+    	 else{
+    		 cb.setBackgroundResource(R.drawable.cb_n);
+    		 isDefault=2;
+    	 }
+    	 
+     }
+     cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		
+		@Override
+		public void onCheckedChanged(CompoundButton arg0, boolean isCheck) {
+			if(isCheck){
+				isDefault=1;
+			}
+			else{
+				isDefault=2;
+			}
+			
+		}
+	});
 }
 @Override
 public void onPause() {
