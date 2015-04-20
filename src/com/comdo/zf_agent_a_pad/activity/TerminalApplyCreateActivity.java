@@ -1,11 +1,14 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_CITY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_PROVINCE;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,19 +16,21 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
+import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
+import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -36,24 +41,20 @@ import com.google.gson.reflect.TypeToken;
 public class TerminalApplyCreateActivity extends Activity implements
 		View.OnClickListener {
 
-	private View mChooseChannel;
-	private TextView mPayChannel, tv_code;
+	private TextView selectedcity, tv_code;
 	private int mChannelId;
-	private String mChannelName, mCode;
-	private LinearLayout getCode,check;
-	private EditText mTerminalNumber, setCode,checkCode;
-	private EditText mShopName;
-	private Button mSubmitBtn;
+	private LinearLayout getCode, check;
+	private EditText username, setCode, checkCode, pwd, confirmpwd;
 	public String vcode = "";
-	private String terminalNum, shopName;
-    private ImageView img_check_y,img_check_n;
+	private String name,password, mCode;
+	private ImageView img_check_y, img_check_n;
 	private Boolean isRun = true;
-	private Boolean chenckcode = false;
-	private ArrayAdapter<String> adapter;
+	private Boolean checkcode = false;
+	private Boolean verification = false;
+	private Province mMerchantProvince;
+	private City mMerchantCity;
+	private Button mSubmitBtn, close;
 
-	private Button close;
-
-	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 	final List<String> list = new ArrayList<String>();
 	private int Countmun = 120;
 	private Runnable runnable;
@@ -64,55 +65,30 @@ public class TerminalApplyCreateActivity extends Activity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_terminal_apply_new_user);
 
-		items = new ArrayList<Map<String, Object>>();
-
-		// API.getChannelList(this, new
-		// HttpCallback<List<TerminalChannel>>(this) {
-		//
-		// @Override
-		// public void onSuccess(List<TerminalChannel> data) {
-		// for (TerminalChannel channel : data) {
-		// Map<String, Object> item = new HashMap<String, Object>();
-		// item.put("id", channel.getId());
-		// item.put("name", channel.getName());
-		// list.add(channel.getName());
-		// items.add(item);
-		// }
-		// myHandler.sendEmptyMessage(1);
-		//
-		// }
-		//
-		// @Override
-		// public TypeToken<List<TerminalChannel>> getTypeToken() {
-		// return new TypeToken<List<TerminalChannel>>() {
-		// };
-		// }
-		// });
-
-		// mChooseChannel.setOnClickListener(this);
-
-		// mTerminalNumber = (EditText) findViewById(R.id.terminal_num);
-		// mShopName = (EditText) findViewById(R.id.shop_name);
-		// mSubmitBtn = (Button) findViewById(R.id.terminal_submit);
-		//
-		// mTerminalNumber.addTextChangedListener(mTextWatcher);
-		// mShopName.addTextChangedListener(mTextWatcher);
-		// mSubmitBtn.setOnClickListener(this);
+		username =(EditText) findViewById(R.id.username);
+		username.addTextChangedListener(mTextWatcher);
+		setCode = (EditText) findViewById(R.id.phonenum);
+		checkCode = (EditText) findViewById(R.id.checkcode);
+		pwd = (EditText) findViewById(R.id.pwd);
+		confirmpwd = (EditText) findViewById(R.id.confirmpwd);
+		confirmpwd.addTextChangedListener(mTextWatcher);
 		getCode = (LinearLayout) findViewById(R.id.get_code);
 		getCode.setOnClickListener(this);
-		check=(LinearLayout) findViewById(R.id.tv_check);
+		check = (LinearLayout) findViewById(R.id.tv_check);
 		check.setOnClickListener(this);
 		tv_code = (TextView) findViewById(R.id.code);
+		selectedcity = (TextView) findViewById(R.id.selectedcity);
+		mSubmitBtn = (Button) findViewById(R.id.terminal_submit);
 		close = (Button) findViewById(R.id.close);
 		close.setOnClickListener(this);
-		chenckcode = true;
+		checkcode = true;
 		runnable = new Runnable() {
 			@Override
 			public void run() {
 				if (Countmun == 0) {
 					Countmun = 120;
-					tv_code.setClickable(true);
-					tv_code.setText("发送验证码");
+					getCode.setClickable(true);
+					tv_code.setText("重新发送验证码");
 				} else {
 					Countmun--;
 					tv_code.setText(Countmun + "秒后重新发送");
@@ -123,24 +99,16 @@ public class TerminalApplyCreateActivity extends Activity implements
 		};
 	}
 
-	private Handler myHandler = new Handler() {
-
-		public void handleMessage(Message msg) {
-
-			switch (msg.what) {
-			case 1:
-
-				break;
-
-			}
-
-		};
-
-	};
-
 	private final TextWatcher mTextWatcher = new TextWatcherAdapter() {
 
 		public void afterTextChanged(final Editable gitDirEditText) {
+			if (confirmpwd.getText().toString()
+					.equals(pwd.getText().toString())) {
+				password =pwd.getText().toString();
+				verification = true;
+			}
+			name = StringUtil.replaceBlank((username.getText().toString()));
+			
 			updateUIWithValidation();
 		}
 	};
@@ -152,21 +120,13 @@ public class TerminalApplyCreateActivity extends Activity implements
 	}
 
 	private void updateUIWithValidation() {
-		final boolean enabled = mChannelId > 0 && mTerminalNumber.length() > 0
-				&& mShopName.length() > 0;
-		// mSubmitBtn.setEnabled(enabled);
+		final boolean enabled = mChannelId > 0
+				&& username.getText().toString().length() > 0
+				&& mCode.length() > 0
+				&& password.length() > 0 && checkcode
+				&& verification;
+		mSubmitBtn.setEnabled(enabled);
 	}
-
-	// @Override
-	// protected void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	// super.onActivityResult(requestCode, resultCode, data);
-	// if (resultCode == RESULT_OK) {
-	// mChannelId = data.getIntExtra(CHANNEL_ID, 0);
-	// mChannelName = data.getStringExtra(CHANNEL_NAME);
-	// mPayChannel.setText(mChannelName);
-	// }
-	// }
 
 	@Override
 	public void onClick(View view) {
@@ -174,24 +134,31 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			// if (check()) {
-			// API.addTerminal(TerminalApplyServiceActivity.this,
-			// MyApplication.getInstance().NewUser.getId(), mChannelId,
-			// mTerminalNumber.getText().toString(), mShopName.getText()
-			// .toString(), new HttpCallback(
-			// TerminalApplyServiceActivity.this) {
-			// @Override
-			// public void onSuccess(Object data) {
-			// setResult(RESULT_OK);
-			// finish();
-			// }
-			//
-			// @Override
-			// public TypeToken getTypeToken() {
-			// return null;
-			// }
-			// });
-			// }
+			Config.addCustomer(this, mCode, name, password, mChannelId, 1, new HttpCallback(TerminalApplyCreateActivity.this) {
+
+				@Override
+				public void onSuccess(Object data) {
+
+					CommonUtil.toastShort(TerminalApplyCreateActivity.this, getResources().getString(R.string.terminal_new_success));
+					finish();
+				}
+
+				@Override
+				public TypeToken getTypeToken() {
+
+					return null;
+				}
+			});
+			
+			
+			
+			break;
+		case R.id.selectcity:
+			Intent intent = new Intent(TerminalApplyCreateActivity.this,
+					CityProvinceActivity.class);
+			intent.putExtra(SELECTED_PROVINCE, mMerchantProvince);
+			intent.putExtra(SELECTED_CITY, mMerchantCity);
+			startActivityForResult(intent, REQUEST_CHOOSE_CITY);
 			break;
 		case R.id.close:
 			this.finish();
@@ -199,17 +166,17 @@ public class TerminalApplyCreateActivity extends Activity implements
 		case R.id.get_code:
 			getCode();
 			break;
-		case R.id.tv_check: 
+		case R.id.tv_check:
 			System.out.println("vcode" + vcode);
 
 			if (checkCode.getText().toString().equals(vcode)) {
 				img_check_y.setVisibility(View.VISIBLE);
 				img_check_n.setVisibility(View.GONE);
-				chenckcode = true;
+				checkcode = true;
 			} else {
 				img_check_y.setVisibility(View.GONE);
 				img_check_n.setVisibility(View.VISIBLE);
-				chenckcode = false;
+				checkcode = false;
 			}
 
 		}
@@ -217,12 +184,17 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 	private void getCode() {
 
-		handler.postDelayed(runnable, 1000);
 		mCode = StringUtil.replaceBlank(setCode.getText().toString());
 		if (mCode.equals("") && mCode == null) {
 			Toast.makeText(getApplicationContext(), "请输入邮箱或者手机号", 1000).show();
 		} else {
-			ggg(mCode);
+			if (RegText.isMobileNO(mCode)) {
+				ggg(mCode);
+			} else {
+				CommonUtil.toastShort(this,
+						getResources().getString(R.string.phone_no_error));
+
+			}
 		}
 	}
 
@@ -234,9 +206,8 @@ public class TerminalApplyCreateActivity extends Activity implements
 					Toast.makeText(getApplicationContext(), Countmun, 1000)
 							.show();
 					isRun = false;
-					tv_code.setClickable(true);
-
-					tv_code.setText("发送验证码");
+					getCode.setClickable(true);
+					tv_code.setText("重新发送验证码");
 					System.out.println("destroy`" + Countmun);
 				} else {
 					Toast.makeText(getApplicationContext(), "cc" + Countmun,
@@ -272,24 +243,46 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 	public void ggg(String phonenumber) {
 
-		Config.AddAdres1(TerminalApplyCreateActivity.this, phonenumber,
+		Config.sendPhoneVerificationCodeReg(TerminalApplyCreateActivity.this,
+				phonenumber,
 
-		new HttpCallback(TerminalApplyCreateActivity.this) {
+				new HttpCallback(TerminalApplyCreateActivity.this) {
 
-			@Override
-			public void onSuccess(Object data) {
-				// TODO Auto-generated method stub
-				Toast.makeText(TerminalApplyCreateActivity.this, "验证码发送成功",
-						1000).show();
-				vcode = data.toString();
-			}
+					@Override
+					public void onSuccess(Object data) {
 
-			@Override
-			public TypeToken getTypeToken() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		});
+						Toast.makeText(TerminalApplyCreateActivity.this,
+								"验证码发送成功", 1000).show();
+						handler.postDelayed(runnable, 1000);
+						getCode.setClickable(false);
+						vcode = data.toString();
+
+					}
+
+					@Override
+					public TypeToken getTypeToken() {
+
+						return null;
+					}
+				});
 	}
 
+	@Override
+	protected void onActivityResult(final int requestCode, int resultCode,
+			final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		switch (requestCode) {
+		case REQUEST_CHOOSE_CITY: {
+			mMerchantProvince = (Province) data
+					.getSerializableExtra(SELECTED_PROVINCE);
+			mMerchantCity = (City) data.getSerializableExtra(SELECTED_CITY);
+			selectedcity.setText(mMerchantCity.getName());
+			mChannelId = mMerchantCity.getId();
+			break;
+		}
+
+		}
+	}
 }

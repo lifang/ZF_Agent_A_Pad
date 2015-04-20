@@ -79,3 +79,4 @@ public class DistributeAdapter extends BaseAdapter{
 		TextView tv_amount;
 	}
 }
+

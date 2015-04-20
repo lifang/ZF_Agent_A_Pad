@@ -1,15 +1,13 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
-
-
 public class Constants {
-
 
 	/**
 	 * The intent data among city selection
 	 */
 	public static int TEST_CUSTOMER = 1;
 	public static final int SUCCESS_CODE = 1;
+
 	public static class CityIntent {
 		public static final String SELECTED_PROVINCE = "selected_province";
 		public static final String SELECTED_CITY = "selected_city";
@@ -34,7 +32,11 @@ public class Constants {
 	 */
 	public static class TradeIntent {
 		public static final int REQUEST_TRADE_CLIENT = 0;
+		public static final int REQUEST_TRADE_AGENT = 1;
 
+		public static final String AGENT_ID = "agent_id";
+		public static final String AGENT_NAME = "agent_name";
+		public static final String SONAGEHNTID = "sonagentId";
 		public static final String TRADE_TYPE = "trade_type";
 		public static final String TRADE_RECORD_ID = "trade_record_id";
 		public static final String CLIENT_NUMBER = "client_number";
@@ -90,6 +92,11 @@ public class Constants {
 		public static final String TERMINAL_STATUS = "terminal_status";
 		public static final String CHANNEL_ID = "channel_id";
 		public static final String CHANNEL_NAME = "channel_name";
+
+		public static final String TERMINAL_CLIENT = "terminal_client";
+		public static final String TERMINAL_TOTAL = "terminal_total";
+		public static final String TERMINAL_ARRAY = "terminal_array";
+
 	}
 
 	/**
@@ -110,7 +117,6 @@ public class Constants {
 
 		public static final String SELECTED_CHANNEL = "selected_channel";
 		public static final String SELECTED_BILLING = "selected_billing";
-
 		public static final String SELECTED_BANK = "selected_bank";
 	}
 

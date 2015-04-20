@@ -88,3 +88,4 @@ public class AddressManagerAdapter extends BaseAdapter{
 		TextView change;
 	}
 }
+

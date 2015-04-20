@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.entity.StockAgentEntity;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 
 public class SelectStateAdapter<T> extends BaseAdapter {

@@ -55,6 +55,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyBank;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
@@ -251,7 +252,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("terminalId", mTerminalId);
-				params.put("status", mTerminalStatus == 2 ? 2 : 1);
+				// yewei
+//				params.put("status", mTerminalStatus == 2 ? 2 : 1);
 				params.put("applyCustomerId", mMerchant.getCustomerId());
 				params.put("publicPrivateStatus", mApplyType);
 
@@ -297,8 +299,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 						continue;
 					// image types' value have been set in advance
 					Map<String, Object> param = new HashMap<String, Object>();
-					param.put("key", material.getName());
-					param.put("value", material.getValue());
+					// yewei
+					param.put("Key", material.getName());
+					param.put("Value", material.getValue());
 					param.put("types", material.getTypes());
 					param.put("openingRequirementId",
 							material.getOpeningRequirementId());
@@ -309,19 +312,19 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				paramMap.put("paramMap", totalParams);
-//				API.submitApply(ApplyDetailActivity.this, paramMap,
-//						new HttpCallback(ApplyDetailActivity.this) {
-//							@Override
-//							public void onSuccess(Object data) {
-//								CommonUtil.toastShort(ApplyDetailActivity.this,
-//										data.toString());
-//							}
-//
-//							@Override
-//							public TypeToken getTypeToken() {
-//								return null;
-//							}
-//						});
+				Config.submitApply(ApplyDetailActivity.this, paramMap,
+						new HttpCallback(ApplyDetailActivity.this) {
+							@Override
+							public void onSuccess(Object data) {
+								CommonUtil.toastShort(ApplyDetailActivity.this,
+										data.toString());
+							}
+
+							@Override
+							public TypeToken getTypeToken() {
+								return null;
+							}
+						});
 			}
 		});
 	}
@@ -352,10 +355,11 @@ public class ApplyDetailActivity extends FragmentActivity {
 		// mMaterialContainer_9.removeAllViews();
 		initMerchantDetailKeys();
 
-		Config.getApplyDetail(this, 80, mTerminalId, applyType,
-				new HttpCallback<My_ApplyDetail>(this) {
+		Config.getApplyDetail(this, 80, mTerminalId, applyType,	new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
+						
+						System.out.println("");
 						MyApplyTerminalDetail terminalDetail = data
 								.getTerminalDetail();
 						final List<ApplyChooseItem> merchants = data

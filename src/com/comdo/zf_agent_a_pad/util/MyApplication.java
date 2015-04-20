@@ -1,5 +1,4 @@
 package com.comdo.zf_agent_a_pad.util;
-
  
  
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -77,7 +77,17 @@ public class MyApplication extends Application{
 		MyApplication.versionCode = versionCode;
 	}
 
-
+AsyncHttpClient client = new AsyncHttpClient(); //  
+	
+	public AsyncHttpClient getClient() {
+		//client.setTimeout(6000);
+		client.setTimeout(10000);// 设置超时时间
+    	client.setMaxConnections(10);
+		return client;
+	}
+	public void setClient(AsyncHttpClient client) {
+		this.client = client;
+	}
 	public static List<Good> comfirmList=new LinkedList<Good>();
 	
 	public static List<Good> getComfirmList() {
@@ -87,17 +97,7 @@ public class MyApplication extends Application{
 		MyApplication.comfirmList = comfirmList;
 	}
 	private static String token="";
-	AsyncHttpClient client = new AsyncHttpClient(); //  
-	
-	public AsyncHttpClient getClient() {
-		//client.setTimeout(6000);
-		client.setTimeout(10000);// ���ó�ʱʱ��
-    	client.setMaxConnections(10);
-		return client;
-	}
-	public void setClient(AsyncHttpClient client) {
-		this.client = client;
-	}
+
 	public static String getToken() {
 		return token;
 	}
@@ -225,7 +225,6 @@ public class MyApplication extends Application{
 			 for(City cc:mCities ){
 				 if(location.getCity()!=null&&!location.getCity().equals("")){
 					 if(cc.getName().endsWith(location.getCity())){
-						 System.out.println("��ǰ���� ID----"+cc.getId());
 						 setCITYID(cc.getId());
 					 }
 				 } 
@@ -248,5 +247,9 @@ public class MyApplication extends Application{
 			e.printStackTrace();
 		}
 	}
-	
+	//隐藏软键盘
+	public static void hideSoftKeyboard(Activity activity){
+		InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+		inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+	}
 }

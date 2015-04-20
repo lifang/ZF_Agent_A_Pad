@@ -97,3 +97,4 @@ private void init() {
 	lv_list.setAdapter(terminalAdapter);
 }
 }
+

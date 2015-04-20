@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import com.comdo.zf_agent_a_pad.activity.GoodDeatail;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.example.zf_agent_a_pad.R;
@@ -99,10 +100,10 @@ public class PosAdapter1 extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				
-				//Intent i =new Intent (context,GoodDeatail.class);
-				//i.putExtra("id", list.get(position*4).getId());
+				Intent i =new Intent (context,GoodDeatail.class);
+				i.putExtra("id", list.get(position*4).getId());
 				
-				//context.startActivity(i);
+				context.startActivity(i);
 			}
 		});
 		holder.ll_m2.setOnClickListener(new OnClickListener() {
@@ -110,9 +111,10 @@ public class PosAdapter1 extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				
-				//Intent i =new Intent (context,GoodDeatail.class);
-				//i.putExtra("id", list.get(position*4+1).getId());
-				//context.startActivity(i);
+				Intent i =new Intent (context,GoodDeatail.class);
+				i.putExtra("id", list.get(position*4+1).getId());
+				
+				context.startActivity(i);
 			}
 		});
 		holder.ll_m3.setOnClickListener(new OnClickListener() {
@@ -120,9 +122,9 @@ public class PosAdapter1 extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				
-				//Intent i =new Intent (context,GoodDeatail.class);
-				//i.putExtra("id", list.get(position*4+2).getId());
-				//context.startActivity(i);
+				Intent i =new Intent (context,GoodDeatail.class);
+				i.putExtra("id", list.get(position*4+2).getId());
+				context.startActivity(i);
 			}
 		});
 		holder.ll_m4.setOnClickListener(new OnClickListener() {
@@ -130,9 +132,9 @@ public class PosAdapter1 extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 			
-				//Intent i =new Intent (context,GoodDeatail.class);
-				//i.putExtra("id", list.get(position*4+3).getId());
-				//context.startActivity(i);
+				Intent i =new Intent (context,GoodDeatail.class);
+				i.putExtra("id", list.get(position*4+3).getId());
+				context.startActivity(i);
 			}
 		});
 		if (position == listSize - 1) {
@@ -248,7 +250,7 @@ public class PosAdapter1 extends BaseAdapter {
 			holder.ys.setText("已售" + list.get(position*4).getVolume_number());
 			ImageCacheUtil.IMAGE_CACHE.get(list.get(position*4).getUrl_path(),
 	 				holder.im1);
-			Log.i("list",list.get(position*4).getUrl_path());
+			//Log.i("list",list.get(position*4).getUrl_path());
 			holder.title2.setText(list.get(position*4+1).getTitle());
 			holder.tv_price2.setText("￥"
 					+ ((double)list.get(position*4 + 1).getRetail_price()) / 100 + "");

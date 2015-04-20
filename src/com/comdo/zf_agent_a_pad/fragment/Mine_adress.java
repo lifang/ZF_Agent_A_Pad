@@ -129,7 +129,7 @@ private void getData() {
 		CommonUtil.toastShort(getActivity(), "网络异常");
 		return;
 	}
-	Config.GetAdressList(getActivity(), 80, new HttpCallback<List<AddressManager>>(getActivity()) {
+	Config.GetAdressLis(getActivity(), 80, new HttpCallback<List<AddressManager>>(getActivity()) {
 
 		@Override
 		public void onSuccess(List<AddressManager> data) {

@@ -494,4 +494,5 @@
     android:layout_marginBottom="70dp"/>
     </LinearLayout>
     </ScrollView>
+
   	</LinearLayout>
