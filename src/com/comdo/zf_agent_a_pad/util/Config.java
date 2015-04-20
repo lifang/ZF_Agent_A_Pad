@@ -111,6 +111,18 @@ public class Config {
 	public static final String TERMINAL_GET_ADDRESS = PATHS
 			+ "terminal/getAddressee";
 
+	// terminal submitAgent
+	public static final String TERMINAL_SUBMIT = PATHS
+			+ "terminal/submitAgent";
+	
+    // terminal batchTerminalNum
+	public static final String TERMINAL_BATCH_TERMINALNUM = PATHS
+			+ "terminal/batchTerminalNum";
+	
+	// terminal screeningTerminalNum
+	public static final String TERMINAL_SCREEN_TERMINALNUM = PATHS
+			+ "terminal/screeningTerminalNum";
+	
 	// Get msglist
 	public static final String GET_MSGLIST = PATHS + "message/receiver/getAll";
 
@@ -527,7 +539,26 @@ public class Config {
 		params.put("terminalsList", terminalsList);
 		params.put("reciver", reciver);
 		params.put("phone", phone);
-		new HttpRequest(context, callback).post(TERMINAL_GET_ADDRESS, params);
+		new HttpRequest(context, callback).post(TERMINAL_SUBMIT, params);
 	}
 
+	public static void batchTerminalNum(Context context, String[] serialNum,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("serialNum", serialNum);
+		new HttpRequest(context, callback).post(TERMINAL_BATCH_TERMINALNUM, params);
+	}
+	
+	public static void screeningTerminalNum(Context context, String title,int channelsId,
+			int minPrice,int maxPrice,
+			int agentId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("title", title);
+		params.put("channelsId", channelsId);
+		params.put("minPrice", minPrice);
+		params.put("maxPrice", maxPrice);
+		params.put("agentId", agentId);
+		new HttpRequest(context, callback).post(TERMINAL_SCREEN_TERMINALNUM, params);
+	}
 }

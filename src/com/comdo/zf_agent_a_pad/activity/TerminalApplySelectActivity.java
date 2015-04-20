@@ -7,10 +7,11 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_B
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_CHANNEL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TITLE;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ARRAY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TOTAL;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,20 +24,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.SelectPOS;
+import com.comdo.zf_agent_a_pad.entity.TerminalPriceEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyChannelActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
-import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -50,32 +53,24 @@ public class TerminalApplySelectActivity extends Activity implements
 		View.OnClickListener {
 
 	private View mChooseChannel;
-	private TextView mPayChannel,selectedpos,selectedchannel;
-	private int mChannelId;
-	private String mChannelName;
+	private TextView selectedpos, selectedchannel;
+	private int mChannelId, minPrice = 0, maxPrice = 0;
+
 	private String posName;
-	private int posID;
-	private EditText mTerminalNumber;
-	private EditText mShopName;
-	private Button mSubmitBtn;
+	private int posID, checked = 0;
+	private EditText zdh, lower, higher;
+	private Boolean allCheck = false;
+	private String zdhString;
 
-	private String terminalNum, shopName;
-
-	private ArrayAdapter<String> adapter;
-
-	private Button close;
+	private CheckBox checkboxAll;
 	private LinearLayout channelselect, posselect;
-	private TextView titleback_text_title;
-	private ImageView titleback_image_back, searchView;
-	private Button service, bind;
+	private TextView terminalNum;
+	private Button terminal_commit, terminal_comfirm;
 	private LayoutInflater mInflater;
 	private XListView mTerminalList;
-	private List<TerminalManagerEntity> mTerminalItems;
+	private List<TerminalPriceEntity> mTerminalItems;
 	private TerminalListAdapter mAdapter;
-	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 	final List<String> list = new ArrayList<String>();
-	private List<SelectPOS> selectPOS;
-
 	private ApplyChannel mChosenChannel;
 	private ApplyChannel.Billing mChosenBilling;
 	public static final int REQUEST_CHOOSE_POS = 1000;
@@ -85,57 +80,82 @@ public class TerminalApplySelectActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_terminal_select);
-		 new TitleMenuUtil(this,
-		 getString(R.string.title_trade_client)).show();
+		new TitleMenuUtil(this, getString(R.string.title_trade_client)).show();
 
-		items = new ArrayList<Map<String, Object>>();
-
+		mInflater = LayoutInflater.from(this);
+		mTerminalList = (XListView) findViewById(R.id.apply_list);
+		mTerminalItems = new ArrayList<TerminalPriceEntity>();
+		mAdapter = new TerminalListAdapter();
+		mTerminalList.setAdapter(mAdapter);
+		mTerminalList.setPullLoadEnable(false);
+		mTerminalList.getmFooterView().setVisibility(View.GONE);
 		posselect = (LinearLayout) findViewById(R.id.posselect);
 		posselect.setOnClickListener(this);
 		selectedpos = (TextView) findViewById(R.id.selectedpos);
-		channelselect=(LinearLayout) findViewById(R.id.channelselect);
+		channelselect = (LinearLayout) findViewById(R.id.channelselect);
 		channelselect.setOnClickListener(this);
 		selectedchannel = (TextView) findViewById(R.id.selectedchannel);
-		// close = (Button) findViewById(R.id.close);
-		// close.setOnClickListener(this);
-	}
+		terminal_commit = (Button) findViewById(R.id.terminal_commit);
+		terminal_commit.setOnClickListener(this);
+		terminal_comfirm = (Button) findViewById(R.id.terminal_comfirm);
+		terminal_comfirm.setOnClickListener(this);
+		zdh = (EditText) findViewById(R.id.zdh);
+		lower = (EditText) findViewById(R.id.lower);
+		higher = (EditText) findViewById(R.id.higher);
+		zdh.addTextChangedListener(mTextWatcher);
+		lower.addTextChangedListener(mTextWatcher);
+		higher.addTextChangedListener(mTextWatcher);
+		terminalNum = (TextView) findViewById(R.id.terminalNum);
+		checkboxAll = (CheckBox) findViewById(R.id.checkboxAll);
+		checkboxAll.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-	private Handler myHandler = new Handler() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
 
-		public void handleMessage(Message msg) {
+				if (isChecked) {
+					allCheck = true;
 
-			switch (msg.what) {
-			case 1:
+				} else {
 
-				break;
+					allCheck = false;
+				}
+				mAdapter.notifyDataSetChanged();
 
+				terminalNum.setText(checked+"");
 			}
 
-		};
+		});
+	}
 
-	};
+
 
 	private final TextWatcher mTextWatcher = new TextWatcherAdapter() {
 
 		public void afterTextChanged(final Editable gitDirEditText) {
-			updateUIWithValidation();
+
+			if (zdh.getText().toString() != null)
+				zdhString = zdh.getText().toString();
+			if (higher.getText().toString() != null
+					&& !"".equals(higher.getText().toString()))
+				maxPrice = Integer.parseInt(higher.getText().toString());
+			if (lower.getText().toString() != null
+					&& !"".equals(lower.getText().toString()))
+				minPrice = Integer.parseInt(lower.getText().toString());
+
 		}
 	};
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		updateUIWithValidation();
-	}
-
-	private void updateUIWithValidation() {
-		final boolean enabled = mChannelId > 0 && mTerminalNumber.length() > 0
-				&& mShopName.length() > 0;
-		// mSubmitBtn.setEnabled(enabled);
 	}
 
 	class TerminalListAdapter extends BaseAdapter {
+
 		TerminalListAdapter() {
+
+			checked = 0;
 		}
 
 		@Override
@@ -144,7 +164,7 @@ public class TerminalApplySelectActivity extends Activity implements
 		}
 
 		@Override
-		public TerminalManagerEntity getItem(int i) {
+		public TerminalPriceEntity getItem(int i) {
 			return mTerminalItems.get(i);
 		}
 
@@ -157,45 +177,38 @@ public class TerminalApplySelectActivity extends Activity implements
 		public View getView(int i, View convertView, ViewGroup viewGroup) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.terminal_list, null);
+				convertView = mInflater.inflate(
+						R.layout.terminal_select_listitem, null);
 				holder = new ViewHolder();
-				holder.tv_terminal_id = (TextView) convertView
-						.findViewById(R.id.tv_terminal_id);
-				holder.tv_postype = (TextView) convertView
-						.findViewById(R.id.tv_postype);
-				holder.tv_paychannel = (TextView) convertView
-						.findViewById(R.id.tv_paychannel);
-				holder.tv_openstate = (TextView) convertView
-						.findViewById(R.id.tv_openstate);
-				holder.llButtonContainer = (LinearLayout) convertView
-						.findViewById(R.id.terminal_button_container);
-				holder.llButtons = (LinearLayout) convertView
-						.findViewById(R.id.terminal_buttons);
+				holder.terminal_num = (TextView) convertView
+						.findViewById(R.id.terminal_num);
+				holder.price = (TextView) convertView.findViewById(R.id.price);
+				holder.checkbox = (CheckBox) convertView
+						.findViewById(R.id.checkbox);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			final TerminalManagerEntity item = getItem(i);
-			holder.tv_terminal_id.setText(item.getPosPortID());
-			if (item.getPos() != null || item.getPosname() != null) {
-				if (item.getPos() == null) {
-					holder.tv_postype.setText(item.getPosname());
-				} else if (item.getPosname() == null) {
-					holder.tv_postype.setText(item.getPos());
-				} else {
-					holder.tv_postype
-							.setText(item.getPos() + item.getPosname());
-				}
-			} else {
-				holder.tv_postype.setText("-");
-			}
-			holder.tv_paychannel.setText(item.getPayChannel());
-			String[] status = getResources().getStringArray(
-					R.array.terminal_status);
-			holder.tv_openstate.setText(status[item.getOpenState()]);
+			final TerminalPriceEntity item = getItem(i);
+			holder.terminal_num.setText(item.getSerial_num());
+			holder.price.setText("￥" + item.getRetail_price());
+			holder.checkbox.setChecked(allCheck);
+			holder.checkbox
+					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-			// add buttons according to status
-			holder.llButtons.removeAllViews();
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+
+							if (isChecked) {
+								checked++;
+							} else {
+								checked--;
+							}
+							terminalNum.setText(checked+"");
+							item.setIsCheck(isChecked);
+						}
+					});
 
 			return convertView;
 		}
@@ -203,19 +216,96 @@ public class TerminalApplySelectActivity extends Activity implements
 	}
 
 	static class ViewHolder {
-		public TextView tv_terminal_id;
-		public TextView tv_postype;
-		public TextView tv_paychannel;
-		public TextView tv_openstate;
-		public LinearLayout llButtonContainer;
-		public LinearLayout llButtons;
+		public TextView terminal_num;
+		public TextView price;
+		public CheckBox checkbox;
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
 
-		case R.id.terminal_submit:
+		case R.id.terminal_comfirm:
+			StringBuffer string=new StringBuffer();
+			for (int i = 0; i < mTerminalItems.size(); i++) {
+				if (mTerminalItems.get(i).getIsCheck()) {
+					
+					string.append(mTerminalItems.get(i).getSerial_num());
+					
+					if (i != mTerminalItems.size()-1) {
+						
+						string.append(",");
+					}
+				}
+			}
+			Intent it = new Intent();
+			it.putExtra(TERMINAL_TOTAL, checked);
+			it.putExtra(TERMINAL_ARRAY, string.toString());
+			setResult(RESULT_OK, it);
+			finish();
+			break;
+
+		case R.id.terminal_commit:
+
+			if (zdhString != null && !"".equals(zdhString)) {
+
+				String[] str = new String[] {};
+
+				str = zdhString.split("\n");
+
+				Config.batchTerminalNum(TerminalApplySelectActivity.this, str,
+						new HttpCallback<List<TerminalPriceEntity>>(this) {
+							@Override
+							public void onSuccess(List<TerminalPriceEntity> data) {
+
+								mTerminalItems.addAll(data);
+								mAdapter.notifyDataSetChanged();
+
+							}
+
+							@Override
+							public void onFailure(String message) {
+								super.onFailure(message);
+							}
+
+							@Override
+							public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
+								return new TypeToken<List<TerminalPriceEntity>>() {
+								};
+							}
+						});
+
+			} else if (maxPrice < minPrice) {
+
+				CommonUtil
+						.toastShort(
+								TerminalApplySelectActivity.this,
+								getResources().getString(
+										R.string.terminal_price_error));
+
+			} else {
+
+				Config.screeningTerminalNum(TerminalApplySelectActivity.this,
+						posName, mChannelId, minPrice, maxPrice, 1,
+						new HttpCallback<List<TerminalPriceEntity>>(this) {
+							@Override
+							public void onSuccess(List<TerminalPriceEntity> data) {
+
+							}
+
+							@Override
+							public void onFailure(String message) {
+								super.onFailure(message);
+							}
+
+							@Override
+							public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
+								return new TypeToken<List<TerminalPriceEntity>>() {
+								};
+							}
+						});
+
+			}
 
 			break;
 		case R.id.posselect:
@@ -255,8 +345,8 @@ public class TerminalApplySelectActivity extends Activity implements
 			intent.putExtra(SELECTED_CHANNEL, mChosenChannel);
 			intent.putExtra(SELECTED_BILLING, mChosenBilling);
 			startActivityForResult(intent, REQUEST_CHOOSE_CHANNEL);
-			break;	
-			
+			break;
+
 		case R.id.close:
 			this.finish();
 			break;
@@ -279,12 +369,13 @@ public class TerminalApplySelectActivity extends Activity implements
 			break;
 
 		}
-		
-		case REQUEST_CHOOSE_CHANNEL:{
+
+		case REQUEST_CHOOSE_CHANNEL: {
 			mChosenChannel = (ApplyChannel) data
 					.getSerializableExtra(SELECTED_CHANNEL);
 			mChosenBilling = (ApplyChannel.Billing) data
 					.getSerializableExtra(SELECTED_BILLING);
+			mChannelId = mChooseChannel.getId();
 			selectedchannel.setText(mChosenChannel.getName());
 		}
 		}

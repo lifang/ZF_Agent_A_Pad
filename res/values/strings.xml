@@ -163,6 +163,7 @@
     <string name="phone_no_error">请填写正确的手机号码!</string>
     <string name="terminal_new_success">绑定终端成功</string>
     <string name="terminal_apply_success">申请售后成功</string>
+    <string name="terminal_price_error">最高价不能低于最低价</string>
     
 
     <string-array name="terminal_apply_keys">
