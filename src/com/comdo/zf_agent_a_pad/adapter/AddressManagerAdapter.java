@@ -3,11 +3,14 @@ package com.comdo.zf_agent_a_pad.adapter;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.entity.AddressManager;
+import com.comdo.zf_agent_a_pad.fragment.Mine_adress;
 import com.example.zf_agent_a_pad.R;
 
 import android.content.Context;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ public class AddressManagerAdapter extends BaseAdapter{
 	private List<AddressManager> dataadress;
 	private Context context;
 	private LayoutInflater mInflater;
+	public static int pp;
 	public AddressManagerAdapter(List<AddressManager> dataadress,Context context){
 		super();
 		this.dataadress=dataadress;
@@ -37,7 +41,7 @@ public class AddressManagerAdapter extends BaseAdapter{
 		return dataadress.get(position).getId();
 	}
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		final ViewHoldel holdel;
 		if(convertView == null){
 			mInflater=LayoutInflater.from(context);
@@ -55,12 +59,23 @@ public class AddressManagerAdapter extends BaseAdapter{
 		else{
 			holdel=(ViewHoldel) convertView.getTag();
 		}
-		holdel.consignee.setText(dataadress.get(position).getConsignee());
-		holdel.area.setText(dataadress.get(position).getArea());
-		holdel.detailadress.setText(dataadress.get(position).getDetailadress());
-		holdel.zipcode.setText(dataadress.get(position).getZipcode());
-		holdel.phone.setText(dataadress.get(position).getPhone());
-		holdel.defau.setText(dataadress.get(position).getIsdefau());
+		holdel.consignee.setText(dataadress.get(position).getReceiver());
+		holdel.area.setText(dataadress.get(position).getCity());
+		holdel.detailadress.setText(dataadress.get(position).getAddress());
+		holdel.zipcode.setText(dataadress.get(position).getZipCode());
+		holdel.phone.setText(dataadress.get(position).getMoblephone());
+		holdel.defau.setText(dataadress.get(position).getIsDefault());
+		holdel.change.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				pp=position;
+				Message msg=Mine_adress.myHandler.obtainMessage();
+				msg.what=2;
+				msg.sendToTarget();
+				
+			}
+		});
 		return convertView;
 	}
 	public static class ViewHoldel{
@@ -73,3 +88,4 @@ public class AddressManagerAdapter extends BaseAdapter{
 		TextView change;
 	}
 }
+

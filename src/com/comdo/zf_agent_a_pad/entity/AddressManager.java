@@ -3,22 +3,22 @@ package com.comdo.zf_agent_a_pad.entity;
 public class AddressManager {
 
 private long id;
-private String consignee;
-private String area;
-private String detailadress;
-private String zipcode;
-private String phone;
-private String isdefau;
-public AddressManager(long id,String consignee,String area,String detailadress,
-		String zipcode,String phone,String isdefau){
+private String receiver;
+private String city;
+private String address;
+private String zipCode;
+private String moblephone;
+private String isDefault;
+public AddressManager(long id,String receiver,String city,String address,
+		String zipCode,String moblephone,String isDefault){
 	super();
 	this.id=id;
-	this.consignee=consignee;
-	this.area=area;
-	this.detailadress=detailadress;
-	this.zipcode=zipcode;
-	this.phone=phone;
-	this.isdefau=isdefau;
+	this.receiver=receiver;
+	this.city=city;
+	this.address=address;
+	this.zipCode=zipCode;
+	this.moblephone=moblephone;
+	this.isDefault=isDefault;
 }
 public long getId() {
 	return id;
@@ -26,48 +26,50 @@ public long getId() {
 public void setId(long id) {
 	this.id = id;
 }
-public String getConsignee() {
-	return consignee;
+public String getReceiver() {
+	return receiver;
 }
-public void setConsignee(String consignee) {
-	this.consignee = consignee;
+public void setReceiver(String receiver) {
+	this.receiver = receiver;
 }
-public String getArea() {
-	return area;
+public String getCity() {
+	return city;
 }
-public void setArea(String area) {
-	this.area = area;
+public void setCity(String city) {
+	this.city = city;
 }
-public String getDetailadress() {
-	return detailadress;
+public String getAddress() {
+	return address;
 }
-public void setDetailadress(String detailadress) {
-	this.detailadress = detailadress;
+public void setAddress(String address) {
+	this.address = address;
 }
-public String getZipcode() {
-	return zipcode;
+public String getZipCode() {
+	return zipCode;
 }
-public void setZipcode(String zipcode) {
-	this.zipcode = zipcode;
+public void setZipCode(String zipCode) {
+	this.zipCode = zipCode;
 }
-public String getPhone() {
-	return phone;
+public String getMoblephone() {
+	return moblephone;
 }
-public void setPhone(String phone) {
-	this.phone = phone;
+public void setMoblephone(String moblephone) {
+	this.moblephone = moblephone;
 }
-public String getIsdefau() {
-	return isdefau;
+public String getIsDefault() {
+	return isDefault;
 }
-public void setIsdefau(String isdefau) {
-	this.isdefau = isdefau;
+public void setIsDefault(String isDefault) {
+	this.isDefault = isDefault;
 }
 @Override
 public String toString() {
-	return "AddressManager [id=" + id + ", consignee=" + consignee + ", area="
-			+ area + ", detailadress=" + detailadress + ", zipcode=" + zipcode
-			+ ", phone=" + phone + ", isdefau=" + isdefau + "]";
+	return "AddressManager [id=" + id + ", receiver=" + receiver + ", city="
+			+ city + ", address=" + address + ", zipCode=" + zipCode
+			+ ", moblephone=" + moblephone + ", isDefault=" + isDefault + "]";
 }
 
 
+
 }
+

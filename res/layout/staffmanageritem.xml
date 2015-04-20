@@ -8,29 +8,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginLeft="50dp" >
+    android:layout_marginLeft="50dp" 
+    android:layout_marginRight="50dp">
     <TextView 
         android:id="@+id/tv_loginid"
         android:layout_weight="1"
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#5F5F5F"
-    android:textSize="18sp"
-     android:layout_marginLeft="66dp"/>
-    <TextView 
-        android:id="@+id/tv_name"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#5F5F5F"
-    android:textSize="18sp"
-    android:layout_marginLeft="20dp"/>
-    <TextView 
-        android:id="@+id/tv_time"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textColor="#5F5F5F"
     android:textSize="18sp"/>
+    <TextView 
+        android:id="@+id/tv_name"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="#5F5F5F"
+    android:textSize="18sp"/>
+    <TextView 
+        android:id="@+id/tv_time"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="#5F5F5F"
+    android:textSize="18sp"/>
+     <TextView 
+        android:id="@+id/tv_delect"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="删除"
+    android:textColor="#2D88DC"
+    android:textSize="18sp"/>
     </LinearLayout>
+
 </LinearLayout>

@@ -56,9 +56,9 @@ public class TransgoodsAdapter extends BaseAdapter{
 		else{
 			holdel=(ViewHoldel) convertView.getTag();
 		}
-		holdel.tv_transferobject.setText(datatrans.get(position).getTransferobject());
-		holdel.tv_time.setText(datatrans.get(position).getTime());
-		holdel.tv_amount.setText(datatrans.get(position).getAmount());
+		holdel.tv_transferobject.setText(datatrans.get(position).getToname());
+		holdel.tv_time.setText(datatrans.get(position).getCreated_at());
+		holdel.tv_amount.setText(datatrans.get(position).getQuantity());
 		convertView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -75,6 +75,8 @@ public class TransgoodsAdapter extends BaseAdapter{
 		TextView tv_transferobject;
 		TextView tv_time;
 		TextView tv_amount;
+		
 	}
 
 }
+
