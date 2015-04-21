@@ -53,6 +53,9 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 				if (myList.size() == 0) {
 					Xlistview.setVisibility(View.GONE);
 					eva_nodata.setVisibility(View.VISIBLE);
+				}else {
+					Xlistview.setVisibility(View.VISIBLE);
+					eva_nodata.setVisibility(View.GONE);
 				}
 				onRefresh_number = true;
 				myAdapter.notifyDataSetChanged();
@@ -62,18 +65,18 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 						Toast.LENGTH_SHORT).show();
 
 				break;
-			case 2: // ����������
+			case 2: 
 				Toast.makeText(getApplicationContext(), "no 3g or wifi content",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 3:
-				Toast.makeText(getApplicationContext(), " refresh too much",
+				Xlistview.setPullLoadEnable(false);
+				Toast.makeText(getApplicationContext(), "no more data",
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
 	};
-	//�������
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +104,6 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(UserManageListActivity.this,UserManageDetailActivity.class);
-				//				intent.putExtra("customersId", "80");
-				//				intent.putExtra("customersName", "dfaf");
 				intent.putExtra("customersId", myList.get(position-2).getCustomersId());
 				intent.putExtra("customersName", myList.get(position-2).getName());
 				startActivity(intent);
@@ -120,6 +121,7 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 	public void onRefresh() {
 		page = 1;
 		myList.clear();
+		Xlistview.setPullLoadEnable(true);
 		getData();
 	}
 
@@ -175,7 +177,6 @@ public class UserManageListActivity extends BaseActivity implements IXListViewLi
 	public void deleteItem(final int position) {
 		ids=new String[1];
 		ids[0]= myList.get(position).getCustomersId();
-		Gson gson = new Gson();//new JSONArray(gson.toJson(ids))
 		idArray = new int[ids.length];
 		idArray[0] = Integer.parseInt(ids[0]);
 		Config.userDelectAgentUser(this,idArray, Constants.TEST_CUSTOMER,
