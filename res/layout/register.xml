@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="54dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:gravity="right"
+                        android:text="代理商类型"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:entries="@array/agent_type"
+                        android:background="@drawable/ed_adress" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="180dp"
+                        android:text="开通分润"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_fenrun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/agent_on" />
+                </TableRow>
+
+                <TableRow android:layout_marginLeft="100dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="公司名称"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_company_name"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="公司营业执照登记号"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_business_license"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="公司税务登记证号"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_tax_registered_no"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"                        
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+            </TableLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="70dp"
+                android:background="#EAEAEA" />
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="70dp" >
+
+                <TableRow android:layout_marginLeft="100dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="负责人姓名"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_fuze_name"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="负责人身份证号"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_fuze_id_no"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="手机"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_phone"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="邮箱"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="所在地"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/selection_state" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="详细地址"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_address_detail"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp" />
+                </TableRow>
+            </TableLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="70dp"
+                android:background="#EAEAEA" />
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="70dp" >
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="身份证照片"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_uplode_card"
+                        android:layout_width="115dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="#006FD5"
+                        android:text="上传照片"
+                        android:textColor="#ECF2F8" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="营业执照照片"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_uplode_business"
+                        android:layout_width="115dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="#006FD5"
+                        android:text="上传照片"
+                        android:textColor="#ECF2F8" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="税务登记证照片"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_uplode_tax"
+                        android:layout_width="115dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="#006FD5"
+                        android:text="上传照片"
+                        android:textColor="#ECF2F8" />
+                </TableRow>
+            </TableLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="70dp"
+                android:background="#EAEAEA" />
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="85dp"
+                android:layout_marginTop="70dp" >
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="登录ID"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_login_id"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="登录密码"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_paw"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:text="确认密码"
+                        android:textColor="#6D6D6D"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_paw1"
+                        android:layout_width="240dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/tv_bg"
+                        android:singleLine="true" />
+                </TableRow>
+            </TableLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="70dp"
+                android:background="#EAEAEA" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="235dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="70dp"
+                android:layout_marginTop="70dp"
+                android:background="#006FD5"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="#ECF2F8"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

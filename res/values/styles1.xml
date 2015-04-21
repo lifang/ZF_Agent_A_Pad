@@ -7,11 +7,6 @@
 		<item name="android:background">@color/Viewc2</item>
 	</style>
 
-	<style name="TextBase">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-	</style>
-
 	<style name="TextItem" parent="TextBase">
 		<item name="android:textColor">@color/text535252</item>
 		<item name="android:textSize">@dimen/s_17sp</item>
@@ -57,11 +52,6 @@
 		<item name="android:textSize">@dimen/s_14sp</item>
 	</style>
 
-	<style name="TextDetail.Top" parent="TextBase">
-		<item name="android:textColor">@color/text292929</item>
-		<item name="android:textSize">@dimen/s_13sp</item>
-		<item name="android:layout_marginTop">12dp</item>
-	</style>
 
 	<style name="TextDetail.Title" parent="TextBase">
 		<item name="android:textColor">@color/text6c6c6c6</item>
@@ -78,24 +68,6 @@
 		<item name="android:textSize">@dimen/s_17sp</item>
 	</style>
 
-	<style name="Dialog" parent="@android:style/Theme.Dialog">
-		<item name="android:windowBackground">@android:color/transparent</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:windowIsTranslucent">false</item>
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-		<item name="android:backgroundDimEnabled">true</item>
-	</style>
-
-	<style name="Progress">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:maxWidth">50.0dip</item>
-		<item name="android:maxHeight">50.0dip</item>
-		<item name="android:minWidth">50.0dip</item>
-		<item name="android:minHeight">50.0dip</item>
-	</style>
 
 	<style name="CutLine">
 		<item name="android:layout_width">1px</item>

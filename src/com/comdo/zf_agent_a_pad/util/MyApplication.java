@@ -1,5 +1,4 @@
 package com.comdo.zf_agent_a_pad.util;
-
  
  
 import java.util.ArrayList;
@@ -226,7 +225,6 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 			 for(City cc:mCities ){
 				 if(location.getCity()!=null&&!location.getCity().equals("")){
 					 if(cc.getName().endsWith(location.getCity())){
-						 System.out.println("��ǰ���� ID----"+cc.getId());
 						 setCITYID(cc.getId());
 					 }
 				 } 

@@ -24,7 +24,6 @@
    <TextView 
        android:id="@+id/tv_company_type"
     android:layout_width="wrap_content"
-    android:text="公司"
     android:layout_height="30dp"
     android:layout_marginLeft="40dp"
     android:gravity="center_vertical|left"/>    
@@ -38,10 +37,9 @@
     android:layout_gravity="center_vertical"
     android:textSize="20sp"/>
    <TextView 
-       android:id="@+id/tv_company_phone"
+       android:id="@+id/tv_company_name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-     android:text="张大宝"
 
     android:layout_marginLeft="40dp"
     android:gravity="center_vertical|left"/>    
@@ -58,7 +56,6 @@
        android:id="@+id/tv_yingyezhizhao"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="张大宝"
     
     android:layout_marginLeft="40dp"
     android:gravity="center_vertical|left"/>    
@@ -72,10 +69,9 @@
     android:layout_gravity="center_vertical"
     android:textSize="20sp"/>
    <TextView
-       android:id="@+id/tv_city_select" 
+       android:id="@+id/tv_company_shuiwudengji" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="张大宝"
     android:layout_marginLeft="40dp"
     android:gravity="center_vertical|left"/>    
    </TableRow> 
@@ -103,7 +99,6 @@
        android:id="@+id/tv_fuzeren_name" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="张大宝"
     android:layout_marginLeft="80dp"
     android:gravity="center_vertical|left"/>    
    </TableRow> 
@@ -119,7 +114,6 @@
        android:id="@+id/tv_fuzeren_no" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="张大宝"
     android:layout_marginLeft="80dp"
     android:gravity="center_vertical|left"/>    
    </TableRow> 
@@ -135,7 +129,6 @@
        android:id="@+id/tv_phone" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="2345656789"
     android:layout_marginLeft="80dp"
     android:gravity="center_vertical|left"/>    
    </TableRow> 
@@ -151,7 +144,6 @@
        android:id="@+id/tv_email" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="2345656789@qq.com"
     android:layout_marginLeft="80dp"
     android:gravity="center_vertical|left"/>    
    </TableRow> 
@@ -167,7 +159,6 @@
        android:id="@+id/tv_adress" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="上海"
     android:layout_marginLeft="80dp"
     android:gravity="center_vertical|left"/>    
    </TableRow> 
@@ -183,7 +174,6 @@
        android:id="@+id/tv_adressdetail" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="上海大待123号"
     android:layout_marginLeft="80dp"
     android:gravity="center_vertical|left"/>    
    </TableRow> 
@@ -237,7 +227,7 @@
     android:layout_gravity="center_vertical"
     android:textSize="20sp"/>
    <ImageView
-       android:id="@+id/iv_shenfenzheng" 
+       android:id="@+id/iv_shuiwu" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/check_it"
@@ -286,4 +276,5 @@
     android:layout_gravity="center_horizontal"
     android:layout_marginBottom="100dp"/>
 </LinearLayout>
+
 </ScrollView>

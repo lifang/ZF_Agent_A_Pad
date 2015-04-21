@@ -2,15 +2,15 @@ package com.comdo.zf_agent_a_pad.entity;
 
 public class StaffmanagerEntity {
 	private long id;
-	private String loginid;
+	private String username;
 	private String name;
-	private String time;
-	public StaffmanagerEntity(long id,String loginid,String name,String time){
+	private String createdAt;
+	public StaffmanagerEntity(long id,String username,String name,String createdAt){
 		super();
 		this.id=id;
-		this.loginid=loginid;
+		this.username=username;
 		this.name=name;
-		this.time=time;
+		this.createdAt=createdAt;
 	}
 	public long getId() {
 		return id;
@@ -18,11 +18,11 @@ public class StaffmanagerEntity {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getLoginid() {
-		return loginid;
+	public String getUsername() {
+		return username;
 	}
-	public void setLoginid(String loginid) {
-		this.loginid = loginid;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getName() {
 		return name;
@@ -30,16 +30,17 @@ public class StaffmanagerEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getTime() {
-		return time;
+	public String getCreatedAt() {
+		return createdAt;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 	@Override
 	public String toString() {
-		return "StaffmanagerEntity [id=" + id + ", loginid=" + loginid
-				+ ", name=" + name + ", time=" + time + "]";
+		return "StaffmanagerEntity [id=" + id + ", username=" + username
+				+ ", name=" + name + ", createdAt=" + createdAt + "]";
 	}
-	
+
 }
+

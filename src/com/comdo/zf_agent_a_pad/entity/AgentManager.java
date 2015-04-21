@@ -1,46 +1,47 @@
 package com.comdo.zf_agent_a_pad.entity;
 
 public class AgentManager {
-private long id;
-private String agent_type;
-private String agent_name;
-private String join_time;
-public AgentManager(long id,String agent_type,
-		String agent_name,String join_time){
+private int id;
+private int types;
+private String company_name;
+private String created_at;
+public AgentManager(int id,int types,
+		String company_name,String created_at){
 	super();
 	this.id=id;
-	this.agent_type=agent_type;
-	this.agent_name=agent_name;
-	this.join_time=join_time;
+	this.types=types;
+	this.company_name=company_name;
+	this.created_at=created_at;
 }
-public long getId() {
+public int getId() {
 	return id;
 }
-public void setId(long id) {
+public void setId(int id) {
 	this.id = id;
 }
-public String getAgent_type() {
-	return agent_type;
+public int getTypes() {
+	return types;
 }
-public void setAgent_type(String agent_type) {
-	this.agent_type = agent_type;
+public void setTypes(int types) {
+	this.types = types;
 }
-public String getAgent_name() {
-	return agent_name;
+public String getCompany_name() {
+	return company_name;
 }
-public void setAgent_name(String agent_name) {
-	this.agent_name = agent_name;
+public void setCompany_name(String company_name) {
+	this.company_name = company_name;
 }
-public String getJoin_time() {
-	return join_time;
+public String getCreated_at() {
+	return created_at;
 }
-public void setJoin_time(String join_time) {
-	this.join_time = join_time;
+public void setCreated_at(String created_at) {
+	this.created_at = created_at;
 }
 @Override
 public String toString() {
-	return "AgentManager [id=" + id + ", agent_type=" + agent_type
-			+ ", agent_name=" + agent_name + ", join_time=" + join_time + "]";
+	return "AgentManager [id=" + id + ", types=" + types + ", company_name="
+			+ company_name + ", created_at=" + created_at + "]";
 }
 
 }
+
