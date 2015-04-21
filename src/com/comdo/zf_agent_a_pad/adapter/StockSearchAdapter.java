@@ -78,7 +78,6 @@ public class StockSearchAdapter<T> extends BaseAdapter {
 				viewHolder.nameTextView.setText(((StockAgentEntity) dictIndustries
 						.get(position)).getCompany_name());
 			}
-
 		}
 		return convertView;
 	}
