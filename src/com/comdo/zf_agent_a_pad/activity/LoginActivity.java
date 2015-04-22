@@ -38,7 +38,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private EditText login_edit_name, login_edit_pass;
 	private LinearLayout login_linear_deletename, login_linear_deletepass,
 			zhuche_ll, login_linear_login, msg;
-	private String sign, pass1, usename, passsword;
+	private String  pass1, usename, passsword;
 	public static SharedPreferences mySharedPreferences;
 	private Editor editor;
 	private Boolean isFirst;
@@ -83,7 +83,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void initView() {
-		mySharedPreferences = getSharedPreferences(Config.SHARED, MODE_PRIVATE);
+		mySharedPreferences = getSharedPreferences("zf_agent_a_pad", MODE_PRIVATE);
 		editor = mySharedPreferences.edit();
 
 		login_text_forget = (TextView) findViewById(R.id.login_text_forget);
@@ -160,6 +160,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 					""));
 			login_edit_name.setText(mySharedPreferences.getString("username",
 					""));
+			if (check()) {
+				login();
+			}
 		} else {
 			login_edit_name.setText(mySharedPreferences.getString("username",
 					""));
@@ -207,9 +210,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 				islogin = true;
 				System.out.println("id```" + data.getId());
 				MyApplication.NewUser = data;
+				editor.putBoolean("isRemeber", true);
 				editor.putBoolean("islogin", true);
-				editor.putString("name", data.getUsername());
-				editor.putInt("id", data.getId());
+				editor.putString("username", usename);
+				editor.putString("password", pass1);
 				editor.commit();
 				System.out.println(mySharedPreferences.getBoolean("islogin",
 						false) + "---");
@@ -244,6 +248,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 					Toast.LENGTH_SHORT).show();
 			return false;
 		}
+		pass1=passsword;
 		passsword = StringUtil.Md5(passsword);
 		System.out.println("---login-" + passsword);
 		return true;

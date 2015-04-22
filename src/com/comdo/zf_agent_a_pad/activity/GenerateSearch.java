@@ -9,16 +9,21 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -41,7 +46,7 @@ import com.google.gson.reflect.TypeToken;
 ;
 
 public class GenerateSearch extends Activity implements OnClickListener,
-		IXListViewListener {
+		IXListViewListener, OnEditorActionListener {
 
 	private LinearLayout titleback_linear_back;
 	private EditText searchEditText;
@@ -51,12 +56,11 @@ public class GenerateSearch extends Activity implements OnClickListener,
 	private XListView mListView;
 	private LinearLayout eva_nodata;
 	private TerminalAdapter myAdapter;
-	private List<TerminalManagerEntity> mEntities = new ArrayList<TerminalManagerEntity>();
-	private List<TerminalManagerEntity> mEntities1 = new ArrayList<TerminalManagerEntity>();
-	private List<TerminalPriceEntity> mEntities2 = new ArrayList<TerminalPriceEntity>();
 
-	private List<TerminalManagerEntity> mAdapTerminalItems = new ArrayList<TerminalManagerEntity>();
-
+	private SharedPreferences mySharedPreferences = null;
+	private Editor editor;
+	private String terminalStr = "", name;// 搜索记录
+	private List<String> data = new ArrayList<String>();
 	private int page = 1;
 	private int total = 0;
 	private final int rows = 10;
@@ -69,8 +73,8 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_generatesearch);
-		mSearchType = getIntent().getIntExtra(TERMINAL_TYPE, 1);
-		mStatus = getIntent().getIntExtra(TERMINAL_STATUS, -1);
+		// mSearchType = getIntent().getIntExtra(TERMINAL_TYPE, 1);
+		// mStatus = getIntent().getIntExtra(TERMINAL_STATUS, -1);
 		initView();
 	}
 
@@ -85,14 +89,41 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		mListView = (XListView) findViewById(R.id.mListView);
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 
+		mySharedPreferences = getSharedPreferences("terminal_search", MODE_PRIVATE);
+		editor = mySharedPreferences.edit();
+		terminalStr = mySharedPreferences.getString("terminalStr", "");
+		if (terminalStr == "" || terminalStr == null) {	
+
+			mListView.setVisibility(View.GONE);
+			eva_nodata.setVisibility(View.VISIBLE);
+			
+		} else {
+
+			mListView.setVisibility(View.VISIBLE);
+			eva_nodata.setVisibility(View.GONE);
+ 
+			if (terminalStr.contains(",")) {
+				String[] serach = terminalStr.split(",");
+				for (int i = (serach.length - 1); i >= 0; i--) {
+
+					data.add(serach[i]);
+				}
+				
+
+			} else {
+				data.add(terminalStr);
+		
+			}
+			data.add(getResources().getString(R.string.clear_history));
+		}
 		myAdapter = new TerminalAdapter();
-		mListView.setAdapter(myAdapter);
 
 		mListView.initHeaderAndFooter();
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 		mListView.setDivider(null);
 
+		mListView.setAdapter(myAdapter);
 		titleback_linear_back.setOnClickListener(this);
 		linear_deletename.setOnClickListener(this);
 		next_cancel.setOnClickListener(this);
@@ -103,14 +134,16 @@ public class GenerateSearch extends Activity implements OnClickListener,
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
+				if(position==data.size()-1){
+					
+					DeletaData();
+				} else{
+				
 				Intent intent = new Intent();
-				intent.putExtra(SELECTED_TERMINAL, mAdapTerminalItems.get(position)
-						.getPosPortID());
-				if(mSearchType==3){
-					intent.putExtra(SELECTED_TERMINAL, mEntities2.get(position));
-				}
+				intent.putExtra(SELECTED_TERMINAL, data.get(position));
 				setResult(RESULT_OK, intent);
 				finish();
+				}
 			}
 		});
 
@@ -134,12 +167,7 @@ public class GenerateSearch extends Activity implements OnClickListener,
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				if (!StringUtil.isNull(searchEditText.getText().toString())) {
-					page = 1;
-					mEntities.clear();
-					mListView.setPullLoadEnable(true);
-					loadData();
-				}
+				
 			}
 		});
 	}
@@ -161,128 +189,6 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		}
 	}
 
-	// 列表数据
-	private void loadData() {
-		String searchKey = searchEditText.getText().toString().trim();
-		
-		mAdapTerminalItems = new ArrayList<TerminalManagerEntity>();
-
-		switch (mSearchType) {
-
-		case 1:
-
-			Config.searchApplyList(GenerateSearch.this, 1, page, rows,
-					searchKey, new HttpCallback<PageApply<TerminalManagerEntity>>(
-							GenerateSearch.this) {
-						@Override
-						public void onSuccess(PageApply<TerminalManagerEntity> data) {
-							if (null != data.getList()) {
-								mEntities.addAll(data.getList());
-								mAdapTerminalItems.addAll(mEntities);
-							}
-							page++;
-							total = data.getTotal();
-							onLoad();
-
-							if (mEntities.size() == 0) {
-								mListView.setVisibility(View.GONE);
-								eva_nodata.setVisibility(View.VISIBLE);
-							} else {
-								mListView.setVisibility(View.VISIBLE);
-								eva_nodata.setVisibility(View.GONE);
-							}
-							myAdapter.notifyDataSetChanged();
-						}
-
-						@Override
-						public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
-							return new TypeToken<PageApply<TerminalManagerEntity>>() {
-							};
-						}
-					});
-
-			break;
-
-		case 2:
-
-			Config.getTerminalList(GenerateSearch.this, 1, page, rows,
-					searchKey, mStatus,
-					new HttpCallback<PageApply<TerminalManagerEntity>>(
-							GenerateSearch.this) {
-						@Override
-						public void onSuccess(PageApply<TerminalManagerEntity> data) {
-							if (null != data.getList()) {
-								mEntities1.addAll(data.getList());
-
-								mAdapTerminalItems.addAll(mEntities1);
-							}
-							page++;
-							total = data.getTotal();
-							onLoad();
-
-							if (mEntities1.size() == 0) {
-								mListView.setVisibility(View.GONE);
-								eva_nodata.setVisibility(View.VISIBLE);
-							} else {
-								mListView.setVisibility(View.VISIBLE);
-								eva_nodata.setVisibility(View.GONE);
-							}
-							myAdapter.notifyDataSetChanged();
-						}
-
-						@Override
-						public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
-							return new TypeToken<PageApply<TerminalManagerEntity>>() {
-							};
-						}
-					});
-
-			break;
-		case 3:
-
-			String[] str = new String[] { searchKey };
-
-			Config.batchTerminalNum(GenerateSearch.this, str,
-					new HttpCallback<List<TerminalPriceEntity>>(
-							GenerateSearch.this) {
-						@Override
-						public void onSuccess(List<TerminalPriceEntity> data) {
-							if (null != data) {
-								mEntities2.addAll(data);
-								
-								for(TerminalPriceEntity entity :mEntities2){
-									
-									TerminalManagerEntity item = new TerminalManagerEntity();
-									item.setId(entity.getId());
-									item.setPosPortID(entity.getSerial_num());
-									mAdapTerminalItems.add(item);
-								}
-							}
-							page++;
-							total = mAdapTerminalItems.size();
-							onLoad();
-
-							if (mAdapTerminalItems.size() == 0) {
-								mListView.setVisibility(View.GONE);
-								eva_nodata.setVisibility(View.VISIBLE);
-							} else {
-								mListView.setVisibility(View.VISIBLE);
-								eva_nodata.setVisibility(View.GONE);
-							}
-							myAdapter.notifyDataSetChanged();
-						}
-
-						@Override
-						public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
-							return new TypeToken<List<TerminalPriceEntity>>() {
-							};
-						}
-					});
-			break;
-		}
-
-	}
-
 	class TerminalAdapter extends BaseAdapter {
 
 		public TerminalAdapter() {
@@ -290,12 +196,12 @@ public class GenerateSearch extends Activity implements OnClickListener,
 
 		@Override
 		public int getCount() {
-			return mAdapTerminalItems.size();
+			return data.size();
 		}
 
 		@Override
-		public TerminalManagerEntity getItem(int position) {
-			return mAdapTerminalItems.get(position);
+		public String getItem(int position) {
+			return data.get(position);
 		}
 
 		@Override
@@ -321,7 +227,8 @@ public class GenerateSearch extends Activity implements OnClickListener,
 			}
 
 			viewHolder = (ViewHolder) convertView.getTag();
-			viewHolder.nameTextView.setText(mAdapTerminalItems.get(position).getId()+"");
+//			viewHolder.nameTextView.setText(data.get(position)
+//					.getId() + "");
 			return convertView;
 		}
 	}
@@ -331,30 +238,69 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		public RelativeLayout type_pop;
 	}
 
-	@Override
-	public void onRefresh() {
-		page = 1;
-		mAdapTerminalItems.clear();
-		mListView.setPullLoadEnable(true);
-		loadData();
-	}
-
-	@Override
-	public void onLoadMore() {
-		if (mAdapTerminalItems.size() >= total) {
-			mListView.setPullLoadEnable(false);
-			mListView.stopLoadMore();
-			Toast.makeText(GenerateSearch.this, "no more data",
-					Toast.LENGTH_SHORT).show();
-		} else {
-			loadData();
+	// add
+	public void addData(String name) {
+		String[] serach = terminalStr.split(",");
+		data.clear();
+		for (int i = (serach.length - 1); i >= 0; i--) {
+			data.add(serach[i]);
 		}
+		for (int i = 0; i < data.size(); i++) {
+			if (data.get(i).equals(name)) {
+				data.remove(i);
+			}
+		}
+		data.add(name);
+		terminalStr = "";
+		for (String str : data) {
+			if (terminalStr != null && !terminalStr.equals("")) {
+				terminalStr += "," + str;
+			} else {
+				terminalStr += str;
+			}
+			editor.putString("terminalStr", terminalStr);
+			editor.commit();
+		}
+
 	}
 
-	private void onLoad() {
-		mListView.stopRefresh();
-		mListView.stopLoadMore();
-		mListView.setRefreshTime(Tools.getHourAndMin());
+	// 删除记录
+	public void DeletaData() {
+		editor = mySharedPreferences.edit();
+		editor.putString("terminalStr", "");
+		editor.commit();// 提交
+		data.clear();
+
+		myAdapter.notifyDataSetChanged();
 	}
 
+	@Override
+	public void onRefresh() {}
+
+	@Override
+	public void onLoadMore() {}
+
+
+
+	@Override
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		
+		name = searchEditText.getText().toString();
+		
+		switch (actionId) {
+		case 0:
+			name = searchEditText.getText().toString();
+			addData(name);
+			Intent intent = new Intent();
+			intent.putExtra(SELECTED_TERMINAL, name);
+			GenerateSearch.this.setResult(RESULT_OK, intent);
+			finish();
+
+			return true;
+
+		}
+
+		return false;
+
+	}
 }
