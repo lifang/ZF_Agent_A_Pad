@@ -5,8 +5,6 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -21,7 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.activity.OrderDetail;
+import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.entity.OrderEntity;
+import com.comdo.zf_agent_a_pad.util.AlertDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
@@ -35,6 +36,7 @@ public class OrderAdapter extends BaseAdapter{
 	private List<OrderEntity> list;
 	private LayoutInflater inflater;
 	private ViewHolder holder = null;
+	private OrderList dd;
 	public OrderAdapter(Context context, List<OrderEntity> list) {
 		this.context = context;
 		this.list = list;
@@ -112,12 +114,24 @@ public class OrderAdapter extends BaseAdapter{
 			holder.ll_ishow.setVisibility(View.VISIBLE);
 			break;
 		case 2:
-			holder.tv_status.setText("已付款");
-			holder.ll_ishow.setVisibility(View.GONE);
+			if(OrderList.type.equals("5")){
+				holder.tv_status.setText("已付订金");
+				holder.ll_ishow.setVisibility(View.GONE);
+			}else{
+				holder.tv_status.setText("已付款");
+				holder.ll_ishow.setVisibility(View.GONE);
+			}
+		
 			break;
 		case 3:
-			holder.tv_status.setText("已发货");
-			holder.ll_ishow.setVisibility(View.GONE);
+			if(OrderList.type.equals("5")){
+				holder.tv_status.setText("已完成");
+				holder.ll_ishow.setVisibility(View.GONE);
+			}else{
+				holder.tv_status.setText("已发货");
+				holder.ll_ishow.setVisibility(View.GONE);
+			}
+
 			break;
 		case 4:
 			holder.tv_status.setText("已评价");
@@ -140,7 +154,7 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_ddbh.setText("订单编号: "+list.get(position).getOrder_number()	);
  		holder.tv_ddbh.setText("订单编号: "+list.get(position).getOrder_number()	);
  		holder.tv_ddbh.setText("订单编号: "+list.get(position).getOrder_number()	);
-	/*holder.btn_cancle.setOnClickListener(new OnClickListener() {
+	holder.btn_cancle.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(final View v) {
@@ -165,7 +179,7 @@ public class OrderAdapter extends BaseAdapter{
 						params.setUseJsonStreamer(true);
 
 						MyApplication.getInstance().getClient()
-								.post(Config.ORDERCANL, params, new AsyncHttpResponseHandler() {
+								.post(Config.ORDERDELTE, params, new AsyncHttpResponseHandler() {
 
 									@Override
 									public void onSuccess(int statusCode, Header[] headers,
@@ -199,7 +213,6 @@ public class OrderAdapter extends BaseAdapter{
 									@Override
 									public void onFailure(int statusCode, Header[] headers,
 											byte[] responseBody, Throwable error) {
-										// TODO Auto-generated method stub
 										System.out.println("-onFailure---");
 										Log.e("print", "-onFailure---" + error);
 									}
@@ -208,7 +221,7 @@ public class OrderAdapter extends BaseAdapter{
 				});
 				
 			}
-		});*/
+		});
  		holder.btn_pay.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -218,18 +231,24 @@ public class OrderAdapter extends BaseAdapter{
 			}
 		});
  		convertView.setId(position);
-		convertView.setOnClickListener(new OnClickListener() {
-			
+		convertView.setOnClickListener(new OnClickListener() {			
+			private int typeint;
+
 			@Override
 			public void onClick(View v) {
 				int index=v.getId();
-				//Intent i = new Intent(context, OrderDetail.class);
-				//i.putExtra("status", list.get(index).getOrder_status());
-				//i.putExtra("id", list.get(index).getOrder_id());
-				//i.putExtra("type", list.get(v.getId()).getOrder_type());
+				Intent i = new Intent(context, OrderDetail.class);
+				i.putExtra("status", list.get(index).getOrder_status());
+				i.putExtra("id", list.get(index).getOrder_id());
+			
+				if(OrderList.type.equals("5")){
+					typeint = 0;
+				}else{
+					typeint=1;
+				}
 				
-				//Toast.makeText(context, list.get(index).getOrder_status()+"+"+list.get(index).getOrder_id(), 1000).show();
-				//context.startActivity(i);
+				i.putExtra("type",typeint);			
+				context.startActivity(i);
 			}
 		});
 		

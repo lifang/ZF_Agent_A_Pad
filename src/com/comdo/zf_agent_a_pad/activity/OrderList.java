@@ -22,21 +22,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
-public class OrderList extends Activity implements IXListViewListener,OnClickListener{
+public class OrderList extends Activity implements IXListViewListener,OnClickListener,OnEditorActionListener {
 	private XListView Xlistview;
 	private boolean onRefresh_number = true;
 	private OrderAdapter myAdapter;
 	private int page=1;
-	private String type="1";
+	public static String type="5";
 	private String search="";
 	private String q="";
 	List<OrderEntity> myList = new ArrayList<OrderEntity>();
@@ -70,17 +74,32 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 	private TextView tv_pg;
 	private TextView tv_dg;
 	private ImageView all_good;
+	private LinearLayout ll_isshow;
+	private TextView pg;
+	private TextView dg;
+	private Spinner sp;
+	private EditText et;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlist);
 		initView();
-		getData();
+		//getData();
 	}
 	private void initView() {
+		et = (EditText)findViewById(R.id.ed_search);
+		et.setOnEditorActionListener(this);
+		pg = (TextView)findViewById(R.id.pg);
+		pg.setOnClickListener(this);
+		dg = (TextView)findViewById(R.id.dg);
+		dg.setOnClickListener(this);
+		ll_isshow = (LinearLayout)findViewById(R.id.ll_isshow);
+		if(!type.equals("5")){
+			ll_isshow.setVisibility(View.VISIBLE);
+		}
 		all_good = (ImageView)findViewById(R.id.AllGood);
 		all_good.setOnClickListener(this);
-		Spinner sp = (Spinner) findViewById(R.id.spinner);
+		sp = (Spinner) findViewById(R.id.spinner);
 		final String arr[] = new String[] { "全部", "未付款" ,"已付款","已发货","已评价","已取消","交易关闭"};
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
@@ -92,7 +111,7 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				Spinner spinner = (Spinner) parent;
-				q=position==0?"":position+"";		
+				q=position==0?"":position+"";					
 				page=1;
 				myList.clear();
 				getData();
@@ -122,6 +141,12 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 		myList.clear();
 		getData();
 	}
+	public  void DataChange(){
+		page = 1;
+		myList.clear();
+		getData();
+		
+	}
 	@Override
 	public void onLoadMore() {
 		if (onRefresh_number) {
@@ -140,10 +165,17 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 		
 	}
 	private void getData() {
-		Config.GetOrderList(OrderList.this, 80,type,search,q,page,Config.ROWS, new HttpCallback<Page<OrderEntity>>(OrderList.this) {
+		
+		Config.GetOrderList(OrderList.this, 1,type,search,q,page,Config.ROWS, new HttpCallback<Page<OrderEntity>>(OrderList.this) {
 
 			@Override
 			public void onSuccess(Page<OrderEntity> data) {
+				if (myList.size() != 0 && data.getList().size() == 0) {
+					Xlistview.getmFooterView().setState2(2);
+					Toast.makeText(getApplicationContext(), "没有更多数据!",
+							1000).show();
+					Xlistview.setPullLoadEnable(false);
+				}
 				myList.addAll(data.getList());				
 				myAdapter.notifyDataSetChanged();	
 				handler.sendEmptyMessage(0);
@@ -166,20 +198,45 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 	@SuppressLint("NewApi") @Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_pg:
-			tv_pg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
-			tv_dg.setBackgroundColor(getResources().getColor(R.color.bggray));
-			type="1";
+		case R.id.pg:
+			
+			dg.setTextColor(getResources().getColor(R.color.text292929));
+			pg.setTextColor(getResources().getColor(R.color.bgtitle));
+			type="5";
+			myList.clear();
+			page=1;	
+			getData();
+			break;
+		case R.id.dg:
+			dg.setTextColor(getResources().getColor(R.color.bgtitle));
+			pg.setTextColor(getResources().getColor(R.color.text292929));
+			type="4";
 			myList.clear();
 			page=1;
 			getData();
 			break;
+		case R.id.tv_pg:
+			sp.setSelection(0);
+			tv_pg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
+			tv_dg.setBackgroundColor(getResources().getColor(R.color.bggray));
+			type="5";
+			ll_isshow.setVisibility(View.GONE);
+			myList.clear();
+			page=1;	
+			q="";
+			Xlistview.setPullLoadEnable(true);
+			getData();
+			break;
 		case R.id.tv_dg:
+			sp.setSelection(0);
 			tv_dg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
 			tv_pg.setBackgroundColor(getResources().getColor(R.color.bggray));
 			type="3";
 			myList.clear();
 			page=1;
+			q="";
+			ll_isshow.setVisibility(View.VISIBLE);
+			Xlistview.setPullLoadEnable(true);
 			getData();
 			break;
 			case R.id.AllGood:
@@ -189,6 +246,20 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 		default:
 			break;
 		}
+		
+	}
+	@Override
+	public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
+		switch (actionId) {
+		case 0:	
+			search=et.getText().toString();
+			myList.clear();
+			getData();
+			page=1;
+			return true;
+
+		}
+		return false;
 		
 	}
 

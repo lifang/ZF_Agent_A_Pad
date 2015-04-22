@@ -127,7 +127,8 @@
             android:name="com.comdo.zf_agent_a_pad.activity.PosListActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" android:theme="@style/NoTheme">
+            android:theme="@style/NoTheme"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.StockListActivity"
@@ -221,6 +222,24 @@
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.OrderList"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.OrderDetail"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.PayFromCar"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.Comment"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >

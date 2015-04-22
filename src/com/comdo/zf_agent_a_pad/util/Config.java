@@ -47,6 +47,10 @@ public class Config {
 	public static final String ZDORDER = PATHS + "order/lease";
 	public static final String ORDERLIST = PATHS + "order/orderSearch";
 	public static final String GOODCOMFIRM = PATHS + "order/agent";
+	public static final String ORDERDELTE = PATHS + "order/cancelProxy";
+	public static final String ORDERDETAIL = PATHS + "order/getWholesaleById";
+	public static final String ORDERDETAIL1 = PATHS + "order/getProxyById";
+	public static final String Comment = PATHS + "order/batchSaveComment";
 	public static GoodinfoEntity gfe = null;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
 	public static ArrayList<tDates> tDates = new ArrayList<tDates>();
@@ -521,15 +525,14 @@ public class Config {
 	public static void GetOrderList(Context context, int  customerId,String type,String search,
 			String q,int page,int rows,
 			HttpCallback callback) {
-		RequestParams params=new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("p", type);
 		//params.put("search", search);
-		if(!q.equals(""))
+		//if(!q.equals(""))
 		params.put("q", q);
 		params.put("page",page);
 		params.put("rows",rows);
-		params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ORDERLIST, params);
 		Log.e("params", params.toString()+"");
 		Log.e("GET_ADDRESS_LIST", ORDERLIST);
