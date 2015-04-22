@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.activity.OrderDetail;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
+import com.comdo.zf_agent_a_pad.activity.PayFromCar;
 import com.comdo.zf_agent_a_pad.entity.OrderEntity;
 import com.comdo.zf_agent_a_pad.util.AlertDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
@@ -226,8 +227,8 @@ public class OrderAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View arg0) {
-				//Intent i = new Intent(context,PayFromCar.class);
-				//context.startActivity(i);
+				Intent i = new Intent(context,PayFromCar.class);
+				context.startActivity(i);
 			}
 		});
  		convertView.setId(position);
