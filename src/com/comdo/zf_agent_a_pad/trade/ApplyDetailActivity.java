@@ -355,7 +355,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		// mMaterialContainer_9.removeAllViews();
 		initMerchantDetailKeys();
 
-		Config.getApplyDetail(this, 80, mTerminalId, applyType,	new HttpCallback<My_ApplyDetail>(this) {
+		Config.getApplyDetail(this, mTerminalId, applyType,	new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
 						

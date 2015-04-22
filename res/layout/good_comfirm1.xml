@@ -53,11 +53,12 @@
                                     android:textSize="@dimen/textbig" />
 
                                 <Spinner
-                                    android:id="@+id/spinner_yh"
+                                    android:id="@+id/spinner_user"
                                     android:layout_width="@dimen/sp_width"
                                     android:layout_height="@dimen/sp_height"
                                     android:layout_marginRight="40dp"
                                     android:layout_marginLeft="20dp"
+                                    android:spinnerMode="dropdown"
                                     android:background="@drawable/ed_adress" />
                                 <Button
                                 android:id="@+id/bt_add"
@@ -826,9 +827,5 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-
-    
-
     </RelativeLayout>
-
-</LinearLayout>
+ </LinearLayout>

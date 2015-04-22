@@ -44,9 +44,7 @@ public class MyApplication extends Application{
 	public Vibrator mVibrator;
 	public Boolean isLogin=false;
 	//private ArrayList<Order> orderList = new ArrayList<Order>();
-	/**
-	 * ��֤��Ϣtoken
-	 */
+
 	private static  String versionCode="";
 	private static int notifyId=0;
 	private static Boolean isSelect=false;
@@ -225,6 +223,7 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 			 for(City cc:mCities ){
 				 if(location.getCity()!=null&&!location.getCity().equals("")){
 					 if(cc.getName().endsWith(location.getCity())){
+						 System.out.println("当前城市 ID----"+cc.getId());
 						 setCITYID(cc.getId());
 					 }
 				 } 
@@ -234,10 +233,6 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 		}
 	}
 	}
-	/**
-	 * ��ʾ�����ַ�
-	 * @param str
-	 */
 	public void logMsg(String str) {
 		try {
 			if (mLocationResult != null)
