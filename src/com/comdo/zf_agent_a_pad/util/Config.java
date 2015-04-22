@@ -169,7 +169,8 @@ public class Config {
 	// 用户管理--获得该代理商下面所有用户
 	public static final String USER_GETUSER = PATHS + "user/getUser";
 	// 用户管理--删除用户
-	public static final String USER_DELECTAGENTUSER = PATHS+ "user/delectAgentUser";
+	public static final String USER_DELECTAGENTUSER = PATHS
+			+ "user/delectAgentUser";
 	// 用户管理--获得该代理商下面某个用户的相关终端列表
 	public static final String USER_GETTERMINALS = PATHS + "user/getTerminals";
 	// 库存管理列表
@@ -433,19 +434,18 @@ public class Config {
 		new HttpRequest(context, callback).post(Config.ZDORDER, params);
 	}
 
-	public static void getApplyList(Context context, int customerId, int page,
+	public static void getApplyList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customersId", customerId);
+		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(APPLY_LIST, params);
 	}
 
-	public static void getApplyDetail(Context context, int customerId,
-			int terminalId, int status, HttpCallback callback) {
+	public static void getApplyDetail(Context context, int terminalId,
+			int status, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customerId", customerId);
 		params.put("terminalsId", terminalId);
 		params.put("status", status);
 		new HttpRequest(context, callback).post(APPLY_DETAIL, params);
@@ -477,21 +477,13 @@ public class Config {
 		new HttpRequest(context, callback).post(TERMINAL_FIND_POS, params);
 	}
 
-	public static void getTerminalApplyList(Context context, int customerId,
+	public static void getTerminalApplyList(Context context, int agentId,
 			int page, int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customersId", customerId);
+		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(TERMINAL_APPLY_LIST, params);
-	}
-
-	public static void getTerminalDetail(Context context, int terminalId,
-			int customerId, HttpCallback callback) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("terminalsId", terminalId);
-		params.put("customerId", customerId);
-		new HttpRequest(context, callback).post(TERMINAL_DETAIL, params);
 	}
 
 	public static void getTerminalDetail(Context context, int terminalId,
