@@ -1,5 +1,6 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -12,6 +13,8 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AddressManager;
 import com.comdo.zf_agent_a_pad.entity.BaseInfoEntity;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
+import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.example.zf_agent_a_pad.R;
@@ -43,6 +46,7 @@ public class Mybaseinfo extends Fragment implements OnClickListener{
 	private int tag=0;
 	private String[] imgPath=new String[3];
 	private Button btn_exit;
+	private List<City> mCities = new ArrayList<City>();
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -124,7 +128,18 @@ private void getData() {
 		@Override
 		public void onSuccess(BaseInfoEntity data) {
 			//myHandler.sendEmptyMessage(0);
-			tv_company_type.setText(data.getTypes());
+			if(data==null){
+				CommonUtil.toastShort(getActivity(), "未获得数据");
+				return;
+			}
+			if(data.getTypes().equals("1")){
+				tv_company_type.setText("公司");
+			}
+			else if(data.getTypes().equals("2")){
+			
+				tv_company_type.setText("个人");
+			}
+			
 			tv_company_name.setText(data.getCompany_name());
 			tv_yingyezhizhao.setText(data.getBusiness_license());
 			tv_company_shuiwudengji.setText(data.getTax_registered_no());
@@ -132,12 +147,12 @@ private void getData() {
 			tv_fuzeren_no.setText(data.getCard_id());
 			tv_phone.setText(data.getPhone());
 			tv_email.setText(data.getEmail());
-			tv_adress.setText(data.getCity_id());
+			tv_adress.setText(findcity(Integer.parseInt(data.getCity_id())));
 			tv_adressdetail.setText(data.getAddress());
 			shenfenzheng=data.getCard_id_photo_path();
 			yingyezhizhao=data.getLicense_no_pic_path();
 			shuiwu=data.getTax_no_pic_path();
-			tv_id_detail.setText(data.getId()+"");
+			tv_id_detail.setText(data.getName());
 		}
 
 		@Override
@@ -148,6 +163,23 @@ private void getData() {
 		}
 	});
 	}
+protected String findcity(int id) {
+	// TODO Auto-generated method stub
+	String a="苏州";
+    List<Province> provinces = CommonUtil.readProvincesAndCities(getActivity());
+    for (Province province : provinces) {
+        List<City> cities = province.getCities();
+      
+        mCities.addAll(cities);
+         
+    }
+	 for(City cc:mCities ){
+		 if(cc.getId()==id){
+			 a=cc.getName();
+		 }
+	 }
+	 return a;
+}
 @Override
 public void onClick(View v) {
 	switch (v.getId()) {
