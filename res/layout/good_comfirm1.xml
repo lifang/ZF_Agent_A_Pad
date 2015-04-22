@@ -827,9 +827,5 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-
-    
-
     </RelativeLayout>
-
-</LinearLayout>
+ </LinearLayout>

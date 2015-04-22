@@ -39,13 +39,13 @@ import com.google.gson.reflect.TypeToken;
 public class TerminalApplyServiceActivity extends Activity implements
 		View.OnClickListener {
 	private TextView client_names;
-	private int mTerminalNum;
-	private String mTerminalArray;
+	private int mTerminalNum=0;
+	private String mTerminalArray="";
 	private LinearLayout select_client;
 	private EditText reason;
 	private Button mSubmitBtn;
 
-	private String mReceiver, mPhoneNum, mAddress, mReason;
+	private String mReceiver="", mPhoneNum="", mAddress="", mReason="";
 
 	private Spinner spinner;
 	private ArrayAdapter<String> adapter;
@@ -180,7 +180,8 @@ public class TerminalApplyServiceActivity extends Activity implements
 									TerminalApplyServiceActivity.this,
 									getResources().getString(
 											R.string.terminal_apply_success));
-							finish();
+							startActivity(new Intent(TerminalApplyServiceActivity.this,AfterSaleActivity.class));
+							TerminalApplyServiceActivity.this.finish();
 						}
 
 						@Override

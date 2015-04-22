@@ -31,6 +31,7 @@ import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.activity.UserManageListActivity;
 import com.comdo.zf_agent_a_pad.entity.PicEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
+import com.comdo.zf_agent_a_pad.trade.TradeFlowActivity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
 
@@ -45,7 +46,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 	private ArrayList<String> mal = new ArrayList<String>();
 	private ArrayList<PicEntity> myList = new ArrayList<PicEntity>();
 	private ViewPager view_pager;
-	private ImageView[] indicator_imgs;// 瀛樻斁寮曞埌鍥剧墖鏁扮粍
+	private ImageView[] indicator_imgs;
 	private View item;
 	private LayoutInflater inflater;
 	private int index_ima = 0;
@@ -61,7 +62,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 				Toast.makeText(getActivity(), (String) msg.obj,
 						Toast.LENGTH_SHORT).show();
 				break;
-			case 2: // 缃戠粶鏈夐棶棰�
+			case 2: 
 				Toast.makeText(getActivity(), "网络连接错误", Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -115,7 +116,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 		case R.id.main_rl_jyls: // 交易流水
 			if (Config.CheckIsLogin(getActivity())) {
-				//startActivity(new Intent(getActivity(), TradeFlowActivity.class));
+				startActivity(new Intent(getActivity(), TradeFlowActivity.class));
 			}
 			break;
 		case R.id.main_rl_pos: //我要进货

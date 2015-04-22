@@ -8,18 +8,18 @@ package com.comdo.zf_agent_a_pad.entity;
  */
 public class MessageEntity {
 	private String content;
-	private long id;
+	private int id;
 	private String title;
 	private String create_at;
-	private Boolean ischeck;
-	public MessageEntity(String content,long id,String title,
-			String create_at,Boolean ischeck){
+	private boolean status;
+	public MessageEntity(String content,int id,String title,
+			String create_at,boolean status){
 		super();
 		this.content=content;
 		this.id=id;
 		this.title=title;
 		this.create_at=create_at;
-		this.ischeck=ischeck;
+		this.status=status;
 	}
 	public String getContent() {
 		return content;
@@ -27,10 +27,10 @@ public class MessageEntity {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -45,16 +45,16 @@ public class MessageEntity {
 	public void setCreate_at(String create_at) {
 		this.create_at = create_at;
 	}
-	public Boolean getIscheck() {
-		return ischeck;
+	public boolean isStatus() {
+		return status;
 	}
-	public void setIscheck(Boolean ischeck) {
-		this.ischeck = ischeck;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	@Override
 	public String toString() {
 		return "MessageEntity [content=" + content + ", id=" + id + ", title="
-				+ title + ", create_at=" + create_at + ", ischeck=" + ischeck
+				+ title + ", create_at=" + create_at + ", status=" + status
 				+ "]";
 	}
 	

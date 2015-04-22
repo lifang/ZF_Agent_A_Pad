@@ -41,12 +41,12 @@ import java.util.Date;
 import java.util.List;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_TYPE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.CLIENT_NUMBER;
-/*import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.AGENT_ID;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.AGENT_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.AGENT_NAME;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.END_DATE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.SONAGEHNTID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_CLIENT;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_AGENT;*/
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_AGENT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.START_DATE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_RECORD_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_TYPE;
@@ -229,7 +229,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		super.onDetach();
 	}
 
-/*	@Override
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode != Activity.RESULT_OK)
@@ -250,7 +250,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 			toggleButtons();
 			break;
 		}
-	}*/
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -260,13 +260,13 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		case R.id.trade_client:
 			i = new Intent(getActivity(), TradeClientActivity.class);
 			i.putExtra(CLIENT_NUMBER, tradeClientName);
-			//startActivityForResult(i, REQUEST_TRADE_CLIENT);
+			startActivityForResult(i, REQUEST_TRADE_CLIENT);
 			break;
-	/*	case R.id.trade_agent:
+		case R.id.trade_agent:
 			i = new Intent(getActivity(), TradeAgentActivity.class);
 			i.putExtra(AGENT_ID, tradeAgentId);
 			startActivityForResult(i, REQUEST_TRADE_AGENT);
-			break;*/
+			break;
 		case R.id.trade_start:
 			showDatePicker(tradeStartDate, true);
 			break;
@@ -294,7 +294,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 						}
 					});
 			break;
-/*		case R.id.trade_statistic:
+		case R.id.trade_statistic:
 			Intent intent = new Intent(getActivity(),
 					TradeStatisticActivity.class);
 			intent.putExtra(TRADE_TYPE, mTradeType);
@@ -303,7 +303,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 			intent.putExtra(END_DATE, tradeEndDate);
 			intent.putExtra(SONAGEHNTID, tradeAgentId);
 			startActivity(intent);
-			break;*/
+			break;
 		}
 	}
 

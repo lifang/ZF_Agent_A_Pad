@@ -59,8 +59,10 @@ public class UserMLAdapter extends BaseAdapter{
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.update_data.setText(lists.get(position).getName());
-//		viewHolder.terminal_no.setText(lists.get(position).getTerminal_num());
-//		viewHolder.apply_date.setText(lists.get(position).getCreate_time());
+		viewHolder.terminal_no.setText(lists.get(position).getPhone());
+		viewHolder.apply_date.setText(lists.get(position).getEmail());
+		viewHolder.update_state.setText(lists.get(position).getCreatedAt());
+		
 		viewHolder.cancel_apply.setVisibility(View.VISIBLE);
 		viewHolder.cancel_again.setVisibility(View.GONE);
 		viewHolder.cancel_apply.setText("删除");

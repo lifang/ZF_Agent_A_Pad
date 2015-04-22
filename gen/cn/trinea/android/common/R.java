@@ -27,20 +27,20 @@ public final class R {
 		public static final int drop_down_list_header_release_min_distance = 0x7f060002;
 	}
 	public static final class drawable {
-		public static final int drop_down_list_arrow = 0x7f020020;
+		public static final int drop_down_list_arrow = 0x7f020021;
 	}
 	public static final class id {
-		public static final int drop_down_list_footer_button = 0x7f0b0114;
-		public static final int drop_down_list_footer_progress_bar = 0x7f0b0113;
-		public static final int drop_down_list_header_default_text = 0x7f0b0118;
-		public static final int drop_down_list_header_default_text_layout = 0x7f0b0116;
-		public static final int drop_down_list_header_image = 0x7f0b0117;
-		public static final int drop_down_list_header_progress_bar = 0x7f0b0115;
-		public static final int drop_down_list_header_second_text = 0x7f0b0119;
+		public static final int drop_down_list_footer_button = 0x7f0b014a;
+		public static final int drop_down_list_footer_progress_bar = 0x7f0b0149;
+		public static final int drop_down_list_header_default_text = 0x7f0b014e;
+		public static final int drop_down_list_header_default_text_layout = 0x7f0b014c;
+		public static final int drop_down_list_header_image = 0x7f0b014d;
+		public static final int drop_down_list_header_progress_bar = 0x7f0b014b;
+		public static final int drop_down_list_header_second_text = 0x7f0b014f;
 	}
 	public static final class layout {
-		public static final int drop_down_list_footer = 0x7f030036;
-		public static final int drop_down_list_header = 0x7f030037;
+		public static final int drop_down_list_footer = 0x7f030039;
+		public static final int drop_down_list_header = 0x7f03003a;
 	}
 	public static final class string {
 		public static final int drop_down_list_footer_default_text = 0x7f070004;

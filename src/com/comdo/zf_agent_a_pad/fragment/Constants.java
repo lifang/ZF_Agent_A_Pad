@@ -32,7 +32,11 @@ public class Constants {
 	 */
 	public static class TradeIntent {
 		public static final int REQUEST_TRADE_CLIENT = 0;
+		public static final int REQUEST_TRADE_AGENT = 1;
 
+		public static final String AGENT_ID = "agent_id";
+		public static final String AGENT_NAME = "agent_name";
+		public static final String SONAGEHNTID = "sonagentId";
 		public static final String TRADE_TYPE = "trade_type";
 		public static final String TRADE_RECORD_ID = "trade_record_id";
 		public static final String CLIENT_NUMBER = "client_number";
@@ -92,7 +96,9 @@ public class Constants {
 		public static final String TERMINAL_CLIENT = "terminal_client";
 		public static final String TERMINAL_TOTAL = "terminal_total";
 		public static final String TERMINAL_ARRAY = "terminal_array";
+		
 
+		public static final String TERMINAL_TYPE = "terminal_type";
 	}
 
 	/**
@@ -114,6 +120,7 @@ public class Constants {
 		public static final String SELECTED_CHANNEL = "selected_channel";
 		public static final String SELECTED_BILLING = "selected_billing";
 		public static final String SELECTED_BANK = "selected_bank";
+		public static final String SELECTED_TERMINAL = "selected_terminal";
 	}
 
 }
