@@ -15,10 +15,11 @@ private String card_id_photo_path;
 private String license_no_pic_path;
 private String tax_no_pic_path;
 private int id;
+private String name;
 public BaseInfoEntity(String types,String company_name,String business_license,String tax_registered_no,
 		String username,String card_id,String phone,String email,String city_id,
 		String address,String card_id_photo_path,String license_no_pic_path,String tax_no_pic_path,
-		String login_id){
+		String login_id,String name){
 	super();
 	this.types=types;
 	this.company_name=company_name;
@@ -34,6 +35,7 @@ public BaseInfoEntity(String types,String company_name,String business_license,S
 	this.license_no_pic_path=license_no_pic_path;
 	this.tax_no_pic_path=tax_no_pic_path;
 	this.id=id;
+	this.name=name;
 	
 }
 public String getTypes() {
@@ -120,6 +122,12 @@ public int getId() {
 public void setId(int id) {
 	this.id = id;
 }
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
 @Override
 public String toString() {
 	return "BaseInfoEntity [types=" + types + ", company_name=" + company_name
@@ -129,7 +137,7 @@ public String toString() {
 			+ city_id + ", address=" + address + ", card_id_photo_path="
 			+ card_id_photo_path + ", license_no_pic_path="
 			+ license_no_pic_path + ", tax_no_pic_path=" + tax_no_pic_path
-			+ ", id=" + id + "]";
+			+ ", id=" + id + ", name=" + name + "]";
 }
 
 }

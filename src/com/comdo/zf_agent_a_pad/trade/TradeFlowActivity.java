@@ -25,6 +25,7 @@ import android.support.v4.view.ViewPager;
 
 import com.comdo.zf_agent_a_pad.trade.widget.MyTabWidget;
 import com.comdo.zf_agent_a_pad.trade.widget.MyViewPager;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 
 
@@ -41,6 +42,7 @@ public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnP
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_trade_flow);
+        new TitleMenuUtil(this, "交易流水").show();
         initViews();
     }
 

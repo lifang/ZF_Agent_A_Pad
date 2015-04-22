@@ -19,6 +19,7 @@
     <string name="applyforagent">申请成为代理商</string>
     <string name="register">注册</string>
     <string name="format_error">请输入正确的手机号或邮箱</string>
+    <string name="clear_history">清除历史数据</string>
 
     <string-array name="agent_type">
         <item>公司</item>

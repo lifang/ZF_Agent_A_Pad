@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeDetail;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,7 +40,7 @@ public class TradeDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_item);
-//        new TitleMenuUtil(this, getString(R.string.title_trade_detail)).show();
+        new TitleMenuUtil(this, "交易详情").show();
         initialViews();
 
         int recordId = getIntent().getIntExtra(TRADE_RECORD_ID, 0);
