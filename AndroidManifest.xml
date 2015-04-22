@@ -317,6 +317,12 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.EditStallmanager"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
     </application>
 
 </manifest>

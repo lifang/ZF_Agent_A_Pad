@@ -56,6 +56,7 @@ public class StaffmanagerAdapter extends BaseAdapter{
 			holdel.tv_loginid=(TextView) convertView.findViewById(R.id.tv_loginid);
 			holdel.tv_name=(TextView) convertView.findViewById(R.id.tv_name);
 			holdel.tv_time=(TextView) convertView.findViewById(R.id.tv_time);
+			holdel.tv_delect=(TextView) convertView.findViewById(R.id.tv_delect);
 			convertView.setTag(holdel);
 			}
 		else{
@@ -75,11 +76,23 @@ public class StaffmanagerAdapter extends BaseAdapter{
 				
 			}
 		});
+		holdel.tv_delect.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				pp=position;
+				Message msg=Staffmanagr.myHandler.obtainMessage();
+				msg.what=2;
+				msg.sendToTarget();
+				
+			}
+		});
 		return convertView;
 	}
 	public static class ViewHoldel{
 		TextView tv_loginid;
 		TextView tv_name;
 		TextView tv_time;
+		TextView tv_delect;
 	}
 }
