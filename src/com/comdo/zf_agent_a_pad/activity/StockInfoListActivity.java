@@ -84,6 +84,8 @@ public class StockInfoListActivity extends Activity implements OnClickListener,I
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_stockinfo_list);
 
+		stockEntity=(StockEntity) getIntent().getSerializableExtra("StockEntity");
+		
 		new TitleMenuUtil(this, "库存详情").show();
 		initView();
 		initData();
@@ -112,12 +114,12 @@ public class StockInfoListActivity extends Activity implements OnClickListener,I
 		titleback_linear_back.setOnClickListener(this);
 		
 		stockInfoAdapter = new StockInfoListAdapter(StockInfoListActivity.this,mEntities);
-		mListView.setAdapter(stockInfoAdapter);
 
 		mListView.initHeaderAndFooter();
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 		mListView.setDivider(null);
+		mListView.setAdapter(stockInfoAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
