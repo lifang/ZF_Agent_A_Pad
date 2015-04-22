@@ -169,8 +169,7 @@ public class Config {
 	// 用户管理--获得该代理商下面所有用户
 	public static final String USER_GETUSER = PATHS + "user/getUser";
 	// 用户管理--删除用户
-	public static final String USER_DELECTAGENTUSER = PATHS
-			+ "user/delectAgentUser";
+	public static final String USER_DELECTAGENTUSER = PATHS+ "user/delectAgentUser";
 	// 用户管理--获得该代理商下面某个用户的相关终端列表
 	public static final String USER_GETTERMINALS = PATHS + "user/getTerminals";
 	// 库存管理列表
@@ -594,7 +593,7 @@ public class Config {
 	}
 
 	public static void userDelectAgentUser(Context context,
-			JSONArray customerArrayId, int agentId, HttpCallback callback) {
+			int[] customerArrayId, int agentId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerArrayId", customerArrayId);
 		params.put("agentId", agentId);
