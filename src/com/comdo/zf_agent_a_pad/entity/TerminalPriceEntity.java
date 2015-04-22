@@ -1,9 +1,11 @@
 package com.comdo.zf_agent_a_pad.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by holin on 4/13/15.
  */
-public class TerminalPriceEntity {
+public class TerminalPriceEntity implements Serializable{
     private int id;
     private int retail_price;
     private String serial_num;

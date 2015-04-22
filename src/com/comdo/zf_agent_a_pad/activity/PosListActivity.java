@@ -111,11 +111,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 	};
 
 	private ImageView port1;
-
 	private ImageView port2;
-
 	private PosAdapter1 myAdapter1;
-
 	private Intent i;
 	private LinearLayout ll_listflag;
 	private TextView tv_pg;
@@ -131,6 +128,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 	}
 
 	private void initView() {
+		
 		tv_pg = (TextView) findViewById(R.id.tv_pg);
 		tv_pg.setOnClickListener(this);
 		tv_dg = (TextView) findViewById(R.id.tv_dg);
@@ -144,8 +142,11 @@ public class PosListActivity extends Activity implements OnClickListener,
 		im_sy.setOnClickListener(this);
 		im_ghc = (ImageView) findViewById(R.id.igw);
 		im_mess = (ImageView) findViewById(R.id.im_mess);
+		im_mess.setOnClickListener(this);
 		im_wd = (ImageView) findViewById(R.id.im_wd);
+		im_wd.setOnClickListener(this);
 		set = (LinearLayout) findViewById(R.id.set);
+		
 		set.setOnClickListener(this);
 		ll_listflag = (LinearLayout) findViewById(R.id.ll_listflag);
 		ll_mr = (LinearLayout) findViewById(R.id.ll_mr);
@@ -257,7 +258,6 @@ public class PosListActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.titleback_linear_back:
 			PosListActivity.this.finish();
@@ -339,22 +339,19 @@ public class PosListActivity extends Activity implements OnClickListener,
 			myList.clear();
 			Search();
 			break;
-		case R.id.main_rl_sy:
-
+		case R.id.im_mess:
+			Config.TABID=3;
+			PosListActivity.this.finish();
 			break;
-		case R.id.main_rl_gwc:
-
-			break;
-		case R.id.main_rl_pos1:
-
-			break;
-		case R.id.main_rl_my:
-
+		case R.id.im_wd:
+			Config.TABID=4;
+			PosListActivity.this.finish();
 			break;
 		case R.id.set:
 			showSet();
 			break;
 		case R.id.laa1:
+			Config.TABID=1;
 			finish();
 			break;
 		default:

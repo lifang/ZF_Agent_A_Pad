@@ -1,6 +1,8 @@
 package com.comdo.zf_agent_a_pad.entity;
 
-public class StockEntity {
+import java.io.Serializable;
+
+public class StockEntity implements Serializable {
 
     private String good_brand;
     private int hoitoryCount;
@@ -102,4 +104,5 @@ public class StockEntity {
     public void setGood_id(int good_id) {
         this.good_id = good_id;
     }
+
 }

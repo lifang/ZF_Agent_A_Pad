@@ -1,9 +1,11 @@
 package com.comdo.zf_agent_a_pad.trade;
 
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_DETAIL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
 
@@ -22,11 +24,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.activity.GenerateSearch;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.common.PageApply;
-import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.Tools;
@@ -50,6 +51,9 @@ public class ApplyListActivity extends Activity implements
 	private int total = 0;
 	private final int rows = 10;
 	private boolean noMoreData = false;
+
+	private static final int REQUEST_SEARCH = 1000;
+	private String searchKey;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +105,16 @@ public class ApplyListActivity extends Activity implements
 			}
 		});
 
-		titleback_text_title
-				.setText(getString(R.string.title_apply));
+		titleback_text_title.setText(getString(R.string.title_apply));
 
 		searchView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// startActivityForResult(new Intent(ApplyListActivity.this,
-				// TerminalAddActivity.class), REQUEST_ADD);
+				Intent it = new Intent(ApplyListActivity.this,
+						GenerateSearch.class);
+				it.putExtra(TERMINAL_TYPE, 1);
+				it.putExtra(TERMINAL_STATUS, -1);
+				startActivityForResult(it, REQUEST_SEARCH);
 			}
 		});
 	}
@@ -125,10 +131,9 @@ public class ApplyListActivity extends Activity implements
 						page++;
 						mAdapter.notifyDataSetChanged();
 					}
-					
+
 					@Override
 					public void onFailure(String message) {
-						// TODO Auto-generated method stub
 						super.onFailure(message);
 					}
 
@@ -138,6 +143,41 @@ public class ApplyListActivity extends Activity implements
 						};
 					}
 				});
+	}
+
+	protected void onActivityResult(final int requestCode, int resultCode,
+			final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		switch (requestCode) {
+		case REQUEST_SEARCH: {
+			searchKey = data.getStringExtra(SELECTED_TERMINAL);
+			Config.searchApplyList(ApplyListActivity.this, 1, page, rows,
+					searchKey,
+					new HttpCallback<PageApply<TerminalManagerEntity>>(
+							ApplyListActivity.this) {
+						@Override
+						public void onSuccess(
+								PageApply<TerminalManagerEntity> data) {
+							if (null == data || data.getList().size() <= 0)
+								noMoreData = true;
+							mTerminalItems = new ArrayList<TerminalManagerEntity>();
+							mTerminalItems.addAll(data.getList());
+							page++;
+							mAdapter.notifyDataSetChanged();
+						}
+
+						@Override
+						public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
+							return new TypeToken<PageApply<TerminalManagerEntity>>() {
+							};
+						}
+					});
+
+		}
+			break;
+		}
 	}
 
 	class ApplyListAdapter extends BaseAdapter {

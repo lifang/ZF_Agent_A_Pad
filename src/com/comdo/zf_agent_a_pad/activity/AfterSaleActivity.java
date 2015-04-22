@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -47,6 +46,8 @@ import com.google.gson.reflect.TypeToken;
 public class AfterSaleActivity extends Activity implements View.OnClickListener,IXListViewListener {
 
 	private View selectView;
+	private View orderView_x,cancelView_xl,cancelView_xr,updateView_x;
+	private View orderView_y,cancelView_y,updateView_y;
 	//售后单、注销、更新资料
 	private RelativeLayout order_layout,cancel_layout,update_layout;
 	private View orderView,cancelView,updateView;
@@ -103,6 +104,14 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	}
 
 	private void initView() {
+		orderView_x = findViewById(R.id.orderView_x);
+		cancelView_xl = findViewById(R.id.cancelView_xl);
+		cancelView_xr = findViewById(R.id.cancelView_xr);
+		updateView_x = findViewById(R.id.updateView_x);
+		orderView_y = findViewById(R.id.orderView_y);
+		cancelView_y = findViewById(R.id.cancelView_y);
+		updateView_y = findViewById(R.id.updateView_y);
+
 		mListView = (XListView) findViewById(R.id.mListView);
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 
@@ -152,6 +161,15 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.order_layout:
+			orderView_x.setVisibility(View.VISIBLE);
+			cancelView_xl.setVisibility(View.VISIBLE);
+			cancelView_xr.setVisibility(View.GONE);
+			updateView_x.setVisibility(View.GONE);
+			
+			orderView_y.setVisibility(View.GONE);
+			cancelView_y.setVisibility(View.VISIBLE);
+			updateView_y.setVisibility(View.VISIBLE);
+			
 			order_layout.setBackgroundResource(R.color.white);
 			cancel_layout.setBackgroundResource(R.color.e9e8e8);
 			update_layout.setBackgroundResource(R.color.e9e8e8);
@@ -167,6 +185,14 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			loadData();
 			break;
 		case R.id.cancel_layout:
+			orderView_x.setVisibility(View.GONE);
+			cancelView_xl.setVisibility(View.VISIBLE);
+			cancelView_xr.setVisibility(View.VISIBLE);
+			updateView_x.setVisibility(View.GONE);
+			
+			orderView_y.setVisibility(View.VISIBLE);
+			cancelView_y.setVisibility(View.GONE);
+			updateView_y.setVisibility(View.VISIBLE);
 			order_layout.setBackgroundResource(R.color.e9e8e8);
 			cancel_layout.setBackgroundResource(R.color.white);
 			update_layout.setBackgroundResource(R.color.e9e8e8);
@@ -182,6 +208,14 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			loadData();
 			break;
 		case R.id.update_layout:
+			orderView_x.setVisibility(View.GONE);
+			cancelView_xl.setVisibility(View.GONE);
+			cancelView_xr.setVisibility(View.VISIBLE);
+			updateView_x.setVisibility(View.VISIBLE);
+			
+			orderView_y.setVisibility(View.VISIBLE);
+			cancelView_y.setVisibility(View.VISIBLE);
+			updateView_y.setVisibility(View.GONE);
 			cancel_layout.setBackgroundResource(R.color.e9e8e8);
 			order_layout.setBackgroundResource(R.color.e9e8e8);
 			update_layout.setBackgroundResource(R.color.white);
@@ -436,7 +470,7 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 
 		});
 	}
-	
+
 	@Override
 	public void onRefresh() {
 		page = 1;

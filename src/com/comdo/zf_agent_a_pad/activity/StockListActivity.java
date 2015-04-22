@@ -66,21 +66,22 @@ public class StockListActivity extends Activity implements IXListViewListener{
 
 		stockListAdapter = new StockListAdapter(StockListActivity.this,mEntities,
 				new onClickListener());
-		mListView.setAdapter(stockListAdapter);
 
 		mListView.initHeaderAndFooter();
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 		mListView.setDivider(null);
+		mListView.setAdapter(stockListAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				toInfoPosition = position-2;
-				StockInfoListActivity.setStockEntity(mEntities.get(position-2));
+				//StockInfoListActivity.setStockEntity(mEntities.get(position-2));
 
 				Intent intent = new Intent(StockListActivity.this,StockInfoListActivity.class);
+				intent.putExtra("StockEntity", mEntities.get(position-2));
 				startActivityForResult(intent, 101);
 			}
 		});
@@ -204,6 +205,11 @@ public class StockListActivity extends Activity implements IXListViewListener{
 		mListView.stopRefresh();
 		mListView.stopLoadMore();
 		mListView.setRefreshTime(Tools.getHourAndMin());
+	}
+	public void buttonClick() {
+		page = 1;
+		mEntities.clear();
+		loadData();
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,21 +1,21 @@
 package com.comdo.zf_agent_a_pad.entity;
 
 public class StaffmanagerEntity {
-	private long id;
+	private int id;
 	private String username;
 	private String name;
 	private String createdAt;
-	public StaffmanagerEntity(long id,String username,String name,String createdAt){
+	public StaffmanagerEntity(int id,String username,String name,String createdAt){
 		super();
 		this.id=id;
 		this.username=username;
 		this.name=name;
 		this.createdAt=createdAt;
 	}
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getUsername() {

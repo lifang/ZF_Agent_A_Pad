@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.entity;
 
+import java.util.List;
+
 public class DistributeDetailEntity {
 private int id;
 private String company_name;
@@ -42,5 +44,6 @@ public String toString() {
 			+ company_name + ", terminal_list=" + terminal_list
 			+ ", created_at=" + created_at + ", creator=" + creator + "]";
 }
+
 
 }

@@ -1,7 +1,7 @@
 package com.comdo.zf_agent_a_pad.entity;
 
 public class TerminalEntity {
-private long id;
+	private long id;
 private String number;
 public TerminalEntity(long id,String number){
 	super();
@@ -24,5 +24,6 @@ public void setNumber(String number) {
 public String toString() {
 	return "TerminalEntity [id=" + id + ", number=" + number + "]";
 }
+
 
 }

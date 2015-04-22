@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.activity.CreatStaff;
+import com.comdo.zf_agent_a_pad.activity.StallmanagerDetail;
 import com.comdo.zf_agent_a_pad.adapter.StaffmanagerAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -35,11 +36,11 @@ import android.widget.Toast;
 
 public class Staffmanagr extends Fragment implements OnClickListener,IXListViewListener{
 	private View view;
-	private List<StaffmanagerEntity> datastaff;
+	public static List<StaffmanagerEntity> datastaff;
 	private BaseAdapter staffmanageradapter;
 	private XListView xxlistview;
 	private Button btn_creatstaff;
-	private Handler myHandler;
+	public static Handler myHandler;
 	private boolean isrefersh=false;
 	 private int a=1;
 	 private int page=1;
@@ -82,12 +83,36 @@ public void onStart() {
 				onLoad();
 				xxlistview.setAdapter(staffmanageradapter);
 				break;
-
+			case 1:
+				Intent intent=new  Intent(getActivity(),StallmanagerDetail.class);
+				intent.putExtra("idd", datastaff.get(StaffmanagerAdapter.pp).getId());
+				startActivity(intent);
+				break;
+			case 2:
+				delectone();
+				break;
 			default:
 				break;
 			}
 		};
 	};
+}
+protected void delectone() {
+	Config.delectStaff(getActivity(),  datastaff.get(StaffmanagerAdapter.pp).getId(),1, new HttpCallback(getActivity()) {
+
+		@Override
+		public void onSuccess(Object data) {
+			CommonUtil.toastShort(getActivity(), "删除成功");
+			getData();
+		}
+
+		@Override
+		public TypeToken getTypeToken() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	});
+	
 }
 protected void onLoad() {
 	xxlistview.stopRefresh();

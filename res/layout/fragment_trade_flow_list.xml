@@ -4,5 +4,4 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:divider="@color/F3F2F2"
-          android:dividerHeight="1px"
-          android:scrollbars="none"/>
+          android:dividerHeight="1px"/>

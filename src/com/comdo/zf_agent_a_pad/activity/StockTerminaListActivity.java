@@ -75,12 +75,12 @@ public class StockTerminaListActivity extends Activity implements IXListViewList
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 
 		sTerminaListAdapter = new StockTerminaListAdapter(StockTerminaListActivity.this,mEntities);
-		mListView.setAdapter(sTerminaListAdapter);
 
 		mListView.initHeaderAndFooter();
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 		mListView.setDivider(null);
+		mListView.setAdapter(sTerminaListAdapter);
 	}
 
 	private void initData() {

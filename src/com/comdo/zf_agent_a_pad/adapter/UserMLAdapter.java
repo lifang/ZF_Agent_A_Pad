@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.comdo.zf_agent_a_pad.adapter.AfterSaleAdapter.OnClickListener;
 import com.comdo.zf_agent_a_pad.entity.UserMLEntity;
 import com.example.zf_agent_a_pad.R;
 
@@ -59,8 +58,10 @@ public class UserMLAdapter extends BaseAdapter{
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.update_data.setText(lists.get(position).getName());
-//		viewHolder.terminal_no.setText(lists.get(position).getTerminal_num());
-//		viewHolder.apply_date.setText(lists.get(position).getCreate_time());
+		viewHolder.terminal_no.setText(lists.get(position).getPhone());
+		viewHolder.apply_date.setText(lists.get(position).getEmail());
+		viewHolder.update_state.setText(lists.get(position).getCreatedAt());
+		
 		viewHolder.cancel_apply.setVisibility(View.VISIBLE);
 		viewHolder.cancel_again.setVisibility(View.GONE);
 		viewHolder.cancel_apply.setText("删除");

@@ -3,18 +3,33 @@ package com.comdo.zf_agent_a_pad.entity;
 public class Goodlist {
 	
 	
-//    "good_name": "泰山Pos旗舰版wmtest11",
-//    "good_logo": "http://e.hiphotos.baidu.com/image/w%3D310/sign=8afd60e8af6eddc426e7b2fa09dbb6a2/42a98226cffc1e170e8bc23c4890f603738de983.jpg",
-//    "good_brand": "品牌q",
-//    "terminals": "",
-//    "good_num": "3",
-//    "good_chagood_channelnnel": "拉卡拉测试支付通道",
-//    "good_actualprice": 35000,
-//    "good_id": "21"
+//  "good_name": "娉板北Pos鏃楄埌鐗坵mtest11",
+//  "good_logo": "http://e.hiphotos.baidu.com/image/w%3D310/sign=8afd60e8af6eddc426e7b2fa09dbb6a2/42a98226cffc1e170e8bc23c4890f603738de983.jpg",
+//  "good_brand": "鍝佺墝q",
+//  "terminals": "",
+//  "good_num": "3",
+//  "good_chagood_channelnnel": "鎷夊崱鎷夋祴璇曟敮浠橀?氶亾",
+//  "good_actualprice": 35000,
+//  "good_id": "21"
+	private String score;
+	private String content;
+	
+	public String getScore() {
+		return score;
+	}
+	public void setScore(String score) {
+		this.score = score;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	private int good_actualprice;
 	private String terminals;
 	
- public int getGood_actualprice() {
+public int getGood_actualprice() {
 		return good_actualprice;
 	}
 	public void setGood_actualprice(int good_actualprice) {
@@ -26,18 +41,18 @@ public class Goodlist {
 	public void setTerminals(String terminals) {
 		this.terminals = terminals;
 	}
-	//   "good_name": "0312泰山Pos旗舰版",
+	//   "good_name": "0312娉板北Pos鏃楄埌鐗?",
 	private String good_name;
-//  "good_logo": "",
+//"good_logo": "",
 	private String good_logo;
 	private String good_brand;
-//  "good_brand": "品牌q",
-//  "good_price": 35000,
+//"good_brand": "鍝佺墝q",
+//"good_price": 35000,
 	private String good_price;
-//  "good_volume_number": 5,
+//"good_volume_number": 5,
 	private String  good_volume_number;
 	private String good_num;
-//  "good_num": "1",
+//"good_num": "1",
 	private String good_channel;
 	private String good_id;
 	public String getGood_name() {
@@ -89,6 +104,6 @@ public class Goodlist {
 		this.good_id = good_id;
 	}
 	
-//  "good_channel": "0312支付通道",
-//  "good_id": 22
+//"good_channel": "0312鏀粯閫氶亾",
+//"good_id": 22
 }

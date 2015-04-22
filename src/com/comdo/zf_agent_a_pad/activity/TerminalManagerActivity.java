@@ -1,9 +1,20 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_ADD;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.CANCELED;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.STOPPED;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -26,7 +37,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.common.Page;
+import com.comdo.zf_agent_a_pad.common.PageApply;
 import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
@@ -35,17 +46,6 @@ import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
-
-import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_MERCHANT;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_ADD;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.CANCELED;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.STOPPED;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
 
 public class TerminalManagerActivity extends Activity implements
 		XListView.IXListViewListener {
@@ -66,6 +66,9 @@ public class TerminalManagerActivity extends Activity implements
 	private int total = 0;
 	private final int rows = 10;
 
+	private static final int REQUEST_SEARCH = 1000;
+
+	private String searchKey;
 	private View.OnClickListener mSyncListener;
 	private View.OnClickListener mOpenListener;
 	private View.OnClickListener mPosListener;
@@ -120,15 +123,30 @@ public class TerminalManagerActivity extends Activity implements
 
 				if (status != 0) {
 					mStatus = status;
-					List<TerminalManagerEntity> list = new ArrayList<TerminalManagerEntity>();
 
-					for (TerminalManagerEntity item : mTerminalItems)
-						if (item.getOpenState() == mStatus)
+					Config.getTerminalList(TerminalManagerActivity.this, 1,
+							page, rows, searchKey, mStatus,
+							new HttpCallback<PageApply<TerminalManagerEntity>>(
+									TerminalManagerActivity.this) {
+								@Override
+								public void onSuccess(
+										PageApply<TerminalManagerEntity> data) {
+									if (null != data.getList()) {
+										mTerminalItems.addAll(data.getList());
+									}
+									total = data.getTotal();
+									page++;
+								}
 
-							list.add(item);
-
-					mAdapter = new TerminalListAdapter(list);
+								@Override
+								public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
+									return new TypeToken<PageApply<TerminalManagerEntity>>() {
+									};
+								}
+							});
 				} else {
+
+					mStatus = -1;
 					mAdapter = new TerminalListAdapter(mTerminalItems);
 				}
 
@@ -319,6 +337,12 @@ public class TerminalManagerActivity extends Activity implements
 			@Override
 			public void onClick(View view) {
 
+				Intent it = new Intent(TerminalManagerActivity.this,
+						GenerateSearch.class);
+				it.putExtra(TERMINAL_TYPE, 2);
+				it.putExtra(TERMINAL_STATUS, mStatus);
+				startActivityForResult(it, REQUEST_SEARCH);
+
 			}
 		});
 		service.setOnClickListener(new View.OnClickListener() {
@@ -451,6 +475,41 @@ public class TerminalManagerActivity extends Activity implements
 						};
 					}
 				});
+	}
+
+	protected void onActivityResult(final int requestCode, int resultCode,
+			final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		switch (requestCode) {
+		case REQUEST_SEARCH: {
+			searchKey = data.getStringExtra(SELECTED_TERMINAL);
+			Config.getTerminalList(TerminalManagerActivity.this, 1, page, rows,
+					searchKey, mStatus,
+					new HttpCallback<PageApply<TerminalManagerEntity>>(
+							TerminalManagerActivity.this) {
+						@Override
+						public void onSuccess(
+								PageApply<TerminalManagerEntity> data) {
+							if (null != data.getList()) {
+								mTerminalItems.addAll(data.getList());
+							}
+							total = data.getTotal();
+							page++;
+							mAdapter.notifyDataSetChanged();
+						}
+
+						@Override
+						public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
+							return new TypeToken<PageApply<TerminalManagerEntity>>() {
+							};
+						}
+					});
+
+		}
+			break;
+		}
 	}
 
 	private void loadFinished() {
