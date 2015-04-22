@@ -19,15 +19,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.entity.City;
+import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
@@ -37,18 +40,18 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class Register extends BaseActivity implements OnClickListener {
-	private EditText et_company_type, et_company_name, et_business_license,
+	private EditText et_company_name, et_business_license,
 			et_tax_registered_no, et_fuze_name, et_fuze_id_no, et_phone,
 			et_email, et_address_detail, et_login_id, et_paw, et_paw1;
 	private TextView tv_address;
 	private Button btn_uplode_card, btn_uplode_business, btn_uplode_tax,
 			btn_save;
-	private ImageView iv_fenrun;
-	private boolean isprofit = true;
-	private int count = 0;
+	// private ImageView iv_fenrun;
+	// private boolean isprofit = true;
+	// private int count = 0;
 	private int agentType;
 	private int tag;
-	private boolean iscamera = false;
+	// private boolean iscamera = false;
 	private File file;
 	private String localCameraPath = "";
 	private String[] imgLocalPath = new String[3];
@@ -58,11 +61,15 @@ public class Register extends BaseActivity implements OnClickListener {
 	private Handler myHandler;
 	private JSONObject json;
 	private int cityId;
-	private int isProfit;
+	private AlertDialog dialog;
+	// private int isProfit;
+
+	private String username, password, cardId, phone, email, name, types,
+			companyName, address, businessLicense, taxRegisteredNo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		new TitleMenuUtil(Register.this, getResources().getString(
@@ -72,28 +79,14 @@ public class Register extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-		iv_fenrun.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				if (count % 2 == 0) {
-					iv_fenrun.setBackgroundResource(R.drawable.agent_on);
-					isProfit = 2;
-				} else {
-					iv_fenrun.setBackgroundResource(R.drawable.agent_off);
-					isProfit = 1;
-				}
-				count++;
-			}
-		});
+		super.onStart();
+
 		myHandler = new Handler() {
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 
 				case 0:
-
 					switch (tag) {
 					case 1:
 
@@ -103,7 +96,7 @@ public class Register extends BaseActivity implements OnClickListener {
 							btn_uplode_card
 									.setBackgroundResource(R.drawable.check_it);
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+
 							e.printStackTrace();
 						}
 
@@ -115,7 +108,7 @@ public class Register extends BaseActivity implements OnClickListener {
 							btn_uplode_business
 									.setBackgroundResource(R.drawable.check_it);
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+
 							e.printStackTrace();
 						}
 						break;
@@ -126,7 +119,7 @@ public class Register extends BaseActivity implements OnClickListener {
 							btn_uplode_tax
 									.setBackgroundResource(R.drawable.check_it);
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+
 							e.printStackTrace();
 						}
 						break;
@@ -145,7 +138,7 @@ public class Register extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
+
 		super.onDestroy();
 	}
 
@@ -172,9 +165,8 @@ public class Register extends BaseActivity implements OnClickListener {
 					CityProvinceActivity.class);
 			// intent.putExtra(CITY_NAME, cityName);
 			// startActivityForResult(intent, REQUEST_CITY);
-			startActivityForResult(
-					intent,
-					com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY);
+			startActivityForResult(intent,
+					Constants.ApplyIntent.REQUEST_CHOOSE_CITY);
 			break;
 		default:
 			break;
@@ -183,55 +175,138 @@ public class Register extends BaseActivity implements OnClickListener {
 	}
 
 	private void submit() {
-		if (et_company_type.getText().toString().equals("公司")) {
-			agentType = 1;
-		} else {
-			agentType = 2;
-		}
 
-//		Config.creatAgent(Register.this, 1, et_login_id.getText().toString(),
-//				agentType, et_fuze_name.getText().toString(), et_fuze_id_no
-//						.getText().toString(), et_company_name.getText()
-//						.toString(), et_business_license.getText().toString(),
-//				et_phone.getText().toString(), et_email.getText().toString(),
-//				et_address_detail.getText().toString(), et_paw.getText()
-//						.toString(), et_paw1.getText().toString(), isProfit,
-//				cityId, cardPhotoPath, licensePhotoPath, taxPhotoPath,
-//				et_tax_registered_no.getText().toString(), new HttpCallback(
-//						Register.this) {
-//
-//					@Override
-//					public void onSuccess(Object data) {
-//						CommonUtil.toastShort(getApplicationContext(),
-//								"创建代理商成功");
-//						// finish();
-//
-//					}
-//
-//					@Override
-//					public void onFailure(String message) {
-//						// TODO Auto-generated method stub
-//						super.onFailure(message);
-//					}
-//
-//					@Override
-//					public TypeToken getTypeToken() {
-//						// TODO Auto-generated method stub
-//						return null;
-//					}
-//				});
+		if ("".equals(et_company_name.getText().toString())) {
+			CommonUtil.toastShort(Register.this, "公司名称不能为空");
+
+		} else if ("".equals(et_business_license.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "公司营业执照登记号不能为空");
+		} else if ("".equals(et_tax_registered_no.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "公司税务登记证号不能为空");
+		} else if ("".equals(et_fuze_name.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "负责人姓名不能为空");
+		} else if ("".equals(et_fuze_id_no.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "负责人身份证号不能为空");
+		} else if ("".equals(et_phone.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "手机不能为空");
+		} else if ("".equals(et_email.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "邮箱不能为空");
+		} else if (cityId == 0) {
+
+			CommonUtil.toastShort(Register.this, "未选择所在地");
+		} else if ("".equals(et_address_detail.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "详细地址不能为空");
+		} else if ("".equals(et_login_id.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "登录ID不能为空");
+		} else if ("".equals(et_paw.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "登录密码不能为空");
+		} else if ("".equals(et_paw1.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "确认密码不能为空");
+		} else if ("".equals(cardPhotoPath) || null == cardPhotoPath) {
+
+			CommonUtil.toastShort(Register.this, "请上传身份证照片");
+		} else if ("".equals(licensePhotoPath) || null == licensePhotoPath) {
+
+			CommonUtil.toastShort(Register.this, "请上传营业执照照片");
+		} else if ("".equals(taxPhotoPath) || null == taxPhotoPath) {
+
+			CommonUtil.toastShort(Register.this, "请上传税务登记证照片");
+		} else if (!et_paw.getText().toString()
+				.equals(et_paw1.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "登录密码与确认密码不一致");
+		} else {
+
+			companyName = et_company_name.getText().toString();
+			businessLicense = et_business_license.getText().toString();
+			taxRegisteredNo = et_tax_registered_no.getText().toString();
+			name = et_fuze_name.getText().toString();
+			cardId = et_fuze_id_no.getText().toString();
+			phone = et_phone.getText().toString();
+			email = et_email.getText().toString();
+			address = et_address_detail.getText().toString();
+			username = et_login_id.getText().toString();
+			password = et_paw.getText().toString();
+
+			if (agentType == 1) {
+
+				Config.userRegistration(Register.this, username, password,
+						cityId, cardId, phone, email, name, agentType,
+						companyName, address, businessLicense, cardPhotoPath,
+						taxRegisteredNo, licensePhotoPath, taxPhotoPath,
+						new HttpCallback(Register.this) {
+
+							@Override
+							public void onSuccess(Object data) {
+								CommonUtil.toastShort(Register.this, "创建代理商成功");
+								Intent i = new Intent(Register.this,
+										RegSucceed.class);
+								startActivity(i);
+								finish();
+
+							}
+
+							@Override
+							public void onFailure(String message) {
+								super.onFailure(message);
+							}
+
+							@Override
+							public TypeToken getTypeToken() {
+								return null;
+							}
+						});
+
+			} else if (agentType == 2) {
+
+				Config.userRegistration(Register.this, username, password,
+						cityId, cardId, phone, email, name, agentType, address,
+						cardPhotoPath, new HttpCallback(Register.this) {
+
+							@Override
+							public void onSuccess(Object data) {
+								CommonUtil.toastShort(Register.this, "创建代理商成功");
+								Intent i = new Intent(Register.this,
+										RegSucceed.class);
+								startActivity(i);
+								finish();
+
+							}
+
+							@Override
+							public void onFailure(String message) {
+								super.onFailure(message);
+							}
+
+							@Override
+							public TypeToken getTypeToken() {
+								return null;
+							}
+						});
+			}
+		}
 
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY:
 			if (CityProvinceActivity.isClickconfirm) {
 				City mMerchantCity = (City) data
-						.getSerializableExtra(com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_CITY);
+						.getSerializableExtra(Constants.CityIntent.SELECTED_CITY);
 				cityId = mMerchantCity.getId();
 				tv_address.setText(mMerchantCity.getName());
 				Log.e("1", tv_address.getText().toString());
@@ -252,7 +327,7 @@ public class Register extends BaseActivity implements OnClickListener {
 					imgLocalPath[0] = localCameraPath;
 					uploadFile(localCameraPath, tag, btn_uplode_card);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 				break;
@@ -261,7 +336,7 @@ public class Register extends BaseActivity implements OnClickListener {
 					imgLocalPath[1] = localCameraPath;
 					uploadFile(localCameraPath, tag, btn_uplode_business);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 				break;
@@ -270,7 +345,7 @@ public class Register extends BaseActivity implements OnClickListener {
 					imgLocalPath[2] = localCameraPath;
 					uploadFile(localCameraPath, tag, btn_uplode_tax);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 				break;
@@ -296,7 +371,7 @@ public class Register extends BaseActivity implements OnClickListener {
 							imgLocalPath[0] = localSelectPath;
 							uploadFile(localSelectPath, tag, btn_uplode_card);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
+
 							e.printStackTrace();
 						}
 						break;
@@ -306,7 +381,7 @@ public class Register extends BaseActivity implements OnClickListener {
 							uploadFile(localSelectPath, tag,
 									btn_uplode_business);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
+
 							e.printStackTrace();
 						}
 						break;
@@ -315,7 +390,7 @@ public class Register extends BaseActivity implements OnClickListener {
 							imgLocalPath[2] = localSelectPath;
 							uploadFile(localSelectPath, tag, btn_uplode_tax);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
+
 							e.printStackTrace();
 						}
 						break;
@@ -334,6 +409,7 @@ public class Register extends BaseActivity implements OnClickListener {
 	private void uploadFile(String path, final int tag, final Button btn)
 			throws Exception {
 
+		dialog.dismiss();
 		File file = new File(path);
 		if (file.exists() && file.length() > 0) {
 
@@ -349,7 +425,6 @@ public class Register extends BaseActivity implements OnClickListener {
 						@Override
 						public void onSuccess(int statusCode, Header[] headers,
 								byte[] responseBody) {
-							// TODO Auto-generated method stub
 
 							try {
 								CommonUtil.toastShort(getApplicationContext(),
@@ -378,38 +453,39 @@ public class Register extends BaseActivity implements OnClickListener {
 
 	private void showchooseDialog(Button btn, final int tag) {
 
-//		final AlertDialog.Builder builder = new AlertDialog.Builder(
-//				Register.this);
-//		LayoutInflater factory = LayoutInflater.from(this);
-//		final View textEntryView = factory.inflate(R.layout.choosedialog, null);
-//		// builder.setTitle("自定义输入框");
-//		builder.setView(textEntryView);
-//		final Button seeimg = (Button) textEntryView.findViewById(R.id.seeimg);
-//		final View line_one = textEntryView.findViewById(R.id.line_one);
-//		final Button choosealbum = (Button) textEntryView
-//				.findViewById(R.id.choosealbum);
-//		final Button choosecamera = (Button) textEntryView
-//				.findViewById(R.id.choosecamera);
-//
-//		if (btn.getText().toString().equals("")) {
-//			seeimg.setVisibility(View.VISIBLE);
-//			line_one.setVisibility(View.VISIBLE);
-//		}
-//		choosealbum.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View arg0) {
-//				openAlbum();
-//			}
-//		});
-//		choosecamera.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View arg0) {
-//				opencamera();
-//			}
-//		});
-//		builder.create().show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+		LayoutInflater factory = LayoutInflater.from(this);
+		final View textEntryView = factory.inflate(R.layout.choosedialog, null);
+		// builder.setTitle("自定义输入框");
+		builder.setView(textEntryView);
+		final Button seeimg = (Button) textEntryView.findViewById(R.id.seeimg);
+		final View line_one = textEntryView.findViewById(R.id.line_one);
+		final Button choosealbum = (Button) textEntryView
+				.findViewById(R.id.choosealbum);
+		final Button choosecamera = (Button) textEntryView
+				.findViewById(R.id.choosecamera);
+
+		if (btn.getText().toString().equals("")) {
+			seeimg.setVisibility(View.VISIBLE);
+			line_one.setVisibility(View.VISIBLE);
+		}
+		choosealbum.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				openAlbum();
+			}
+		});
+		choosecamera.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				opencamera();
+			}
+		});
+		dialog = builder.create();
+
+		dialog.show();
 
 	}
 
@@ -447,7 +523,21 @@ public class Register extends BaseActivity implements OnClickListener {
 
 	private void init() {
 		btn_save = (Button) findViewById(R.id.btn_save);
-		iv_fenrun = (ImageView) findViewById(R.id.iv_fenrun);
+		Spinner spinner = (Spinner) findViewById(R.id.spinner);
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+
+				agentType = pos + 1;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// Another interface callback
+			}
+		});
+		// iv_fenrun = (ImageView) findViewById(R.id.iv_fenrun);
 		et_company_name = (EditText) findViewById(R.id.et_company_name);
 		et_business_license = (EditText) findViewById(R.id.et_business_license);
 		et_tax_registered_no = (EditText) findViewById(R.id.et_tax_registered_no);

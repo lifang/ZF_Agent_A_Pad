@@ -18,6 +18,7 @@ public class TransgoodsAdapter extends BaseAdapter{
 	private List<TransgoodsEntity> datatrans;
 	private Context context;
 	private LayoutInflater mInflater;
+	public static int pp;
 	public TransgoodsAdapter(List<TransgoodsEntity> datatrans,Context context){
 		super();
 		this.datatrans=datatrans;
@@ -42,7 +43,7 @@ public class TransgoodsAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHoldel holdel;
 		if(convertView == null){
 			mInflater=LayoutInflater.from(context);
@@ -63,6 +64,7 @@ public class TransgoodsAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
+				pp=position;
 				Message msg=Transgoods.myHandler.obtainMessage();
 				msg.what=0;
 				msg.sendToTarget();

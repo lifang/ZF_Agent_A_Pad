@@ -129,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="价格"
+              
                 android:textColor="#292929"
                 android:textSize="20sp" />
 
@@ -138,18 +138,18 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/shape"
+               
                 android:orientation="horizontal" >
 
-                <EditText
+                <TextView
                     android:id="@+id/lower"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@null"
+                   
                     android:gravity="center_vertical|right"
                     android:inputType="number"
                     android:paddingRight="2dp"
-                    android:text="0"
+                 
                     android:textColor="@color/text6c6c6c6"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -160,7 +160,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:gravity="center"
-                android:text="-"
+              
                 android:textColor="#292929"
                 android:textSize="20sp" />
 
@@ -169,18 +169,18 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/shape"
+                
                 android:orientation="horizontal" >
 
-                <EditText
+                <TextView
                     android:id="@+id/higher"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@null"
+                  
                     android:gravity="center_vertical|right"
                     android:inputType="number"
                     android:paddingRight="2dp"
-                    android:text="0"
+                    
                     android:textColor="@color/text6c6c6c6"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -253,7 +253,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/searchLinear"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

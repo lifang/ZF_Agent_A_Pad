@@ -75,17 +75,6 @@
                     android:text="获取验证码"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_mmcz"
-                    android:layout_width="160dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/normal_button_selector"
-                    android:gravity="center"
-                    android:text="发送重置密码邮件"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +88,7 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/sy_rl_margin"
-                    android:text="输入 验证码"
+                    android:text="输入验证码"
                     android:textColor="#292929"
                     android:textSize="22sp" />
 
@@ -119,7 +108,7 @@
                             android:layout_height="fill_parent"
                             android:layout_marginRight="@dimen/zc_margin"
                             android:background="@drawable/shape_edittext"
-                            android:hint="请输入密码"
+                            android:hint="请输入验证码"
                             android:paddingLeft="@dimen/zc_margin" >
                         </EditText>
 
@@ -230,7 +219,7 @@
                         android:layout_width="118dp"
                         android:layout_height="40dp"
                         android:background="@drawable/normal_button_selector"
-                        android:text="获取验证m码"
+                        android:text="获取验证码"
                         android:textColor="#ffffff"
                         android:visibility="invisible" />
                 </LinearLayout>
@@ -316,4 +305,5 @@
         </LinearLayout>
     </ScrollView>
 
+>>>>>>> origin/master
 </LinearLayout>

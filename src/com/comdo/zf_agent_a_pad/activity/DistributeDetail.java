@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.Header;
 
 import com.comdo.zf_agent_a_pad.adapter.TerminalAdapter;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.DistributeDetailEntity;
@@ -23,12 +24,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class DistributeDetail extends BaseActivity{
 	private List<TerminalEntity> datatermin;
 	private BaseAdapter terminalAdapter;
 	private ListView lv_list;
 	private int iddd;
+	private TextView tv_distribute_object,tv_date,
+	                 tv_creator;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	
@@ -44,32 +48,31 @@ protected void onStart() {
 	super.onStart();
 	getData();
 }
+@Override
+protected void onDestroy() {
+	// TODO Auto-generated method stub
+	super.onDestroy();
+	finish();
+}
 private void getData() {
-	/*RequestParams params=new RequestParams();
-	//Map<String, Object> params = new HashMap<String, Object>();
-	params.put("ageidntId", iddd);
-	params.setUseJsonStreamer(true);
-	new AsyncHttpClient().post(Config.GET_DISTRIBUTE_DETAIL, params, new AsyncHttpResponseHandler() {
-		
-		@Override
-		public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-			String str=new String(responseBody);
-			
-		}
-		
-		@Override
-		public void onFailure(int statusCode, Header[] headers,
-				byte[] responseBody, Throwable error) {
-			// TODO Auto-generated method stub
-			
-		}
-	});*/
 	Config.getDistributeDetail(DistributeDetail.this, iddd, new HttpCallback<DistributeDetailEntity>(DistributeDetail.this) {
 
 		@Override
 		public void onSuccess(DistributeDetailEntity data) {
-			// TODO Auto-generated method stub
-			
+			if(data==null){
+				CommonUtil.toastShort(DistributeDetail.this, "服务端返回数据为空");
+				return;
+			}
+			tv_distribute_object.setText(data.getCompany_name());
+			tv_date.setText(data.getCreated_at());
+			tv_creator.setText(data.getCreator());
+			String[] str=data.getTerminal_list().split(",");
+			for(int i=0;i<str.length;i++){
+				//datatermin.get(i).setNumber(str[i]);
+				datatermin.add(new TerminalEntity(i, str[i]));
+			}
+			//datatermin.addAll(data.getTerminal_list());
+			lv_list.setAdapter(terminalAdapter);
 		}
 @Override
 public void onFailure(String message) {
@@ -86,15 +89,14 @@ public void onFailure(String message) {
 	
 }
 private void init() {
+	tv_distribute_object=(TextView) findViewById(R.id.tv_distribute_object);
+	tv_date=(TextView) findViewById(R.id.tv_date);
+	tv_creator=(TextView) findViewById(R.id.tv_creator);
 	Intent intent=getIntent();
 	iddd=intent.getIntExtra("id", 0);
 	datatermin=new ArrayList<TerminalEntity>();
 	terminalAdapter=new TerminalAdapter(datatermin, getApplicationContext());
 	lv_list=(ListView) findViewById(R.id.lv_list);
-	for(int i=0;i<6;i++){
-		datatermin.add(new TerminalEntity(i, "12345678"));
-	}
-	lv_list.setAdapter(terminalAdapter);
 }
 }
 

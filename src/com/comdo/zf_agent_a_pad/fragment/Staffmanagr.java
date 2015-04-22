@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.activity.CreatStaff;
+import com.comdo.zf_agent_a_pad.activity.StallmanagerDetail;
 import com.comdo.zf_agent_a_pad.adapter.StaffmanagerAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -39,7 +40,7 @@ public class Staffmanagr extends Fragment implements OnClickListener,IXListViewL
 	private BaseAdapter staffmanageradapter;
 	private XListView xxlistview;
 	private Button btn_creatstaff;
-	private Handler myHandler;
+	public static Handler myHandler;
 	private boolean isrefersh=false;
 	 private int a=1;
 	 private int page=1;
@@ -82,7 +83,11 @@ public void onStart() {
 				onLoad();
 				xxlistview.setAdapter(staffmanageradapter);
 				break;
-
+			case 1:
+				Intent intent=new  Intent(getActivity(),StallmanagerDetail.class);
+				intent.putExtra("idd", datastaff.get(StaffmanagerAdapter.pp).getId());
+				startActivity(intent);
+				break;
 			default:
 				break;
 			}

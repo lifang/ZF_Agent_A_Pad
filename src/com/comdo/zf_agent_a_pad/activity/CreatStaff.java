@@ -78,7 +78,7 @@ protected void save() {
 	String rolesnew=roles.substring(0, roles.length()-1);
 	Config.insertCustomer(CreatStaff.this, et_name.getText().toString(), 
 			et_loginid.getText().toString(), rolesnew, 
-			1, et_paw.getText().toString(), et_confirm_paw.getText().toString(), 
+			80, et_paw.getText().toString(), et_confirm_paw.getText().toString(), 
 			new HttpCallback(CreatStaff.this) {
 
 				@Override

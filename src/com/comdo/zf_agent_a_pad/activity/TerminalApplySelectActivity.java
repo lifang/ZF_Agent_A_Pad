@@ -8,7 +8,9 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_C
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TITLE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ARRAY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TOTAL;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -61,9 +64,9 @@ public class TerminalApplySelectActivity extends Activity implements
 	private EditText zdh, lower, higher;
 	private Boolean allCheck = false;
 	private String zdhString;
-
+	private ImageView search;
 	private CheckBox checkboxAll;
-	private LinearLayout channelselect, posselect;
+	private LinearLayout channelselect, posselect,searchLinear;
 	private TextView terminalNum;
 	private Button terminal_commit, terminal_comfirm;
 	private LayoutInflater mInflater;
@@ -75,6 +78,7 @@ public class TerminalApplySelectActivity extends Activity implements
 	private ApplyChannel.Billing mChosenBilling;
 	public static final int REQUEST_CHOOSE_POS = 1000;
 
+	private static final int REQUEST_SEARCH = 1001;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,6 +110,10 @@ public class TerminalApplySelectActivity extends Activity implements
 		lower.addTextChangedListener(mTextWatcher);
 		higher.addTextChangedListener(mTextWatcher);
 		terminalNum = (TextView) findViewById(R.id.terminalNum);
+		searchLinear=(LinearLayout) findViewById(R.id.searchLinear);
+		searchLinear.setOnClickListener(this);
+		search = (ImageView) findViewById(R.id.search);
+		search.setOnClickListener(this);
 		checkboxAll = (CheckBox) findViewById(R.id.checkboxAll);
 		checkboxAll.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -122,13 +130,11 @@ public class TerminalApplySelectActivity extends Activity implements
 				}
 				mAdapter.notifyDataSetChanged();
 
-				terminalNum.setText(checked+"");
+				terminalNum.setText(checked + "");
 			}
 
 		});
 	}
-
-
 
 	private final TextWatcher mTextWatcher = new TextWatcherAdapter() {
 
@@ -205,7 +211,7 @@ public class TerminalApplySelectActivity extends Activity implements
 							} else {
 								checked--;
 							}
-							terminalNum.setText(checked+"");
+							terminalNum.setText(checked + "");
 							item.setIsCheck(isChecked);
 						}
 					});
@@ -226,14 +232,14 @@ public class TerminalApplySelectActivity extends Activity implements
 		switch (view.getId()) {
 
 		case R.id.terminal_comfirm:
-			StringBuffer string=new StringBuffer();
+			StringBuffer string = new StringBuffer();
 			for (int i = 0; i < mTerminalItems.size(); i++) {
 				if (mTerminalItems.get(i).getIsCheck()) {
-					
+
 					string.append(mTerminalItems.get(i).getSerial_num());
-					
-					if (i != mTerminalItems.size()-1) {
-						
+
+					if (i != mTerminalItems.size() - 1) {
+
 						string.append(",");
 					}
 				}
@@ -351,6 +357,13 @@ public class TerminalApplySelectActivity extends Activity implements
 			this.finish();
 			break;
 
+		case R.id.search:
+		case R.id.searchLinear:
+			Intent iIntent = new Intent(TerminalApplySelectActivity.this, GenerateSearch.class);
+			iIntent.putExtra(TERMINAL_TYPE, 3);
+			iIntent.putExtra(TERMINAL_STATUS, -1);
+			startActivityForResult(iIntent, REQUEST_SEARCH);
+			break;
 		}
 	}
 
@@ -375,7 +388,7 @@ public class TerminalApplySelectActivity extends Activity implements
 					.getSerializableExtra(SELECTED_CHANNEL);
 			mChosenBilling = (ApplyChannel.Billing) data
 					.getSerializableExtra(SELECTED_BILLING);
-			mChannelId = mChooseChannel.getId();
+			mChannelId = mChosenChannel.getId();
 			selectedchannel.setText(mChosenChannel.getName());
 		}
 		}

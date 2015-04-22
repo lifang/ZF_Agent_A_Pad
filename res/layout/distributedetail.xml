@@ -28,9 +28,9 @@
     android:layout_marginTop="5dp"
     />
  <TextView 
+     android:id="@+id/tv_distribute_object"
      android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="川西数码"
     android:textColor="#C5C5C5"
     android:textSize="16sp"
     android:layout_marginTop="10dp"/>
@@ -48,9 +48,9 @@
     android:layout_marginTop="5dp"
     />
  <TextView 
+     android:id="@+id/tv_date"
      android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="2012-12-22  20:22:22"
     android:textColor="#C5C5C5"
     android:textSize="16sp"
     android:layout_marginTop="10dp"/>
@@ -68,9 +68,9 @@
     android:layout_marginTop="5dp"
     />
  <TextView 
+     android:id="@+id/tv_creator"
      android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="动感123"
     android:textColor="#C5C5C5"
     android:textSize="16sp"
     android:layout_marginTop="10dp"/>
