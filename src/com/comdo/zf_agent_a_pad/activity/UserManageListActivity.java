@@ -3,10 +3,7 @@ package com.comdo.zf_agent_a_pad.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import android.R.integer;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,13 +24,12 @@ import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
  * 用户列表
  */
-public class UserManageListActivity extends BaseActivity implements IXListViewListener {
+public class UserManageListActivity extends Activity implements IXListViewListener {
 
 	private XListView Xlistview;
 	private int page = 1;

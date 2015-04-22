@@ -225,7 +225,6 @@
     <string name="after_sale_mark_number">物流单号</string>
 
     <!-- 交易流水 -->
-    <string name="trade_client">请选择终端号</string>
     <string name="trade_start_date">请选择开始时间</string>
     <string name="trade_end_date">请选择结束时间</string>
     <string name="trade_search">开始查询</string>
@@ -269,4 +268,4 @@
         </string-array>
 
 
-</resources>
+</resources>

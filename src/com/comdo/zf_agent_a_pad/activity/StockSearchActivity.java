@@ -75,12 +75,12 @@ public class StockSearchActivity extends Activity implements OnClickListener,IXL
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 
 		myAdapter = new StockSearchAdapter<StockAgentEntity>(StockSearchActivity.this,mEntities);
-		mListView.setAdapter(myAdapter);
 
 		mListView.initHeaderAndFooter();
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 		mListView.setDivider(null);
+		mListView.setAdapter(myAdapter);
 
 		titleback_linear_back.setOnClickListener(this);
 		linear_deletename.setOnClickListener(this);

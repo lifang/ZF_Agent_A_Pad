@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.comdo.zf_agent_a_pad.adapter.AfterSaleAdapter.OnClickListener;
 import com.comdo.zf_agent_a_pad.entity.UserMLEntity;
 import com.example.zf_agent_a_pad.R;
 

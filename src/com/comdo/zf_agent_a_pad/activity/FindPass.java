@@ -435,6 +435,4 @@ public class FindPass extends Activity implements OnClickListener {
 
 	}
 
-	
-
 }
