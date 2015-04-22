@@ -266,6 +266,6 @@
             <item>生活充值</item>
             <item>话费充值</item>
         </string-array>
-
+<string name="endCall1">结束视频</string>
 
 </resources>

@@ -32,6 +32,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
+import com.comdo.zf_agent_a_pad.video.VideoActivity;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -272,8 +273,10 @@ public class ApplyListActivity extends Activity implements
 			holder.btnVideo.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					CommonUtil.toastShort(ApplyListActivity.this,
-							"not yet completed...");
+					//添加视频审核
+					Intent intent = new Intent(ApplyListActivity.this, VideoActivity.class);
+					intent.putExtra(TERMINAL_ID, item.getId());
+					startActivity(intent);
 				}
 			});
 			return convertView;
