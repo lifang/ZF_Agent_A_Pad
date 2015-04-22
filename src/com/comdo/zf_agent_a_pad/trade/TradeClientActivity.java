@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeClient;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,7 +28,7 @@ public class TradeClientActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trade_client);
-
+        new TitleMenuUtil(this, "选择终端").show();
         final String selectedNumber = getIntent().getStringExtra(CLIENT_NUMBER);
 
         final List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
