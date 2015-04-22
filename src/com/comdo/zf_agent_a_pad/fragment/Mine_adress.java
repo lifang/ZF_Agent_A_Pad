@@ -117,12 +117,35 @@ public void onStart() {
 				opendialog();
 				
 				break;
+			case 3:
+				delect();
+				break;
 			default:
 				break;
 			}
 			
 		};
 	};
+}
+protected void delect() {
+	Config.delectAddress(getActivity(), idd[AddressManagerAdapter.pp], new HttpCallback(getActivity()) {
+
+		@Override
+		public void onSuccess(Object data) {
+			CommonUtil.toastShort(getActivity(), "删除地址成功");
+			if(dataadress.size()!=0){
+				dataadress.clear();
+			}
+			getData();
+		}
+
+		@Override
+		public TypeToken getTypeToken() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	});
+	
 }
 private void getData() {
 	if(!Tools.isConnect(getActivity())){
@@ -179,8 +202,6 @@ private void init() {
 public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.btn_add:
-	/*Intent intent=new Intent(getActivity(),AdressEdit.class);	
-	startActivity(intent);*/
 		opendialog();
 		break;
 	case R.id.btn_save:
@@ -214,6 +235,9 @@ private void changeAddress() {
 				@Override
 				public void onSuccess(Object data) {
 					CommonUtil.toastShort(getActivity(), "修改地址成功");
+					if(dataadress.size()!=0){
+						dataadress.clear();
+					}
 					getData();
 					
 				}
@@ -301,6 +325,7 @@ private void opendialog() {
     	 zip_code.setText(dataadress.get(AddressManagerAdapter.pp).getZipCode());
     	 detail_address.setText(dataadress.get(AddressManagerAdapter.pp).getAddress());
     	 area.setText(dataadress.get(AddressManagerAdapter.pp).getCity());
+    	 cityId=dataadress.get(AddressManagerAdapter.pp).getCityId();
     	 if(dataadress.get(AddressManagerAdapter.pp).getIsDefault().equals("默认")){
     		 cb.setBackgroundResource(R.drawable.cb_y);
     		 isDefault=1;
