@@ -1039,7 +1039,7 @@ public class Config {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("p", type);
-		//params.put("search", search);
+		params.put("search", search);
 		//if(!q.equals(""))
 		params.put("q", q);
 		params.put("page",page);
