@@ -264,6 +264,18 @@ public class Config {
 	// find pass
 	public static final String FIND_PASS = PATHS + "agent/updatePassword";
 
+	// user registration
+	public static final String USERREGISTRATION = PATHS
+			+ "agent/userRegistration";
+
+	// search applyList
+	public static final String SEARCHAPPLYLIST = PATHS
+			+ "apply/searchApplyList";
+
+	// get terminallist
+	public static final String GETTERMINALLIST = PATHS
+			+ "terminal/getTerminalList";
+
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -293,6 +305,49 @@ public class Config {
 		params.put("password", password);
 		params.put("code", code);
 		new HttpRequest(context, callback).post(FIND_PASS, params);
+	}
+
+	public static void userRegistration(Context context, String username,
+			String password, int cityId, String cardId, String phone,
+			String email, String name, int types, String companyName,
+			String address, String businessLicense, String cardIdPhotoPath,
+			String taxRegisteredNo, String licenseNoPicPath,
+			String taxNoPicPath, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("username", username);
+		params.put("password", password);
+		params.put("cityId", cityId);
+		params.put("cardId", cardId);
+		params.put("phone", phone);
+		params.put("email", email);
+		params.put("name", name);
+		params.put("types", types);
+		params.put("companyName", companyName);
+		params.put("address", address);
+		params.put("businessLicense", businessLicense);
+		params.put("cardIdPhotoPath", cardIdPhotoPath);
+		params.put("taxRegisteredNo", taxRegisteredNo);
+		params.put("licenseNoPicPath", licenseNoPicPath);
+		params.put("taxNoPicPath", taxNoPicPath);
+		new HttpRequest(context, callback).post(USERREGISTRATION, params);
+	}
+
+	public static void userRegistration(Context context, String username,
+			String password, int cityId, String cardId, String phone,
+			String email, String name, int types, String address,
+			String cardIdPhotoPath, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("username", username);
+		params.put("password", password);
+		params.put("cityId", cityId);
+		params.put("cardId", cardId);
+		params.put("phone", phone);
+		params.put("email", email);
+		params.put("name", name);
+		params.put("types", types);
+		params.put("address", address);
+		params.put("cardIdPhotoPath", cardIdPhotoPath);
+		new HttpRequest(context, callback).post(USERREGISTRATION, params);
 	}
 
 	public static boolean CheckIsLogin(Context c) {
@@ -1019,5 +1074,26 @@ public class Config {
 		params.put("agentId", agentId);
 		new HttpRequest(context, callback).post(TERMINAL_SCREEN_TERMINALNUM,
 				params);
+	}
+
+	public static void searchApplyList(Context context, int agentId, int page,
+			int rows, String serialNum, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("page", page);
+		params.put("rows", rows);
+		params.put("serialNum", serialNum);
+		new HttpRequest(context, callback).post(SEARCHAPPLYLIST, params);
+	}
+
+	public static void getTerminalList(Context context, int agentId, int page,
+			int rows, String serialNum, int status, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("page", page);
+		params.put("rows", rows);
+		params.put("serialNum", "".equals(serialNum) ? null : serialNum);
+		params.put("status", status == -1 ? null : status);
+		new HttpRequest(context, callback).post(GETTERMINALLIST, params);
 	}
 }

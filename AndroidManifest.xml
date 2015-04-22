@@ -39,11 +39,6 @@
             android:name="com.comdo.zf_agent_a_pad.activity.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.FindPass"
@@ -61,9 +56,19 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.RegSucceed"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="com.comdo.zf_agent_a_pad.activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!-- 交易流水 start -->
         <activity
@@ -302,6 +307,12 @@
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.DistributeDetail"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.GenerateSearch"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >

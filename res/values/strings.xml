@@ -17,6 +17,8 @@
     <string name="refresh_toomuch">刷新频繁，请稍后再试</string>
     <string name="remeberpass">忘记密码</string>
     <string name="applyforagent">申请成为代理商</string>
+    <string name="register">注册</string>
+    <string name="format_error">请输入正确的手机号或邮箱</string>
 
     <string-array name="agent_type">
         <item>公司</item>

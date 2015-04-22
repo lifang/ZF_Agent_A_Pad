@@ -18,10 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.trade.API;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
@@ -40,7 +40,6 @@ public class FindPass extends Activity implements OnClickListener {
 	private Boolean isRun = true;
 	private ImageView img_check, img_check_n;
 	public String vcode = "";
-	public int cityid = 80;
 	private String url, email, pass;
 	private Boolean chenckcode = false;
 	private Runnable runnable;
@@ -71,13 +70,11 @@ public class FindPass extends Activity implements OnClickListener {
 	};
 	private LinearLayout ll_isshow;
 	private LinearLayout ll_isshow1;
-	private TextView tv_mmcz;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.findpass);
-		cityid = MyApplication.getCITYID();
 
 		new TitleMenuUtil(FindPass.this, "找回密码").show();
 		System.out.println("Register4phone---");
@@ -112,9 +109,7 @@ public class FindPass extends Activity implements OnClickListener {
 		img_check = (ImageView) findViewById(R.id.img_check);
 		img_check_n = (ImageView) findViewById(R.id.img_check_n);
 		tv_code = (TextView) findViewById(R.id.tv_code);
-		tv_mmcz = (TextView) findViewById(R.id.tv_mmcz);
 		tv_code.setOnClickListener(this);
-		tv_mmcz.setOnClickListener(this);
 
 		login_linear_signin = (LinearLayout) findViewById(R.id.login_linear_signin);
 		login_linear_signin.setOnClickListener(this);
@@ -140,14 +135,12 @@ public class FindPass extends Activity implements OnClickListener {
 				if (s.toString().contains(".")) {
 					ll_isshow.setVisibility(View.GONE);
 					tv_code.setVisibility(View.GONE);
-					tv_mmcz.setVisibility(View.VISIBLE);
 					tv_code.setText("获取验证码");
 					ll_isshow1.setVisibility(View.GONE);
 					ismail = true;
 				} else {
 					ll_isshow.setVisibility(View.VISIBLE);
 					tv_code.setVisibility(View.VISIBLE);
-					tv_mmcz.setVisibility(View.GONE);
 					ll_isshow1.setVisibility(View.VISIBLE);
 					ismail = false;
 				}
@@ -156,13 +149,11 @@ public class FindPass extends Activity implements OnClickListener {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -236,7 +227,7 @@ public class FindPass extends Activity implements OnClickListener {
 	}
 
 	private boolean check() {
-		// TODO Auto-generated method stub
+
 		email = StringUtil.replaceBlank(login_edit_email.getText().toString());
 		if (email.length() == 0) {
 			Toast.makeText(getApplicationContext(), "手机号不能为空",
@@ -277,34 +268,68 @@ public class FindPass extends Activity implements OnClickListener {
 
 	private void getCode() {
 		// tv_code.setText("Resent Code");
-		handler.postDelayed(runnable, 1000);
+		// handler.postDelayed(runnable, 1000);
 		email = StringUtil.replaceBlank(login_edit_email.getText().toString());
 
-		Config.getPhonePass(FindPass.this, email, new HttpCallback(
-				FindPass.this) {
+		if (RegText.isMobileNO(email)) {
 
-			@Override
-			public void onSuccess(Object data) {
+			Config.getPhonePass(FindPass.this, email, new HttpCallback(
+					FindPass.this) {
 
-				String responseMsg = data.toString();
+				@Override
+				public void onSuccess(Object data) {
 
-				try {
-					vcode = new JSONObject(responseMsg).getString("result");
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					String responseMsg = data.toString();
+
+					try {
+						vcode = new JSONObject(responseMsg).getString("result");
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("-vcode---" + vcode);
+					handler.postDelayed(runnable, 1000);
+					tv_code.setClickable(false);
+					Toast.makeText(getApplicationContext(), "发送成功", 1000)
+							.show();
+
 				}
-				System.out.println("-vcode---" + vcode);
-				Toast.makeText(getApplicationContext(), "发送成功", 1000).show();
 
-			}
+				@Override
+				public TypeToken getTypeToken() {
+					return null;
+				}
+			});
 
-			@Override
-			public TypeToken getTypeToken() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		});
+		} else if (RegText.isEmail(email)) {
+			Config.getEmailPass(FindPass.this, login_edit_email.getText()
+					.toString(),
+
+			new HttpCallback(FindPass.this) {
+				@Override
+				public void onSuccess(Object data) {
+
+					Intent i = new Intent(getApplicationContext(),
+							FindpassmailSucces.class);
+					i.putExtra("value", login_edit_email.getText().toString());
+					if (ismail) {
+						i.putExtra("type", "0");
+					} else {
+						i.putExtra("type", "1");
+					}
+					startActivity(i);
+					FindPass.this.finish();
+				}
+
+				@Override
+				public TypeToken getTypeToken() {
+					return null;
+				}
+			});
+		} else {
+			CommonUtil.toastShort(FindPass.this,
+					getResources().getString(R.string.format_error));
+		}
 
 	}
 
@@ -332,12 +357,9 @@ public class FindPass extends Activity implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.tv_code:
-			tv_code.setClickable(false);
 			getCode();
 			break;
-		case R.id.tv_mmcz:
-			sendMail();
-			break;
+
 		case R.id.tv_check:
 			System.out.println("vcode" + vcode);
 
@@ -352,7 +374,7 @@ public class FindPass extends Activity implements OnClickListener {
 			}
 
 			break;
-		case R.id.login_linear_signin: // 
+		case R.id.login_linear_signin: //
 
 			if (check()) {
 				sure();
@@ -373,36 +395,6 @@ public class FindPass extends Activity implements OnClickListener {
 		default:
 			break;
 		}
-
-	}
-
-	private void sendMail() {
-
-		Config.getEmailPass(FindPass.this, login_edit_email.getText()
-				.toString(),
-
-		new HttpCallback(FindPass.this) {
-			@Override
-			public void onSuccess(Object data) {
-
-				Intent i = new Intent(getApplicationContext(),
-						FindpassmailSucces.class);
-				i.putExtra("value", login_edit_email.getText().toString());
-				if (ismail) {
-					i.putExtra("type", "0");
-				} else {
-					i.putExtra("type", "1");
-				}
-				startActivity(i);
-				FindPass.this.finish();
-			}
-
-			@Override
-			public TypeToken getTypeToken() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		});
 
 	}
 
@@ -443,25 +435,6 @@ public class FindPass extends Activity implements OnClickListener {
 
 	}
 
-	public void ggg(String phonenumber) {
-		
-//		API.AddAdres1(FindPass.this, phonenumber,
-//
-//		new HttpCallback(FindPass.this) {
-//
-//			@Override
-//			public void onSuccess(Object data) {
-//				// TODO Auto-generated method stub
-//				Toast.makeText(FindPass.this, "验证码发送成功", 1000).show();
-//				vcode = data.toString();
-//			}
-//
-//			@Override
-//			public TypeToken getTypeToken() {
-//				// TODO Auto-generated method stub
-//				return null;
-//			}
-//		});
-	}
+	
 
 }
