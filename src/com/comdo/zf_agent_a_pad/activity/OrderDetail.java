@@ -311,17 +311,14 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 					ad.dismiss();				
 				}
 			});
-			ad.setNegativeButton("确定", new OnClickListener() {
-				
+			ad.setNegativeButton("确定", new OnClickListener() {				
 				@Override
 				public void onClick(final View arg0) {
 					ad.dismiss();
 					RequestParams params = new RequestParams();
 					params.put("id", id);
-					 System.out.println("`getTag``"+id);
-					 
+					System.out.println("`getTag``"+id);					 
 					params.setUseJsonStreamer(true);
-
 					MyApplication.getInstance().getClient()
 							.post(Config.ORDERDELTE, params, new AsyncHttpResponseHandler() {
 

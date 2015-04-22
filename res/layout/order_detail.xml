@@ -40,7 +40,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:text="未付款"
                             android:textColor="@color/text292929"
                             android:textSize="18sp" />
 
@@ -49,7 +48,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:text="实际金额（含配送费）：￥1999"
                             android:textColor="@color/text292929"
                             android:textSize="18sp" />
 
@@ -57,16 +55,42 @@
                             android:id="@+id/tv_psf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="含配送费 ：￥99"
                             android:textColor="@color/text292929"
                             android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
 
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#E3E1E1" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_user"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:visibility="gone" 
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:text="归属用户:"
+                                android:textColor="@color/text292929"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tv_user"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -154,7 +178,6 @@
                         android:id="@+id/tv_reperson"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="收件人：王明霞"
                         android:textColor="@color/text292929"
                         android:textSize="18sp" />
 
@@ -172,7 +195,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="收件地址：上海市上海火车站XXX号"
                     android:textColor="@color/text292929"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -207,7 +229,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:text="订单编号：2013000111222"
                                 android:textColor="@color/text292929"
                                 android:textSize="19sp" />
 
@@ -216,7 +237,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:text="支付方式：支付宝"
                                 android:textColor="@color/text292929"
                                 android:textSize="19sp" />
 
@@ -225,7 +245,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="订单日期：2015-2-5 12:00:00"
                                 android:textColor="@color/text292929"
                                 android:textSize="19sp" />
                         </LinearLayout>
@@ -244,7 +263,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="留言：发票发票发票"
                         android:textColor="@color/text292929"
                         android:textSize="18sp" />
 
@@ -253,7 +271,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="发票类型 ：公司"
                         android:textColor="@color/text292929"
                         android:textSize="18sp" />
 
@@ -261,7 +278,6 @@
                         android:id="@+id/fptt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="发票抬头：苏州协创"
                         android:textColor="@color/text292929"
                         android:textSize="18sp" />
                 </LinearLayout>

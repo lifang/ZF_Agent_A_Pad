@@ -304,7 +304,12 @@ public class Config {
 	// get terminallist
 	public static final String GETTERMINALLIST = PATHS
 			+ "terminal/getTerminalList";
-
+   // delect staff
+	public static final String DELECT_STAFF = PATHS
+			+ "customerManage/deleteOne";
+	// edit staff
+	public static final String EDIT_STAFF = PATHS
+			+ "customerManage/edit";
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1033,7 +1038,7 @@ public class Config {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("p", type);
-		//params.put("search", search);
+		params.put("search", search);
 		//if(!q.equals(""))
 		params.put("q", q);
 		params.put("page",page);
@@ -1264,5 +1269,26 @@ public class Config {
 		new HttpRequest(context, callback).post(STAFF_DETAIL, params);
 		Log.e("params", String.valueOf(params));
 	}
-
+	public static void delectStaff(Context context, 
+			int customerId,
+			int agentsId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("agentsId", agentsId);
+		new HttpRequest(context, callback).post(DELECT_STAFF, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void editStaff(Context context, 
+			String customerId,
+			String roles,
+			String pwd,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("roles", roles);
+		params.put("pwd", pwd);
+		new HttpRequest(context, callback).post(EDIT_STAFF, params);
+		Log.e("params", String.valueOf(params));
+	}
 }
