@@ -1,7 +1,9 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -33,7 +35,9 @@ import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.adapter.ChooseAdressAdapter;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.entity.AdressEntity;
+import com.comdo.zf_agent_a_pad.entity.UserInfo;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
@@ -49,7 +53,6 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	List<AdressEntity> moreList = new ArrayList<AdressEntity>();
 	private String Url = Config.ChooseAdress;
 	private TextView tv_sjr, tv_tel, tv_adress;
-	private LinearLayout ll_choose;
 	private TextView tv_pop, tv_totle, title2, retail_price, showCountText,
 			tv_pay, tv_count;
 	private Button btn_pay;
@@ -70,6 +73,15 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private TextView tv_price;
 	private TextView tv_brand;
 	private int pg_price;
+	private Spinner spinner_user;
+	private int mChannelId;
+	private int page = 0;
+	private final int rows = 10;
+	final List<String> listString = new ArrayList<String>();
+	private ArrayAdapter<String> adapter_user;
+	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
+	private Button bt_add;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,12 +98,64 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		tv_totle.setText("实付：￥ " + ((double)pirce)/100);
 		tv_price.setText("￥"+ ((double)pg_price)/100);
 		tv_brand.setText(getIntent().getStringExtra("brand"));
-		System.out.println("=paychannelId==" + paychannelId);
-	
+		System.out.println("=paychannelId==" + paychannelId);		
+		GetUser();
 	
 	}
 
+	private void GetUser() {
+		items = new ArrayList<Map<String, Object>>();
+		Config.getMerchants(this, 1, page + 1, rows,
+				new HttpCallback<PageTerminal<UserInfo>>(this) {
+					@Override
+					public void onSuccess(PageTerminal<UserInfo> data) {
+
+						for (UserInfo userInfo : data.getList()) {
+							Map<String, Object> item = new HashMap<String, Object>();
+							item.put("id", userInfo.getId());
+							item.put("name", userInfo.getName());
+							listString.add(userInfo.getName());
+							items.add(item);
+						}
+						adapter_user.notifyDataSetChanged();
+					}
+
+					@Override
+					public void onFailure(String message) {
+						super.onFailure(message);
+					}
+
+					@Override
+					public TypeToken<PageTerminal<UserInfo>> getTypeToken() {
+						return new TypeToken<PageTerminal<UserInfo>>() {
+						};
+					}
+				});
+	}
+
 	private void initView() {
+		bt_add = (Button)findViewById(R.id.bt_add);
+		bt_add.setOnClickListener(this);
+		spinner_user = (Spinner) findViewById(R.id.spinner_user);
+
+		adapter_user = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, listString);
+		// adapter.setDropDownViewResource(R.layout.drop_down_item);
+		spinner_user.setAdapter(adapter_user);
+
+		spinner_user.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+
+				mChannelId = (Integer) items.get(arg2).get("id");
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+
+		});
 		tv_price = (TextView)findViewById(R.id.tv_price);
 		tv_brand = (TextView)findViewById(R.id.content2);
 		tv_zc = (TextView)findViewById(R.id.tv_zc);
@@ -139,7 +203,6 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				// TODO Auto-generated method stub
 				if (arg1) {
 					flag=true;
 				} else {
@@ -152,7 +215,6 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
-				// TODO Auto-generated method stub
 				//showCountText.setText(arg0.toString());
 				tv_count.setText("共计:   " + arg0 + "件");
 				if (buyCountEdit.getText().toString().equals("")) {
@@ -170,13 +232,11 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1,
 					int arg2, int arg3) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -232,9 +292,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
-
+		case R.id.bt_add:
+			//TerminalApplyCreateActivity
+			Intent i=new Intent(LeaseConfirm.this,TerminalApplyCreateActivity.class);
+			startActivity(i);
+			break;
 		case R.id.btn_pay:
 			
 			if(flag){
@@ -266,21 +329,10 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		et_comment = (EditText)findViewById(R.id.ed_comment);
 		comment=et_comment.getText().toString();
 		quantity = Integer.parseInt(buyCountEdit.getText().toString());
-		RequestParams params = new RequestParams();
-		params.put("customerId", 1);
-		params.put("goodId", goodId);
-		params.put("paychannelId", paychannelId);
-		params.put("addressId", addressId);
-		params.put("quantity", quantity);
-		params.put("comment", comment);
-		params.put("is_need_invoice", is_need_invoice);
-		params.put("invoice_type", invoice_type);
-		params.put("invoice_info", et_titel.getText().toString());
-		params.setUseJsonStreamer(true);
 
 		invoice_info = et_titel.getText().toString();
 
-		Config.GOODCONFIRM1(LeaseConfirm.this,80,goodId,paychannelId,
+		Config.GOODCONFIRM1(LeaseConfirm.this,80,1,1,goodId,paychannelId,
 				quantity,addressId,comment,is_need_invoice,invoice_type,invoice_info,
         		
 				

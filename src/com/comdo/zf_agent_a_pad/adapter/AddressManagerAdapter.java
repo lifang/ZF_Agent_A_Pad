@@ -54,6 +54,7 @@ public class AddressManagerAdapter extends BaseAdapter{
 			holdel.phone=(TextView) convertView.findViewById(R.id.phone); 
 			holdel.defau=(TextView) convertView.findViewById(R.id.defau);
 			holdel.change=(TextView) convertView.findViewById(R.id.change);
+			holdel.delect=(TextView) convertView.findViewById(R.id.delect);
 			convertView.setTag(holdel);
 			}
 		else{
@@ -76,6 +77,17 @@ public class AddressManagerAdapter extends BaseAdapter{
 				
 			}
 		});
+		holdel.delect.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				pp=position;
+				Message msg=Mine_adress.myHandler.obtainMessage();
+				msg.what=3;
+				msg.sendToTarget();
+				
+			}
+		});
 		return convertView;
 	}
 	public static class ViewHoldel{
@@ -86,6 +98,7 @@ public class AddressManagerAdapter extends BaseAdapter{
 		TextView phone;
 		TextView defau;
 		TextView change;
+		TextView delect;
 	}
 }
 

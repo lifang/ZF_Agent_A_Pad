@@ -1,9 +1,14 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ARRAY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TOTAL;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.activity.DistributeDetail;
+import com.comdo.zf_agent_a_pad.activity.TerminalApplySelectActivity;
+import com.comdo.zf_agent_a_pad.activity.TerminalSelectActivity;
 import com.comdo.zf_agent_a_pad.adapter.AgentManagerAdapter;
 import com.comdo.zf_agent_a_pad.adapter.DistributeAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
@@ -46,15 +51,16 @@ public class Distribute extends Fragment implements OnClickListener,IXListViewLi
 	private List<DistributeEntity> datadistribut;
 	private BaseAdapter distributeAdapter;
 	private XListView xxlistview;
-	private Button btn_distrib,btn_quary;
+	private Button btn_distrib,btn_quary,btn_confirm;
 	public static Handler myHandler;
-	private TextView tv_time_left,tv_time_right;
+	private TextView tv_time_left,tv_time_right,tv_choose_terminal;
 	private String mMerchantBirthday,left_time,right_time;
 	private String[] mMerchantKeys;
 	 private List<String> list = new ArrayList<String>();
 	 private List<AgentEntity> datt=new ArrayList<AgentEntity>();
-	 private Spinner mySpinner;
+	 private Spinner mySpinner ,my_diaSpinner;
 	 private ArrayAdapter<String> adapter;
+	 private ArrayAdapter<String> adapter_dialog;
 	 private int page=1;
 	 private int rows=Config.ROWS;
 	 private int[] sonAgentId;
@@ -62,6 +68,11 @@ public class Distribute extends Fragment implements OnClickListener,IXListViewLi
 	 private boolean isrefersh=false;
 	 private int a=1;
 	 private int[] idd;
+	 private int mTerminalNum=0;
+	 private String mTerminalArray="";
+	 public static final int REQUEST_SELECT_CLIENT = 1000;
+	 private int paychannelId,goodId;
+	 private String[] serialNums=new String[]{};
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -83,6 +94,7 @@ if (view != null) {
 try {
     view = inflater.inflate(R.layout.distribute, container, false);
     init();
+    getAgentList();
 } catch (InflateException e) {
     
 }
@@ -92,7 +104,7 @@ return view;
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
-	getAgentList();
+	
 	myHandler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -102,6 +114,7 @@ public void onStart() {
 				startActivity(intent);
 				break;
 			case 1:
+				sonAgentId=new int[datt.size()];
 				for(int i=0;i<datt.size();i++){
 					list.add(datt.get(i).getCompany_name());
 					sonAgentId[i]=datt.get(i).getId();
@@ -153,7 +166,7 @@ private void getAgentList() {
 		public void onSuccess(List<AgentEntity> data) {
 			
 			datt.addAll(data);
-			sonAgentId=new int[data.size()];
+			
 			myHandler.sendEmptyMessage(1);
 		}
 @Override
@@ -170,6 +183,7 @@ public void onFailure(String message) {
 	
 }
 private void init() {
+	
 	//tv_agent=(TextView) view.findViewById(R.id.tv_agent);
 	btn_quary=(Button) view.findViewById(R.id.btn_quary);
 	mMerchantKeys = getResources().getStringArray(
@@ -204,6 +218,28 @@ private void init() {
 	});  */
 }
 @Override
+ public void onActivityResult( int requestCode, int resultCode,  Intent data) {
+	// TODO Auto-generated method stub
+	super.onActivityResult(requestCode, resultCode, data);
+	/*if (resultCode != RESULT_OK)
+		return;*/
+	switch (requestCode) {
+	case REQUEST_SELECT_CLIENT: {
+		if(data==null){
+			return;
+		}
+		mTerminalNum = data.getIntExtra(TERMINAL_TOTAL, 0);
+		mTerminalArray = data.getStringExtra(TERMINAL_ARRAY);
+		tv_choose_terminal.setText(mTerminalArray);
+		paychannelId=data.getIntExtra("paychannelId", 0);
+		goodId=data.getIntExtra("goodId", 0);
+		
+		break;
+	}
+
+	}
+}
+@Override
 public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.btn_distrib:
@@ -233,6 +269,16 @@ public void onClick(View v) {
 		break;
 	case R.id.btn_quary:
 		quary();
+		break;
+	case R.id.tv_choose_terminal:
+		Intent intent=new Intent(getActivity(),TerminalSelectActivity.class);
+		
+		intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
+		intent.putExtra(TERMINAL_ARRAY, mTerminalArray);
+		startActivityForResult(intent, REQUEST_SELECT_CLIENT);
+		break;
+	case R.id.btn_confirm:
+		distribute();
 		
 		break;
 	default:
@@ -240,9 +286,31 @@ public void onClick(View v) {
 	}
 	
 }
+private void distribute() {
+	serialNums=mTerminalArray.split(",");
+	Config.distributeGoods(getActivity(), 
+			sonAgentId[cc], 
+			1, 
+			paychannelId, 
+			goodId, 
+			serialNums, 
+			new HttpCallback(getActivity()) {
+
+				@Override
+				public void onSuccess(Object data) {
+					CommonUtil.toastShort(getActivity(), "配货成功");
+					
+				}
+
+				@Override
+				public TypeToken getTypeToken() {
+					// TODO Auto-generated method stub
+					return null;
+				}});
+	
+}
 private void quary() {
 	Config.getDistributeList(getActivity(), 1, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<DistributeEntity>>(getActivity()) {
-
 		@Override
 		public void onSuccess(Page<DistributeEntity> data) {
 			if(isrefersh){
@@ -278,7 +346,29 @@ private void opendialog() {
 	// builder.setTitle("自定义输入框");
      builder.setView(textEntryView);
      builder.create().show();
-	
+     my_diaSpinner=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent);
+     tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
+     btn_confirm=(Button) textEntryView.findViewById(R.id.btn_confirm);
+     tv_choose_terminal.setOnClickListener(this);
+     btn_confirm.setOnClickListener(this);
+	 my_diaSpinner.setAdapter(adapter); 
+	 my_diaSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position,
+					long id) {
+				//tv_agent.setText(adapter.getItem(position));
+				my_diaSpinner.setSelection(position);
+				//cc=position;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});  
 }
 @Override
 public void onRefresh() {
@@ -294,6 +384,7 @@ public void onRefresh() {
 	quary();
 	
 }
+
 @Override
 public void onLoadMore() {
 	if(!Tools.isConnect(getActivity())){

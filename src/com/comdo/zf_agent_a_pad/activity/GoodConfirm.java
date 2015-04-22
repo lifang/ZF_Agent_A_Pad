@@ -82,27 +82,27 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		retail_price.setText("原价:￥" + pirce);
 		goodId = getIntent().getIntExtra("goodId", 1);
 		paychannelId = getIntent().getIntExtra("paychannelId", 1);
-		tv_pay.setText("实付：￥ " + ((double)pirce)/100);
-		tv_totle.setText("实付：￥ " + ((double)pirce)/100);
-		tv_price.setText("￥"+ ((double)pg_price)/100);
+		tv_pay.setText("实付：￥ " + ((double) pirce) / 100);
+		tv_totle.setText("实付：￥ " + ((double) pirce) / 100);
+		tv_price.setText("￥" + ((double) pg_price) / 100);
 		tv_brand.setText(getIntent().getStringExtra("brand"));
 		System.out.println("=paychannelId==" + paychannelId);
-		//getData1();
-	
+		// getData1();
+
 	}
 
 	private void initView() {
-		tv_price = (TextView)findViewById(R.id.tv_price);
-		tv_brand = (TextView)findViewById(R.id.content2);
-		sclist = (ScrollViewWithListView)findViewById(R.id.pos_lv1);
+		tv_price = (TextView) findViewById(R.id.tv_price);
+		tv_brand = (TextView) findViewById(R.id.content2);
+		sclist = (ScrollViewWithListView) findViewById(R.id.pos_lv1);
 		myAdapter = new ChooseAdressAdapter(this, myList);
 		sclist.setAdapter(myAdapter);
 		sclist.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				addressId=myList.get(position).getId();
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				addressId = myList.get(position).getId();
 				myAdapter.chang();
 				myList.get(position).setIscheck(true);
 				myAdapter.notifyDataSetChanged();
@@ -114,12 +114,12 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		add.setOnClickListener(this);
 
 		tv_totle = (TextView) findViewById(R.id.tv_totle);
-		//showCountText = (TextView) findViewById(R.id.showCountText);
+		// showCountText = (TextView) findViewById(R.id.showCountText);
 
 		tv_count = (TextView) findViewById(R.id.tv_count);
 		tv_tel = (TextView) findViewById(R.id.tv_tel);
 		tv_adress = (TextView) findViewById(R.id.tv_adress);
-		
+
 		title2 = (TextView) findViewById(R.id.title);
 		retail_price = (TextView) findViewById(R.id.retail_price);
 		btn_pay = (Button) findViewById(R.id.btn_pay);
@@ -146,7 +146,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
-				//showCountText.setText(arg0.toString());
+				// showCountText.setText(arg0.toString());
 				tv_count.setText("共计:   " + arg0 + "件");
 				if (buyCountEdit.getText().toString().equals("")) {
 					quantity = 0;
@@ -155,8 +155,8 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 							.toString());
 				}
 
-				tv_totle.setText("实付：￥ " + ((double)pirce)/100 * quantity);
-				tv_pay.setText("实付：￥ " + ((double)pirce)/100 * quantity);
+				tv_totle.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
+				tv_pay.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
 			}
 
 			@Override
@@ -176,55 +176,47 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, arr);
 		sp.setAdapter(arrayAdapter);
-		Toast.makeText(
-				getApplicationContext(),
-				"main Thread"
-						+ sp.getItemIdAtPosition(sp.getSelectedItemPosition()),
-				Toast.LENGTH_LONG).show();
-
-		
 		sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				Spinner spinner = (Spinner) parent;
-				invoice_type=position;
+				invoice_type = position;
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				
+
 			}
 
 		});
 	}
 
 	private void getData1() {
-		Config.GetAdressList(GoodConfirm.this, 80, new HttpCallback<List<AdressEntity>>(GoodConfirm.this) {
+		Config.GetAdressList(GoodConfirm.this, 80,
+				new HttpCallback<List<AdressEntity>>(GoodConfirm.this) {
 
-			@Override
-			public void onSuccess(List<AdressEntity> data) {
-				myList.addAll(data);
-				for(int i =0;i<myList.size();i++){
-						if(myList.get(i).getIsDefault()==1) {
-							//tv_name,tv_tel,tv_adresss;
-							addressId=myList.get(i).getId();
-							
+					@Override
+					public void onSuccess(List<AdressEntity> data) {
+						myList.addAll(data);
+						for (int i = 0; i < myList.size(); i++) {
+							if (myList.get(i).getIsDefault() == 1) {
+								// tv_name,tv_tel,tv_adresss;
+								addressId = myList.get(i).getId();
+
+							}
 						}
+						myAdapter.notifyDataSetChanged();
+
 					}
-				myAdapter.notifyDataSetChanged();
-				
-			}
 
-
-			@Override
-			public TypeToken getTypeToken() {
-				return new TypeToken<List<AdressEntity>>(){
-				};
-			}
-        });
-	
+					@Override
+					public TypeToken getTypeToken() {
+						return new TypeToken<List<AdressEntity>>() {
+						};
+					}
+				});
 
 	}
 
@@ -234,7 +226,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 
 		case R.id.btn_pay:
 			confirmGood();
-			
+
 			break;
 		case R.id.add:
 			quantity = Integer.parseInt(buyCountEdit.getText().toString()) + 1;
@@ -252,60 +244,36 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		}
 	}
 
-
-
 	private void confirmGood() {
-		et_comment = (EditText)findViewById(R.id.ed_comment);
-		comment=et_comment.getText().toString();
+		et_comment = (EditText) findViewById(R.id.ed_comment);
+		comment = et_comment.getText().toString();
 		quantity = Integer.parseInt(buyCountEdit.getText().toString());
-		// comment=comment_et.getText().toString();
-		RequestParams params = new RequestParams();
-		params.put("customerId", 1);
-		params.put("goodId", goodId);
-		params.put("paychannelId", paychannelId);
-		params.put("addressId", addressId);
-		params.put("quantity", quantity);
-		params.put("comment", comment);
-		params.put("is_need_invoice", is_need_invoice);
-		params.put("invoice_type", invoice_type);
-		params.put("invoice_info", et_titel.getText().toString());
-		params.setUseJsonStreamer(true);
-		// int customerId,
-		// int goodId,
-		// int paychannelId,
-		// int quantity,
-		// int addressId,
-		// String comment,
-		// int is_need_invoice,
-		// int invoice_type,
-		// String invoice_info,
+		
 		invoice_info = et_titel.getText().toString();
-		Log.e("goodId=" + goodId + "paychannelId=" + paychannelId + "quantity="
-				+ quantity + "is_need_invoice=" + is_need_invoice, "ccccccccc");
-		Config.GOODCONFIRM(GoodConfirm.this,1,goodId,paychannelId,
+
+		Config.GOODCONFIRM1(GoodConfirm.this,80,1,1,goodId,paychannelId,
 				quantity,addressId,comment,is_need_invoice,invoice_type,invoice_info,
         		
 				
                 new HttpCallback  (GoodConfirm.this) {
 
 					@Override
-					public void onSuccess(Object data) {
-						//Intent i1 = new Intent(GoodConfirm.this, PayFromCar.class);
+					public void onSuccess(Object data) {						
+						//Intent i1 = new Intent(LeaseConfirm.this, PayFromCar.class);
 						//startActivity(i1);
-					 
 					}
 
 					@Override
 					public TypeToken getTypeToken() {
-						// TODO Auto-generated method stub
 						return  null;
 					}
                 });
 
 	}
+
 	@Override
 	protected void onResume() {
-	
+
 		super.onResume();
 		myList.clear();
 		getData1();

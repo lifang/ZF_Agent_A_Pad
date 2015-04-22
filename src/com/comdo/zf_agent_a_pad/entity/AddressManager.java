@@ -9,8 +9,9 @@ private String address;
 private String zipCode;
 private String moblephone;
 private String isDefault;
+private int cityId;
 public AddressManager(long id,String receiver,String city,String address,
-		String zipCode,String moblephone,String isDefault){
+		String zipCode,String moblephone,String isDefault,int cityId){
 	super();
 	this.id=id;
 	this.receiver=receiver;
@@ -19,6 +20,7 @@ public AddressManager(long id,String receiver,String city,String address,
 	this.zipCode=zipCode;
 	this.moblephone=moblephone;
 	this.isDefault=isDefault;
+	this.cityId=cityId;
 }
 public long getId() {
 	return id;
@@ -62,13 +64,12 @@ public String getIsDefault() {
 public void setIsDefault(String isDefault) {
 	this.isDefault = isDefault;
 }
-@Override
-public String toString() {
-	return "AddressManager [id=" + id + ", receiver=" + receiver + ", city="
-			+ city + ", address=" + address + ", zipCode=" + zipCode
-			+ ", moblephone=" + moblephone + ", isDefault=" + isDefault + "]";
+public int getCityId() {
+	return cityId;
 }
-
+public void setCityId(int cityId) {
+	this.cityId = cityId;
+}
 
 
 }

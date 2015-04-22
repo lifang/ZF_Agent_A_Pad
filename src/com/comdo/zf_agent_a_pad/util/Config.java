@@ -22,6 +22,7 @@ import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
 import android.content.Context;
 
@@ -35,7 +36,7 @@ public class Config {
 	public static int ROWS = 10;
 	public static String token = "123";
 	public static final int CODE = 1;
-
+	public static int TABID = 1;
 	public static int ScreenWidth = 0;
 	public static int ScreenHeight = 0;
 
@@ -48,6 +49,11 @@ public class Config {
 	public static final String SHOPORDER = PATHS + "order/shop";
 	public static final String ZDORDER = PATHS + "order/lease";
 	public static final String ORDERLIST = PATHS + "order/orderSearch";
+	public static final String GOODCOMFIRM = PATHS + "order/agent";
+	public static final String ORDERDELTE = PATHS + "order/cancelProxy";
+	public static final String ORDERDETAIL = PATHS + "order/getWholesaleById";
+	public static final String ORDERDETAIL1 = PATHS + "order/getProxyById";
+	public static final String Comment = PATHS + "order/batchSaveComment";
 
 	public static GoodinfoEntity gfe = null;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
@@ -65,14 +71,9 @@ public class Config {
 	public static int goodId;
 	public static String getmes = PATHS + "message/receiver/getAll";
 
-	// upload image url
-	public static final String UPLOAD_IMAGE = PATHS
-			+ "comment/upload/tempImage";
-
 	// upload register url
 	public static final String UPLOAD_REGISTER = PATHS
 			+ "agent/upload/register";
-
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
@@ -86,8 +87,12 @@ public class Config {
 	public static final String APPLY_MERCHANT_DETAIL = PATHS
 			+ "apply/getMerchant";
 	// upload image url
+	public static final String UPLOAD_IMAGE = PATHS
+			+ "comment/upload/tempImage";
+
 	// Get the Channel List
-	public static final String APPLY_CHANNEL_LIST = PATHS + "apply/getChannels";
+	public static final String APPLY_CHANNEL_LIST = PATHS
+			+ "apply/getChannels";
 
 	// Get the Bank List
 	public static final String APPLY_BANK_LIST = PATHS + "apply/ChooseBank";
@@ -118,6 +123,7 @@ public class Config {
 
 	// terminal add customer
 	public static final String ADD_CUSTOMER = PATHS + "terminal/addCustomer";
+
 
 	// terminal get address
 	public static final String TERMINAL_GET_ADDRESS = PATHS
@@ -173,6 +179,7 @@ public class Config {
 			+ "user/delectAgentUser";
 	// 用户管理--获得该代理商下面某个用户的相关终端列表
 	public static final String USER_GETTERMINALS = PATHS + "user/getTerminals";
+
 	// 库存管理列表
 	public static final String STOCK_LIST = PATHS + "stock/list";
 	// 库存管理详情（下级代理商列表）
@@ -225,14 +232,20 @@ public class Config {
 	// upload File
 	public static final String UPLOAD_FILE = PATHS + "lowerAgent/uploadImg";
 	// edit address
+		//public static final String EDIT_ADDRESS = PATHS
+		//		+ "agents/updateAddress";
+		//public static final String EDIT_ADDRESS = "http://192.168.199.206:8080/zfagent/api/" +
+		//		"message/receiver/batchRead";
+    // creat agent
+		public static final String CREAT_AGENT = PATHS
+				+ "lowerAgent/createNew";
+    // get distribute_list
+		public static final String GET_DISTRIBUTE = PATHS
+				+ "preparegood/list";
 	public static final String EDIT_ADDRESS = PATHS + "customers/updateAddress";
 	// public static final String EDIT_ADDRESS =
 	// "http://192.168.199.206:8080/zfagent/api/" +
 	// "message/receiver/batchRead";
-	// creat agent
-	public static final String CREAT_AGENT = PATHS + "lowerAgent/createNew";
-	// get distribute_list
-	public static final String GET_DISTRIBUTE = PATHS + "preparegood/list";
 	// get agent_list
 	public static final String GET_AGENTLIST = PATHS
 			+ "preparegood/getsonagent";
@@ -249,6 +262,22 @@ public class Config {
 	public static final String SELECTPOS = PATHS + "terminal/screeningPosName";
 	// apply submit
 	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
+    //  get terminal list
+	public static final String GET_TERMINAL_LIST =PATHS + "preparegood/getterminalslist";
+	//get Pay ways
+	public static final String GET_TERMINAL_PAY_LIST = PATHS + "preparegood/getpaychannellist";
+	// distribute goods
+	public static final String DISTRIBUTE_GOODS = PATHS + "preparegood/add";
+	// get terminal_trans list
+	public static final String GET_TERMINAL_TRANS_LIST =PATHS + "exchangegood/getterminalslist";
+	// trans goods
+	public static final String TRANS_GOODS =PATHS + "exchangegood/add";
+	// get trans detail
+	public static final String GET_TRANS_DETAIL =PATHS + "exchangegood/info";
+	// delect one address
+	public static final String DELECT_ONE_ADDRESS =PATHS + "agents/deleteAddress";
+	// stall detail
+	public static final String STAFF_DETAIL =PATHS + "customerManage/getInfo";
 
 	// login
 	public static final String LOGIN = PATHS + "agent/agentLogin";
@@ -413,7 +442,7 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.ZDORDER, params);
 	}
 
-	public static void GOODCONFIRM1(Context context, int customerId,
+	public static void GOODCONFIRM1(Context context, int customerId,int agentId,int orderType,
 			int goodId, int paychannelId, int quantity, int addressId,
 			String comment, int is_need_invoice, int invoice_type,
 			String invoice_info,
@@ -421,6 +450,8 @@ public class Config {
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
+		params.put("agentId", agentId);
+		params.put("orderType", orderType);
 		params.put("goodId", goodId);
 		params.put("paychannelId", paychannelId);
 		params.put("quantity", quantity);
@@ -431,15 +462,21 @@ public class Config {
 		params.put("invoice_info", invoice_info);
 		System.out.println("参数--" + params.toString());
 		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
-		new HttpRequest(context, callback).post(Config.ZDORDER, params);
+		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
 	}
 
-	public static void getApplyList(Context context, int agentId, int page,
+	public static void getApplyList(Context context, int customerId, int page,
+
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("agentId", agentId);
+		params.put("agentId", customerId);
 		params.put("page", page);
 		params.put("rows", rows);
+		// RequestParams params2 =new RequestParams();
+		// params2.put("customersId", customerId);
+		// params2.put("page", page);
+		// params2.put("rows", rows);
+		// params2.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(APPLY_LIST, params);
 	}
 
@@ -450,7 +487,6 @@ public class Config {
 		params.put("status", status);
 		new HttpRequest(context, callback).post(APPLY_DETAIL, params);
 	}
-
 	public static void getApplyMerchantDetail(Context context, int merchantId,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -611,7 +647,8 @@ public class Config {
 		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(AGENTS_ADDMARK, params);
 	}
-
+	
+	
 	public static void stockList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -662,6 +699,7 @@ public class Config {
 
 		new HttpRequest(context, callback).post(GETCODE4PHONE, params);
 	}
+
 
 	public static void GetMyInfo(Context context, int customerId,
 			HttpCallback callback) {
@@ -726,6 +764,7 @@ public class Config {
 	}
 
 	public static void GetAdressLis(Context context, int customerId,
+
 			HttpCallback callback) {
 		RequestParams params = new RequestParams();
 		params.put("customerId", customerId);
@@ -737,21 +776,26 @@ public class Config {
 
 	public static void getStaffList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params=new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentsId", agentId);
+		//RequestParams params = new RequestParams();
 		// Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_STAFFMANAGER_LIST, params);
 		Log.e("params", String.valueOf(params));
 		Log.e("url", GET_MSGLIST);
 	}
 
 	public static void AddAdress(Context context, String cityId,
-			String receiver, String moblephone, String zipCode, String address,
-			int isDefault, int customerId, HttpCallback callback) {
-		RequestParams params = new RequestParams();
+			String receiver,String moblephone,String zipCode,
+			String address,int isDefault,int customerId,
+			HttpCallback callback) {
+		//RequestParams params=new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("cityId", cityId);
 		params.put("receiver", receiver);
 		params.put("moblephone", moblephone);
@@ -759,7 +803,7 @@ public class Config {
 		params.put("address", address);
 		params.put("isDefault", isDefault);
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ADD_ADDRESS, params);
 		Log.e("params", params + "");
 		Log.e("ADD_ADDRESS", ADD_ADDRESS);
@@ -817,11 +861,17 @@ public class Config {
 		params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(RESET_PROFIT, params);
 	}
-
-	public static void changeAdres(Context context, int id, String cityId,
-			String receiver, String moblephone, String zipCode, String address,
-			int customerId, int isDefault, HttpCallback callback) {
-		RequestParams params = new RequestParams();
+	public static void changeAdres(Context context, 
+			int id, 
+			String cityId,
+			String receiver, 
+			String moblephone, 
+			String zipCode, 
+			String address,
+			int customerId,
+			int isDefault, HttpCallback callback) {
+		//RequestParams params=new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		params.put("cityId", cityId);
 		params.put("receiver", receiver);
@@ -830,7 +880,7 @@ public class Config {
 		params.put("address", address);
 		params.put("customerId", customerId);
 		params.put("isDefault", isDefault);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		Log.e("params", String.valueOf(params));
 		new HttpRequest(context, callback).post(EDIT_ADDRESS, params);
 	}
@@ -879,19 +929,23 @@ public class Config {
 		Log.e("params", String.valueOf(params));
 		Log.e("url", GET_MSGLIST);
 	}
-
-	public static void getDistributeList(Context context, int agentId,
-			int sonAgentId, String startTime, String endTime, int page,
-			int rows, HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		// Map<String, Object> params = new HashMap<String, Object>();
+	public static void getDistributeList(Context context, 
+			int agentId, 
+			int sonAgentId, 
+			String startTime,
+			String endTime,
+			int page,
+			int rows,
+			HttpCallback callback) {
+		//RequestParams params=new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("sonAgentId", sonAgentId);
 		params.put("startTime", startTime);
 		params.put("endTime", endTime);
 		params.put("page", page);
 		params.put("rows", rows);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_DISTRIBUTE, params);
 		// Log.e("params", String.valueOf(params));
 		// Log.e("url", GET_DISTRIBUTE);
@@ -910,36 +964,45 @@ public class Config {
 
 	public static void getDistributeDetail(Context context, int id,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params=new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		//params.setUseJsonStreamer(true);
+		//RequestParams params = new RequestParams();
 		// Map<String, Object> params = new HashMap<String, Object>();
-		params.put("ageidntId", id);
-		params.setUseJsonStreamer(true);
+		//params.put("ageidntId", id);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_DISTRIBUTE_DETAIL, params);
 		Log.e("params", String.valueOf(params));
 		Log.e("url", GET_DISTRIBUTE_DETAIL);
 	}
-
-	public static void getTranslist(Context context, int agentId,
-			int sonAgentId, String startTime, String endTime, int page,
-			int rows, HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		// Map<String, Object> params = new HashMap<String, Object>();
+	public static void getTranslist(Context context, 
+			int agentId, 
+			int sonAgentId, 
+			String startTime,
+			String endTime,
+			int page,
+			int rows,
+			HttpCallback callback) {
+		//RequestParams params=new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("sonAgentId", sonAgentId);
 		params.put("startTime", startTime);
 		params.put("endTime", endTime);
 		params.put("page", page);
 		params.put("rows", rows);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_TRANS_LIST, params);
-		// Log.e("params", String.valueOf(params));
-		// Log.e("url", GET_DISTRIBUTE);
 	}
-
-	public static void insertCustomer(Context context, String userName,
-			String loginId, String roles, int agentsId, String pwd,
-			String pwd1, HttpCallback callback) {
-		// RequestParams params=new RequestParams();
+	public static void insertCustomer(Context context, 
+			String userName, 
+			String loginId, 
+			String roles,
+			int agentsId,
+			String pwd,
+			String pwd1,
+			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userName", userName);
 		params.put("loginId", loginId);
@@ -964,14 +1027,19 @@ public class Config {
 		Log.e("GET_ADDRESS_LIST", ChooseAdress);
 	}
 
-	public static void GetOrderList(Context context, int customerId,
-			String type, HttpCallback callback) {
-		RequestParams params = new RequestParams();
+	public static void GetOrderList(Context context, int  customerId,String type,String search,
+			String q,int page,int rows,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("p", type);
-		params.setUseJsonStreamer(true);
+		//params.put("search", search);
+		//if(!q.equals(""))
+		params.put("q", q);
+		params.put("page",page);
+		params.put("rows",rows);
 		new HttpRequest(context, callback).post(ORDERLIST, params);
-		Log.e("customerId", customerId + "");
+		Log.e("params", params.toString()+"");
 		Log.e("GET_ADDRESS_LIST", ORDERLIST);
 	}
 
@@ -1086,5 +1154,114 @@ public class Config {
 		params.put("serialNum", "".equals(serialNum) ? null : serialNum);
 		params.put("status", status == -1 ? null : status);
 		new HttpRequest(context, callback).post(GETTERMINALLIST, params);
+	}
+
+	public static void getTerminallist(Context context, 
+			int agentId,
+			int paychannelId,
+			int goodId,
+			String[] serialNums,
+			int page,
+			int rows,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("paychannelId", paychannelId);
+		params.put("goodId", goodId);
+		try {
+			params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		params.put("page", page);
+		params.put("rows", rows);
+		new HttpRequest(context, callback).post(GET_TERMINAL_LIST, params);
+	}
+	public static void getTerminalPaylist(Context context, 
+			int agentId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		new HttpRequest(context, callback).post(GET_TERMINAL_PAY_LIST, params);
+	}
+	public static void distributeGoods(Context context, 
+			int sonAgentId,
+			int customerId,
+			int paychannelId,
+			int goodId,
+			String[] serialNums,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sonAgentId", sonAgentId);
+		params.put("customerId", customerId);
+		params.put("paychannelId", paychannelId);
+		params.put("goodId", goodId);
+		try {
+			params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new HttpRequest(context, callback).post(DISTRIBUTE_GOODS, params);
+	}
+	public static void getTerminalTranslist(Context context, 
+			int fromAgentId,
+			int page,
+			int rows,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("fromAgentId", fromAgentId);
+		params.put("page", page);
+		params.put("rows", rows);
+		new HttpRequest(context, callback).post(GET_TERMINAL_TRANS_LIST, params);
+	}
+	public static void transGoods(Context context, 
+			int toAgentId,
+			int fromAgentId,
+			int customerId,
+			String[] serial_nums,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("toAgentId", toAgentId);
+		params.put("fromAgentId", fromAgentId);
+		params.put("customerId", customerId);
+		try {
+			params.put("serial_nums", new JSONArray(gson.toJson(serial_nums)));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new HttpRequest(context, callback).post(TRANS_GOODS, params);
+	}
+	public static void transDetail(Context context, 
+			int id,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		new HttpRequest(context, callback).post(GET_TRANS_DETAIL, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void delectAddress(Context context, 
+			int id,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		new HttpRequest(context, callback).post(DELECT_ONE_ADDRESS, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void getStallDetail(Context context, 
+			int customerId,
+			int agentsId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("agentsId", agentsId);
+		new HttpRequest(context, callback).post(STAFF_DETAIL, params);
+		Log.e("params", String.valueOf(params));
 	}
 }

@@ -209,6 +209,9 @@
     <string name="after_sale_cancel_material_title">注销申请资料</string>
     <string name="after_sale_change_title">换货信息</string>
     <string name="after_sale_change_material_title">换货所需资料</string>
+
+    <!-- 交易流水 -->
+    <string name="trade_client">请选择终端号</string>
     <string name="after_sale_update_material_title">申请更新资料</string>
     <string name="after_sale_lease_title">退货信息</string>
     <string name="after_sale_lease_material_title">租赁退还申请资料</string>
@@ -240,30 +243,30 @@
     <string name="trade_item_commercial_info">商户信息</string>
     <string name="trade_item_bank_info">交易信息</string>
     <string name="toast_end_date_error">结束时间不能小于开始时间</string>
+        <string-array name="trade_item_commercial">
+            <item>编    号</item>
+            <item>代理商ID</item>
+            <item>商 户 ID</item>
+        </string-array>
+        <string-array name="trade_item_bank">
+            <item>终 端 号</item>
+            <item>付款账号</item>
+            <item>收款账号</item>
+            <item>支付通道</item>
+            <item>分润金额</item>
+            <item>交易金额</item>
+            <item>交易时间</item>
+            <item>交易状态</item>
+            <item>交易批次号</item>
+            <item>交易流水号</item>
+        </string-array>
+        <string-array name="trade_flow_tabs">
+            <item>转账</item>
+            <item>消费</item>
+            <item>还款</item>
+            <item>生活充值</item>
+            <item>话费充值</item>
+        </string-array>
+
 
-    <string-array name="trade_item_commercial">
-        <item>编    号</item>
-        <item>代理商ID</item>
-        <item>商 户 ID</item>
-    </string-array>
-    <string-array name="trade_item_bank">
-        <item>终 端 号</item>
-        <item>付款账号</item>
-        <item>收款账号</item>
-        <item>支付通道</item>
-        <item>分润金额</item>
-        <item>交易金额</item>
-        <item>交易时间</item>
-        <item>交易状态</item>
-        <item>交易批次号</item>
-        <item>交易流水号</item>
-    </string-array>
-    <string-array name="trade_flow_tabs">
-        <item>转账</item>
-        <item>消费</item>
-        <item>还款</item>
-        <item>生活充值</item>
-        <item>话费充值</item>
-    </string-array>
-
-</resources>
+</resources>
