@@ -28,8 +28,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    
-    
+
     <application
         android:name="com.comdo.zf_agent_a_pad.util.MyApplication"
         android:allowBackup="true"
@@ -37,9 +36,39 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.FindPass"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.FindpassmailSucces"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.Register"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.RegSucceed"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+=======
             android:name="com.comdo.zf_agent_a_pad.activity.MainActivity"
             android:label="@string/app_name" 
             android:screenOrientation="landscape">
+>>>>>>> 21de3e6bd6c860cc344a973d012e9796a24e5635
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +76,7 @@
             </intent-filter>
         </activity>
         <!-- 交易流水 start -->
-         <activity
+        <activity
             android:name="com.comdo.zf_agent_a_pad.trade.TradeFlowActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
@@ -83,7 +112,7 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
-       <activity
+        <activity
             android:name="com.comdo.zf_agent_a_pad.trade.ApplyListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
@@ -287,7 +316,7 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
-         <activity
+        <activity
             android:name="com.comdo.zf_agent_a_pad.activity.DistributeDetail"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
@@ -306,6 +335,18 @@
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
         <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.PayFromCar"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.Comment"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity
             android:name="com.comdo.zf_agent_a_pad.activity.CreatStaff"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
@@ -317,21 +358,11 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
-        
-                <activity
-            android:name="com.comdo.zf_agent_a_pad.activity.FindPass"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-        </activity>
         <activity
-            android:name="com.comdo.zf_agent_a_pad.activity.FindpassmailSucces"
+            android:name="com.comdo.zf_agent_a_pad.activity.OrderDetail"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="com.comdo.zf_agent_a_pad.activity.Register"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
     </application>
 

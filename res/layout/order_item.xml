@@ -257,6 +257,7 @@
                 android:text="评价"
                 android:visibility="gone"
                 android:textColor="@color/ffffff" />
+            
         </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
