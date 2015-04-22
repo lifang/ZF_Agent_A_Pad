@@ -43,10 +43,10 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 	private TextView selectedcity, tv_code;
 	private int mChannelId;
-	private LinearLayout getCode, check;
+	private LinearLayout getCode, check, selectcity;
 	private EditText username, setCode, checkCode, pwd, confirmpwd;
 	public String vcode = "";
-	private String name,password, mCode;
+	private String name, password, mCode;
 	private ImageView img_check_y, img_check_n;
 	private Boolean isRun = true;
 	private Boolean checkcode = false;
@@ -65,7 +65,7 @@ public class TerminalApplyCreateActivity extends Activity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_terminal_apply_new_user);
 
-		username =(EditText) findViewById(R.id.username);
+		username = (EditText) findViewById(R.id.username);
 		username.addTextChangedListener(mTextWatcher);
 		setCode = (EditText) findViewById(R.id.phonenum);
 		checkCode = (EditText) findViewById(R.id.checkcode);
@@ -74,6 +74,8 @@ public class TerminalApplyCreateActivity extends Activity implements
 		confirmpwd.addTextChangedListener(mTextWatcher);
 		getCode = (LinearLayout) findViewById(R.id.get_code);
 		getCode.setOnClickListener(this);
+		selectcity = (LinearLayout) findViewById(R.id.selectcity);
+		selectcity.setOnClickListener(this);
 		check = (LinearLayout) findViewById(R.id.tv_check);
 		check.setOnClickListener(this);
 		tv_code = (TextView) findViewById(R.id.code);
@@ -104,11 +106,11 @@ public class TerminalApplyCreateActivity extends Activity implements
 		public void afterTextChanged(final Editable gitDirEditText) {
 			if (confirmpwd.getText().toString()
 					.equals(pwd.getText().toString())) {
-				password =pwd.getText().toString();
+				password = pwd.getText().toString();
 				verification = true;
 			}
 			name = StringUtil.replaceBlank((username.getText().toString()));
-			
+
 			updateUIWithValidation();
 		}
 	};
@@ -122,8 +124,7 @@ public class TerminalApplyCreateActivity extends Activity implements
 	private void updateUIWithValidation() {
 		final boolean enabled = mChannelId > 0
 				&& username.getText().toString().length() > 0
-				&& mCode.length() > 0
-				&& password.length() > 0 && checkcode
+				&& mCode.length() > 0 && password.length() > 0 && checkcode
 				&& verification;
 		mSubmitBtn.setEnabled(enabled);
 	}
@@ -134,24 +135,26 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			Config.addCustomer(this, mCode, name, password, mChannelId, 1, new HttpCallback(TerminalApplyCreateActivity.this) {
+			Config.addCustomer(this, mCode, name, password, mChannelId, 1,
+					new HttpCallback(TerminalApplyCreateActivity.this) {
 
-				@Override
-				public void onSuccess(Object data) {
+						@Override
+						public void onSuccess(Object data) {
 
-					CommonUtil.toastShort(TerminalApplyCreateActivity.this, getResources().getString(R.string.terminal_new_success));
-					finish();
-				}
+							CommonUtil.toastShort(
+									TerminalApplyCreateActivity.this,
+									getResources().getString(
+											R.string.terminal_new_success));
+							finish();
+						}
 
-				@Override
-				public TypeToken getTypeToken() {
+						@Override
+						public TypeToken getTypeToken() {
 
-					return null;
-				}
-			});
-			
-			
-			
+							return null;
+						}
+					});
+
 			break;
 		case R.id.selectcity:
 			Intent intent = new Intent(TerminalApplyCreateActivity.this,

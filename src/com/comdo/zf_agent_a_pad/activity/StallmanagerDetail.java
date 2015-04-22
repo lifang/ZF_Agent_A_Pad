@@ -12,6 +12,10 @@ import com.google.gson.reflect.TypeToken;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -23,6 +27,7 @@ public class StallmanagerDetail extends BaseActivity{
 	private String rolesStr;
 	private String[] str=new String[]{};
 	private Handler myHandler;
+	private Button btn_edit;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -110,6 +115,19 @@ private void init() {
 	cb_manager_user=(CheckBox) findViewById(R.id.cb_manager_user);
 	cb_manager_worker=(CheckBox) findViewById(R.id.cb_manager_worker);
 	cb_manager_Addres=(CheckBox) findViewById(R.id.cb_manager_Addres);
-	
+	btn_edit=(Button) findViewById(R.id.btn_edit);
+	btn_edit.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			Intent intent=new Intent(StallmanagerDetail.this,EditStallmanager.class);
+			intent.putExtra("loginid", tv_loginid.getText().toString());
+			intent.putExtra("name", tv_name.getText().toString());
+			intent.putExtra("role", rolesStr);
+			//Log.e("role", str);
+			startActivity(intent);
+			
+		}
+	});
 }
 }

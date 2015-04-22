@@ -175,7 +175,8 @@ public class Config {
 	// 用户管理--获得该代理商下面所有用户
 	public static final String USER_GETUSER = PATHS + "user/getUser";
 	// 用户管理--删除用户
-	public static final String USER_DELECTAGENTUSER = PATHS+ "user/delectAgentUser";
+	public static final String USER_DELECTAGENTUSER = PATHS
+			+ "user/delectAgentUser";
 	// 用户管理--获得该代理商下面某个用户的相关终端列表
 	public static final String USER_GETTERMINALS = PATHS + "user/getTerminals";
 
@@ -303,7 +304,12 @@ public class Config {
 	// get terminallist
 	public static final String GETTERMINALLIST = PATHS
 			+ "terminal/getTerminalList";
-
+   // delect staff
+	public static final String DELECT_STAFF = PATHS
+			+ "customerManage/deleteOne";
+	// edit staff
+	public static final String EDIT_STAFF = PATHS
+			+ "customerManage/edit";
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -464,11 +470,6 @@ public class Config {
 		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
 	}
 
-
-
-
-
-
 	public static void getApplyList(Context context, int customerId, int page,
 
 			int rows, HttpCallback callback) {
@@ -484,10 +485,9 @@ public class Config {
 		new HttpRequest(context, callback).post(APPLY_LIST, params);
 	}
 
-	public static void getApplyDetail(Context context, int customerId,
-			int terminalId, int status, HttpCallback callback) {
+	public static void getApplyDetail(Context context, int terminalId,
+			int status, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customerId", customerId);
 		params.put("terminalsId", terminalId);
 		params.put("status", status);
 		new HttpRequest(context, callback).post(APPLY_DETAIL, params);
@@ -526,7 +526,6 @@ public class Config {
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(TERMINAL_APPLY_LIST, params);
 	}
-
 
 	public static void getTerminalDetail(Context context, int terminalId,
 			HttpCallback callback) {
@@ -1268,6 +1267,28 @@ public class Config {
 		params.put("customerId", customerId);
 		params.put("agentsId", agentsId);
 		new HttpRequest(context, callback).post(STAFF_DETAIL, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void delectStaff(Context context, 
+			int customerId,
+			int agentsId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("agentsId", agentsId);
+		new HttpRequest(context, callback).post(DELECT_STAFF, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void editStaff(Context context, 
+			String customerId,
+			String roles,
+			String pwd,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("roles", roles);
+		params.put("pwd", pwd);
+		new HttpRequest(context, callback).post(EDIT_STAFF, params);
 		Log.e("params", String.valueOf(params));
 	}
 }
