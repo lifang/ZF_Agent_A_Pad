@@ -96,7 +96,9 @@ public class Constants {
 		public static final String TERMINAL_CLIENT = "terminal_client";
 		public static final String TERMINAL_TOTAL = "terminal_total";
 		public static final String TERMINAL_ARRAY = "terminal_array";
+		
 
+		public static final String TERMINAL_TYPE = "terminal_type";
 	}
 
 	/**
@@ -118,6 +120,7 @@ public class Constants {
 		public static final String SELECTED_CHANNEL = "selected_channel";
 		public static final String SELECTED_BILLING = "selected_billing";
 		public static final String SELECTED_BANK = "selected_bank";
+		public static final String SELECTED_TERMINAL = "selected_terminal";
 	}
 
 }
