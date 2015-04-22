@@ -21,10 +21,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.trade.common.DialogUtil;
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.common.Page;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeRecord;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -56,7 +59,8 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.PHONE_PAY;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.REPAYMENT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.TRANSFER;
 
-public class TradeFlowFragment extends Fragment implements View.OnClickListener {
+public class TradeFlowFragment extends Fragment implements
+		View.OnClickListener, XListView.IXListViewListener {
 
 	private int mTradeType;
 
@@ -81,11 +85,15 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 	private String tradeEndDate;
 
 	private LayoutInflater mInflater;
-	private ListView mRecordList;
+	private XListView mRecordList;
 	private TradeRecordListAdapter mAdapter;
 	private List<TradeRecord> mRecords;
 	private boolean hasSearched = false;
-	
+
+	private int page = 1;
+	private boolean canLoadMore = true;
+	private int total = 0;
+
 	public static TradeFlowFragment newInstance(int mTradeType) {
 		TradeFlowFragment fragment = new TradeFlowFragment();
 		Bundle args = new Bundle();
@@ -151,8 +159,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		mTradeAgent = header.findViewById(R.id.trade_agent);
 		mTradeClientName = (TextView) header
 				.findViewById(R.id.trade_client_name);
-		mTradeAgentName = (TextView) header
-				.findViewById(R.id.trade_agent_name);
+		mTradeAgentName = (TextView) header.findViewById(R.id.trade_agent_name);
 
 		mTradeStart = header.findViewById(R.id.trade_start);
 		mTradeStartDate = (TextView) header.findViewById(R.id.trade_start_date);
@@ -164,9 +171,11 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		mTradeSearchContent = (LinearLayout) header
 				.findViewById(R.id.trade_search_content);
 
-		TextView payAccountTxt = (TextView) header.findViewById(R.id.payAccountTxt);
-		TextView recieveAccountTxt = (TextView) header.findViewById(R.id.recieveAccountTxt);
-		
+		TextView payAccountTxt = (TextView) header
+				.findViewById(R.id.payAccountTxt);
+		TextView recieveAccountTxt = (TextView) header
+				.findViewById(R.id.recieveAccountTxt);
+
 		switch (mTradeType) {
 		case TRANSFER:
 		case CONSUME:
@@ -186,8 +195,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		default:
 			break;
 		}
-		
-		
+
 		mTradeClient.setOnClickListener(this);
 		mTradeStart.setOnClickListener(this);
 		mTradeEnd.setOnClickListener(this);
@@ -199,9 +207,13 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 			mRecords = new ArrayList<TradeRecord>();
 		}
 
-		mRecordList = (ListView) view.findViewById(R.id.trade_record_list);
+		mRecordList = (XListView) view.findViewById(R.id.trade_record_list);
 		mAdapter = new TradeRecordListAdapter();
 		mRecordList.addHeaderView(header);
+		mRecordList.setAdapter(mAdapter);
+		mRecordList.initHeaderAndFooter();
+		mRecordList.setXListViewListener(this);
+		mRecordList.setPullRefreshEnable(false);
 		mRecordList.setAdapter(mAdapter);
 
 		mRecordList
@@ -246,7 +258,7 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 			int agentId = data.getIntExtra(AGENT_ID, 0);
 			mTradeAgentName.setText(agentName);
 			tradeAgentName = agentName;
-			tradeAgentId =  agentId;
+			tradeAgentId = agentId;
 			toggleButtons();
 			break;
 		}
@@ -276,15 +288,23 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		case R.id.trade_search:
 			hasSearched = true;
 			mTradeSearchContent.setVisibility(View.VISIBLE);
-			API.getTradeRecordList(getActivity(),1,tradeAgentId, mTradeType, tradeClientName,
-					tradeStartDate, tradeEndDate, 1, 10,
+			// 点击按钮重拉
+			page = 1;
+			canLoadMore = true;
+			API.getTradeRecordList(getActivity(), 1, tradeAgentId, mTradeType,
+					tradeClientName, tradeStartDate, tradeEndDate, page, Config.ROWS,
 					new HttpCallback<Page<TradeRecord>>(getActivity()) {
 
 						@Override
 						public void onSuccess(Page<TradeRecord> data) {
+							if (data.getList().size() < Config.ROWS) {
+								canLoadMore = false;
+							}
 							mRecords.clear();
 							mRecords.addAll(data.getList());
 							mAdapter.notifyDataSetChanged();
+							total = data.getTotal();
+							mRecordList.setPullLoadEnable(canLoadMore);
 						}
 
 						@Override
@@ -307,6 +327,31 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		}
 	}
 
+	// 加载更多
+		private void getMoreData() {
+			page += 1;
+			API.getTradeRecordList(getActivity(), 1, tradeAgentId, mTradeType,
+					tradeClientName, tradeStartDate, tradeEndDate, page, Config.ROWS,
+					new HttpCallback<Page<TradeRecord>>(getActivity()) {
+
+						@Override
+						public void onSuccess(Page<TradeRecord> data) {
+
+							mRecordList.stopLoadMore();
+							mRecords.addAll(data.getList());
+							mAdapter.notifyDataSetChanged();
+							total = data.getTotal();
+
+						}
+
+						@Override
+						public TypeToken<Page<TradeRecord>> getTypeToken() {
+							return new TypeToken<Page<TradeRecord>>() {
+							};
+						}
+					});
+		}
+	
 	/**
 	 * enable or disable the buttons
 	 * 
@@ -460,12 +505,12 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 					R.array.trade_status)[record.getTradedStatus()]);
 			holder.tvTime.setText(record.getTradedTimeStr());
 			holder.tvClientNumber.setText(record.getTerminalNumber());
-			
-			DecimalFormat df = (DecimalFormat)NumberFormat.getInstance();
+
+			DecimalFormat df = (DecimalFormat) NumberFormat.getInstance();
 			df.applyPattern("0.00");
-			
+
 			holder.tvAmount.setText(getString(R.string.notation_yuan)
-					+ df.format(record.getAmount()*1.0f/100));
+					+ df.format(record.getAmount() * 1.0f / 100));
 
 			return convertView;
 		}
@@ -480,5 +525,23 @@ public class TradeFlowFragment extends Fragment implements View.OnClickListener 
 		public TextView tvReceiveAccount;
 		public TextView tvClientNumber;
 		public TextView tvAmount;
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onLoadMore() {
+		// TODO Auto-generated method stub
+		if (mRecords.size() >= total) {
+			mRecordList.stopLoadMore();
+			mRecordList.setPullLoadEnable(false);
+			CommonUtil.toastShort(getActivity(), "没有更多数据");
+		} else {
+			getMoreData();
+		}
 	}
 }
