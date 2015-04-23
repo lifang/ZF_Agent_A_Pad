@@ -475,11 +475,11 @@ public class Config {
 		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
 	}
 
-	public static void getApplyList(Context context, int customerId, int page,
+	public static void getApplyList(Context context, int agentId, int page,
 
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("agentId", customerId);
+		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
 		// RequestParams params2 =new RequestParams();

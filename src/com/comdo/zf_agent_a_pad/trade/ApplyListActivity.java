@@ -5,7 +5,6 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
 
@@ -30,6 +29,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.PageApply;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.video.VideoActivity;
@@ -53,8 +53,10 @@ public class ApplyListActivity extends Activity implements
 	private final int rows = 10;
 	private boolean noMoreData = false;
 
-	private static final int REQUEST_SEARCH = 1000;
+	private static final int REQUEST_APPLY_SEARCH = 1111;
 	private String searchKey;
+
+	private Boolean isLoadMore = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,49 +115,22 @@ public class ApplyListActivity extends Activity implements
 			public void onClick(View view) {
 				Intent it = new Intent(ApplyListActivity.this,
 						GenerateSearch.class);
-				it.putExtra(TERMINAL_TYPE, 1);
-				it.putExtra(TERMINAL_STATUS, -1);
-				startActivityForResult(it, REQUEST_SEARCH);
+				it.putExtra(SELECTED_TERMINAL, searchKey);
+				startActivityForResult(it, REQUEST_APPLY_SEARCH);
 			}
 		});
 	}
 
 	private void loadData() {
-		Config.getApplyList(this, 1, page + 1, rows,
-				new HttpCallback<PageApply<TerminalManagerEntity>>(this) {
-					@Override
-					public void onSuccess(PageApply<TerminalManagerEntity> data) {
-						if (null == data || data.getList().size() <= 0)
-							noMoreData = true;
 
-						mTerminalItems.addAll(data.getList());
-						page++;
-						mAdapter.notifyDataSetChanged();
-					}
+		if (!isLoadMore) {
 
-					@Override
-					public void onFailure(String message) {
-						super.onFailure(message);
-					}
+			page = 0;
+		}
+		if ((searchKey != null && !"".equals(searchKey))) {
 
-					@Override
-					public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
-						return new TypeToken<PageApply<TerminalManagerEntity>>() {
-						};
-					}
-				});
-	}
-
-	protected void onActivityResult(final int requestCode, int resultCode,
-			final Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode != RESULT_OK)
-			return;
-		switch (requestCode) {
-		case REQUEST_SEARCH: {
-			searchKey = data.getStringExtra(SELECTED_TERMINAL);
-			Config.searchApplyList(ApplyListActivity.this, 1, page, rows,
-					searchKey,
+			Config.searchApplyList(ApplyListActivity.this,
+					MyApplication.NewUser.getAgentId(), page, rows, searchKey,
 					new HttpCallback<PageApply<TerminalManagerEntity>>(
 							ApplyListActivity.this) {
 						@Override
@@ -163,7 +138,8 @@ public class ApplyListActivity extends Activity implements
 								PageApply<TerminalManagerEntity> data) {
 							if (null == data || data.getList().size() <= 0)
 								noMoreData = true;
-							mTerminalItems = new ArrayList<TerminalManagerEntity>();
+							if (!isLoadMore)
+								mTerminalItems.clear();
 							mTerminalItems.addAll(data.getList());
 							page++;
 							mAdapter.notifyDataSetChanged();
@@ -176,6 +152,46 @@ public class ApplyListActivity extends Activity implements
 						}
 					});
 
+		} else {
+
+			Config.getApplyList(this, MyApplication.NewUser.getAgentId(),
+					page + 1, rows,
+					new HttpCallback<PageApply<TerminalManagerEntity>>(this) {
+						@Override
+						public void onSuccess(
+								PageApply<TerminalManagerEntity> data) {
+							if (null == data || data.getList().size() <= 0)
+								noMoreData = true;
+
+							mTerminalItems.addAll(data.getList());
+							page++;
+							mAdapter.notifyDataSetChanged();
+						}
+
+						@Override
+						public void onFailure(String message) {
+							super.onFailure(message);
+						}
+
+						@Override
+						public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
+							return new TypeToken<PageApply<TerminalManagerEntity>>() {
+							};
+						}
+					});
+		}
+	}
+
+	protected void onActivityResult(final int requestCode, int resultCode,
+			final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		switch (requestCode) {
+		case REQUEST_APPLY_SEARCH: {
+			searchKey = data.getStringExtra(SELECTED_TERMINAL);
+
+			loadData();
 		}
 			break;
 		}
@@ -305,6 +321,7 @@ public class ApplyListActivity extends Activity implements
 			mApplyList.stopLoadMore();
 			CommonUtil.toastShort(this, "no more data");
 		} else {
+			isLoadMore = true;
 			loadData();
 		}
 	}

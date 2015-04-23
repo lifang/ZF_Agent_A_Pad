@@ -30,6 +30,7 @@ import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
@@ -135,7 +136,7 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			Config.addCustomer(this, mCode, name, password, mChannelId, 1,
+			Config.addCustomer(this, mCode, name, password, mChannelId, MyApplication.NewUser.getAgentId(),
 					new HttpCallback(TerminalApplyCreateActivity.this) {
 
 						@Override

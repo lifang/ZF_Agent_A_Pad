@@ -43,6 +43,7 @@ import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
 import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.video.VideoActivity;
@@ -61,13 +62,13 @@ public class TerminalManagerActivity extends Activity implements
 	private List<TerminalManagerEntity> mTerminalItems;
 	private TerminalListAdapter mAdapter;
 
-	private int mStatus;
+	private int mStatus = -1;
 	private Spinner spinner;
 	private ArrayAdapter<String> adapter;
 	private int page = 0;
 	private int total = 0;
 	private final int rows = 10;
-
+	private Boolean isLoadMore = false;
 	private static final int REQUEST_SEARCH = 1000;
 
 	private String searchKey;
@@ -99,7 +100,7 @@ public class TerminalManagerActivity extends Activity implements
 		spinner = (Spinner) findViewById(R.id.spinner);
 		bind = (Button) findViewById(R.id.apply_button_bind);
 		mTerminalItems = new ArrayList<TerminalManagerEntity>();
-		mAdapter = new TerminalListAdapter(mTerminalItems);
+		mAdapter = new TerminalListAdapter();
 
 		LinearLayout listHeader = (LinearLayout) mInflater.inflate(
 				R.layout.terminal_list_header, null);
@@ -125,33 +126,12 @@ public class TerminalManagerActivity extends Activity implements
 
 				if (status != 0) {
 					mStatus = status;
-
-					Config.getTerminalList(TerminalManagerActivity.this, 1,
-							page, rows, searchKey, mStatus,
-							new HttpCallback<PageApply<TerminalManagerEntity>>(
-									TerminalManagerActivity.this) {
-								@Override
-								public void onSuccess(
-										PageApply<TerminalManagerEntity> data) {
-									if (null != data.getList()) {
-										mTerminalItems.addAll(data.getList());
-									}
-									total = data.getTotal();
-									page++;
-								}
-
-								@Override
-								public TypeToken<PageApply<TerminalManagerEntity>> getTypeToken() {
-									return new TypeToken<PageApply<TerminalManagerEntity>>() {
-									};
-								}
-							});
 				} else {
-
 					mStatus = -1;
-					mAdapter = new TerminalListAdapter(mTerminalItems);
 				}
 
+				isLoadMore = false;
+				loadData();
 				mAdapter.notifyDataSetChanged();
 				mTerminalList.setAdapter(mAdapter);
 
@@ -165,22 +145,22 @@ public class TerminalManagerActivity extends Activity implements
 
 	class TerminalListAdapter extends BaseAdapter {
 
-		private List<TerminalManagerEntity> list;
-
-		TerminalListAdapter(List<TerminalManagerEntity> list) {
-
-			this.list = list;
-
-		}
+		// private List<TerminalManagerEntity> list;
+		//
+		// TerminalListAdapter(List<TerminalManagerEntity> list) {
+		//
+		// this.list = list;
+		//
+		// }
 
 		@Override
 		public int getCount() {
-			return list.size();
+			return mTerminalItems.size();
 		}
 
 		@Override
 		public TerminalManagerEntity getItem(int i) {
-			return list.get(i);
+			return mTerminalItems.get(i);
 		}
 
 		@Override
@@ -234,6 +214,9 @@ public class TerminalManagerActivity extends Activity implements
 			switch (item.getOpenState()) {
 			case OPENED:
 				holder.llButtonContainer.setVisibility(View.VISIBLE);
+
+				addButton(holder.llButtons);
+				addButton(holder.llButtons);
 				addButton(holder.llButtons, R.string.terminal_button_video,
 						item, mVideoListener);
 				addButton(holder.llButtons, R.string.terminal_button_pos, item,
@@ -252,6 +235,9 @@ public class TerminalManagerActivity extends Activity implements
 				break;
 			case UNOPENED:
 				holder.llButtonContainer.setVisibility(View.VISIBLE);
+
+				addButton(holder.llButtons);
+				addButton(holder.llButtons);
 				addButton(holder.llButtons, R.string.terminal_button_open,
 						item, mOpenListener);
 				addButton(holder.llButtons, R.string.terminal_button_video,
@@ -262,6 +248,9 @@ public class TerminalManagerActivity extends Activity implements
 				break;
 			case STOPPED:
 				holder.llButtonContainer.setVisibility(View.VISIBLE);
+				addButton(holder.llButtons);
+				addButton(holder.llButtons);
+				addButton(holder.llButtons);
 				addButton(holder.llButtons, R.string.terminal_button_sync,
 						item, mSyncListener);
 				break;
@@ -298,8 +287,19 @@ public class TerminalManagerActivity extends Activity implements
 			if (null != listener) {
 				button.setOnClickListener(listener);
 			}
-			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(145,
-					LayoutParams.MATCH_PARENT, 0);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0,
+					LayoutParams.MATCH_PARENT, 1);
+			if (ll.getChildCount() > 0) {
+				lp.setMargins(10, 0, 0, 0);
+			}
+			ll.addView(button, lp);
+		}
+
+		private void addButton(LinearLayout ll) {
+			Button button = new Button(TerminalManagerActivity.this);
+			button.setVisibility(View.INVISIBLE);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0,
+					LayoutParams.MATCH_PARENT, 1);
 			if (ll.getChildCount() > 0) {
 				lp.setMargins(10, 0, 0, 0);
 			}
@@ -341,8 +341,7 @@ public class TerminalManagerActivity extends Activity implements
 
 				Intent it = new Intent(TerminalManagerActivity.this,
 						GenerateSearch.class);
-				it.putExtra(TERMINAL_TYPE, 2);
-				it.putExtra(TERMINAL_STATUS, mStatus);
+				it.putExtra(SELECTED_TERMINAL, searchKey);
 				startActivityForResult(it, REQUEST_SEARCH);
 
 			}
@@ -449,51 +448,14 @@ public class TerminalManagerActivity extends Activity implements
 
 	private void loadData() {
 
-		Config.getTerminalApplyList(this, 1, page + 1, rows,
-				new HttpCallback<PageTerminal<TerminalManagerEntity>>(this) {
-					@Override
-					public void onSuccess(
-							PageTerminal<TerminalManagerEntity> data) {
-						if (null != data.getList()) {
-							mTerminalItems.addAll(data.getList());
-						}
-						total = data.getTotal();
-						page++;
-						mAdapter.notifyDataSetChanged();
-					}
+		if (!isLoadMore) {
 
-					@Override
-					public void onFailure(String message) {
+			page = 0;
+		}
+		if ((searchKey != null && !"".equals(searchKey)) || mStatus != -1) {
 
-						super.onFailure(message);
-					}
-
-					@Override
-					public void preLoad() {
-					}
-
-					@Override
-					public void postLoad() {
-						loadFinished();
-					}
-
-					@Override
-					public TypeToken<PageTerminal<TerminalManagerEntity>> getTypeToken() {
-						return new TypeToken<PageTerminal<TerminalManagerEntity>>() {
-						};
-					}
-				});
-	}
-
-	protected void onActivityResult(final int requestCode, int resultCode,
-			final Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode != RESULT_OK)
-			return;
-		switch (requestCode) {
-		case REQUEST_SEARCH: {
-			searchKey = data.getStringExtra(SELECTED_TERMINAL);
-			Config.getTerminalList(TerminalManagerActivity.this, 1, page, rows,
+			Config.getTerminalList(TerminalManagerActivity.this,
+					MyApplication.NewUser.getAgentId(), page + 1, rows,
 					searchKey, mStatus,
 					new HttpCallback<PageApply<TerminalManagerEntity>>(
 							TerminalManagerActivity.this) {
@@ -501,6 +463,8 @@ public class TerminalManagerActivity extends Activity implements
 						public void onSuccess(
 								PageApply<TerminalManagerEntity> data) {
 							if (null != data.getList()) {
+								if (!isLoadMore)
+									mTerminalItems.clear();
 								mTerminalItems.addAll(data.getList());
 							}
 							total = data.getTotal();
@@ -515,6 +479,57 @@ public class TerminalManagerActivity extends Activity implements
 						}
 					});
 
+		} else {
+			Config.getTerminalApplyList(
+					this,
+					MyApplication.NewUser.getAgentId(),
+					page + 1,
+					rows,
+					new HttpCallback<PageTerminal<TerminalManagerEntity>>(this) {
+						@Override
+						public void onSuccess(
+								PageTerminal<TerminalManagerEntity> data) {
+							if (null != data.getList()) {
+								mTerminalItems.addAll(data.getList());
+							}
+							total = data.getTotal();
+							page++;
+							mAdapter.notifyDataSetChanged();
+						}
+
+						@Override
+						public void onFailure(String message) {
+
+							super.onFailure(message);
+						}
+
+						@Override
+						public void preLoad() {
+						}
+
+						@Override
+						public void postLoad() {
+							loadFinished();
+						}
+
+						@Override
+						public TypeToken<PageTerminal<TerminalManagerEntity>> getTypeToken() {
+							return new TypeToken<PageTerminal<TerminalManagerEntity>>() {
+							};
+						}
+					});
+		}
+	}
+
+	protected void onActivityResult(final int requestCode, int resultCode,
+			final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		switch (requestCode) {
+		case REQUEST_SEARCH: {
+			searchKey = data.getStringExtra(SELECTED_TERMINAL);
+			loadData();
 		}
 			break;
 		}
@@ -539,6 +554,7 @@ public class TerminalManagerActivity extends Activity implements
 			mTerminalList.stopLoadMore();
 			CommonUtil.toastShort(this, "no more data");
 		} else {
+			isLoadMore = true;
 			loadData();
 		}
 	}
