@@ -128,7 +128,8 @@
             android:layout_height="@dimen/sp_height"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-             android:imeOptions="actionDone"
+            android:singleLine="true"
+             android:imeOptions="actionSearch"
             android:background="@drawable/textsearch" >
         </EditText>
 

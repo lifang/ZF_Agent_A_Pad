@@ -32,7 +32,6 @@ import com.comdo.zf_agent_a_pad.adapter.SelectStateAdapter;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AfterSaleEntity;
-import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -418,8 +417,8 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	//列表数据
 	private void loadData() {
 		String search = searchEditText.getText().toString().trim();
-
-		Config.getAfterSaleList(this, mRecordType, Constants.TEST_CUSTOMER,
+		//代理商对应用户ID,MyApplication.NewUser.getAgentUserId()
+		Config.getAfterSaleList(this, mRecordType, MyApplication.NewUser.getAgentUserId(),
 				search,selState, page , rows,
 				new HttpCallback<Page<AfterSaleEntity>>(this) {
 			@Override
@@ -453,9 +452,9 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	}
 	//增加物流信息
 	protected void agentsAddMark(int position) {
-
+		//代理商对应用户ID,MyApplication.NewUser.getAgentUserId()
 		Config.agentsAddMark(this,mEntities.get(position).getId(),computer_name,
-				track_number,Constants.TEST_CUSTOMER,
+				track_number,MyApplication.NewUser.getAgentUserId(),
 				new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {

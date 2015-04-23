@@ -17,6 +17,7 @@ import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -172,8 +173,9 @@ public class PosListActivity extends Activity implements OnClickListener,
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 		Xlistview = (XListView) findViewById(R.id.x_listview);
 		// refund_listview.getmFooterView().getmHintView().setText("�Ѿ�û�������");
-		Xlistview.setPullLoadEnable(true);
+		Xlistview.initHeaderAndFooter();
 		Xlistview.setXListViewListener(this);
+		Xlistview.setPullLoadEnable(true);
 		Xlistview.setDivider(null);
 		Xlistview.setOnItemClickListener(new OnItemClickListener() {
 
@@ -208,7 +210,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		 * textwd.setTextColor(getResources().getColor(R.color.white));
 		 */
 		im_sy.setBackgroundResource(R.drawable.home2);
-		im_ghc.setBackgroundResource(R.drawable.shopping2);
+		im_ghc.setBackgroundResource(R.drawable.good1);
 		im_mess.setBackgroundResource(R.drawable.message2);
 		im_wd.setBackgroundResource(R.drawable.mine2);
 		textsy.setTextColor(getResources().getColor(R.color.white));
@@ -445,7 +447,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 
 	private void Search() {
 
-		Config.PostSearch(getApplicationContext(), 1, shoptype, keyword, 1, 12,
+		Config.PostSearch(getApplicationContext(), MyApplication.NewUser.getAgentId(), shoptype, keyword, 1, 12,
 				page, orderType, new HttpCallback<Page<PosEntity>>(this) {
 					@Override
 					public void onSuccess(Page<PosEntity> data) {

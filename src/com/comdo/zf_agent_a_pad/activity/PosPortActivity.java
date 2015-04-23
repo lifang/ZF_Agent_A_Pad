@@ -293,7 +293,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.bt_confirm:
 			if(isClick){
-				isClick=false;
+				//isClick=false;
 			initport();
 			if (isload) {
 				// posƷ��
