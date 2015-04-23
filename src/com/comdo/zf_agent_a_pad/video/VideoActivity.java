@@ -25,6 +25,7 @@ import com.bairuitech.anychat.AnyChatCoreSDK;
 import com.bairuitech.anychat.AnyChatDefine;
 import com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.video.config.ConfigEntity;
 import com.comdo.zf_agent_a_pad.video.config.ConfigService;
 import com.example.zf_agent_a_pad.R;
@@ -63,8 +64,7 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 		Intent intent = getIntent();
 		mSRoomID = intent.getIntExtra(TerminalIntent.TERMINAL_ID, 0);
 		mStrIP = Config.VIDEO_SERVER_IP;
-//		mStrName = MyApplication.getInstance().getCustomerId()+"";
-		mStrName = 111+"";
+		mStrName = MyApplication.NewUser.getAgentUserId()+"";
 		mSPort = Config.VIDEO_SERVER_PORT;
 		InitSDK();
 		InitLayout();
