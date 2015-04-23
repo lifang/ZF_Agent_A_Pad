@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,18 +57,21 @@ public void onCreate(Bundle savedInstanceState) {
 }
 @Override
 	public View onCreateView(LayoutInflater inflater,
-			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+			 ViewGroup container,  Bundle savedInstanceState) {
 	
 	//view = inflater.inflate(R.layout.f_main,container,false);
 	
 
 
 if (view != null) {
+	Log.e("1", "1");
     ViewGroup parent = (ViewGroup) view.getParent();
     if (parent != null)
+    	Log.e("2", "2");
         parent.removeView(view);
 }
 try {
+	Log.e("3", "3");
     view = inflater.inflate(R.layout.baseinfo, container, false);
     init();
     getData();
@@ -200,9 +204,9 @@ public void onClick(View v) {
     	imgPath[2]=shuiwu;
     	openimg(tag);
 	    break;
-    case R.id.btn_exit:
+   /* case R.id.btn_exit:
     	getActivity().finish();
-    	break;
+    	break;*/
 	default:
 		break;
 	}
