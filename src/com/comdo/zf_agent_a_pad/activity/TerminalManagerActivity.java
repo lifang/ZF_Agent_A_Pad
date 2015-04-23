@@ -40,10 +40,12 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.PageApply;
 import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
+import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
+import com.comdo.zf_agent_a_pad.video.VideoActivity;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -433,8 +435,14 @@ public class TerminalManagerActivity extends Activity implements
 		mVideoListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				CommonUtil.toastShort(TerminalManagerActivity.this,
-						"not yet completed...");
+				//添加视频审核
+				TerminalManagerEntity item = (TerminalManagerEntity) view
+						.getTag();
+				
+				Intent intent = new Intent(TerminalManagerActivity.this, VideoActivity.class);
+				intent.putExtra(TERMINAL_ID, item.getId());
+				startActivity(intent);
+				
 			}
 		};
 	}
