@@ -30,6 +30,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.TerminalAddressEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -63,7 +64,7 @@ public class TerminalApplyServiceActivity extends Activity implements
 
 		items = new ArrayList<Map<String, Object>>();
 
-		Config.getAddressee(this, 80,
+		Config.getAddressee(this, MyApplication.NewUser.getAgentUserId(),
 				new HttpCallback<List<TerminalAddressEntity>>(this) {
 					@Override
 					public void onSuccess(List<TerminalAddressEntity> data) {
@@ -170,7 +171,7 @@ public class TerminalApplyServiceActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			Config.submitAgent(this, 1, mTerminalNum, mAddress, mReason,
+			Config.submitAgent(this, MyApplication.NewUser.getAgentUserId(), mTerminalNum, mAddress, mReason,
 					mTerminalArray, mReceiver, mPhoneNum,
 					new HttpCallback(this) {
 						@Override

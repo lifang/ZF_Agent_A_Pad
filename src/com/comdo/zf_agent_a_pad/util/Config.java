@@ -247,7 +247,7 @@ public class Config {
     // get distribute_list
 		public static final String GET_DISTRIBUTE = PATHS
 				+ "preparegood/list";
-	public static final String EDIT_ADDRESS = PATHS + "customers/updateAddress";
+	public static final String EDIT_ADDRESS = PATHS + "agents/updateAddress";
 	// public static final String EDIT_ADDRESS =
 	// "http://192.168.199.206:8080/zfagent/api/" +
 	// "message/receiver/batchRead";
@@ -475,11 +475,11 @@ public class Config {
 		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
 	}
 
-	public static void getApplyList(Context context, int customerId, int page,
+	public static void getApplyList(Context context, int agentId, int page,
 
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("agentId", customerId);
+		params.put("agentId", agentId);
 		params.put("page", page);
 		params.put("rows", rows);
 		// RequestParams params2 =new RequestParams();
@@ -678,7 +678,7 @@ public class Config {
 		params.put("agentname", agentname);
 		params.put("page", page);
 		params.put("rows", rows);
-		new HttpRequest(context, callback).post(STOCK_LIST, params);
+		new HttpRequest(context, callback).post(STOCK_INFO, params);
 	}
 
 	public static void stockRename(Context context, int agentId, int goodId,
@@ -815,6 +815,7 @@ public class Config {
 		params.put("customerId", customerId);
 		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ADD_ADDRESS, params);
+		Log.e("context", String.valueOf(context));
 		Log.e("params", params + "");
 		Log.e("ADD_ADDRESS", ADD_ADDRESS);
 	}
@@ -836,12 +837,13 @@ public class Config {
 
 	public static void changePaw(Context context, int customerId,
 			String passwordOld, String password, HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		// Map<String, Object> params = new HashMap<String, Object>();
+		//RequestParams params = new RequestParams();
+		 Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("passwordOld", passwordOld);
 		params.put("password", password);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
+		Log.e("params", String.valueOf(params));
 		new HttpRequest(context, callback).post(CHANGE_PAW, params);
 	}
 

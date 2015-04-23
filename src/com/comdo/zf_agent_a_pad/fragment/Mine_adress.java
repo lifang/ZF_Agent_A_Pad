@@ -17,6 +17,7 @@ import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -64,7 +66,7 @@ public class Mine_adress extends Fragment implements OnClickListener{
 	public static LinearLayout ll_address;
 	public static Handler myHandler;
 	private int j=0;
-	//private int id=MyApplication.NewUser.getId();
+	private int id=MyApplication.NewUser.getId();
 	public static int[] idd;
 	public static int type=0;
 	private EditText login_edit_name,mobile_phone,zip_code,detail_address;
@@ -75,6 +77,8 @@ public class Mine_adress extends Fragment implements OnClickListener{
 	private int cityId;
 	private AlertDialog.Builder builder;
 	private boolean isEdit=false;
+	private Activity mActivity;
+	private AlertDialog dialog;
 	//private TextView info,safe,manageradress,score;
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +92,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	try {
 		view = inflater.inflate(R.layout.manageradress, container, false);
 		init();
+		getData();
 	} catch (InflateException e) {
 	
 	}
@@ -97,7 +102,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
-	getData();
+	
 	myHandler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -118,6 +123,7 @@ public void onStart() {
 				
 				break;
 			case 3:
+				
 				delect();
 				break;
 			default:
@@ -152,7 +158,7 @@ private void getData() {
 		CommonUtil.toastShort(getActivity(), "网络异常");
 		return;
 	}
-	Config.GetAdressLis(getActivity(), 80, new HttpCallback<List<AddressManager>>(getActivity()) {
+	Config.GetAdressLis(getActivity(), id, new HttpCallback<List<AddressManager>>(getActivity()) {
 
 		@Override
 		public void onSuccess(List<AddressManager> data) {
@@ -205,8 +211,12 @@ public void onClick(View v) {
 		opendialog();
 		break;
 	case R.id.btn_save:
+		//AlertDialog dialog = builder.show();
+		dialog.dismiss();
 		if(isEdit){
+			
 			changeAddress();
+			//dialog.dismiss();
 		}
 		else{
 			addAddresss();
@@ -230,10 +240,11 @@ private void changeAddress() {
 			String.valueOf(cityId), login_edit_name.getText().toString(), 
 			mobile_phone.getText().toString(), 
 			zip_code.getText().toString(), 
-			detail_address.getText().toString(),80, isDefault, new HttpCallback(getActivity()) {
+			detail_address.getText().toString(),id, isDefault, new HttpCallback(getActivity()) {
 
 				@Override
 				public void onSuccess(Object data) {
+					isEdit=false;
 					CommonUtil.toastShort(getActivity(), "修改地址成功");
 					if(dataadress.size()!=0){
 						dataadress.clear();
@@ -279,15 +290,21 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		break;
 	}
 }
+@Override
+public void onAttach(Activity activity) {
+	// TODO Auto-generated method stub
+	super.onAttach(activity);
+	mActivity=activity;
+}
 private void addAddresss() {
-	Config.AddAdress(getActivity(), String.valueOf(cityId), login_edit_name.getText().toString(), 
+	Config.AddAdress(mActivity, String.valueOf(cityId), login_edit_name.getText().toString(), 
 			mobile_phone.getText().toString(), 
 			zip_code.getText().toString(), 
-			detail_address.getText().toString(), isDefault, 80, new HttpCallback(getActivity()) {
+			detail_address.getText().toString(), isDefault, id, new HttpCallback(mActivity) {
 
 				@Override
 				public void onSuccess(Object data) {
-					CommonUtil.toastShort(getActivity(), "添加地址成功");
+					CommonUtil.toastShort(mActivity, "添加地址成功");
 					myHandler.sendEmptyMessage(1);
 				}
 
@@ -317,7 +334,7 @@ private void opendialog() {
      area.setOnClickListener(this);
      //final AlertDialog dialog = builder.show();
      //dialog=builder.show();
-     builder.create().show();
+    // builder.create().show();
      if(isEdit){
     	 tv_title.setText("编辑地址") ;
     	 login_edit_name.setText(dataadress.get(AddressManagerAdapter.pp).getReceiver());
@@ -349,6 +366,8 @@ private void opendialog() {
 			
 		}
 	});
+     dialog = builder.create();
+     dialog.show();
 }
 @Override
 public void onPause() {

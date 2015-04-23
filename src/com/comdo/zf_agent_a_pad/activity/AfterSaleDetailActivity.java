@@ -20,7 +20,6 @@ import com.comdo.zf_agent_a_pad.adapter.ResourceInfoAdapter;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.AfterSaleDetailCancelEntity;
 import com.comdo.zf_agent_a_pad.entity.AfterSaleDetailOrderEntity;
-import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
@@ -357,9 +356,9 @@ public class AfterSaleDetailActivity extends Activity{
 	}
 	//增加物流信息
 	protected void agentsAddMark() {
-
+		//代理商对应用户ID,MyApplication.NewUser.getAgentUserId()
 		Config.agentsAddMark(this,id,computer_name,
-				track_number,Constants.TEST_CUSTOMER,
+				track_number,MyApplication.NewUser.getAgentUserId(),
 				new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {

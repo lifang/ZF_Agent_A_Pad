@@ -27,6 +27,7 @@ import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.UserInfo;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -60,7 +61,7 @@ public class TerminalApplyBindActivity extends Activity implements
 
 		items = new ArrayList<Map<String, Object>>();
 
-		Config.getMerchants(this, 1, page + 1, rows,
+		Config.getMerchants(this, MyApplication.NewUser.getAgentId(), page + 1, rows,
 				new HttpCallback<PageTerminal<UserInfo>>(this) {
 					@Override
 					public void onSuccess(PageTerminal<UserInfo> data) {

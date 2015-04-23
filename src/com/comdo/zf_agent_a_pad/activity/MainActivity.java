@@ -1,12 +1,10 @@
 package com.comdo.zf_agent_a_pad.activity;
-
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
 import com.comdo.zf_agent_a_pad.fragment.Mmy;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.example.zf_agent_a_pad.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -18,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private M_MianFragment f_sy;
 	private Mwdxx f_xx;

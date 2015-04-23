@@ -44,6 +44,7 @@ import com.comdo.zf_agent_a_pad.entity.TerminalPriceEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyChannelActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
@@ -90,9 +91,9 @@ public class TerminalApplySelectActivity extends Activity implements
 		mTerminalList = (XListView) findViewById(R.id.apply_list);
 		mTerminalItems = new ArrayList<TerminalPriceEntity>();
 		mAdapter = new TerminalListAdapter();
-		mTerminalList.setAdapter(mAdapter);
 		mTerminalList.setPullLoadEnable(false);
 		mTerminalList.getmFooterView().setVisibility(View.GONE);
+		mTerminalList.setAdapter(mAdapter);
 		posselect = (LinearLayout) findViewById(R.id.posselect);
 		posselect.setOnClickListener(this);
 		selectedpos = (TextView) findViewById(R.id.selectedpos);
@@ -292,7 +293,7 @@ public class TerminalApplySelectActivity extends Activity implements
 			} else {
 
 				Config.screeningTerminalNum(TerminalApplySelectActivity.this,
-						posName, mChannelId, minPrice, maxPrice, 1,
+						posName, mChannelId, minPrice, maxPrice, MyApplication.NewUser.getAgentId(),
 						new HttpCallback<List<TerminalPriceEntity>>(this) {
 							@Override
 							public void onSuccess(List<TerminalPriceEntity> data) {
@@ -316,7 +317,7 @@ public class TerminalApplySelectActivity extends Activity implements
 			break;
 		case R.id.posselect:
 
-			Config.selectPOS(TerminalApplySelectActivity.this, 1,
+			Config.selectPOS(TerminalApplySelectActivity.this, MyApplication.NewUser.getAgentUserId(),
 					new HttpCallback<List<SelectPOS>>(
 							TerminalApplySelectActivity.this) {
 						@Override

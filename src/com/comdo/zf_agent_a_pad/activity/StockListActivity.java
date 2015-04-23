@@ -132,8 +132,8 @@ public class StockListActivity extends Activity implements IXListViewListener{
 	}
 	//商品更名
 	protected void stockRename(final int position) {
-
-		Config.stockRename(this,Constants.TEST_CUSTOMER,mEntities.get(position).getGood_id(),
+		//代理商id,MyApplication.NewUser.getAgentId()
+		Config.stockRename(this,MyApplication.NewUser.getAgentId(),mEntities.get(position).getGood_id(),
 				computer_name,new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {
@@ -152,8 +152,8 @@ public class StockListActivity extends Activity implements IXListViewListener{
 	}
 	//列表数据
 	private void loadData() {
-
-		Config.stockList(this, Constants.TEST_CUSTOMER, page , rows,
+		//代理商id,MyApplication.NewUser.getAgentId()
+		Config.stockList(this, MyApplication.NewUser.getAgentId(), page , rows,
 				new HttpCallback<Page<StockEntity>>(this) {
 			@Override
 			public void onSuccess(Page<StockEntity> data) {
