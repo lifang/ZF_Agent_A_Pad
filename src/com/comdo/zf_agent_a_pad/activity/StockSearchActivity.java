@@ -92,7 +92,7 @@ public class StockSearchActivity extends Activity implements OnClickListener,IXL
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-1));
+				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-2));
 
 				Intent intent = new Intent(StockSearchActivity.this,StockTerminaListActivity.class);
 				intent.putExtra("goodId", stockEntity.getGood_id());

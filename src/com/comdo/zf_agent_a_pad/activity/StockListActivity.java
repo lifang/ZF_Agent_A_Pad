@@ -77,11 +77,11 @@ public class StockListActivity extends Activity implements IXListViewListener{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				toInfoPosition = position-1;
+				toInfoPosition = position-2;
 				//StockInfoListActivity.setStockEntity(mEntities.get(position-2));
 
 				Intent intent = new Intent(StockListActivity.this,StockInfoListActivity.class);
-				intent.putExtra("StockEntity", mEntities.get(position-1));
+				intent.putExtra("StockEntity", mEntities.get(position-2));
 				startActivityForResult(intent, 101);
 			}
 		});

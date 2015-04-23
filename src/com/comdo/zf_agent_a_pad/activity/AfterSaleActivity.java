@@ -32,7 +32,6 @@ import com.comdo.zf_agent_a_pad.adapter.SelectStateAdapter;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AfterSaleEntity;
-import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -150,8 +149,8 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 					int position, long id) {
 				Intent intent = new Intent(AfterSaleActivity.this,AfterSaleDetailActivity.class);
 				intent.putExtra("mRecordType", mRecordType);
-				intent.putExtra("apply_num", mEntities.get(position-1).getApply_num());
-				intent.putExtra("id", mEntities.get(position-1).getId());
+				intent.putExtra("apply_num", mEntities.get(position-2).getApply_num());
+				intent.putExtra("id", mEntities.get(position-2).getId());
 				startActivity(intent);
 			}
 		});

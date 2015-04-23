@@ -101,8 +101,8 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(UserManageListActivity.this,UserManageDetailActivity.class);
-				intent.putExtra("customersId", myList.get(position-1).getCustomersId());
-				intent.putExtra("customersName", myList.get(position-1).getName());
+				intent.putExtra("customersId", myList.get(position-2).getCustomersId());
+				intent.putExtra("customersName", myList.get(position-2).getName());
 				startActivity(intent);
 			}
 		});
