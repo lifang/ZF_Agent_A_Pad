@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeStatistic;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -48,6 +49,7 @@ public class TradeStatisticActivity extends Activity {
         tradeAgentId = intent.getIntExtra(SONAGEHNTID,1);
 
         setContentView(R.layout.activity_trade_statistic);
+        new TitleMenuUtil(this, "统计结果").show();
         initViews();
 
         API.getTradeRecordStatistic(this, mTradeType,1,tradeAgentId, terminalNumber, mStartDate, mEndDate,1,

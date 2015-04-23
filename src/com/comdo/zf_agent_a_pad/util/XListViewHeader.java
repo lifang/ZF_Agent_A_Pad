@@ -14,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
- 
+
+
 public class XListViewHeader extends LinearLayout {
 	private LinearLayout mContainer;
 	private ImageView mArrowImageView;
@@ -46,7 +47,8 @@ public class XListViewHeader extends LinearLayout {
 	}
 
 	private void initView(Context context) {
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+		// ��ʼ�������������ˢ��view�߶�Ϊ0
+		LayoutParams lp = new LayoutParams(
 				LayoutParams.FILL_PARENT, 0);
 		mContainer = (LinearLayout) LayoutInflater.from(context).inflate(
 				R.layout.xlistview_header, null);
@@ -56,7 +58,7 @@ public class XListViewHeader extends LinearLayout {
 		mArrowImageView = (ImageView)findViewById(R.id.xlistview_header_arrow);
 		mHintTextView = (TextView)findViewById(R.id.xlistview_header_hint_textview);
 		mProgressBar = (ProgressBar)findViewById(R.id.xlistview_header_progressbar);
-		
+
 		mRotateUpAnim = new RotateAnimation(0.0f, -180.0f,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
 				0.5f);
@@ -71,8 +73,8 @@ public class XListViewHeader extends LinearLayout {
 
 	public void setState(int state) {
 		if (state == mState) return ;
-		
-		if (state == STATE_REFRESHING) {	// ��ʾ����
+
+		if (state == STATE_REFRESHING) {	// ��ʾ���
 			mArrowImageView.clearAnimation();
 			mArrowImageView.setVisibility(View.INVISIBLE);
 			mProgressBar.setVisibility(View.VISIBLE);
@@ -80,7 +82,7 @@ public class XListViewHeader extends LinearLayout {
 			mArrowImageView.setVisibility(View.VISIBLE);
 			mProgressBar.setVisibility(View.INVISIBLE);
 		}
-		
+
 		switch(state){
 		case STATE_NORMAL:
 			if (mState == STATE_READY) {
@@ -103,14 +105,14 @@ public class XListViewHeader extends LinearLayout {
 			break;
 			default:
 		}
-		
+
 		mState = state;
 	}
-	
+
 	public void setVisiableHeight(int height) {
 		if (height < 0)
 			height = 0;
-		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mContainer
+		LayoutParams lp = (LayoutParams) mContainer
 				.getLayoutParams();
 		lp.height = height;
 		mContainer.setLayoutParams(lp);

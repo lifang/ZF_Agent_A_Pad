@@ -24,13 +24,18 @@ import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
-import android.content.Context;
 
+import android.content.Context;
 import android.util.Log;
 
 public class Config {
+	//视频通话
+	public static final String VIDEO_SERVER_IP = "121.40.84.2";
+	public static final int VIDEO_SERVER_PORT = 8906;
 	
-	public final static String PATHS = "http://114.215.149.242:28080/ZFAgent/api/";
+//	public final static String PATHS = "http://114.215.149.242:28080/ZFAgent/api/";
+	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+	
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
