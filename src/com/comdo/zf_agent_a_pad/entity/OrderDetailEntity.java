@@ -6,12 +6,37 @@ import java.util.List;
 public class OrderDetailEntity {
 	private String total_dingjin;
 	private String pay_status; 
+	private String guishu_user;
+	public String getTotal_dingjin() {
+		return total_dingjin;
+	}
+
+	public void setTotal_dingjin(String total_dingjin) {
+		this.total_dingjin = total_dingjin;
+	}
+
+	public String getPay_status() {
+		return pay_status;
+	}
+
+	public void setPay_status(String pay_status) {
+		this.pay_status = pay_status;
+	}
+
+	public String getGuishu_user() {
+		return guishu_user;
+	}
+
+	public void setGuishu_user(String guishu_user) {
+		this.guishu_user = guishu_user;
+	}
+
 	// "order_number": "020150206104427420",
 	private String order_number;
 	// "order_receiver_phone": "18352445051",\
 	private String order_receiver_phone;
 	// "order_payment_type": "",
-	private String order_payment_type;// 鏀粯鏂瑰紡
+	private String order_payment_type;// 
 	private String terminals;
 
 	public String getTerminals() {

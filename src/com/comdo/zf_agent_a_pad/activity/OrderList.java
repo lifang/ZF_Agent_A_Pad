@@ -35,14 +35,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 
-public class OrderList extends Activity implements IXListViewListener,OnClickListener,OnEditorActionListener {
+public class OrderList extends Activity implements IXListViewListener,
+		OnClickListener, OnEditorActionListener {
 	private XListView Xlistview;
 	private boolean onRefresh_number = true;
 	private OrderAdapter myAdapter;
-	private int page=1;
-	public static String type="5";
-	private String search="";
-	private String q="";
+	private int page = 1;
+	public static String type = "5";
+	private String search = "";
+	private String q = "";
 	List<OrderEntity> myList = new ArrayList<OrderEntity>();
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -50,7 +51,7 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 			case 0:
 				onLoad();
 				onRefresh_number = true;
-				if(myList.size()==0){
+				if (myList.size() == 0) {
 					Toast.makeText(OrderList.this, "暂无数据", 1000).show();
 				}
 				myAdapter.notifyDataSetChanged();
@@ -61,8 +62,8 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 
 				break;
 			case 2:
-				Toast.makeText(OrderList.this, "网络连接错误",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(OrderList.this, "网络连接错误", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			case 3:
 				Toast.makeText(OrderList.this, " refresh too much",
@@ -79,28 +80,36 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 	private TextView dg;
 	private Spinner sp;
 	private EditText et;
+	private LinearLayout ll_back;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlist);
 		initView();
-		//getData();
+		type="5";
+		q="";
+		// getData();
 	}
+
 	private void initView() {
-		et = (EditText)findViewById(R.id.ed_search);
+		ll_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
+		ll_back.setOnClickListener(this);
+		et = (EditText) findViewById(R.id.ed_search);
 		et.setOnEditorActionListener(this);
-		pg = (TextView)findViewById(R.id.pg);
+		pg = (TextView) findViewById(R.id.pg);
 		pg.setOnClickListener(this);
-		dg = (TextView)findViewById(R.id.dg);
+		dg = (TextView) findViewById(R.id.dg);
 		dg.setOnClickListener(this);
-		ll_isshow = (LinearLayout)findViewById(R.id.ll_isshow);
-		if(!type.equals("5")){
+		ll_isshow = (LinearLayout) findViewById(R.id.ll_isshow);
+		if (!type.equals("5")) {
 			ll_isshow.setVisibility(View.VISIBLE);
 		}
-		all_good = (ImageView)findViewById(R.id.AllGood);
+		all_good = (ImageView) findViewById(R.id.AllGood);
 		all_good.setOnClickListener(this);
 		sp = (Spinner) findViewById(R.id.spinner);
-		final String arr[] = new String[] { "全部", "未付款" ,"已付款","已发货","已评价","已取消","交易关闭"};
+		final String arr[] = new String[] { "全部", "未付款", "已付款", "已发货", "已评价",
+				"已取消", "交易关闭" };
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, arr);
@@ -111,8 +120,8 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				Spinner spinner = (Spinner) parent;
-				q=position==0?"":position+"";					
-				page=1;
+				q = position == 0 ? "" : position + "";
+				page = 1;
 				myList.clear();
 				getData();
 			}
@@ -123,30 +132,33 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 			}
 
 		});
-		tv_pg = (TextView)findViewById(R.id.tv_pg);
+		tv_pg = (TextView) findViewById(R.id.tv_pg);
 		tv_pg.setOnClickListener(this);
-		tv_dg = (TextView)findViewById(R.id.tv_dg);
+		tv_dg = (TextView) findViewById(R.id.tv_dg);
 		tv_dg.setOnClickListener(this);
-		myAdapter=new OrderAdapter(OrderList.this, myList);
-		Xlistview = (XListView)findViewById(R.id.x_listview);
+		myAdapter = new OrderAdapter(OrderList.this, myList);
+		Xlistview = (XListView) findViewById(R.id.x_listview);
 		Xlistview.setPullLoadEnable(true);
 		Xlistview.setXListViewListener(this);
 		Xlistview.setDivider(null);
 		Xlistview.setAdapter(myAdapter);
-		
+
 	}
+
 	@Override
 	public void onRefresh() {
 		page = 1;
 		myList.clear();
 		getData();
 	}
-	public  void DataChange(){
+
+	public void DataChange() {
 		page = 1;
 		myList.clear();
 		getData();
-		
+
 	}
+
 	@Override
 	public void onLoadMore() {
 		if (onRefresh_number) {
@@ -162,68 +174,73 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 		} else {
 			handler.sendEmptyMessage(3);
 		}
-		
-	}
-	private void getData() {
-		
-		Config.GetOrderList(OrderList.this, 1,type,search,q,page,Config.ROWS, new HttpCallback<Page<OrderEntity>>(OrderList.this) {
 
-			@Override
-			public void onSuccess(Page<OrderEntity> data) {
-				if (myList.size() != 0 && data.getList().size() == 0) {
-					Xlistview.getmFooterView().setState2(2);
-					Toast.makeText(getApplicationContext(), "没有更多数据!",
-							1000).show();
-					Xlistview.setPullLoadEnable(false);
-				}
-				myList.addAll(data.getList());				
-				myAdapter.notifyDataSetChanged();	
-				handler.sendEmptyMessage(0);
-			}
-			
-			@Override
-			public TypeToken getTypeToken() {
-				return new TypeToken<Page<OrderEntity>>(){
-				};
-			}
-        });
-	
-		
 	}
+
+	private void getData() {
+
+		Config.GetOrderList(OrderList.this, 1, type, search, q, page,
+				Config.ROWS,
+				new HttpCallback<Page<OrderEntity>>(OrderList.this) {
+
+					@Override
+					public void onSuccess(Page<OrderEntity> data) {
+						if (myList.size() != 0 && data.getList().size() == 0) {
+							Xlistview.getmFooterView().setState2(2);
+							Toast.makeText(getApplicationContext(), "没有更多数据!",
+									1000).show();
+							Xlistview.setPullLoadEnable(false);
+						}
+						myList.addAll(data.getList());
+						myAdapter.notifyDataSetChanged();
+						handler.sendEmptyMessage(0);
+					}
+
+					@Override
+					public TypeToken getTypeToken() {
+						return new TypeToken<Page<OrderEntity>>() {
+						};
+					}
+				});
+
+	}
+
 	private void onLoad() {
 		Xlistview.stopRefresh();
 		Xlistview.stopLoadMore();
 		Xlistview.setRefreshTime(Tools.getHourAndMin());
 	}
-	@SuppressLint("NewApi") @Override
+
+	@SuppressLint("NewApi")
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.pg:
-			
+
 			dg.setTextColor(getResources().getColor(R.color.text292929));
 			pg.setTextColor(getResources().getColor(R.color.bgtitle));
-			type="5";
+			type = "5";
 			myList.clear();
-			page=1;	
+			page = 1;
 			getData();
 			break;
 		case R.id.dg:
 			dg.setTextColor(getResources().getColor(R.color.bgtitle));
 			pg.setTextColor(getResources().getColor(R.color.text292929));
-			type="4";
+			type = "4";
 			myList.clear();
-			page=1;
+			page = 1;
 			getData();
 			break;
 		case R.id.tv_pg:
 			sp.setSelection(0);
 			tv_pg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
 			tv_dg.setBackgroundColor(getResources().getColor(R.color.bggray));
-			type="5";
+			type = "5";
 			ll_isshow.setVisibility(View.GONE);
 			myList.clear();
-			page=1;	
-			q="";
+			page = 1;
+			q = "";
 			Xlistview.setPullLoadEnable(true);
 			getData();
 			break;
@@ -231,36 +248,54 @@ public class OrderList extends Activity implements IXListViewListener,OnClickLis
 			sp.setSelection(0);
 			tv_dg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
 			tv_pg.setBackgroundColor(getResources().getColor(R.color.bggray));
-			type="3";
+			type = "3";
 			myList.clear();
-			page=1;
-			q="";
+			page = 1;
+			q = "";
 			ll_isshow.setVisibility(View.VISIBLE);
 			Xlistview.setPullLoadEnable(true);
 			getData();
 			break;
-			case R.id.AllGood:
-				Intent i=new Intent(OrderList.this,PosListActivity.class);
-				startActivity(i);
-				break;
+		case R.id.AllGood:
+			Intent i = new Intent(OrderList.this, PosListActivity.class);
+			startActivity(i);
+			break;
+		case R.id.titleback_linear_back:
+			finish();
+			break;
 		default:
 			break;
 		}
-		
+
 	}
+
 	@Override
 	public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
 		switch (actionId) {
-		case 0:	
-			search=et.getText().toString();
+		case 0:
+			search = et.getText().toString();
 			myList.clear();
+			page = 1;
 			getData();
-			page=1;
+
 			return true;
 
 		}
 		return false;
-		
+
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		myList.clear();
+		page = 1;
+		getData();
+	}
 }

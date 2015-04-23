@@ -70,7 +70,7 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_ddbh = (TextView) convertView.findViewById(R.id.tv_ddbh);		 
  		holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);		
  		holder.tv_status = (TextView) convertView.findViewById(R.id.tv_status);	
- 		 
+ 		holder.btn_comment=(Button)convertView.findViewById(R.id.btn_comment);
  		holder.ll_ishow = (LinearLayout) convertView.findViewById(R.id.ll_ishow);
  		
  		holder.tv_sum = (TextView) convertView.findViewById(R.id.tv_sum);		
@@ -87,15 +87,25 @@ public class OrderAdapter extends BaseAdapter{
  		holder.im=(ImageView)convertView.findViewById(R.id.evevt_img);
  		//holder.btn_cancle.setTag(list.get(position).getOrder_id());
  		holder.btn_cancle.setId(Integer.parseInt(list.get(position).getOrder_id()));
+ 	
  		convertView.setId(position);
 			convertView.setTag(holder);
  		}else{
  		holder = (ViewHolder)convertView.getTag();
  	}	
- 		
+ 		if(OrderList.type.equals("5")){
+ 			holder.btn_pay.setText("支付订金");
+ 		}else{
+ 			holder.btn_pay.setText("付款");
+ 		}
  		if(list.get(position).getOrder_goodsList().size()!=0){
  		
  		 ImageCacheUtil.IMAGE_CACHE.get(list.get(position).getOrder_goodsList().get(0).getGood_logo(), holder.im);
+ 		 if(OrderList.type.equals("5")){
+ 			holder.isshow.setVisibility(View.VISIBLE);
+ 			holder.isshow.setText("原价:￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice());
+ 		 }
+ 		 
  		holder.tv_price.setText(list.get(position).getOrder_goodsList().get(0).getGood_price().equals("")
  				?"":"￥"+check(list.get(position).getOrder_goodsList().get(0).getGood_price())/100);
  		holder.content2.setText(list.get(position).getOrder_goodsList().get(0).getGood_brand());
@@ -108,15 +118,22 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_psf.setText("配送费：￥"+list.get(position).getOrder_psf()	);
  		holder.tv_ddbh.setText("订单编号: "+list.get(position).getOrder_number()	);
  		holder.tv_time.setText(list.get(position).getOrder_createTime()	);
- 		 holder.tv_sum.setText("共计:   "+list.get(position).getOrder_totalNum()	+"件");
+ 		if(OrderList.type.equals("5")){
+ 			 holder.tv_sum.setText("共计:   "+list.get(position).getOrder_totalNum()	+"件");
+ 		}else{
+ 			holder.tv_sum.setText("归属用户:   "+list.get(position).getGuishu_user());
+ 		}
+ 		
  		switch (list.get(position).getOrder_status()) {
 		case 1:
 			holder.tv_status.setText("未付款");
 			holder.ll_ishow.setVisibility(View.VISIBLE);
+			holder.btn_comment.setVisibility(View.GONE);
 			break;
 		case 2:
 			if(OrderList.type.equals("5")){
 				holder.tv_status.setText("已付订金");
+				
 				holder.ll_ishow.setVisibility(View.GONE);
 			}else{
 				holder.tv_status.setText("已付款");
@@ -141,6 +158,13 @@ public class OrderAdapter extends BaseAdapter{
 		case 5:
 			holder.tv_status.setText("已取消");
 			holder.ll_ishow.setVisibility(View.GONE);
+			holder.btn_comment.setVisibility(View.VISIBLE);
+			if(OrderList.type.equals("5")){
+				holder.btn_comment.setText("再次批购");
+			}else{
+				holder.btn_comment.setText("再次代购");
+			}
+			
 			break;
 		case 6:
 			holder.tv_status.setText("交易关闭");
@@ -259,7 +283,7 @@ public class OrderAdapter extends BaseAdapter{
 	public  class ViewHolder {
 		public TextView tv_goodnum,tv_price,content,tv_ddbh,tv_time,tv_status,tv_sum,tv_psf,tv_pay,tv_gtd,content2,content_pp,isshow;
 		private LinearLayout ll_ishow;
-		public Button btn_cancle,btn_pay;
+		public Button btn_cancle,btn_pay,btn_comment;
 		public ImageView im;
 	}
 	double check(String str) {
