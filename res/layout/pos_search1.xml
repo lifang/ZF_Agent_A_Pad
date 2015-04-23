@@ -25,12 +25,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:imeOptions="actionSearch"
                 android:layout_marginLeft="7dp"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:drawableLeft="@drawable/search_bg"
                 android:hint="搜索商品"
                   android:background="@drawable/search_box_border"
-                android:imeOptions="actionDone" />
+                  />
         </LinearLayout>
 
         <TextView

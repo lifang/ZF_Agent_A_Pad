@@ -7,6 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,7 +106,10 @@ public class OrderAdapter extends BaseAdapter{
  		 ImageCacheUtil.IMAGE_CACHE.get(list.get(position).getOrder_goodsList().get(0).getGood_logo(), holder.im);
  		 if(OrderList.type.equals("5")){
  			holder.isshow.setVisibility(View.VISIBLE);
- 			holder.isshow.setText("原价:￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice());
+ 			String string=" 原价:￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice()+" ";
+ 			SpannableString sp = new SpannableString(string);
+ 			sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+ 			holder.isshow.setText(sp);
  		 }
  		 
  		holder.tv_price.setText(list.get(position).getOrder_goodsList().get(0).getGood_price().equals("")

@@ -78,7 +78,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		 * textwd.setTextColor(getResources().getColor(R.color.white));
 		 */
 		im_sy.setBackgroundResource(R.drawable.home2);
-		im_ghc.setBackgroundResource(R.drawable.shopping2);
+		im_ghc.setBackgroundResource(R.drawable.good1);
 		im_mess.setBackgroundResource(R.drawable.message2);
 		im_wd.setBackgroundResource(R.drawable.mine2);
 		textsy.setTextColor(getResources().getColor(R.color.white));

@@ -16,6 +16,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -106,7 +109,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				tv_sjhttp.setText(factoryEntity.getWebsite_url());
 				fac_detai.setText(factoryEntity.getDescription());
 				tv_pl.setText("评论" + "(" + commentsCount + ")");
-				tv_yj.setText("￥" + ((double) gfe.getPrice()) / 100);
+				String string=" ￥" + ((double) gfe.getPrice()) / 100+" ";
+				SpannableString sp = new SpannableString(string);
+				sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				tv_yj.setText(sp);
 				break;
 			case 1:
 				Toast.makeText(getApplicationContext(), (String) msg.obj,
