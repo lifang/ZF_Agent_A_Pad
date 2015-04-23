@@ -1,8 +1,6 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,30 +16,20 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
-import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.common.PageApply;
-import com.comdo.zf_agent_a_pad.entity.TerminalPriceEntity;
-import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.StringUtil;
-import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
-import com.google.gson.reflect.TypeToken;
 
 ;
 
@@ -59,22 +47,15 @@ public class GenerateSearch extends Activity implements OnClickListener,
 
 	private SharedPreferences mySharedPreferences = null;
 	private Editor editor;
-	private String terminalStr = "", name;// 搜索记录
+	private String terminalStr = "", name,lastSearch;// 搜索记录
 	private List<String> data = new ArrayList<String>();
-	private int page = 1;
-	private int total = 0;
-	private final int rows = 10;
-
-	private int mSearchType;
-	private int mStatus;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_generatesearch);
-		// mSearchType = getIntent().getIntExtra(TERMINAL_TYPE, 1);
-		// mStatus = getIntent().getIntExtra(TERMINAL_STATUS, -1);
+		lastSearch = getIntent().getStringExtra(SELECTED_TERMINAL);
 		initView();
 	}
 
@@ -83,36 +64,38 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		mInflater = LayoutInflater.from(this);
 		titleback_linear_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		searchEditText = (EditText) findViewById(R.id.searchEditText);
+		searchEditText.setText(lastSearch);
+		searchEditText.setOnEditorActionListener(this);
 		linear_deletename = (LinearLayout) findViewById(R.id.linear_deletename);
 		next_cancel = (TextView) findViewById(R.id.next_cancel);
 
 		mListView = (XListView) findViewById(R.id.mListView);
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 
-		mySharedPreferences = getSharedPreferences("terminal_search", MODE_PRIVATE);
+		mySharedPreferences = getSharedPreferences("terminal_search",
+				MODE_PRIVATE);
 		editor = mySharedPreferences.edit();
 		terminalStr = mySharedPreferences.getString("terminalStr", "");
-		if (terminalStr == "" || terminalStr == null) {	
+		if (terminalStr == "" || terminalStr == null) {
 
 			mListView.setVisibility(View.GONE);
 			eva_nodata.setVisibility(View.VISIBLE);
-			
+
 		} else {
 
 			mListView.setVisibility(View.VISIBLE);
 			eva_nodata.setVisibility(View.GONE);
- 
+
 			if (terminalStr.contains(",")) {
 				String[] serach = terminalStr.split(",");
 				for (int i = (serach.length - 1); i >= 0; i--) {
 
 					data.add(serach[i]);
 				}
-				
 
 			} else {
 				data.add(terminalStr);
-		
+
 			}
 			data.add(getResources().getString(R.string.clear_history));
 		}
@@ -134,15 +117,15 @@ public class GenerateSearch extends Activity implements OnClickListener,
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				if(position==data.size()-1){
-					
+				if (position - 1 == data.size() - 1) {
+
 					DeletaData();
-				} else{
-				
-				Intent intent = new Intent();
-				intent.putExtra(SELECTED_TERMINAL, data.get(position));
-				setResult(RESULT_OK, intent);
-				finish();
+				} else {
+
+					Intent intent = new Intent();
+					intent.putExtra(SELECTED_TERMINAL, data.get(position - 1));
+					setResult(RESULT_OK, intent);
+					finish();
 				}
 			}
 		});
@@ -167,7 +150,7 @@ public class GenerateSearch extends Activity implements OnClickListener,
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				
+
 			}
 		});
 	}
@@ -176,12 +159,22 @@ public class GenerateSearch extends Activity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.titleback_linear_back:
+			name = searchEditText.getText().toString();
+
+			Intent intent = new Intent();
+			intent.putExtra(SELECTED_TERMINAL, name);
+			GenerateSearch.this.setResult(RESULT_OK, intent);
 			finish();
 			break;
 		case R.id.linear_deletename:
 			searchEditText.setText("");
 			break;
 		case R.id.next_cancel:
+			name = searchEditText.getText().toString();
+
+			Intent it = new Intent();
+			it.putExtra(SELECTED_TERMINAL, name);
+			GenerateSearch.this.setResult(RESULT_OK, it);
 			finish();
 			break;
 		default:
@@ -227,8 +220,7 @@ public class GenerateSearch extends Activity implements OnClickListener,
 			}
 
 			viewHolder = (ViewHolder) convertView.getTag();
-//			viewHolder.nameTextView.setText(data.get(position)
-//					.getId() + "");
+			viewHolder.nameTextView.setText(data.get(position));
 			return convertView;
 		}
 	}
@@ -271,36 +263,30 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		editor.commit();// 提交
 		data.clear();
 
+		terminalStr = "";
 		myAdapter.notifyDataSetChanged();
 	}
 
 	@Override
-	public void onRefresh() {}
+	public void onRefresh() {
+	}
 
 	@Override
-	public void onLoadMore() {}
-
-
+	public void onLoadMore() {
+	}
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		
+
 		name = searchEditText.getText().toString();
-		
-		switch (actionId) {
-		case 0:
-			name = searchEditText.getText().toString();
-			addData(name);
-			Intent intent = new Intent();
-			intent.putExtra(SELECTED_TERMINAL, name);
-			GenerateSearch.this.setResult(RESULT_OK, intent);
-			finish();
 
-			return true;
+		addData(name);
+		Intent intent = new Intent();
+		intent.putExtra(SELECTED_TERMINAL, name);
+		GenerateSearch.this.setResult(RESULT_OK, intent);
+		finish();
 
-		}
-
-		return false;
+		return true;
 
 	}
 }

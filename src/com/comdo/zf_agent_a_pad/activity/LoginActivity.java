@@ -209,7 +209,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			public void onSuccess(UserEntity data) {
 				islogin = true;
 				System.out.println("id```" + data.getId());
-				MyApplication.NewUser = data;
 				editor.putBoolean("isRemeber", true);
 				editor.putBoolean("islogin", true);
 				editor.putString("username", usename);
