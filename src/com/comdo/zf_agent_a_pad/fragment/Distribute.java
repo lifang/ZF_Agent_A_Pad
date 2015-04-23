@@ -19,6 +19,7 @@ import com.comdo.zf_agent_a_pad.entity.DistributeEntity;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -73,6 +74,10 @@ public class Distribute extends Fragment implements OnClickListener,IXListViewLi
 	 public static final int REQUEST_SELECT_CLIENT = 1000;
 	 private int paychannelId,goodId;
 	 private String[] serialNums=new String[]{};
+	 private int agentId=MyApplication.NewUser.getAgentId();
+	 private int id=MyApplication.NewUser.getId();
+	 private AlertDialog dialog;
+	 private Button close;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -160,7 +165,7 @@ protected void onLoad() {
 	
 }
 private void getAgentList() {
-	Config.getlowerAgentList(getActivity(), 1, new HttpCallback<List<AgentEntity>>(getActivity()) {
+	Config.getlowerAgentList(getActivity(), agentId, new HttpCallback<List<AgentEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(List<AgentEntity> data) {
@@ -278,6 +283,7 @@ public void onClick(View v) {
 		startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 		break;
 	case R.id.btn_confirm:
+		dialog.dismiss();
 		distribute();
 		
 		break;
@@ -290,7 +296,7 @@ private void distribute() {
 	serialNums=mTerminalArray.split(",");
 	Config.distributeGoods(getActivity(), 
 			sonAgentId[cc], 
-			1, 
+			id, 
 			paychannelId, 
 			goodId, 
 			serialNums, 
@@ -310,7 +316,7 @@ private void distribute() {
 	
 }
 private void quary() {
-	Config.getDistributeList(getActivity(), 1, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<DistributeEntity>>(getActivity()) {
+	Config.getDistributeList(getActivity(), agentId, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<DistributeEntity>>(getActivity()) {
 		@Override
 		public void onSuccess(Page<DistributeEntity> data) {
 			if(isrefersh){
@@ -341,35 +347,37 @@ private void quary() {
 }
 private void opendialog() {
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	LayoutInflater factory = LayoutInflater.from(getActivity());
-	final View textEntryView = factory.inflate(R.layout.distributdialog, null);
-	// builder.setTitle("自定义输入框");
-     builder.setView(textEntryView);
-     builder.create().show();
-     my_diaSpinner=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent);
-     tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
-     btn_confirm=(Button) textEntryView.findViewById(R.id.btn_confirm);
-     tv_choose_terminal.setOnClickListener(this);
-     btn_confirm.setOnClickListener(this);
-	 my_diaSpinner.setAdapter(adapter); 
-	 my_diaSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+LayoutInflater factory = LayoutInflater.from(getActivity());
+final View textEntryView = factory.inflate(R.layout.distributdialog, null);
+// builder.setTitle("自定义输入框");
+ builder.setView(textEntryView);
+ //builder.create().show();
+ my_diaSpinner=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent);
+ tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
+ btn_confirm=(Button) textEntryView.findViewById(R.id.btn_confirm);
+ tv_choose_terminal.setOnClickListener(this);
+ btn_confirm.setOnClickListener(this);
+ my_diaSpinner.setAdapter(adapter); 
+ my_diaSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position,
-					long id) {
-				//tv_agent.setText(adapter.getItem(position));
-				my_diaSpinner.setSelection(position);
-				//cc=position;
-			}
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position,
+				long id) {
+			//tv_agent.setText(adapter.getItem(position));
+			my_diaSpinner.setSelection(position);
+			//cc=position;
+		}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+			// TODO Auto-generated method stub
 			
-		});  
-}
+		}
+		
+	});  
+ dialog=builder.create();
+ dialog.show();
+ }
 @Override
 public void onRefresh() {
 	if(!Tools.isConnect(getActivity())){

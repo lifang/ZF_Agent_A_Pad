@@ -58,7 +58,15 @@ public class AgentManagerAdapter extends BaseAdapter{
 		else{
 			holdel=(ViewHoldel) convertView.getTag();
 		}
-		holdel.tv_agent_type.setText(dataadagent.get(position).getTypes()+"");
+		if(dataadagent.get(position).getTypes()==1){
+			holdel.tv_agent_type.setText("公司");
+		}
+		else if(dataadagent.get(position).getTypes()==2){
+			holdel.tv_agent_type.setText("个人");
+		}
+		else{
+			holdel.tv_agent_type.setText(dataadagent.get(position).getTypes()+"");
+		}
 		holdel.tv_agent_name.setText(dataadagent.get(position).getCompany_name());
 		holdel.tv_join_time.setText(dataadagent.get(position).getCreated_at());
 		convertView.setOnClickListener(new OnClickListener() {

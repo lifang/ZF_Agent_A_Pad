@@ -18,6 +18,7 @@ import com.comdo.zf_agent_a_pad.entity.AgentEntity;
 import com.comdo.zf_agent_a_pad.entity.DistributeEntity;
 import com.comdo.zf_agent_a_pad.entity.TransgoodsEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -71,6 +72,9 @@ public class Transgoods extends Fragment implements OnClickListener,IXListViewLi
 	 private String mTerminalArray="";
 	 private int paychannelId,goodId;
 	 private String[] serialNums=new String[]{};
+	 private int agent=MyApplication.NewUser.getAgentId();
+	 private int id=MyApplication.NewUser.getId();
+	 private AlertDialog dialog;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -156,7 +160,7 @@ protected void onLoad() {
 }
 private void getAgentList() {
 
-	Config.getlowerAgentList(getActivity(), 1, new HttpCallback<List<AgentEntity>>(getActivity()) {
+	Config.getlowerAgentList(getActivity(), agent, new HttpCallback<List<AgentEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(List<AgentEntity> data) {
@@ -261,6 +265,7 @@ public void onClick(View v) {
 		startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 		break;
 	case R.id.btn_confirm:
+		dialog.dismiss();
 		trans();
 		break;
 	default:
@@ -287,7 +292,7 @@ private void trans() {
 	
 }
 private void quary() {
-	Config.getTranslist(getActivity(), 1, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<TransgoodsEntity>>(getActivity()) {
+	Config.getTranslist(getActivity(), agent, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<TransgoodsEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(Page<TransgoodsEntity> data) {
@@ -351,46 +356,29 @@ private void quary() {
 */}
 private void opendialog() {
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	LayoutInflater factory = LayoutInflater.from(getActivity());
-	final View textEntryView = factory.inflate(R.layout.transferobjectdialog, null);
-	// builder.setTitle("自定义输入框");
-     builder.setView(textEntryView);
-     builder.create().show();
-     btn_confirm=(Button) textEntryView.findViewById(R.id.btn_confirm);
-     my_diaSpinner_from=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent_from);
-     my_diaSpinner_to=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent_to);
-     adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, list);
-     tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
-     tv_choose_terminal.setOnClickListener(this);
-     btn_confirm.setOnClickListener(this);
- 	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
- 	my_diaSpinner_from.setAdapter(adapter); 
- 	my_diaSpinner_to.setAdapter(adapter); 
- 	my_diaSpinner_from.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-
- 			@Override
- 			public void onItemSelected(AdapterView<?> parent, View view, int position,
- 					long id) {
- 				//tv_agent.setText(adapter.getItem(position));
- 				my_diaSpinner_from.setSelection(position);
- 				from=position;
- 			}
-
- 			@Override
- 			public void onNothingSelected(AdapterView<?> parent) {
- 				// TODO Auto-generated method stub
- 				
- 			}
- 			
- 		});  
- 	my_diaSpinner_to.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+LayoutInflater factory = LayoutInflater.from(getActivity());
+final View textEntryView = factory.inflate(R.layout.transferobjectdialog, null);
+// builder.setTitle("自定义输入框");
+ builder.setView(textEntryView);
+ //builder.create().show();
+ btn_confirm=(Button) textEntryView.findViewById(R.id.btn_confirm);
+ my_diaSpinner_from=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent_from);
+ my_diaSpinner_to=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent_to);
+ adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, list);
+ tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
+ tv_choose_terminal.setOnClickListener(this);
+ btn_confirm.setOnClickListener(this);
+	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	my_diaSpinner_from.setAdapter(adapter); 
+	my_diaSpinner_to.setAdapter(adapter); 
+	my_diaSpinner_from.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position,
 					long id) {
 				//tv_agent.setText(adapter.getItem(position));
-				my_diaSpinner_to.setSelection(position);
-				to=position;
+				my_diaSpinner_from.setSelection(position);
+				from=position;
 			}
 
 			@Override
@@ -400,7 +388,26 @@ private void opendialog() {
 			}
 			
 		});  
-}
+	my_diaSpinner_to.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position,
+				long id) {
+			//tv_agent.setText(adapter.getItem(position));
+			my_diaSpinner_to.setSelection(position);
+			to=position;
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	});  
+	dialog=builder.create();
+	 dialog.show();
+	}
 @Override
 public void onRefresh() {
 	if(!Tools.isConnect(getActivity())){

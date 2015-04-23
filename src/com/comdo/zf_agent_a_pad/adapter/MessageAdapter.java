@@ -48,7 +48,7 @@ public class MessageAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		ViewHoldel holdel;
+		final ViewHoldel holdel;
 		if(convertView == null){
 			mInflater=LayoutInflater.from(context);
 			convertView=mInflater.inflate(R.layout.message_item, null);
@@ -66,9 +66,12 @@ public class MessageAdapter extends BaseAdapter{
 		holdel.tv_time.setText(datamsg.get(position).getCreate_at());
 		if(datamsg.get(position).isStatus()){
 			holdel.item_cb.setBackgroundResource(R.drawable.cb_y);
+			holdel.item_cb.setChecked(true);
+			holdel.item_cb.setEnabled(false);
 		}
 		else{
 			holdel.item_cb.setBackgroundResource(R.drawable.cb_n);
+			holdel.item_cb.setChecked(false);
 		}
 		convertView.setOnClickListener(new OnClickListener() {
 			
@@ -86,10 +89,18 @@ public class MessageAdapter extends BaseAdapter{
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean ischeck) {
 				if(ischeck){
+					datamsg.get(position).setStatus(true);
+					holdel.item_cb.setChecked(true);
 					pp=position;
-					Message msg=Mwdxx.myHandler.obtainMessage();
-					msg.what=2;
-					msg.sendToTarget();
+					//holdel.item_cb.setBackgroundResource(R.drawable.cb_y);
+					//Message msg=Mwdxx.myHandler.obtainMessage();
+					//msg.what=2;
+					//msg.sendToTarget();
+				}
+				else{
+					datamsg.get(position).setStatus(false);
+					holdel.item_cb.setChecked(false);
+					holdel.item_cb.setBackgroundResource(R.drawable.cb_n);
 				}
 				
 			}

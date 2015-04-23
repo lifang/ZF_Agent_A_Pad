@@ -29,6 +29,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.DialogUtil;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -54,6 +55,7 @@ public class Mwdxx extends Fragment implements IXListViewListener,OnClickListene
 	private String[] ids;
 	private int cc;
 	private ArrayList list=new ArrayList();
+	private int agentUserId=MyApplication.NewUser.getAgentUserId();
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -73,6 +75,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
             parent.removeView(view);
     }
     try {
+    	Log.e("inflater", String.valueOf(inflater));
+    	Log.e("container", String.valueOf(container));
         view = inflater.inflate(R.layout.mwdxx, container, false);
         initview();
         
@@ -107,8 +111,8 @@ public void onStart() {
 				break;
 			case 2:
 				//list.add(String.valueOf(datamsg.get(MessageAdapter.pp).getId()));
-				ids[size]=String.valueOf(datamsg.get(MessageAdapter.pp).getId());
-				size++;
+				//ids[size]=String.valueOf(datamsg.get(MessageAdapter.pp).getId());
+				//size++;
 				//ids[0]=String.valueOf(datamsg.get(MessageAdapter.pp).getId());
 				//size++;
 				break;
@@ -129,7 +133,7 @@ protected void onLoad() {
 }
 private void getData() {
 	
-	Config.getMsgList(getActivity(), 80, page, rows, new HttpCallback<Page<MessageEntity>>(getActivity()) {
+	Config.getMsgList(getActivity(), agentUserId, page, rows, new HttpCallback<Page<MessageEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(Page<MessageEntity> data) {
@@ -219,7 +223,13 @@ private void isRead() {
 			size++;
 		}
 	}*/
-	Config.IsRead(getActivity(), ids,80, new HttpCallback(getActivity()) {
+	for(int i=0;i<datamsg.size();i++){
+		if(datamsg.get(i).isStatus()){
+			ids[size]=String.valueOf(datamsg.get(i).getId());
+			size++;
+		}
+	}
+	Config.IsRead(getActivity(), ids,agentUserId, new HttpCallback(getActivity()) {
 
 		@Override
 		public void onSuccess(Object data) {
@@ -245,7 +255,13 @@ private void delectMore() {
 	for(int i=0;i<list.size();i++){
 		ids[i]=String.valueOf(list.get(i));
 	}*/
-	Config.DelectMoreMsg(getActivity(), ids,80, new HttpCallback(getActivity()) {
+	for(int i=0;i<datamsg.size();i++){
+		if(datamsg.get(i).isStatus()){
+			ids[size]=String.valueOf(datamsg.get(i).getId());
+			size++;
+		}
+	}
+	Config.DelectMoreMsg(getActivity(), ids,agentUserId, new HttpCallback(getActivity()) {
 
 		@Override
 		public void onSuccess(Object data) {

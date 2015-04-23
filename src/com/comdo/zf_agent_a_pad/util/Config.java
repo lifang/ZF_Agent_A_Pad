@@ -315,6 +315,11 @@ public class Config {
 	// edit staff
 	public static final String EDIT_STAFF = PATHS
 			+ "customerManage/edit";
+	// get default profit
+	//public static final String GET_DEFAULT_PROFIT = PATHS
+	//		+ "lowerAgent/getDefaultProfit";
+	public static final String GET_DEFAULT_PROFIT = PATHS
+			+ "lowerAgent/getDefaultProfit";
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1296,6 +1301,14 @@ public class Config {
 		params.put("roles", roles);
 		params.put("pwd", pwd);
 		new HttpRequest(context, callback).post(EDIT_STAFF, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void getDefaultProfit(Context context,
+			int agentsId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentsId", agentsId);
+		new HttpRequest(context, callback).post(GET_DEFAULT_PROFIT, params);
 		Log.e("params", String.valueOf(params));
 	}
 }

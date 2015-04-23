@@ -8,6 +8,7 @@ import com.example.zf_agent_a_pad.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -115,6 +116,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case R.id.main_rl_my:
+			Log.e("4", "4");
 			Config.TABID=4;
 			changTabBg();
 			im_wd.setBackgroundResource(R.drawable.mine);

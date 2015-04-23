@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"  >
 
     <LinearLayout
         android:layout_width="@dimen/leftwidth"
         android:layout_height="fill_parent"
         android:background="#64666A"
-        android:orientation="vertical" >
-
+        android:orientation="vertical">
         <RelativeLayout
             android:id="@+id/ll_dd"
             android:layout_width="fill_parent"
@@ -37,13 +36,11 @@
                 android:src="@drawable/sanjiao" />
 
         </RelativeLayout>
-
-        <View
-            android:layout_width="fill_parent"
+     <View
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#817f7f" />
-
-        <RelativeLayout
+      <RelativeLayout
              android:id="@+id/ll_shjl"
             android:layout_width="match_parent"
             android:layout_height="@dimen/leftitemheight"
@@ -74,8 +71,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:background="#817f7f" />
-
-        <RelativeLayout
+     <RelativeLayout
              android:id="@+id/ll_myinfo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/leftitemheight"
@@ -162,17 +158,11 @@
             android:layout_height="1dp"
             android:background="#817f7f" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+	
 <fragment 
     android:id="@+id/f_mine"
      android:name="com.comdo.zf_agent_a_pad.fragment.MineMyinfo" 
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"/>
        
-    </LinearLayout>
-
 </LinearLayout>

@@ -45,6 +45,7 @@
         android:id="@+id/tv_time_left"
     android:layout_width="200dp"
     android:layout_height="45dp"
+    android:text="开始日期"
     android:textSize="18sp"
     android:textColor="#868788"
     android:layout_marginLeft="20dp"
@@ -62,6 +63,7 @@
         android:id="@+id/tv_time_right"
     android:layout_width="200dp"
     android:layout_height="45dp"
+    android:text="结束日期"
     android:textSize="18sp"
     android:textColor="#868788"
     android:layout_marginLeft="20dp"
@@ -112,11 +114,16 @@
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    
     android:layout_marginLeft="50dp"
     android:layout_marginRight="50dp"
     android:orientation="horizontal"
     android:background="#E9E8E8" >
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:background="#E9E8E8" 
+    android:layout_marginLeft="96dp">
     <TextView 
         android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -125,7 +132,7 @@
     android:textColor="#636363"
     android:textSize="18sp"
     android:layout_gravity="center_vertical"
-    android:layout_marginLeft="96dp"/>
+    />
     <TextView 
         android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -142,6 +149,7 @@
     android:textColor="#636363"
     android:textSize="18sp"
     android:layout_gravity="center_vertical"/>
+    </LinearLayout>
     </LinearLayout>
     <com.comdo.zf_agent_a_pad.util.XListView 
         android:id="@+id/list"

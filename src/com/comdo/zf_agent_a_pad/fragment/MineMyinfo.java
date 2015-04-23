@@ -2,6 +2,7 @@ package com.comdo.zf_agent_a_pad.fragment;
 import com.example.zf_agent_a_pad.R;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

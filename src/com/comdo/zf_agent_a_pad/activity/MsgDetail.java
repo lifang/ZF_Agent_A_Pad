@@ -6,6 +6,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +25,7 @@ public class MsgDetail extends BaseActivity {
 	private String time="";
 	private String content="";
 	private Handler myHandler;
+	private int agentUserId=MyApplication.NewUser.getAgentUserId();
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -74,7 +76,7 @@ private void init() {
 		});
 	}
 private void getMsgdetail() {
-	Config.GetMsgDetail(MsgDetail.this, id, 80, new HttpCallback<MessageEntity>(MsgDetail.this) {
+	Config.GetMsgDetail(MsgDetail.this, id, agentUserId, new HttpCallback<MessageEntity>(MsgDetail.this) {
 
 		@Override
 		public void onSuccess(MessageEntity data) {

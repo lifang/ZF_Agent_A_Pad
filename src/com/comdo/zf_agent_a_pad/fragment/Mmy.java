@@ -5,6 +5,7 @@ import com.example.zf_agent_a_pad.R;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class Mmy extends Fragment implements OnClickListener{
 	private Transgoods f_transgood;
 	private Staffmanagr f_staffmanagr;
 	private ImageView im1,im2,im3,im4,im5;
+	private int type=0;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -43,12 +45,68 @@ if (view != null) {
         parent.removeView(view);
 }
 try {
+	Log.e("inflater", String.valueOf(inflater));
+	Log.e("container", String.valueOf(container));
     view = inflater.inflate(R.layout.f_mine, container, false);
     init();
 } catch (InflateException e) {
     
 }
 return view;
+}
+@Override
+public void onStart() {
+	// TODO Auto-generated method stub
+	super.onStart();
+	Log.e("tag", type+"");
+	changeTap();
+}
+private void changeTap() {
+	switch (type) {
+	case 1:
+		setback();
+		im1.setVisibility(View.VISIBLE);
+		//if(f_info==null)
+			f_info=new MineMyinfo();
+		getActivity().getSupportFragmentManager().beginTransaction().
+		replace(R.id.f_mine, f_info).commit();
+		break;
+case 2:
+	setback();
+	im2.setVisibility(View.VISIBLE);
+	if(f_agentmanager==null)
+		f_agentmanager=new Agentmanager();
+	getActivity().getSupportFragmentManager().beginTransaction().
+	replace(R.id.f_mine, f_agentmanager).commit();
+		break;
+case 3:
+	setback();
+	im3.setVisibility(View.VISIBLE);
+	if(f_distribute==null)
+		f_distribute=new Distribute();
+	getActivity().getSupportFragmentManager().beginTransaction().
+	replace(R.id.f_mine, f_distribute).commit();
+	break;
+case 4:
+	setback();
+	im4.setVisibility(View.VISIBLE);
+	if(f_transgood==null)
+		f_transgood=new Transgoods();
+	getActivity().getSupportFragmentManager().beginTransaction().
+	replace(R.id.f_mine, f_transgood).commit();
+	break;
+case 5:
+	setback();
+	im5.setVisibility(View.VISIBLE);
+	if(f_staffmanagr==null)
+		f_staffmanagr=new Staffmanagr();
+	getActivity().getSupportFragmentManager().beginTransaction().
+	replace(R.id.f_mine, f_staffmanagr).commit();
+	break;
+	default:
+		break;
+	}
+	
 }
 private void init() {
 	im1 = (ImageView) view.findViewById(R.id.im1);
@@ -72,6 +130,7 @@ private void init() {
 public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.tv_myinfo:
+		type=1;
 		setback();
 		im1.setVisibility(View.VISIBLE);
 		if(f_info==null)
@@ -80,6 +139,7 @@ public void onClick(View v) {
 		replace(R.id.f_mine, f_info).commit();
 		break;
 	case R.id.tv_manager_shopper:
+		type=2;
 		setback();
 		im2.setVisibility(View.VISIBLE);
 		if(f_agentmanager==null)
@@ -88,6 +148,7 @@ public void onClick(View v) {
 		replace(R.id.f_mine, f_agentmanager).commit();
 		break;
 	case R.id.tv_distribute:
+		type=3;
 		setback();
 		im3.setVisibility(View.VISIBLE);
 		if(f_distribute==null)
@@ -96,6 +157,7 @@ public void onClick(View v) {
 		replace(R.id.f_mine, f_distribute).commit();
 		break;
 	case R.id.tv_transgoods:
+		type=4;
 		setback();
 		im4.setVisibility(View.VISIBLE);
 		if(f_transgood==null)
@@ -104,6 +166,7 @@ public void onClick(View v) {
 		replace(R.id.f_mine, f_transgood).commit();
 		break;
 	case R.id.tv_staffmanagr:
+		type=5;
 		setback();
 		im5.setVisibility(View.VISIBLE);
 		if(f_staffmanagr==null)
