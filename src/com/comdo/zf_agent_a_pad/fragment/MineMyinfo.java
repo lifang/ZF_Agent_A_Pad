@@ -19,6 +19,7 @@ public class MineMyinfo extends Fragment implements OnClickListener{
 	 private Mchpaw m_chpaw;
 	 private Mine_adress m_adress;
 	 private Mybaseinfo m_baseinfo;
+	 private int type=0;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -45,6 +46,42 @@ try {
 }
 return view;
 }
+@Override
+public void onStart() {
+	// TODO Auto-generated method stub
+	super.onStart();
+	switch (type) {
+	case 1:
+		tv_jichuinfo.setBackgroundResource(R.drawable.tab_bg);
+		tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));
+		if(m_baseinfo==null)
+			m_baseinfo=new Mybaseinfo();
+		getActivity().getSupportFragmentManager().beginTransaction()
+		.replace(R.id.fm, m_baseinfo).commit();
+		break;
+    case 2:
+    	tv_safe.setBackgroundResource(R.drawable.tab_bg);
+		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));
+		if(m_chpaw==null)
+			m_chpaw=new Mchpaw();
+		getActivity().getSupportFragmentManager().beginTransaction()
+		.replace(R.id.fm, m_chpaw).commit();
+		break;
+    case 3:
+    	tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_manageradress.setBackgroundResource(R.drawable.tab_bg);
+		if(m_adress==null)
+			m_adress=new Mine_adress();
+		getActivity().getSupportFragmentManager().beginTransaction()
+		.replace(R.id.fm, m_adress).commit();
+	break;
+	default:
+		break;
+	}
+}
 private void init() {
 	tv_jichuinfo=(TextView) view.findViewById(R.id.tv_jichuinfo);
 	tv_safe=(TextView) view.findViewById(R.id.tv_safe);
@@ -57,6 +94,7 @@ private void init() {
 public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.tv_safe:
+		type=2;
 		tv_safe.setBackgroundResource(R.drawable.tab_bg);
 		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
 		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));
@@ -66,6 +104,7 @@ public void onClick(View v) {
 		.replace(R.id.fm, m_chpaw).commit();
 		break;
 	case R.id.tv_manageradress:
+		type=3;
 		tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
 		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
 		tv_manageradress.setBackgroundResource(R.drawable.tab_bg);
@@ -75,6 +114,7 @@ public void onClick(View v) {
 		.replace(R.id.fm, m_adress).commit();
 		break;
 	case R.id.tv_jichuinfo:
+		type=1;
 		tv_jichuinfo.setBackgroundResource(R.drawable.tab_bg);
 		tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
 		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));

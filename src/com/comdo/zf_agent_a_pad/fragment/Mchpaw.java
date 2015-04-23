@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,6 +26,7 @@ public class Mchpaw extends Fragment{
 	private String password;
 	private EditText et_oldpaw,et_newpaw,et_confirmpaw;
 	private Button btn_save;
+	private int id=com.comdo.zf_agent_a_pad.util.MyApplication.NewUser.getId();
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState) {
@@ -62,9 +64,9 @@ public void onStart() {
 	});
 }
 protected void changepaw() {
-	Config.changePaw(getActivity(), 80,
-			et_oldpaw.getText().toString(), 
-			et_newpaw.getText().toString(), 
+	Config.changePaw(getActivity(), id,
+			StringUtil.Md5(et_oldpaw.getText().toString()), 
+			StringUtil.Md5(et_newpaw.getText().toString()), 
 			new HttpCallback(getActivity()) {
 
 				@Override
@@ -72,7 +74,11 @@ protected void changepaw() {
 					CommonUtil.toastShort(getActivity(), "密码修改成功");
 					
 				}
-
+@Override
+public void onFailure(String message) {
+	// TODO Auto-generated method stub
+	super.onFailure(message);
+}
 				@Override
 				public TypeToken getTypeToken() {
 					// TODO Auto-generated method stub
