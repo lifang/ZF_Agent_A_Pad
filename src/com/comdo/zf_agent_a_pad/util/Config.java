@@ -247,7 +247,7 @@ public class Config {
     // get distribute_list
 		public static final String GET_DISTRIBUTE = PATHS
 				+ "preparegood/list";
-	public static final String EDIT_ADDRESS = PATHS + "customers/updateAddress";
+	public static final String EDIT_ADDRESS = PATHS + "agents/updateAddress";
 	// public static final String EDIT_ADDRESS =
 	// "http://192.168.199.206:8080/zfagent/api/" +
 	// "message/receiver/batchRead";
@@ -815,6 +815,7 @@ public class Config {
 		params.put("customerId", customerId);
 		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ADD_ADDRESS, params);
+		Log.e("context", String.valueOf(context));
 		Log.e("params", params + "");
 		Log.e("ADD_ADDRESS", ADD_ADDRESS);
 	}
@@ -836,12 +837,13 @@ public class Config {
 
 	public static void changePaw(Context context, int customerId,
 			String passwordOld, String password, HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		// Map<String, Object> params = new HashMap<String, Object>();
+		//RequestParams params = new RequestParams();
+		 Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("passwordOld", passwordOld);
 		params.put("password", password);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
+		Log.e("params", String.valueOf(params));
 		new HttpRequest(context, callback).post(CHANGE_PAW, params);
 	}
 

@@ -248,6 +248,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_comment"
                 android:layout_width="@dimen/normai_button_width"
                 android:layout_height="@dimen/normai_button_height"
                 android:layout_alignParentRight="true"
@@ -255,6 +256,7 @@
                 android:layout_marginRight="7dp"
                 android:background="@drawable/bg_blue_shape"
                 android:text="评价"
+                android:textSize="@dimen/textmid"
                 android:visibility="gone"
                 android:textColor="@color/ffffff" />
             

@@ -17,6 +17,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -47,6 +48,7 @@ public class Mybaseinfo extends Fragment implements OnClickListener{
 	private String[] imgPath=new String[3];
 	private Button btn_exit;
 	private List<City> mCities = new ArrayList<City>();
+	private int customerId=MyApplication.NewUser.getId();
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -123,7 +125,7 @@ public void onStart() {
 	};
 }
 private void getData() {
-	Config.GetInfo(getActivity(), 80, new HttpCallback<BaseInfoEntity>(getActivity()) {
+	Config.GetInfo(getActivity(), customerId, new HttpCallback<BaseInfoEntity>(getActivity()) {
 
 		@Override
 		public void onSuccess(BaseInfoEntity data) {

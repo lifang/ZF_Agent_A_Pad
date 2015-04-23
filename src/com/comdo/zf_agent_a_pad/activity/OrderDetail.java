@@ -70,6 +70,9 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				tv_time.setText("实付金额  ：   ￥" + check(entity.getOrder_totalprice())/100);
 				tv_money.setText("订单日期  ：   " + entity.getOrder_createTime());
 				tv_gj.setText("共计  ：   " + entity.getOrder_totalNum() + "件商品");
+				if(!OrderList.type.equals("5")){
+					tv_user.setText(entity.getGuishu_user());
+				}
 				break;
 			case 1:
 				Toast.makeText(getApplicationContext(), (String) msg.obj,
@@ -96,6 +99,8 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private Button bt_pay;
 	private Button bt_cancel;
 	private String url;
+	private LinearLayout ll_user;
+	private TextView tv_user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -201,7 +206,11 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 						});
 	}
 	private void initView() {
-		
+		tv_user = (TextView)findViewById(R.id.tv_user);
+		ll_user = (LinearLayout)findViewById(R.id.ll_user);
+		if(!OrderList.type.equals("5")){
+			ll_user.setVisibility(View.VISIBLE);
+		}
 		bt_pay = (Button)findViewById(R.id.bt_pay);
 		bt_pay.setOnClickListener(this);
 		bt_cancel = (Button)findViewById(R.id.bt_cancel);
