@@ -678,7 +678,7 @@ public class Config {
 		params.put("agentname", agentname);
 		params.put("page", page);
 		params.put("rows", rows);
-		new HttpRequest(context, callback).post(STOCK_LIST, params);
+		new HttpRequest(context, callback).post(STOCK_INFO, params);
 	}
 
 	public static void stockRename(Context context, int agentId, int goodId,

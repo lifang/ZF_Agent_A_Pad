@@ -19,6 +19,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.UserMLEntity;
 import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -100,8 +101,8 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(UserManageListActivity.this,UserManageDetailActivity.class);
-				intent.putExtra("customersId", myList.get(position-2).getCustomersId());
-				intent.putExtra("customersName", myList.get(position-2).getName());
+				intent.putExtra("customersId", myList.get(position-1).getCustomersId());
+				intent.putExtra("customersName", myList.get(position-1).getName());
 				startActivity(intent);
 			}
 		});
@@ -152,7 +153,8 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 	}
 
 	private void getData() {
-		Config.userGetUser(this, Constants.TEST_CUSTOMER, page, rows,
+		//代理商对应用户ID,MyApplication.NewUser.getAgentUserId()
+		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), page, rows,
 				new HttpCallback<List<UserMLEntity>>(this) {
 			@Override
 			public void onSuccess(List<UserMLEntity> data) {
@@ -175,7 +177,8 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 		ids[0]= myList.get(position).getCustomersId();
 		idArray = new int[ids.length];
 		idArray[0] = Integer.parseInt(ids[0]);
-		Config.userDelectAgentUser(this,idArray, Constants.TEST_CUSTOMER,
+		//代理商id,MyApplication.NewUser.getAgentId()
+		Config.userDelectAgentUser(this,idArray, MyApplication.NewUser.getAgentId(),
 				new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {

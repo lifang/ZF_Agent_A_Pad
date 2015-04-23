@@ -357,9 +357,9 @@ public class AfterSaleDetailActivity extends Activity{
 	}
 	//增加物流信息
 	protected void agentsAddMark() {
-
+		//代理商对应用户ID,MyApplication.NewUser.getAgentUserId()
 		Config.agentsAddMark(this,id,computer_name,
-				track_number,Constants.TEST_CUSTOMER,
+				track_number,MyApplication.NewUser.getAgentUserId(),
 				new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {

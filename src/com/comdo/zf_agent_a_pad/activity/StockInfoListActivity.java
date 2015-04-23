@@ -126,7 +126,7 @@ public class StockInfoListActivity extends Activity implements OnClickListener,I
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-2));
+				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-1));
 
 				Intent intent = new Intent(StockInfoListActivity.this,StockTerminaListActivity.class);
 				intent.putExtra("goodId", stockEntity.getGood_id());
@@ -209,8 +209,8 @@ public class StockInfoListActivity extends Activity implements OnClickListener,I
 	}
 	//商品更名
 	protected void stockRename() {
-
-		Config.stockRename(this,Constants.TEST_CUSTOMER,stockEntity.getGood_id(),
+		//代理商id,MyApplication.NewUser.getAgentId()
+		Config.stockRename(this,MyApplication.NewUser.getAgentId(),stockEntity.getGood_id(),
 				computer_name,new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {
@@ -230,8 +230,8 @@ public class StockInfoListActivity extends Activity implements OnClickListener,I
 	}
 	//列表数据
 	private void loadData() {
-
-		Config.stockInfo(this,Constants.TEST_CUSTOMER,stockEntity.getPaychannel_id(),
+		//代理商id,MyApplication.NewUser.getAgentId()
+		Config.stockInfo(this,MyApplication.NewUser.getAgentId(),stockEntity.getPaychannel_id(),
 				stockEntity.getGood_id(),"", page , rows,
 				new HttpCallback<Page<StockAgentEntity>>(this) {
 			@Override

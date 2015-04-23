@@ -25,6 +25,7 @@ import com.comdo.zf_agent_a_pad.entity.StockAgentEntity;
 import com.comdo.zf_agent_a_pad.entity.StockEntity;
 import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -91,7 +92,7 @@ public class StockSearchActivity extends Activity implements OnClickListener,IXL
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-2));
+				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-1));
 
 				Intent intent = new Intent(StockSearchActivity.this,StockTerminaListActivity.class);
 				intent.putExtra("goodId", stockEntity.getGood_id());
@@ -147,8 +148,9 @@ public class StockSearchActivity extends Activity implements OnClickListener,IXL
 	}
 	//列表数据
 	private void loadData() {
+			//代理商id,MyApplication.NewUser.getAgentId()
 		String searchKey = searchEditText.getText().toString().trim();
-		Config.stockInfo(this,Constants.TEST_CUSTOMER,stockEntity.getPaychannel_id(),
+		Config.stockInfo(this,MyApplication.NewUser.getAgentId(),stockEntity.getPaychannel_id(),
 				stockEntity.getGood_id(),searchKey, page , rows,
 				new HttpCallback<Page<StockAgentEntity>>(this) {
 			@Override

@@ -42,6 +42,7 @@ import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
+import com.comdo.zf_agent_a_pad.video.VideoActivity;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -139,8 +140,10 @@ public class TerminalManagerDetailActivity extends Activity {
 		mVideoListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				CommonUtil.toastShort(TerminalManagerDetailActivity.this,
-						"not yet completed...");
+				
+				Intent intent = new Intent(TerminalManagerDetailActivity.this, VideoActivity.class);
+				intent.putExtra(TERMINAL_ID, mTerminalId);
+				startActivity(intent);
 			}
 		};
 	}

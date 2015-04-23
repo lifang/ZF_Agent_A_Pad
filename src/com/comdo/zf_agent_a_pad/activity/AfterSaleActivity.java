@@ -150,8 +150,8 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 					int position, long id) {
 				Intent intent = new Intent(AfterSaleActivity.this,AfterSaleDetailActivity.class);
 				intent.putExtra("mRecordType", mRecordType);
-				intent.putExtra("apply_num", mEntities.get(position-2).getApply_num());
-				intent.putExtra("id", mEntities.get(position-2).getId());
+				intent.putExtra("apply_num", mEntities.get(position-1).getApply_num());
+				intent.putExtra("id", mEntities.get(position-1).getId());
 				startActivity(intent);
 			}
 		});
@@ -418,8 +418,8 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	//列表数据
 	private void loadData() {
 		String search = searchEditText.getText().toString().trim();
-
-		Config.getAfterSaleList(this, mRecordType, Constants.TEST_CUSTOMER,
+		//代理商对应用户ID,MyApplication.NewUser.getAgentUserId()
+		Config.getAfterSaleList(this, mRecordType, MyApplication.NewUser.getAgentUserId(),
 				search,selState, page , rows,
 				new HttpCallback<Page<AfterSaleEntity>>(this) {
 			@Override
@@ -453,9 +453,9 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	}
 	//增加物流信息
 	protected void agentsAddMark(int position) {
-
+		//代理商对应用户ID,MyApplication.NewUser.getAgentUserId()
 		Config.agentsAddMark(this,mEntities.get(position).getId(),computer_name,
-				track_number,Constants.TEST_CUSTOMER,
+				track_number,MyApplication.NewUser.getAgentUserId(),
 				new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {

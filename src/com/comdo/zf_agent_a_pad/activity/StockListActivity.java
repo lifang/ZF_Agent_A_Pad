@@ -77,11 +77,11 @@ public class StockListActivity extends Activity implements IXListViewListener{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				toInfoPosition = position-2;
+				toInfoPosition = position-1;
 				//StockInfoListActivity.setStockEntity(mEntities.get(position-2));
 
 				Intent intent = new Intent(StockListActivity.this,StockInfoListActivity.class);
-				intent.putExtra("StockEntity", mEntities.get(position-2));
+				intent.putExtra("StockEntity", mEntities.get(position-1));
 				startActivityForResult(intent, 101);
 			}
 		});
@@ -132,8 +132,8 @@ public class StockListActivity extends Activity implements IXListViewListener{
 	}
 	//商品更名
 	protected void stockRename(final int position) {
-
-		Config.stockRename(this,Constants.TEST_CUSTOMER,mEntities.get(position).getGood_id(),
+		//代理商id,MyApplication.NewUser.getAgentId()
+		Config.stockRename(this,MyApplication.NewUser.getAgentId(),mEntities.get(position).getGood_id(),
 				computer_name,new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {
@@ -152,8 +152,8 @@ public class StockListActivity extends Activity implements IXListViewListener{
 	}
 	//列表数据
 	private void loadData() {
-
-		Config.stockList(this, Constants.TEST_CUSTOMER, page , rows,
+		//代理商id,MyApplication.NewUser.getAgentId()
+		Config.stockList(this, MyApplication.NewUser.getAgentId(), page , rows,
 				new HttpCallback<Page<StockEntity>>(this) {
 			@Override
 			public void onSuccess(Page<StockEntity> data) {
