@@ -76,6 +76,14 @@ return view;
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
+}
+@Override
+public void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+	if(datastaff.size()!=0){
+		datastaff.clear();
+	}
 	getData();
 	myHandler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -95,8 +103,9 @@ public void onStart() {
 			default:
 				break;
 			}
-		};
+		}
 	};
+	
 }
 protected void delectone() {
 	Config.delectStaff(getActivity(),  datastaff.get(StaffmanagerAdapter.pp).getId(),1, new HttpCallback(getActivity()) {

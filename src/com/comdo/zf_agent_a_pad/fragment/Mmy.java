@@ -4,7 +4,9 @@ import com.example.zf_agent_a_pad.R;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -24,7 +26,7 @@ public class Mmy extends Fragment implements OnClickListener{
 	private Transgoods f_transgood;
 	private Staffmanagr f_staffmanagr;
 	private ImageView im1,im2,im3,im4,im5;
-	private int type=0;
+	private int type;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -48,6 +50,10 @@ try {
 	Log.e("inflater", String.valueOf(inflater));
 	Log.e("container", String.valueOf(container));
     view = inflater.inflate(R.layout.f_mine, container, false);
+    f_info = new MineMyinfo();
+
+	getActivity().getSupportFragmentManager().beginTransaction()
+			.replace(R.id.f_mine, f_info).commit();
     init();
 } catch (InflateException e) {
     
@@ -59,6 +65,12 @@ public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
 	Log.e("tag", type+"");
+	
+}
+@Override
+public void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
 	changeTap();
 }
 private void changeTap() {
@@ -66,7 +78,7 @@ private void changeTap() {
 	case 1:
 		setback();
 		im1.setVisibility(View.VISIBLE);
-		//if(f_info==null)
+		if(f_info==null)
 			f_info=new MineMyinfo();
 		getActivity().getSupportFragmentManager().beginTransaction().
 		replace(R.id.f_mine, f_info).commit();
@@ -100,8 +112,11 @@ case 5:
 	im5.setVisibility(View.VISIBLE);
 	if(f_staffmanagr==null)
 		f_staffmanagr=new Staffmanagr();
-	getActivity().getSupportFragmentManager().beginTransaction().
-	replace(R.id.f_mine, f_staffmanagr).commit();
+	getActivity().
+	getSupportFragmentManager().
+	beginTransaction().
+	replace(R.id.f_mine, f_staffmanagr).
+	commit();
 	break;
 	default:
 		break;
@@ -125,7 +140,6 @@ private void init() {
 	tv_transgoods.setOnClickListener(this);
 	tv_staffmanagr.setOnClickListener(this);
 }
-@SuppressLint("Recycle")
 @Override
 public void onClick(View v) {
 	switch (v.getId()) {
@@ -191,5 +205,27 @@ private void setback() {
 	tv_transgoods.setTextColor(getResources().getColor(R.color.white));
 	tv_staffmanagr.setTextColor(getResources().getColor(R.color.white));
 	
+}
+@Override
+public void onDestroyView() {
+	try {
+		FragmentTransaction transaction = getActivity()
+				.getSupportFragmentManager().beginTransaction();
+		;
+		if (f_info != null)
+			transaction.remove(f_info);
+		if (f_agentmanager != null)
+			transaction.remove(f_agentmanager);
+		if (f_distribute != null)
+			transaction.remove(f_distribute);
+		if (f_transgood != null)
+			transaction.remove(f_transgood);
+		if (f_staffmanagr != null)
+			transaction.remove(f_staffmanagr);
+		transaction.commit();
+	} catch (Exception e) {
+	}
+
+	super.onDestroyView();
 }
 }

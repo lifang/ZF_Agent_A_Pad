@@ -28,6 +28,7 @@ import com.comdo.zf_agent_a_pad.fragment.Transgoods;
 import com.comdo.zf_agent_a_pad.trade.ApplyChannelActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -79,6 +80,7 @@ public class TerminalSelectActivity extends BaseActivity implements OnClickListe
 	private CheckBox checkboxAll;
 	public static boolean allCheck = false;
 	public static boolean isFromTrans=false;
+	private int agentId=MyApplication.NewUser.getAgentId();
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -192,7 +194,7 @@ public void onClick(View v) {
 		finish();
 		break;
 	case R.id.selectedpos:
-		Config.selectPOS(TerminalSelectActivity.this, 80,
+		Config.selectPOS(TerminalSelectActivity.this, agentId,
 				new HttpCallback<List<SelectPOS>>(
 						TerminalSelectActivity.this) {
 					@Override
@@ -283,7 +285,7 @@ private void confirmUp() {
 	String[] str= new String[] {};
 	//str = zdh.getText().toString().split("\n");
 	Config.getTerminallist(TerminalSelectActivity.this, 
-			1, 
+			agentId, 
 			mChannelId, 
 			posID, 
 			str, 

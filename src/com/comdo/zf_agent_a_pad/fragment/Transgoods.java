@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,7 @@ public class Transgoods extends Fragment implements OnClickListener,IXListViewLi
 	 private int agent=MyApplication.NewUser.getAgentId();
 	 private int id=MyApplication.NewUser.getId();
 	 private AlertDialog dialog;
+	 private Button close;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -106,7 +108,6 @@ return view;
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
-	
 	myHandler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -117,8 +118,12 @@ public void onStart() {
 				break;
 			case 1:
 				for(int i=0;i<datt.size();i++){
+					Log.e("lenth", sonAgentId.length+"");
+					Log.e("i", i+"");
+					Log.e("datt", String.valueOf(datt));
 					list.add(datt.get(i).getCompany_name());
 					sonAgentId[i]=datt.get(i).getId();
+					
 				}
 				mySpinner = (Spinner)view.findViewById(R.id.mySpinner);
 			    adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, list);
@@ -151,6 +156,7 @@ public void onStart() {
 			}
 		};
 	};
+	
 }
 protected void onLoad() {
 	xxlistview.stopRefresh();
@@ -159,7 +165,9 @@ protected void onLoad() {
 	
 }
 private void getAgentList() {
-
+    if(datt.size()!=0){
+    	datt.clear();
+    }
 	Config.getlowerAgentList(getActivity(), agent, new HttpCallback<List<AgentEntity>>(getActivity()) {
 
 		@Override
@@ -224,6 +232,7 @@ private void init() {
 	tv_time_left.setOnClickListener(this);
 	tv_time_right.setOnClickListener(this);
 	btn_quary.setOnClickListener(this);
+	
 }
 @Override
 public void onClick(View v) {
@@ -267,6 +276,9 @@ public void onClick(View v) {
 	case R.id.btn_confirm:
 		dialog.dismiss();
 		trans();
+		break;
+	case R.id.close:
+		dialog.dismiss();
 		break;
 	default:
 		break;
@@ -366,6 +378,8 @@ final View textEntryView = factory.inflate(R.layout.transferobjectdialog, null);
  my_diaSpinner_to=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent_to);
  adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, list);
  tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
+ close=(Button) textEntryView.findViewById(R.id.close);
+ close.setOnClickListener(this);
  tv_choose_terminal.setOnClickListener(this);
  btn_confirm.setOnClickListener(this);
 	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

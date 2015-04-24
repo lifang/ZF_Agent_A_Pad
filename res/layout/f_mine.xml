@@ -161,7 +161,7 @@
 	
 <fragment 
     android:id="@+id/f_mine"
-     android:name="com.comdo.zf_agent_a_pad.fragment.MineMyinfo" 
+     android:name="com.comdo.zf_agent_a_pad.fragment.MianFragment" 
     android:layout_width="match_parent"
     android:layout_height="fill_parent"/>
        

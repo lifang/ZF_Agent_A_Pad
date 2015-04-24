@@ -11,8 +11,10 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -62,6 +64,8 @@ public class CreatAgent extends BaseActivity implements OnClickListener{
 	 private JSONObject json;
 	 private int cityId;
 	 private int isProfit;
+	 private AlertDialog dialog;
+	 private int agentId=MyApplication.NewUser.getAgentId();
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -331,18 +335,50 @@ private void uploadFile(String path,final int tag,final Button btn) throws Excep
 	if (file.exists() && file.length() > 0) {
 		
 		File img = new File(path);
+		/*Config.uploadpic(CreatAgent.this, agentId, img, new HttpCallback(CreatAgent.this) {
+
+			@Override
+			public void onSuccess(Object data) {
+				// TODO Auto-generated method stub
+			  String dd=String.valueOf(data);
+			  try {
+				  dialog.dismiss();
+					CommonUtil.toastShort(getApplicationContext(), "上传成功") ;
+				json=new JSONObject(dd);
+				picPath=json.getString("result");
+				myHandler.sendEmptyMessage(0);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+			}
+@Override
+public void onFailure(String message) {
+	// TODO Auto-generated method stub
+	super.onFailure(message);
+}
+			@Override
+			public TypeToken getTypeToken() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});*/
 		RequestParams params=new RequestParams();
 		params.put("img", img);
+		//params.put("agentsId", agentId);
+		params.setUseJsonStreamer(true);
 		AsyncHttpClient client=new AsyncHttpClient();
 		client.setTimeout(10000);// 设置超时时间
     	client.setMaxConnections(10);
-		client.post(Config.UPLOAD_FILE, params, new AsyncHttpResponseHandler() {
+		client.post(Config.UPLOAD_FILE+agentId, params, new AsyncHttpResponseHandler() {
 			
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 				// TODO Auto-generated method stub
 				
 				try {
+					dialog.dismiss();
 					CommonUtil.toastShort(getApplicationContext(), "上传成功") ;
 					String str=new String(responseBody);
 					json=new JSONObject(str);
@@ -359,7 +395,9 @@ private void uploadFile(String path,final int tag,final Button btn) throws Excep
 			public void onFailure(int statusCode, Header[] headers,
 					byte[] responseBody, Throwable error) {
 				// TODO Auto-generated method stub
-				
+				dialog.dismiss();
+				String str=new String(responseBody);
+				Log.e("str", str);
 			}
 		});
 	}
@@ -412,8 +450,9 @@ private void showchooseDialog(Button btn,final int tag) {
 			//dialog.dismiss();
 		}
 	});
-     builder.create().show();
-
+    // builder.create().show();
+     dialog=builder.create();
+	 dialog.show();
 }
 protected void openAlbum() {
 	 Intent intent;  

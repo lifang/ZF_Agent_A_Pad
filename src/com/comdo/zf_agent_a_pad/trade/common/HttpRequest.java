@@ -34,6 +34,7 @@ public class HttpRequest {
 		this.responseHandler = new TextHttpResponseHandler() {
 			@Override
 			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				Log.e("statusCode", statusCode+"");
 				callback.onFailure(context.getString(R.string.load_data_failed));
 			}
 

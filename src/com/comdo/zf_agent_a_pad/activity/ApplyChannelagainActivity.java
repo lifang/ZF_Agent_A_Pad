@@ -23,6 +23,7 @@ import com.comdo.zf_agent_a_pad.entity.ApplyChannelagain;
 import com.comdo.zf_agent_a_pad.trade.ApplyChannelActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +38,7 @@ public class ApplyChannelagainActivity extends Activity {
 	private BillingListAdapter billingAdapter;
 	private ApplyChannelagain chosenChannel;
 	private ApplyChannelagain.Billing chosenBilling;
+	private int agentId=MyApplication.NewUser.getAgentId();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -98,7 +100,7 @@ public class ApplyChannelagainActivity extends Activity {
 						finish();
 					}
 				});
-            	Config.getTerminalPaylist(this,80,
+            	Config.getTerminalPaylist(this,agentId,
         				new HttpCallback<List<ApplyChannelagain>>(this) {
         					@Override
         					public void onSuccess(List<ApplyChannelagain> data) {

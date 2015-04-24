@@ -235,7 +235,7 @@ public class Config {
 	// reset Profit
 	public static final String RESET_PROFIT = PATHS + "lowerAgent/changeProfit";
 	// upload File
-	public static final String UPLOAD_FILE = PATHS + "lowerAgent/uploadImg";
+	public static final String UPLOAD_FILE = PATHS + "lowerAgent/uploadImg/";
 	// edit address
 		//public static final String EDIT_ADDRESS = PATHS
 		//		+ "agents/updateAddress";
@@ -1309,6 +1309,16 @@ public class Config {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentsId", agentsId);
 		new HttpRequest(context, callback).post(GET_DEFAULT_PROFIT, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void uploadpic(Context context,
+			int agentsId,
+			File img,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentsId", agentsId);
+		params.put("img", img);
+		new HttpRequest(context, callback).post(UPLOAD_FILE, params);
 		Log.e("params", String.valueOf(params));
 	}
 }
