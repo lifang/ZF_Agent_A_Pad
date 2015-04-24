@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.UserEntity;
 import com.comdo.zf_agent_a_pad.trade.API;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
@@ -38,7 +39,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private EditText login_edit_name, login_edit_pass;
 	private LinearLayout login_linear_deletename, login_linear_deletepass,
 			zhuche_ll, login_linear_login, msg;
-	private String  pass1, usename, passsword;
+	private String pass1, usename, passsword;
 	public static SharedPreferences mySharedPreferences;
 	private Editor editor;
 	private Boolean isFirst;
@@ -83,7 +84,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void initView() {
-		mySharedPreferences = getSharedPreferences("zf_agent_a_pad", MODE_PRIVATE);
+		mySharedPreferences = getSharedPreferences("zf_agent_a_pad",
+				MODE_PRIVATE);
 		editor = mySharedPreferences.edit();
 
 		login_text_forget = (TextView) findViewById(R.id.login_text_forget);
@@ -217,8 +219,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 				System.out.println(mySharedPreferences.getBoolean("islogin",
 						false) + "---");
 				MyApplication.NewUser = data;
-
-				Intent it = new Intent(LoginActivity.this,MainActivity.class);
+				
+				if (MyApplication.NewUser.getParent_id() != 0) {
+					
+					CheckRights.check(MyApplication.NewUser);
+				} else {
+					CheckRights.setAllTrue();
+				}
+				Intent it = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(it);
 				finish();
 
@@ -247,7 +255,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 					Toast.LENGTH_SHORT).show();
 			return false;
 		}
-		pass1=passsword;
+		pass1 = passsword;
 		passsword = StringUtil.Md5(passsword);
 		System.out.println("---login-" + passsword);
 		return true;

@@ -245,6 +245,10 @@ public class TerminalManagerActivity extends Activity implements
 				break;
 			case CANCELED:
 				holder.llButtonContainer.setVisibility(View.GONE);
+				addButton(holder.llButtons);
+				addButton(holder.llButtons);
+				addButton(holder.llButtons);
+				addButton(holder.llButtons);
 				break;
 			case STOPPED:
 				holder.llButtonContainer.setVisibility(View.VISIBLE);
@@ -545,14 +549,16 @@ public class TerminalManagerActivity extends Activity implements
 	public void onRefresh() {
 		page = 0;
 		mTerminalItems.clear();
+		mTerminalList.setPullLoadEnable(true);
 		loadData();
 	}
 
 	@Override
 	public void onLoadMore() {
 		if (mTerminalItems.size() >= total) {
+			mTerminalList.setPullLoadEnable(false);
 			mTerminalList.stopLoadMore();
-			CommonUtil.toastShort(this, "no more data");
+			CommonUtil.toastShort(this, getResources().getString(R.string.no_more_data));
 		} else {
 			isLoadMore = true;
 			loadData();

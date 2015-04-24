@@ -1,9 +1,5 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +25,13 @@ import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.activity.StockListActivity;
 import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.activity.UserManageListActivity;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.entity.PicEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.trade.TradeFlowActivity;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.example.zf_agent_a_pad.R;
 
 public class M_MianFragment extends Fragment implements OnClickListener {
@@ -56,13 +55,13 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-		
+
 				break;
 			case 1:
 				Toast.makeText(getActivity(), (String) msg.obj,
 						Toast.LENGTH_SHORT).show();
 				break;
-			case 2: 
+			case 2:
 				Toast.makeText(getActivity(), "网络连接错误", Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -78,9 +77,9 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
-		
+
 	}
 
 	@Override
@@ -88,64 +87,98 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		// view = inflater.inflate(R.layout.f_main,container,false);
 		if (view != null) {
-			
+
 			ViewGroup parent = (ViewGroup) view.getParent();
 			if (parent != null)
 				parent.removeView(view);
 		}
 		try {
-			
+
 			view = inflater.inflate(R.layout.f_main, container, false);
-	
+
 			initView();
-		
-		
+
 		} catch (InflateException e) {
 
 		}
 		return view;
 	}
+
 	@Override
 	public void onStart() {
 		super.onStart();
-		
+
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 
 		case R.id.main_rl_jyls: // 交易流水
 			if (Config.CheckIsLogin(getActivity())) {
-				startActivity(new Intent(getActivity(), TradeFlowActivity.class));
+
+				if (!CheckRights.RIGHT_4)
+					CommonUtil.toastShort(getActivity(),
+							R.string.right_not_match);
+				else
+					startActivity(new Intent(getActivity(),
+							TradeFlowActivity.class));
+
 			}
 			break;
-		case R.id.main_rl_pos: //我要进货
+		case R.id.main_rl_pos: // 我要进货
 
-			startActivity(new Intent(getActivity(), PosListActivity.class));
-			
+			if (CheckRights.RIGHT_1 || CheckRights.RIGHT_2) {
+
+				if (MyApplication.NewUser.getTypes() == 6
+						|| MyApplication.NewUser.getParent_id() == 0) {
+					startActivity(new Intent(getActivity(),
+							PosListActivity.class));
+				} else {
+					CommonUtil.toastShort(getActivity(),
+							R.string.right_not_match);
+				}
+
+			} else {
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			}
+
 			break;
 		case R.id.main_rl_renzhen: // 订单管理
 			if (Config.CheckIsLogin(getActivity())) {
-			startActivity(new Intent(getActivity(), OrderList.class));
+				startActivity(new Intent(getActivity(), OrderList.class));
 			}
 			break;
 		case R.id.main_rl_xtgg: // 售后记录
-			startActivity(new Intent(getActivity(), AfterSaleActivity.class));
+			if (!CheckRights.RIGHT_3)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(), AfterSaleActivity.class));
 			break;
-		case R.id.main_rl_wylc: //用户管理
-			startActivity(new Intent(getActivity(), UserManageListActivity.class));
+		case R.id.main_rl_wylc: // 用户管理
+			if (!CheckRights.RIGHT_6)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(),
+						UserManageListActivity.class));
 			break;
-		case R.id.main_rl_Forum: //库存管理
-			startActivity(new Intent(getActivity(), StockListActivity.class));
+		case R.id.main_rl_Forum: // 库存管理
+			if (!CheckRights.RIGHT_9)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(), StockListActivity.class));
 			break;
-		case R.id.main_rl_lxwm://开通认证
+		case R.id.main_rl_lxwm:// 开通认证
 			startActivity(new Intent(getActivity(), ApplyListActivity.class));
 			break;
 		case R.id.main_rl_zdgl: // 终端管理
-//			if (Config.CheckIsLogin(getActivity())) {
-			startActivity(new Intent(getActivity(),
-					TerminalManagerActivity.class));
-//			}
+			// if (Config.CheckIsLogin(getActivity())) {
+			if (!CheckRights.RIGHT_3)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(),
+						TerminalManagerActivity.class));
+			// }
 			break;
 		default:
 			break;
@@ -173,9 +206,8 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		main_rl_xtgg = (RelativeLayout) view.findViewById(R.id.main_rl_xtgg);
 		main_rl_xtgg.setOnClickListener(this);
 
-
-
 	}
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub

@@ -1,8 +1,12 @@
 package com.comdo.zf_agent_a_pad.activity;
+
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
 import com.comdo.zf_agent_a_pad.fragment.Mmy;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.example.zf_agent_a_pad.R;
 import android.content.Intent;
@@ -17,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private M_MianFragment f_sy;
 	private Mwdxx f_xx;
@@ -25,13 +30,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private RelativeLayout re_shopcar, re_myinfo, re_mine, re_sy;
 	private LinearLayout set;
 	private Mmy f_my;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Display display = getWindowManager().getDefaultDisplay();
-		Config.ScreenWidth=display.getWidth();
-		Config.ScreenHeight=display.getHeight();
+		Config.ScreenWidth = display.getWidth();
+		Config.ScreenHeight = display.getHeight();
 		f_sy = new M_MianFragment();
 
 		getSupportFragmentManager().beginTransaction()
@@ -59,8 +65,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		re_shopcar.setOnClickListener(this);
 		re_myinfo.setOnClickListener(this);
 		re_mine.setOnClickListener(this);
-
-		
 
 	}
 
@@ -91,22 +95,38 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		switch (view.getId()) {
 
 		case R.id.main_rl_sy:
-			Config.TABID=1;
+			Config.TABID = 1;
 			changTabBg();
 			im_sy.setBackgroundResource(R.drawable.home);
 			textsy.setTextColor(getResources().getColor(R.color.bgtitle));
-			 if (f_sy == null)
-			f_sy = new M_MianFragment();
+			if (f_sy == null)
+				f_sy = new M_MianFragment();
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.m_fragment, f_sy).commit();
 			break;
 		case R.id.main_rl_gwc:
-			Config.TABID=2;
-			Intent i=new Intent(MainActivity.this,PosListActivity.class);
-			startActivity(i);
+
+			if (CheckRights.RIGHT_1 || CheckRights.RIGHT_2) {
+
+				if (MyApplication.NewUser.getTypes() == 6
+						|| MyApplication.NewUser.getParent_id() == 0) {
+					Config.TABID = 2;
+					Intent i = new Intent(MainActivity.this,
+							PosListActivity.class);
+					startActivity(i);
+				} else {
+					CommonUtil.toastShort(MainActivity.this,
+							R.string.right_not_match);
+				}
+
+			} else {
+				CommonUtil.toastShort(MainActivity.this,
+						R.string.right_not_match);
+			}
+
 			break;
 		case R.id.main_rl_pos1:
-			Config.TABID=3;
+			Config.TABID = 3;
 			changTabBg();
 			im_mess.setBackgroundResource(R.drawable.message);
 			textmes.setTextColor(getResources().getColor(R.color.bgtitle));
@@ -117,14 +137,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		case R.id.main_rl_my:
 			Log.e("4", "4");
-			Config.TABID=4;
+			Config.TABID = 4;
 			changTabBg();
 			im_wd.setBackgroundResource(R.drawable.mine);
 			textwd.setTextColor(getResources().getColor(R.color.o));
-			if(f_my==null)
-				f_my=new Mmy();
+			if (f_my == null)
+				f_my = new Mmy();
 			getSupportFragmentManager().beginTransaction()
-			.replace(R.id.m_fragment, f_my).commit();
+					.replace(R.id.m_fragment, f_my).commit();
 			break;
 		case R.id.set:
 			showSet();
@@ -140,6 +160,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		set.showAtLocation(findViewById(R.id.main), Gravity.CENTER
 				| Gravity.CENTER, 0, 0);
 	}
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -149,13 +170,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			changTabBg();
 			im_sy.setBackgroundResource(R.drawable.home);
 			textsy.setTextColor(getResources().getColor(R.color.bgtitle));
-			 if (f_sy == null)
-			f_sy = new M_MianFragment();
+			if (f_sy == null)
+				f_sy = new M_MianFragment();
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.m_fragment, f_sy).commit();
 			break;
 		case 2:
-			
+
 			break;
 		case 3:
 			changTabBg();
@@ -170,11 +191,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			changTabBg();
 			im_wd.setBackgroundResource(R.drawable.mine);
 			textwd.setTextColor(getResources().getColor(R.color.o));
-			if(f_my==null)
-				f_my=new Mmy();
+			if (f_my == null)
+				f_my = new Mmy();
 			getSupportFragmentManager().beginTransaction()
-			.replace(R.id.m_fragment, f_my).commit();
-			
+					.replace(R.id.m_fragment, f_my).commit();
+
 			break;
 
 		default:
