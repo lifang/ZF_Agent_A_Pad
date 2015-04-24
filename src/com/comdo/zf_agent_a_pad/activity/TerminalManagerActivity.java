@@ -474,6 +474,7 @@ public class TerminalManagerActivity extends Activity implements
 							total = data.getTotal();
 							page++;
 							mAdapter.notifyDataSetChanged();
+							loadFinished();
 						}
 
 						@Override
@@ -499,6 +500,7 @@ public class TerminalManagerActivity extends Activity implements
 							total = data.getTotal();
 							page++;
 							mAdapter.notifyDataSetChanged();
+							loadFinished();
 						}
 
 						@Override

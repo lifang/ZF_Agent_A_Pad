@@ -68,9 +68,9 @@ public class TerminalApplyCreateActivity extends Activity implements
 		setContentView(R.layout.activity_terminal_apply_new_user);
 
 		username = (EditText) findViewById(R.id.username);
-		checkCode.addTextChangedListener(mTextWatcher);
 		setCode = (EditText) findViewById(R.id.phonenum);
 		checkCode = (EditText) findViewById(R.id.checkcode);
+		checkCode.addTextChangedListener(mTextWatcher);
 		pwd = (EditText) findViewById(R.id.pwd);
 		confirmpwd = (EditText) findViewById(R.id.confirmpwd);
 		confirmpwd.addTextChangedListener(mTextWatcher);
