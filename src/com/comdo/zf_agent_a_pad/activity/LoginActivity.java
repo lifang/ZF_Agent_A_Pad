@@ -162,9 +162,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 					""));
 			login_edit_name.setText(mySharedPreferences.getString("username",
 					""));
-			if (check()) {
-				login();
-			}
+			///if (check()) {
+			//	login();
+			//}
 		} else {
 			login_edit_name.setText(mySharedPreferences.getString("username",
 					""));

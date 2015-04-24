@@ -162,8 +162,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
 		switch (Config.TABID) {
 		case 1:
 			changTabBg();
@@ -200,5 +201,45 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		switch (Config.TABID) {/*
+		case 1:
+			changTabBg();
+			im_sy.setBackgroundResource(R.drawable.home);
+			textsy.setTextColor(getResources().getColor(R.color.bgtitle));
+			 if (f_sy == null)
+			f_sy = new M_MianFragment();
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.m_fragment, f_sy).commit();
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			changTabBg();
+			im_mess.setBackgroundResource(R.drawable.message);
+			textmes.setTextColor(getResources().getColor(R.color.bgtitle));
+			if (f_xx == null)
+				f_xx = new Mwdxx();
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.m_fragment, f_xx).commit();
+			break;
+		case 4:
+			changTabBg();
+			im_wd.setBackgroundResource(R.drawable.mine);
+			textwd.setTextColor(getResources().getColor(R.color.o));
+			if(f_my==null)
+				f_my=new Mmy();
+			getSupportFragmentManager().beginTransaction()
+			.replace(R.id.m_fragment, f_my).commit();
+			
+			break;
+
+		default:
+			break;
+		*/}
 	}
 }

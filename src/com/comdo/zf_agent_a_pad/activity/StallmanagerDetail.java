@@ -34,12 +34,13 @@ protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.staffdetail);
 	init();
-	getData();
+	
 }
 @Override
 protected void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
+	getData();
 	myHandler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {

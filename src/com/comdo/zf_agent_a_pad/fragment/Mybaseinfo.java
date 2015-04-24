@@ -7,6 +7,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
@@ -22,6 +23,7 @@ import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -204,9 +206,10 @@ public void onClick(View v) {
     	imgPath[2]=shuiwu;
     	openimg(tag);
 	    break;
-   /* case R.id.btn_exit:
+    case R.id.btn_exit:
+    	startActivity(new Intent(getActivity(),LoginActivity.class));
     	getActivity().finish();
-    	break;*/
+    	break;
 	default:
 		break;
 	}

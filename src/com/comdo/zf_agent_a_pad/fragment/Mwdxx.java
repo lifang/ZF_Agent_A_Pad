@@ -45,7 +45,7 @@ public class Mwdxx extends Fragment implements IXListViewListener,OnClickListene
 	private List<MessageEntity> datamsg ;
 	List<MessageEntity> moreList = new ArrayList<MessageEntity>();
 	private XListView xlistview;
-	private int rows = Config.ROWS;
+	private int rows = 2;
 	private int page=1;
 	public static Handler myHandler;
 	private boolean isrefersh=false;
@@ -79,6 +79,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
     	Log.e("container", String.valueOf(container));
         view = inflater.inflate(R.layout.mwdxx, container, false);
         initview();
+       
         
     } catch (InflateException e) {
         
@@ -89,10 +90,26 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
-	if(datamsg.size()!=0){
-		datamsg.clear();
-	}
-	getData();
+	
+	
+}
+@Override
+public void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+	 if(datamsg.size()!=0){
+ 		datamsg.clear();
+ 	}
+	 if(page!=1){
+		 isrefersh=true;
+			a=page;
+			rows=a*rows;
+			page=1;
+			datamsg.clear();
+	 }
+ 	getData();
+	
+	
 	myHandler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -132,16 +149,16 @@ protected void onLoad() {
 	
 }
 private void getData() {
-	
 	Config.getMsgList(getActivity(), agentUserId, page, rows, new HttpCallback<Page<MessageEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(Page<MessageEntity> data) {
 			if(isrefersh){
 				page=a;
-				rows=Config.ROWS;
+				rows=2;
 				isrefersh=false;
 			}
+			
 			if(datamsg.size()!=0&&data.getList().size()==0){
 				Toast.makeText(getActivity(), "没有更多数据!", 1000).show();
 			}
@@ -173,6 +190,7 @@ private void initview() {
 	xlistview.setDivider(null);
 	bt_del.setOnClickListener(this);
 	bt_bj.setOnClickListener(this);
+	
 }
 @Override
 public void onRefresh() {
@@ -209,6 +227,9 @@ public void onClick(View v) {
 		delectMore();
 		break;
 	case R.id.bt_bj:
+		if(datamsg.size()!=0){
+			datamsg.clear();
+		}
 		isRead();
 		break;
 	default:
@@ -225,7 +246,7 @@ private void isRead() {
 	}*/
 	for(int i=0;i<datamsg.size();i++){
 		if(datamsg.get(i).isStatus()){
-			ids[size]=String.valueOf(datamsg.get(i).getId());
+			ids[i]=String.valueOf(datamsg.get(i).getId());
 			size++;
 		}
 	}
@@ -234,7 +255,6 @@ private void isRead() {
 		@Override
 		public void onSuccess(Object data) {
 			CommonUtil.toastShort(getActivity(), "标注成功");
-			
 			//size=0;
 			if(datamsg.size()!=0){
 				datamsg.clear();
@@ -259,6 +279,8 @@ private void delectMore() {
 		if(datamsg.get(i).isStatus()){
 			ids[size]=String.valueOf(datamsg.get(i).getId());
 			size++;
+			Log.e("i", i+"");
+			Log.e("size", size+"");
 		}
 	}
 	Config.DelectMoreMsg(getActivity(), ids,agentUserId, new HttpCallback(getActivity()) {
