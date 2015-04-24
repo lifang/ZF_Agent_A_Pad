@@ -91,10 +91,10 @@ public class TerminalApplyBindActivity extends Activity implements
 
 		spinner = (Spinner) findViewById(R.id.spinner);
 
+
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, listString);
-		// adapter.setDropDownViewResource(R.layout.drop_down_item);
-		spinner.setAdapter(adapter);
+		adapter.setDropDownViewResource(R.layout.drop_down_item);
 
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -128,7 +128,7 @@ public class TerminalApplyBindActivity extends Activity implements
 
 			switch (msg.what) {
 			case 1:
-
+				spinner.setAdapter(adapter);
 				adapter.notifyDataSetChanged();
 
 				break;

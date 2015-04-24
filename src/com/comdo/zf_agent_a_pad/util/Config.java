@@ -1131,10 +1131,11 @@ public class Config {
 		new HttpRequest(context, callback).post(TERMINAL_SUBMIT, params);
 	}
 
-	public static void batchTerminalNum(Context context, String[] serialNum,
+	public static void batchTerminalNum(Context context, String[] serialNum, int agentId,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("serialNum", serialNum);
+		params.put("agentId", agentId);
 		new HttpRequest(context, callback).post(TERMINAL_BATCH_TERMINALNUM,
 				params);
 	}
