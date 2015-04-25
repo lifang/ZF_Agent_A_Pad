@@ -1139,17 +1139,18 @@ containing a value of this type.
         public static final int view_y1=0x7f0b006a;
         public static final int view_y2=0x7f0b006b;
         public static final int wayName=0x7f0b0198;
+        public static final int webview=0x7f0b0292;
         public static final int wkxx=0x7f0b01c5;
         public static final int x_listview=0x7f0b00c9;
-        public static final int xlistview_footer_content=0x7f0b0292;
-        public static final int xlistview_footer_hint_textview=0x7f0b0294;
-        public static final int xlistview_footer_progressbar=0x7f0b0293;
-        public static final int xlistview_header_arrow=0x7f0b0299;
-        public static final int xlistview_header_content=0x7f0b0295;
-        public static final int xlistview_header_hint_textview=0x7f0b0297;
-        public static final int xlistview_header_progressbar=0x7f0b029a;
-        public static final int xlistview_header_text=0x7f0b0296;
-        public static final int xlistview_header_time=0x7f0b0298;
+        public static final int xlistview_footer_content=0x7f0b0293;
+        public static final int xlistview_footer_hint_textview=0x7f0b0295;
+        public static final int xlistview_footer_progressbar=0x7f0b0294;
+        public static final int xlistview_header_arrow=0x7f0b029a;
+        public static final int xlistview_header_content=0x7f0b0296;
+        public static final int xlistview_header_hint_textview=0x7f0b0298;
+        public static final int xlistview_header_progressbar=0x7f0b029b;
+        public static final int xlistview_header_text=0x7f0b0297;
+        public static final int xlistview_header_time=0x7f0b0299;
         public static final int ys=0x7f0b01cf;
         public static final int ys2=0x7f0b0236;
         public static final int ys3=0x7f0b023c;
@@ -1306,8 +1307,9 @@ containing a value of this type.
         public static final int transgoodsdetail=0x7f03008d;
         public static final int video_frame=0x7f03008e;
         public static final int video_session=0x7f03008f;
-        public static final int xlistview_footer=0x7f030090;
-        public static final int xlistview_header=0x7f030091;
+        public static final int webview=0x7f030090;
+        public static final int xlistview_footer=0x7f030091;
+        public static final int xlistview_header=0x7f030092;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
