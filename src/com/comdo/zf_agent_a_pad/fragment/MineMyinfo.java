@@ -2,14 +2,19 @@ package com.comdo.zf_agent_a_pad.fragment;
 import com.example.zf_agent_a_pad.R;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MineMyinfo extends Fragment implements OnClickListener{
@@ -20,6 +25,7 @@ public class MineMyinfo extends Fragment implements OnClickListener{
 	 private Mine_adress m_adress;
 	 private Mybaseinfo m_baseinfo;
 	 private int type=0;
+	 public static Handler myHandler;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -50,6 +56,12 @@ return view;
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
+	
+}
+@Override
+public void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
 	switch (type) {
 	case 1:
 		tv_jichuinfo.setBackgroundResource(R.drawable.tab_bg);
@@ -96,8 +108,8 @@ public void onClick(View v) {
 	case R.id.tv_safe:
 		type=2;
 		tv_safe.setBackgroundResource(R.drawable.tab_bg);
-		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
-		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_jichuinfo.setBackgroundResource(0);
+		tv_manageradress.setBackgroundResource(0);
 		if(m_chpaw==null)
 			m_chpaw=new Mchpaw();
 		getActivity().getSupportFragmentManager().beginTransaction()
@@ -105,19 +117,22 @@ public void onClick(View v) {
 		break;
 	case R.id.tv_manageradress:
 		type=3;
-		tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
-		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_safe.setBackgroundResource(0);
+		tv_jichuinfo.setBackgroundResource(0);
 		tv_manageradress.setBackgroundResource(R.drawable.tab_bg);
 		if(m_adress==null)
 			m_adress=new Mine_adress();
-		getActivity().getSupportFragmentManager().beginTransaction()
-		.replace(R.id.fm, m_adress).commit();
+		getActivity().
+		getSupportFragmentManager().
+		beginTransaction()
+		.replace(R.id.fm, m_adress).
+		commit();
 		break;
 	case R.id.tv_jichuinfo:
 		type=1;
 		tv_jichuinfo.setBackgroundResource(R.drawable.tab_bg);
-		tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
-		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_safe.setBackgroundResource(0);
+		tv_manageradress.setBackgroundResource(0);
 		if(m_baseinfo==null)
 			m_baseinfo=new Mybaseinfo();
 		getActivity().getSupportFragmentManager().beginTransaction()
@@ -127,5 +142,22 @@ public void onClick(View v) {
 		break;
 	}
 	
+}
+@Override
+public void onDestroyView() {
+	try {
+		mRecordType=0;
+		FragmentTransaction transaction = getActivity()
+				.getSupportFragmentManager().beginTransaction();
+	if (m_baseinfo != null)
+		transaction.remove(m_baseinfo);
+	if (m_chpaw != null)
+		transaction.remove(m_chpaw);
+	if (m_adress != null)
+		transaction.remove(m_adress);
+	transaction.commit();
+	} catch (Exception e) {
+	}
+	super.onDestroyView();
 }
 }

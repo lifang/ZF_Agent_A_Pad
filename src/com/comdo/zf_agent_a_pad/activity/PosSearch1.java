@@ -112,7 +112,7 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 			public void onClick(View arg0) {
 				DeletaData();
 				data.clear();
-				poiStr="";
+				poiStr = "";
 			}
 		});
 		init();
@@ -122,23 +122,24 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 		gr_hot.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				Intent i=new Intent(PosSearch1.this,GoodDeatail.class);
-				i.putExtra("id", Integer.parseInt(hotlist.get(position).getId()));
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				Intent i = new Intent(PosSearch1.this, GoodDeatail.class);
+				i.putExtra("id",
+						Integer.parseInt(hotlist.get(position).getId()));
 				startActivity(i);
-				
+
 			}
 		});
 		getData();
 	}
 
 	private void init() {
-		if (poiStr == "" || poiStr == null) {	
+		if (poiStr == "" || poiStr == null) {
 
 		} else {
 			System.out.println("加载历史记录··4··");
- 
+
 			if (poiStr.contains(",")) {
 				String[] serach = poiStr.split(",");
 				for (int i = (serach.length - 1); i >= 0; i--) {
@@ -146,11 +147,10 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 					data.add(serach[i]);
 					a++;
 				}
-				
 
 			} else {
 				data.add(poiStr);
-		
+
 			}
 			searchAdapter.notifyDataSetChanged();
 			gr_search.setOnItemClickListener(new OnItemClickListener() {
@@ -162,25 +162,25 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 					if (data.get(arg2).endsWith("没有搜索记录")) {
 
 						// Toast.makeText(EditTextSearch.this, "请在输入框输入正确条件",
- 
-					} else if(data.get(arg2).endsWith("清除搜索记录")){
-						 DeletaData();
+
+					} else if (data.get(arg2).endsWith("清除搜索记录")) {
+						DeletaData();
 					} else {
 						// 判断历史记录是否 需要添加
 						CName = data.get(arg2);
 						et.setText(CName);
 						getData(data.get(arg2));
- 
+
 					}
-					
+
 				}
 			});
 		}
 
-
 	}
+
 	private void getData() {
-	
+
 		MyApplication.getInstance().getClient()
 				.post(Config.POSTHOT, new AsyncHttpResponseHandler() {
 
@@ -203,20 +203,22 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 							if (code == -2) {
 
 							} else if (code == 1) {
-								
-								hotlist=gson.fromJson(
+
+								hotlist = gson.fromJson(
 										jsonobject.getString("result"),
 										new TypeToken<List<HotEntity>>() {
 										}.getType());
-								for(HotEntity hot:hotlist){
+								for (HotEntity hot : hotlist) {
 									mhot.add(hot.getTitle());
 								}
 								hotAdapter.notifyDataSetChanged();
-								//handler.sendEmptyMessage(0);
+								// handler.sendEmptyMessage(0);
 							} else {
-								/*Toast.makeText(DoctorActivity.this,
-										jsonobject.getString("message"),
-										Toast.LENGTH_SHORT).show();*/
+								/*
+								 * Toast.makeText(DoctorActivity.this,
+								 * jsonobject.getString("message"),
+								 * Toast.LENGTH_SHORT).show();
+								 */
 							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -234,6 +236,7 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 				});
 
 	}
+
 	// add
 	public void addData(String name) {
 		String[] serach = poiStr.split(",");
@@ -242,15 +245,15 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 			data.add(serach[i]);
 			a++;
 		}
-		for(int i=0;i<data.size();i++){
-			if(data.get(i).equals(name)){
+		for (int i = 0; i < data.size(); i++) {
+			if (data.get(i).equals(name)) {
 				data.remove(i);
-				//data.add(name);
+				// data.add(name);
 			}
 		}
 		data.add(name);
-		poiStr="";
-		for(String str:data){
+		poiStr = "";
+		for (String str : data) {
 			if (poiStr != null && !poiStr.equals("")) {
 				poiStr += "," + str;
 			} else {
@@ -259,15 +262,11 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 			editor.putString("poiStr", poiStr);
 			editor.commit();
 		}
-/*		if (!poiStr.contains(name)) {
-			if (poiStr != null && !poiStr.equals("")) {
-				poiStr += "," + name;
-			} else {
-				poiStr += name;
-			}
-			editor.putString("poiStr", poiStr);
-			editor.commit();
-		}*/
+		/*
+		 * if (!poiStr.contains(name)) { if (poiStr != null &&
+		 * !poiStr.equals("")) { poiStr += "," + name; } else { poiStr += name;
+		 * } editor.putString("poiStr", poiStr); editor.commit(); }
+		 */
 	}
 
 	// 删除记录
@@ -286,15 +285,8 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		name = et.getText().toString();
-		System.out.println(" content111" + name);
-		if (actionId == EditorInfo.IME_ACTION_DONE) {
-			System.out.println(" content221" + name);
-		}
-		// addData(name);
-		System.out.println("---" + actionId);
-		switch (actionId) {
-		case 0:
+
+		if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 			name = et.getText().toString();
 			System.out.println(" content" + name);
 			addData(name);
@@ -304,10 +296,8 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 			PosSearch1.this.setResult(2, intent2);
 			finish();
 
-			return true;
-
+			return false;
 		}
-
 		return false;
 
 	}

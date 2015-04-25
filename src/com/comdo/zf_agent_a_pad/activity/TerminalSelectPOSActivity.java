@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.entity.Pos;
 import com.comdo.zf_agent_a_pad.entity.SelectPOS;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChooseItem;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -31,17 +32,17 @@ public class TerminalSelectPOSActivity extends ListActivity {
 		setContentView(R.layout.activity_simple_list);
 
 		String title = getIntent().getStringExtra(CHOOSE_TITLE);
-		List<SelectPOS> posItems = (List<SelectPOS>) getIntent()
+		List<Pos> posItems = (List<Pos>) getIntent()
 				.getSerializableExtra(CHOOSE_ITEMS);
 		int selectedId = getIntent().getIntExtra(SELECTED_ID, 0);
 
 		new TitleMenuUtil(this, title).show();
 
 		final List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
-		for (SelectPOS selectPOS : posItems) {
+		for (Pos selectPOS : posItems) {
 			Map<String, Object> item = new HashMap<String, Object>();
 			item.put("id", selectPOS.getId());
-			item.put("name", selectPOS.getTitle());
+			item.put("name", selectPOS.getGoodname());
 			item.put("selected",
 					selectPOS.getId() == selectedId ? R.drawable.icon_selected
 							: null);

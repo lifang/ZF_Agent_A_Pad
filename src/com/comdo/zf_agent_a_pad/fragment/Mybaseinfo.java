@@ -7,6 +7,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
@@ -22,10 +23,12 @@ import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,18 +59,21 @@ public void onCreate(Bundle savedInstanceState) {
 }
 @Override
 	public View onCreateView(LayoutInflater inflater,
-			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+			 ViewGroup container,  Bundle savedInstanceState) {
 	
 	//view = inflater.inflate(R.layout.f_main,container,false);
 	
 
 
 if (view != null) {
+	Log.e("1", "1");
     ViewGroup parent = (ViewGroup) view.getParent();
     if (parent != null)
+    	Log.e("2", "2");
         parent.removeView(view);
 }
 try {
+	Log.e("3", "3");
     view = inflater.inflate(R.layout.baseinfo, container, false);
     init();
     getData();
@@ -201,6 +207,7 @@ public void onClick(View v) {
     	openimg(tag);
 	    break;
     case R.id.btn_exit:
+    	startActivity(new Intent(getActivity(),LoginActivity.class));
     	getActivity().finish();
     	break;
 	default:

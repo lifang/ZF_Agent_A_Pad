@@ -432,7 +432,6 @@
        android:id="@+id/et_login_id"
     android:layout_width="240dp"
     android:layout_height="30dp"
-    android:text="动感科技"
     android:background="@drawable/sc_edit"
     android:layout_marginLeft="10dp"/>
    

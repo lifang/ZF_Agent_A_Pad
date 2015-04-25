@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -279,14 +280,17 @@ public class GenerateSearch extends Activity implements OnClickListener,
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
 		name = searchEditText.getText().toString();
-
-		addData(name);
-		Intent intent = new Intent();
-		intent.putExtra(SELECTED_TERMINAL, name);
-		GenerateSearch.this.setResult(RESULT_OK, intent);
-		finish();
-
-		return true;
+		 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+			 addData(name);
+				Intent intent = new Intent();
+				intent.putExtra(SELECTED_TERMINAL, name);
+				GenerateSearch.this.setResult(RESULT_OK, intent);
+				finish();
+	      
+	      return false;
+	  }
+	  return false;
+		
 
 	}
 }

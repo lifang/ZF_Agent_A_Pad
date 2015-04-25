@@ -16,6 +16,10 @@ public class AgentDetailEntity {
 	private String licensepath;
 	private String taxpath;
     private String loginId;
+    private String created_at;
+    private String soldnum;
+    private String opennum;
+    private String allQty;
 	public String getTypes() {
 		return types;
 	}
@@ -106,6 +110,30 @@ public class AgentDetailEntity {
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
+	public String getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+	public String getSoldnum() {
+		return soldnum;
+	}
+	public void setSoldnum(String soldnum) {
+		this.soldnum = soldnum;
+	}
+	public String getOpennum() {
+		return opennum;
+	}
+	public void setOpennum(String opennum) {
+		this.opennum = opennum;
+	}
+	public String getAllQty() {
+		return allQty;
+	}
+	public void setAllQty(String allQty) {
+		this.allQty = allQty;
+	}
 	@Override
 	public String toString() {
 		return "AgentDetailEntity [types=" + types + ", is_have_profit="
@@ -115,8 +143,9 @@ public class AgentDetailEntity {
 				+ ", card_id=" + card_id + ", phone=" + phone + ", email="
 				+ email + ", cityId=" + cityId + ", address=" + address
 				+ ", cardpath=" + cardpath + ", licensepath=" + licensepath
-				+ ", taxpath=" + taxpath + ", loginId=" + loginId + "]";
+				+ ", taxpath=" + taxpath + ", loginId=" + loginId
+				+ ", created_at=" + created_at + ", soldnum=" + soldnum
+				+ ", opennum=" + opennum + ", allQty=" + allQty + "]";
 	}
 	
-   
 }

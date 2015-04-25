@@ -129,11 +129,6 @@
                         android:layout_weight="1"
                         android:background="#c9c9c9" >
 
-                        <View
-                            style="@style/Divider"
-                            android:layout_marginBottom="6dp"
-                            android:layout_marginTop="6dp"
-                            android:background="@color/bgtitle" />
                     </TableLayout>
                 </LinearLayout>
             </LinearLayout>

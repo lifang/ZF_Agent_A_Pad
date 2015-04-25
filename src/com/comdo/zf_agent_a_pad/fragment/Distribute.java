@@ -19,6 +19,7 @@ import com.comdo.zf_agent_a_pad.entity.DistributeEntity;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -32,6 +33,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +75,10 @@ public class Distribute extends Fragment implements OnClickListener,IXListViewLi
 	 public static final int REQUEST_SELECT_CLIENT = 1000;
 	 private int paychannelId,goodId;
 	 private String[] serialNums=new String[]{};
+	 private int agentId=MyApplication.NewUser.getAgentId();
+	 private int id=MyApplication.NewUser.getId();
+	 private AlertDialog dialog;
+	 private Button close;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -105,52 +111,38 @@ public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
 	
-	myHandler=new Handler(){
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case 0:
-				Intent intent=new Intent(getActivity(),DistributeDetail.class);
-				intent.putExtra("id", datadistribut.get(DistributeAdapter.pp).getId());
-				startActivity(intent);
-				break;
-			case 1:
-				sonAgentId=new int[datt.size()];
-				for(int i=0;i<datt.size();i++){
-					list.add(datt.get(i).getCompany_name());
-					sonAgentId[i]=datt.get(i).getId();
-				}
-				mySpinner = (Spinner)view.findViewById(R.id.mySpinner);
-			    adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, list);
-			    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
-			    mySpinner.setAdapter(adapter); 
-			    mySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-
-					@Override
-					public void onItemSelected(AdapterView<?> parent, View view, int position,
-							long id) {
-						//tv_agent.setText(adapter.getItem(position));
-						mySpinner.setSelection(position);
-						cc=position;
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> parent) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-				});  
-				break;
-			case 2:
-				onLoad();
-				xxlistview.setAdapter(distributeAdapter);
-				break;
-			default:
-				break;
-			}
-		};
-	};
 	
+	
+}
+@Override
+public void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+    Log.e("data", String.valueOf(datadistribut));
+	if(datadistribut.size()!=0){
+		
+	}
+	if(DistributeDetail.isDri){
+		isrefersh=true;
+		a=page;
+		rows=a*rows;
+		page=1;
+		datadistribut.clear();
+		quary();
+	}
+	
+	//xxlistview.setAdapter(distributeAdapter);
+	/*if(datadistribut.size()!=0){
+		datadistribut.clear();
+ 	}
+	 if(page!=1){
+		 isrefersh=true;
+			a=page;
+			rows=a*rows;
+			page=1;
+			datadistribut.clear();
+	 }
+	quary();*/
 }
 protected void onLoad() {
 	xxlistview.stopRefresh();
@@ -160,7 +152,7 @@ protected void onLoad() {
 	
 }
 private void getAgentList() {
-	Config.getlowerAgentList(getActivity(), 1, new HttpCallback<List<AgentEntity>>(getActivity()) {
+	Config.getlowerAgentList(getActivity(), agentId, new HttpCallback<List<AgentEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(List<AgentEntity> data) {
@@ -216,6 +208,51 @@ private void init() {
 		}
 		
 	});  */
+	myHandler=new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				Intent intent=new Intent(getActivity(),DistributeDetail.class);
+				intent.putExtra("id", datadistribut.get(DistributeAdapter.pp).getId());
+				startActivity(intent);
+				break;
+			case 1:
+				sonAgentId=new int[datt.size()];
+				for(int i=0;i<datt.size();i++){
+					list.add(datt.get(i).getCompany_name());
+					sonAgentId[i]=datt.get(i).getId();
+				}
+				mySpinner = (Spinner)view.findViewById(R.id.mySpinner);
+			    adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, list);
+			    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
+			    mySpinner.setAdapter(adapter); 
+			    mySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int position,
+							long id) {
+						//tv_agent.setText(adapter.getItem(position));
+						mySpinner.setSelection(position);
+						cc=position;
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});  
+				break;
+			case 2:
+				onLoad();
+				xxlistview.setAdapter(distributeAdapter);
+				break;
+			default:
+				break;
+			}
+		};
+	};
 }
 @Override
  public void onActivityResult( int requestCode, int resultCode,  Intent data) {
@@ -278,8 +315,15 @@ public void onClick(View v) {
 		startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 		break;
 	case R.id.btn_confirm:
+		dialog.dismiss();
+		if(tv_choose_terminal.getText().toString().equals("")){
+			return;
+		}
 		distribute();
 		
+		break;
+	case R.id.close:
+		dialog.dismiss();
 		break;
 	default:
 		break;
@@ -290,7 +334,7 @@ private void distribute() {
 	serialNums=mTerminalArray.split(",");
 	Config.distributeGoods(getActivity(), 
 			sonAgentId[cc], 
-			1, 
+			id, 
 			paychannelId, 
 			goodId, 
 			serialNums, 
@@ -310,9 +354,17 @@ private void distribute() {
 	
 }
 private void quary() {
-	Config.getDistributeList(getActivity(), 1, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<DistributeEntity>>(getActivity()) {
+	Config.getDistributeList(getActivity(),
+			agentId, 
+			sonAgentId[cc], 
+			left_time, 
+			right_time, 
+			page, 
+			rows, 
+			new HttpCallback<Page<DistributeEntity>>(getActivity()) {
 		@Override
 		public void onSuccess(Page<DistributeEntity> data) {
+			DistributeDetail.isDri=false;
 			if(isrefersh){
 				page=a;
 				rows=Config.ROWS;
@@ -341,35 +393,39 @@ private void quary() {
 }
 private void opendialog() {
 	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	LayoutInflater factory = LayoutInflater.from(getActivity());
-	final View textEntryView = factory.inflate(R.layout.distributdialog, null);
-	// builder.setTitle("自定义输入框");
-     builder.setView(textEntryView);
-     builder.create().show();
-     my_diaSpinner=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent);
-     tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
-     btn_confirm=(Button) textEntryView.findViewById(R.id.btn_confirm);
-     tv_choose_terminal.setOnClickListener(this);
-     btn_confirm.setOnClickListener(this);
-	 my_diaSpinner.setAdapter(adapter); 
-	 my_diaSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+LayoutInflater factory = LayoutInflater.from(getActivity());
+final View textEntryView = factory.inflate(R.layout.distributdialog, null);
+// builder.setTitle("自定义输入框");
+ builder.setView(textEntryView);
+ //builder.create().show();
+ my_diaSpinner=(Spinner) textEntryView.findViewById(R.id.sp_chooseagent);
+ tv_choose_terminal=(TextView) textEntryView.findViewById(R.id.tv_choose_terminal);
+ btn_confirm=(Button) textEntryView.findViewById(R.id.btn_confirm);
+ close=(Button) textEntryView.findViewById(R.id.close);
+ close.setOnClickListener(this);
+ tv_choose_terminal.setOnClickListener(this);
+ btn_confirm.setOnClickListener(this);
+ my_diaSpinner.setAdapter(adapter); 
+ my_diaSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position,
-					long id) {
-				//tv_agent.setText(adapter.getItem(position));
-				my_diaSpinner.setSelection(position);
-				//cc=position;
-			}
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position,
+				long id) {
+			//tv_agent.setText(adapter.getItem(position));
+			my_diaSpinner.setSelection(position);
+			//cc=position;
+		}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+			// TODO Auto-generated method stub
 			
-		});  
-}
+		}
+		
+	});  
+ dialog=builder.create();
+ dialog.show();
+ }
 @Override
 public void onRefresh() {
 	if(!Tools.isConnect(getActivity())){

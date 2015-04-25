@@ -25,7 +25,7 @@ public class Good_detail_apply extends Fragment implements OnClickListener{
 	List<ApplyneedEntity>  singleList = new ArrayList<ApplyneedEntity>();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+	
 		super.onCreate(savedInstanceState);
 	}
 	@Override

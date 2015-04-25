@@ -11,11 +11,12 @@
 
         <ExpandableListView
             android:id="@+id/list"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:paddingLeft="@dimen/titilepad"
-             android:gravity="center"
+           android:layout_centerInParent="true"
              android:background="#E6E9ED"
+             
             android:paddingRight="@dimen/titilepad" >
         </ExpandableListView>
 
@@ -33,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:layout_centerVertical="true" >
 
                 <CheckBox
@@ -109,13 +111,13 @@
                     android:layout_marginRight="24dp"
                     android:background="@drawable/shape_o"
                     android:text="取消"
-                    android:textColor="#F59652" />
+                    android:textColor="@color/bgtitle" />
 
                 <Button
                     android:id="@+id/bt_confirm"
                     android:layout_width="118dp"
                     android:layout_height="40dp"
-                    android:background="#FD6A00"
+                    android:background="@color/bgtitle"
                     android:text="确认"
                     android:textColor="#ffffff" />
             </LinearLayout>

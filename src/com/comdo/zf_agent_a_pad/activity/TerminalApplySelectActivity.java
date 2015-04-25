@@ -67,7 +67,7 @@ public class TerminalApplySelectActivity extends Activity implements
 	private String zdhString;
 	private ImageView search;
 	private CheckBox checkboxAll;
-	private LinearLayout channelselect, posselect,searchLinear;
+	private LinearLayout channelselect, posselect, searchLinear;
 	private TextView terminalNum;
 	private Button terminal_commit, terminal_comfirm;
 	private LayoutInflater mInflater;
@@ -80,6 +80,7 @@ public class TerminalApplySelectActivity extends Activity implements
 	public static final int REQUEST_CHOOSE_POS = 1000;
 
 	private static final int REQUEST_SEARCH = 1001;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,7 +112,7 @@ public class TerminalApplySelectActivity extends Activity implements
 		lower.addTextChangedListener(mTextWatcher);
 		higher.addTextChangedListener(mTextWatcher);
 		terminalNum = (TextView) findViewById(R.id.terminalNum);
-		searchLinear=(LinearLayout) findViewById(R.id.searchLinear);
+		searchLinear = (LinearLayout) findViewById(R.id.searchLinear);
 		searchLinear.setOnClickListener(this);
 		search = (ImageView) findViewById(R.id.search);
 		search.setOnClickListener(this);
@@ -261,6 +262,7 @@ public class TerminalApplySelectActivity extends Activity implements
 				str = zdhString.split("\n");
 
 				Config.batchTerminalNum(TerminalApplySelectActivity.this, str,
+						MyApplication.NewUser.getAgentId(),
 						new HttpCallback<List<TerminalPriceEntity>>(this) {
 							@Override
 							public void onSuccess(List<TerminalPriceEntity> data) {
@@ -293,7 +295,8 @@ public class TerminalApplySelectActivity extends Activity implements
 			} else {
 
 				Config.screeningTerminalNum(TerminalApplySelectActivity.this,
-						posName, mChannelId, minPrice, maxPrice, MyApplication.NewUser.getAgentId(),
+						posName, mChannelId, minPrice, maxPrice,
+						MyApplication.NewUser.getAgentId(),
 						new HttpCallback<List<TerminalPriceEntity>>(this) {
 							@Override
 							public void onSuccess(List<TerminalPriceEntity> data) {
@@ -317,7 +320,8 @@ public class TerminalApplySelectActivity extends Activity implements
 			break;
 		case R.id.posselect:
 
-			Config.selectPOS(TerminalApplySelectActivity.this, MyApplication.NewUser.getAgentUserId(),
+			Config.selectPOS(TerminalApplySelectActivity.this,
+					MyApplication.NewUser.getAgentUserId(),
 					new HttpCallback<List<SelectPOS>>(
 							TerminalApplySelectActivity.this) {
 						@Override
@@ -360,7 +364,8 @@ public class TerminalApplySelectActivity extends Activity implements
 
 		case R.id.search:
 		case R.id.searchLinear:
-			Intent iIntent = new Intent(TerminalApplySelectActivity.this, GenerateSearch.class);
+			Intent iIntent = new Intent(TerminalApplySelectActivity.this,
+					GenerateSearch.class);
 			iIntent.putExtra(TERMINAL_TYPE, 3);
 			iIntent.putExtra(TERMINAL_STATUS, -1);
 			startActivityForResult(iIntent, REQUEST_SEARCH);

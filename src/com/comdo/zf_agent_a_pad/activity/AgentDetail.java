@@ -3,7 +3,6 @@ package com.comdo.zf_agent_a_pad.activity;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.entity.AddressManager;
 import com.comdo.zf_agent_a_pad.entity.AgentDetailEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
@@ -24,9 +23,9 @@ import android.widget.TextView;
 
 public class AgentDetail extends BaseActivity implements OnClickListener{
 	private int sonAgentsId;
-	private EditText tv_company_type,tv_company_name,tv_yingyezhizhao,
+	private TextView tv_company_type,tv_company_name,tv_yingyezhizhao,
 	tv_company_shuiwudengji,tv_fuzeren_name,tv_fuzeren_no,
-	tv_phone,tv_email,tv_adress,tv_adressdetail;
+	tv_phone,tv_email,tv_adress,tv_adressdetail,tv_jointime,tv_has_amount,tv_left_amount,tv_terminal_amount;
 	private TextView tv_id_detail;
 	private String isprofit;
 	private String cardPath,licensePath,taxPath;
@@ -52,7 +51,7 @@ protected void onCreate(Bundle savedInstanceState) {
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 				case 0:
-					if(isprofit.equals("2")){
+					if(isprofit.equals("1")){
 						iv_fenrun.setBackgroundResource(R.drawable.agent_on);
 					}
 					else{
@@ -109,7 +108,15 @@ private void getData() {
 
 		@Override
 		public void onSuccess(AgentDetailEntity data) {
-			tv_company_type.setText(data.getTypes());
+			if(data.getTypes().equals("1")){
+				tv_company_type.setText("公司");
+			}
+			else if(data.getTypes().equals("2")){
+				tv_company_type.setText("个人");
+			}
+			else{
+				tv_company_type.setText(data.getTypes());
+			}
 			isprofit=data.getIs_have_profit();
 			tv_company_name.setText(data.getCompany_name());
 			tv_yingyezhizhao.setText(data.getBusiness_license());
@@ -124,6 +131,10 @@ private void getData() {
 			licensePath=data.getLicensepath();
 			taxPath=data.getTaxpath();
 			tv_id_detail.setText(data.getLoginId());
+			tv_jointime.setText(data.getCreated_at());
+			tv_has_amount.setText(data.getSoldnum());
+			tv_left_amount.setText(Integer.parseInt(data.getAllQty())-Integer.parseInt(data.getSoldnum())+"");
+			tv_terminal_amount.setText(data.getAllQty());
 			myHandler.sendEmptyMessage(0);
 		}
 @Override
@@ -145,17 +156,21 @@ public void onFailure(String message) {
 private void init() {
 	Intent intent=getIntent();
 	sonAgentsId=intent.getIntExtra("id", 0);
-	tv_company_type=(EditText) findViewById(R.id.tv_company_type);
-	tv_company_name=(EditText) findViewById(R.id.tv_company_name);
-	tv_yingyezhizhao=(EditText) findViewById(R.id.tv_yingyezhizhao);
-	tv_company_shuiwudengji=(EditText) findViewById(R.id.tv_company_shuiwudengji);
-	tv_fuzeren_name=(EditText) findViewById(R.id.tv_fuzeren_name);
-	tv_fuzeren_no=(EditText) findViewById(R.id.tv_fuzeren_no);
-	tv_phone=(EditText) findViewById(R.id.tv_phone);
-	tv_email=(EditText) findViewById(R.id.tv_email);
-	tv_adress=(EditText) findViewById(R.id.tv_adress);
-	tv_adressdetail=(EditText) findViewById(R.id.tv_adressdetail);
+	tv_company_type=(TextView)findViewById(R.id.tv_company_type);
+	tv_company_name=(TextView) findViewById(R.id.tv_company_name);
+	tv_yingyezhizhao=(TextView) findViewById(R.id.tv_yingyezhizhao);
+	tv_company_shuiwudengji=(TextView) findViewById(R.id.tv_company_shuiwudengji);
+	tv_fuzeren_name=(TextView) findViewById(R.id.tv_fuzeren_name);
+	tv_fuzeren_no=(TextView) findViewById(R.id.tv_fuzeren_no);
+	tv_phone=(TextView) findViewById(R.id.tv_phone);
+	tv_email=(TextView) findViewById(R.id.tv_email);
+	tv_adress=(TextView) findViewById(R.id.tv_adress);
+	tv_adressdetail=(TextView) findViewById(R.id.tv_adressdetail);
 	tv_id_detail= (TextView) findViewById(R.id.tv_id_detail);
+	tv_jointime=(TextView) findViewById(R.id.tv_jointime);
+	tv_has_amount=(TextView) findViewById(R.id.tv_has_amount);
+	tv_left_amount=(TextView) findViewById(R.id.tv_left_amount);
+	tv_terminal_amount=(TextView) findViewById(R.id.tv_terminal_amount);
 	iv_shenfenzheng=(ImageView) findViewById(R.id.iv_shenfenzheng);
 	iv_yingyezhizhao=(ImageView) findViewById(R.id.iv_yingyezhizhao);
 	iv_shuiwu=(ImageView) findViewById(R.id.iv_shuiwu);

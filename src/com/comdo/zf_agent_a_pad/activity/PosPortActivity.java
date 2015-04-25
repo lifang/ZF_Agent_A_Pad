@@ -68,7 +68,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 	  private boolean isClick=true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pos_port1);
 		new TitleMenuUtil(this, "筛选").show();
@@ -293,7 +293,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.bt_confirm:
 			if(isClick){
-				isClick=false;
+				//isClick=false;
 			initport();
 			if (isload) {
 				// posƷ��

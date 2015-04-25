@@ -10,6 +10,7 @@ import com.comdo.zf_agent_a_pad.entity.AdressEntity;
 import com.comdo.zf_agent_a_pad.entity.OrderEntity;
 import com.comdo.zf_agent_a_pad.entity.PostPortEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -22,9 +23,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -138,8 +141,10 @@ public class OrderList extends Activity implements IXListViewListener,
 		tv_dg.setOnClickListener(this);
 		myAdapter = new OrderAdapter(OrderList.this, myList);
 		Xlistview = (XListView) findViewById(R.id.x_listview);
-		Xlistview.setPullLoadEnable(true);
+		
+		Xlistview.initHeaderAndFooter();
 		Xlistview.setXListViewListener(this);
+		Xlistview.setPullLoadEnable(true);
 		Xlistview.setDivider(null);
 		Xlistview.setAdapter(myAdapter);
 
@@ -147,6 +152,7 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	@Override
 	public void onRefresh() {
+		Xlistview.setPullLoadEnable(true);
 		page = 1;
 		myList.clear();
 		getData();
@@ -179,7 +185,7 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	private void getData() {
 
-		Config.GetOrderList(OrderList.this, 1, type, search, q, page,
+		Config.GetOrderList(OrderList.this, MyApplication.NewUser.getAgentUserId(), type, et.getText().toString(), q, page,
 				Config.ROWS,
 				new HttpCallback<Page<OrderEntity>>(OrderList.this) {
 
@@ -271,17 +277,16 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	@Override
 	public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
-		switch (actionId) {
-		case 0:
-			search = et.getText().toString();
-			myList.clear();
-			page = 1;
-			getData();
-
-			return true;
-
-		}
-		return false;
+		 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+				search = et.getText().toString();
+				myList.clear();
+				page = 1;
+				getData();
+             
+             return false;
+         }
+         return false;
+	
 
 	}
 
@@ -293,6 +298,7 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	@Override
 	protected void onRestart() {
+
 		super.onRestart();
 		myList.clear();
 		page = 1;

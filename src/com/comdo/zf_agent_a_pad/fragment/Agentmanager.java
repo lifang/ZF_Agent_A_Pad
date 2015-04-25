@@ -3,6 +3,9 @@ package com.comdo.zf_agent_a_pad.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.comdo.zf_agent_a_pad.activity.AgentDetail;
 import com.comdo.zf_agent_a_pad.activity.CreatAgent;
 import com.comdo.zf_agent_a_pad.adapter.AgentManagerAdapter;
@@ -12,6 +15,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AddressManager;
 import com.comdo.zf_agent_a_pad.entity.AgentManager;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -48,6 +52,10 @@ public class Agentmanager extends Fragment implements OnClickListener,IXListView
 	private int rows=Config.ROWS;
 	private int a=1;
 	private EditText et_profit;
+	private int id=MyApplication.NewUser.getAgentId();
+	private String str="";
+	private AlertDialog dialog;
+	private int agentsId=MyApplication.NewUser.getAgentId();
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -69,10 +77,34 @@ if (view != null) {
 try {
     view = inflater.inflate(R.layout.agentmanager, container, false);
     init();
+    getDefaultProfit();
 } catch (InflateException e) {
     
 }
 return view;
+}
+private void getDefaultProfit() {
+	Config.getDefaultProfit(getActivity(), id, new HttpCallback(getActivity()) {
+
+		@Override
+		public void onSuccess(Object data) {
+			str=String.valueOf(data);
+			myHandler.sendEmptyMessage(2);
+				
+			
+		}
+@Override
+public void onFailure(String message) {
+	// TODO Auto-generated method stub
+	super.onFailure(message);
+}
+		@Override
+		public TypeToken getTypeToken() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	});
+	
 }
 @Override
 public void onStart() {
@@ -94,6 +126,9 @@ public void onStart() {
 				intent.putExtra("id", dataadagent.get(AgentManagerAdapter.pp).getId());
 				startActivity(intent);
 				break;
+			case 2:
+				tv_default.setText(str);
+				break;
 			default:
 				break;
 			}
@@ -109,7 +144,7 @@ protected void onLode() {
 	
 }
 private void getData() {
-	Config.GetAgentList(getActivity(), 1, page, rows, 
+	Config.GetAgentList(getActivity(), agentsId, page, rows, 
 			new HttpCallback<Page<AgentManager>>(getActivity()) {
 
 				@Override
@@ -160,6 +195,7 @@ public void onClick(View v) {
 		startActivity(new Intent(getActivity(),CreatAgent.class));
 		break;
 	case R.id.btn_save:
+		dialog.dismiss();
 		resetProfit();
 		break;
 	default:
@@ -176,7 +212,8 @@ private void resetProfit() {
 				public void onSuccess(Object data) {
 					// TODO Auto-generated method stub
 					CommonUtil.toastShort(getActivity(), "设置成功");
-					tv_default.setText(et_profit.getText().toString());
+					getDefaultProfit();
+					//tv_default.setText(et_profit.getText().toString());
 				}
 @Override
 public void onFailure(String message) {
@@ -200,7 +237,9 @@ private void openDialog() {
      btn_save=(Button) textEntryView.findViewById(R.id.btn_save);
      et_profit=(EditText) textEntryView.findViewById(R.id.et_profit);
      btn_save.setOnClickListener(this);
-     builder.create().show();
+     dialog = builder.create();
+     dialog.show();
+     //builder.create().show();
 	
 }
 @Override

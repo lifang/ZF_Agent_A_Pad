@@ -10,13 +10,16 @@ import org.json.JSONObject;
 
 import com.comdo.zf_agent_a_pad.adapter.PosAdapter;
 import com.comdo.zf_agent_a_pad.adapter.PosAdapter1;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -68,7 +71,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 	private int list_port = 1;
 	private double maxPrice = 0, minPrice = 0;
 	private boolean isSearch = false;
-	private String keyword="";
+	private String keyword = "";
 	List<PosEntity> myList = new ArrayList<PosEntity>();
 	List<PosEntity> moreList = new ArrayList<PosEntity>();
 	private ImageView im_sy, im_ghc, im_mess, im_wd;
@@ -128,11 +131,20 @@ public class PosListActivity extends Activity implements OnClickListener,
 	}
 
 	private void initView() {
-		
+
 		tv_pg = (TextView) findViewById(R.id.tv_pg);
 		tv_pg.setOnClickListener(this);
 		tv_dg = (TextView) findViewById(R.id.tv_dg);
 		tv_dg.setOnClickListener(this);
+
+		if (!CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
+			shoptype = 2;
+			tv_pg.setTextColor(getResources().getColor(R.color.text292929));
+			tv_dg.setTextColor(getResources().getColor(R.color.bgtitle));
+			page = 1;
+			myList.clear();
+			Search();
+		}
 		textsy = (TextView) findViewById(R.id.textsy);
 		textghc = (TextView) findViewById(R.id.textghc);
 		textmes = (TextView) findViewById(R.id.textmes);
@@ -146,7 +158,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		im_wd = (ImageView) findViewById(R.id.im_wd);
 		im_wd.setOnClickListener(this);
 		set = (LinearLayout) findViewById(R.id.set);
-		
+
 		set.setOnClickListener(this);
 		ll_listflag = (LinearLayout) findViewById(R.id.ll_listflag);
 		ll_mr = (LinearLayout) findViewById(R.id.ll_mr);
@@ -172,8 +184,9 @@ public class PosListActivity extends Activity implements OnClickListener,
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 		Xlistview = (XListView) findViewById(R.id.x_listview);
 		// refund_listview.getmFooterView().getmHintView().setText("�Ѿ�û�������");
-		Xlistview.setPullLoadEnable(true);
+		Xlistview.initHeaderAndFooter();
 		Xlistview.setXListViewListener(this);
+		Xlistview.setPullLoadEnable(true);
 		Xlistview.setDivider(null);
 		Xlistview.setOnItemClickListener(new OnItemClickListener() {
 
@@ -208,7 +221,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		 * textwd.setTextColor(getResources().getColor(R.color.white));
 		 */
 		im_sy.setBackgroundResource(R.drawable.home2);
-		im_ghc.setBackgroundResource(R.drawable.shopping2);
+		im_ghc.setBackgroundResource(R.drawable.good1);
 		im_mess.setBackgroundResource(R.drawable.message2);
 		im_wd.setBackgroundResource(R.drawable.mine2);
 		textsy.setTextColor(getResources().getColor(R.color.white));
@@ -324,34 +337,47 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.tv_pg:
-			shoptype = 1;
-			tv_pg.setTextColor(getResources().getColor(R.color.bgtitle));
-			tv_dg.setTextColor(getResources().getColor(R.color.text292929));
-			page = 1;
-			myList.clear();
-			Search();
+			if (!CheckRights.RIGHT_1) {
+
+				CommonUtil.toastShort(PosListActivity.this,
+						R.string.right_not_match);
+			} else {
+
+				shoptype = 1;
+				tv_pg.setTextColor(getResources().getColor(R.color.bgtitle));
+				tv_dg.setTextColor(getResources().getColor(R.color.text292929));
+				page = 1;
+				myList.clear();
+				Search();
+			}
 			break;
 		case R.id.tv_dg:
-			shoptype = 2;
-			tv_pg.setTextColor(getResources().getColor(R.color.text292929));
-			tv_dg.setTextColor(getResources().getColor(R.color.bgtitle));
-			page = 1;
-			myList.clear();
-			Search();
+			if (!CheckRights.RIGHT_2) {
+
+				CommonUtil.toastShort(PosListActivity.this,
+						R.string.right_not_match);
+			} else {
+				shoptype = 2;
+				tv_pg.setTextColor(getResources().getColor(R.color.text292929));
+				tv_dg.setTextColor(getResources().getColor(R.color.bgtitle));
+				page = 1;
+				myList.clear();
+				Search();
+			}
 			break;
 		case R.id.im_mess:
-			Config.TABID=3;
+			Config.TABID = 3;
 			PosListActivity.this.finish();
 			break;
 		case R.id.im_wd:
-			Config.TABID=4;
+			Config.TABID = 4;
 			PosListActivity.this.finish();
 			break;
 		case R.id.set:
 			showSet();
 			break;
 		case R.id.laa1:
-			Config.TABID=1;
+			Config.TABID = 1;
 			finish();
 			break;
 		default:
@@ -361,6 +387,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onRefresh() {
+		Xlistview.setPullLoadEnable(true);
 		page = 1;
 		myList.clear();
 		Search();
@@ -445,7 +472,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 
 	private void Search() {
 
-		Config.PostSearch(getApplicationContext(), 1, shoptype, keyword, 1, 12,
+		Config.PostSearch(getApplicationContext(),
+				MyApplication.NewUser.getAgentId(), shoptype, keyword, 1, 12,
 				page, orderType, new HttpCallback<Page<PosEntity>>(this) {
 					@Override
 					public void onSuccess(Page<PosEntity> data) {

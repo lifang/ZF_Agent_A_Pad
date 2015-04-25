@@ -1,6 +1,9 @@
 package com.comdo.zf_agent_a_pad.adapter;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +80,10 @@ public class PosAdapter extends BaseAdapter {
 		holder.content1.setText(list.get(position).getModel_number());
 		holder.tv_td.setText(list.get(position).getPay_channe());
 		holder.ys.setText("" + list.get(position).getVolume_number());
-		holder.tv_yj.setText("原价:￥"+((double)list.get(position).getPurchase_price()/100));
+		String string=" 原价:￥"+((double)list.get(position).getPurchase_price()/100)+" ";
+		SpannableString sp = new SpannableString(string);
+		sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		holder.tv_yj.setText(sp);
 		holder.tv_least.setText("最小起批量:"+list.get(position).getFloor_purchase_quantity());
 		return convertView;
 	}

@@ -9,6 +9,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -45,9 +46,9 @@ public class TerminalApplyCreateActivity extends Activity implements
 	private TextView selectedcity, tv_code;
 	private int mChannelId;
 	private LinearLayout getCode, check, selectcity;
-	private EditText username, setCode, checkCode, pwd, confirmpwd;
+	private EditText username, setCode, checkCode, pwd, confirmpwd, phonenum;
 	public String vcode = "";
-	private String name, password, mCode;
+	private String name, password = "", mCode = "";
 	private ImageView img_check_y, img_check_n;
 	private Boolean isRun = true;
 	private Boolean checkcode = false;
@@ -67,9 +68,9 @@ public class TerminalApplyCreateActivity extends Activity implements
 		setContentView(R.layout.activity_terminal_apply_new_user);
 
 		username = (EditText) findViewById(R.id.username);
-		username.addTextChangedListener(mTextWatcher);
 		setCode = (EditText) findViewById(R.id.phonenum);
 		checkCode = (EditText) findViewById(R.id.checkcode);
+		checkCode.addTextChangedListener(mTextWatcher);
 		pwd = (EditText) findViewById(R.id.pwd);
 		confirmpwd = (EditText) findViewById(R.id.confirmpwd);
 		confirmpwd.addTextChangedListener(mTextWatcher);
@@ -82,8 +83,11 @@ public class TerminalApplyCreateActivity extends Activity implements
 		tv_code = (TextView) findViewById(R.id.code);
 		selectedcity = (TextView) findViewById(R.id.selectedcity);
 		mSubmitBtn = (Button) findViewById(R.id.terminal_submit);
+		mSubmitBtn.setOnClickListener(this);
 		close = (Button) findViewById(R.id.close);
 		close.setOnClickListener(this);
+		img_check_y = (ImageView) findViewById(R.id.img_check_y);
+		img_check_n = (ImageView) findViewById(R.id.img_check_n);
 		checkcode = true;
 		runnable = new Runnable() {
 			@Override
@@ -110,23 +114,29 @@ public class TerminalApplyCreateActivity extends Activity implements
 				password = pwd.getText().toString();
 				verification = true;
 			}
+			if (!"".equals(vcode)
+					&& vcode.equals(checkCode.getText().toString())) {
+				img_check_y.setVisibility(View.VISIBLE);
+				img_check_n.setVisibility(View.GONE);
+				checkcode = true;
+			} else {
+				img_check_y.setVisibility(View.GONE);
+				img_check_n.setVisibility(View.VISIBLE);
+				checkcode = false;
+			}
 			name = StringUtil.replaceBlank((username.getText().toString()));
 
 			updateUIWithValidation();
 		}
 	};
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		updateUIWithValidation();
-	}
-
 	private void updateUIWithValidation() {
 		final boolean enabled = mChannelId > 0
 				&& username.getText().toString().length() > 0
-				&& mCode.length() > 0 && password.length() > 0 && checkcode
-				&& verification;
+				&& setCode.getText().toString().length() > 0
+				&& pwd.getText().toString().length() > 0
+				&& checkCode.getText().toString().length() > 0
+				&& confirmpwd.getText().toString().length() > 0;
 		mSubmitBtn.setEnabled(enabled);
 	}
 
@@ -136,7 +146,8 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			Config.addCustomer(this, mCode, name, password, mChannelId, MyApplication.NewUser.getAgentId(),
+			Config.addCustomer(this, setCode.getText().toString(), name,
+					password, mChannelId, MyApplication.NewUser.getAgentId(),
 					new HttpCallback(TerminalApplyCreateActivity.this) {
 
 						@Override
@@ -287,6 +298,36 @@ public class TerminalApplyCreateActivity extends Activity implements
 			break;
 		}
 
+		}
+	}
+
+	// 暂停：onStart()->onPause()
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		SharedPreferences.Editor saveData = getPreferences(0).edit();
+		saveData.putString("vcode", vcode);
+		saveData.putBoolean("check", checkcode);
+		saveData.commit();
+	}
+
+	// 重启：onPause()->onResume()
+	@Override
+	protected void onResume() {
+		super.onResume();
+		updateUIWithValidation();
+		// 从共享数据存储对象中获取所需的数据
+		SharedPreferences getData = getPreferences(0);
+		vcode = getData.getString("vcode", null);
+		checkcode = getData.getBoolean("check", false);
+		if (checkcode) {
+			img_check_y.setVisibility(View.VISIBLE);
+			img_check_n.setVisibility(View.GONE);
+		} else {
+
+			img_check_y.setVisibility(View.GONE);
+			img_check_n.setVisibility(View.VISIBLE);
 		}
 	}
 }

@@ -20,6 +20,8 @@
     <string name="register">注册</string>
     <string name="format_error">请输入正确的手机号或邮箱</string>
     <string name="clear_history">清除历史数据</string>
+    <string name="right_not_match">权限不足</string>
+    <string name="no_more_data">已加载全部数据</string>
 
     <string-array name="agent_type">
         <item>公司</item>

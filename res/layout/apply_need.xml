@@ -32,7 +32,7 @@
     android:layout_marginTop="3dp"
      android:background="@color/bgtitle"/>
 
-            <com.example.zf_pad.util.ScrollViewWithListView
+            <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
                 android:id="@+id/pos_lv1"
                 android:layout_width="fill_parent"
                 android:background="#F8F8F8"
@@ -41,7 +41,7 @@
                 android:layout_marginRight="@dimen/margin_left2"
                 android:layout_marginTop="10dp"
                 android:divider="@null" >
-            </com.example.zf_pad.util.ScrollViewWithListView>
+            </com.comdo.zf_agent_a_pad.util.ScrollViewWithListView>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                 android:layout_marginTop="3dp"
                 android:background="@color/bgtitle"/>
 
-            <com.example.zf_pad.util.ScrollViewWithListView
+            <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
                 android:id="@+id/pos_lv2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#F8F8F8"
                 android:divider="@null" >
-            </com.example.zf_pad.util.ScrollViewWithListView>
+            </com.comdo.zf_agent_a_pad.util.ScrollViewWithListView>
         </LinearLayout>
     </ScrollView>
 

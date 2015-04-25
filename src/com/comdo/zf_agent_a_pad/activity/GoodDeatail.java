@@ -16,6 +16,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -87,6 +90,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private ButtonGridviewAdapter buttonAdapter;
 	List<GriviewEntity> User_button = new ArrayList<GriviewEntity>();
 	private Boolean islea = false;
+	private List<String> piclist;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -106,7 +110,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				tv_sjhttp.setText(factoryEntity.getWebsite_url());
 				fac_detai.setText(factoryEntity.getDescription());
 				tv_pl.setText("评论" + "(" + commentsCount + ")");
-				tv_yj.setText("￥" + ((double) gfe.getPrice()) / 100);
+				String string=" ￥" + ((double) gfe.getPrice()) / 100+" ";
+				SpannableString sp = new SpannableString(string);
+				sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				tv_yj.setText(sp);
 				break;
 			case 1:
 				Toast.makeText(getApplicationContext(), (String) msg.obj,
@@ -268,20 +275,42 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.btn_buy: // tv_comment
-			if (islea) {
-
-				Intent i21 = new Intent(GoodDeatail.this, LeaseConfirm.class);
-				i21.putExtra("getTitle", gfe.getTitle());
-				i21.putExtra("price", gfe.getPrice());
-				i21.putExtra("model", gfe.getModel_number());
-				i21.putExtra("purchase_price", gfe.getPurchase_price());
-				i21.putExtra("brand", gfe.getGood_brand());
-				i21.putExtra("paychannelId", paychannelId);
-				i21.putExtra("goodId", gfe.getId());
-				startActivity(i21);
+			if (PosListActivity.shoptype!=1) {
+				if(islea){
+					Intent i21 = new Intent(GoodDeatail.this, LeaseConfirm.class);
+					i21.putExtra("getTitle", gfe.getTitle());
+					i21.putExtra("price", gfe.getPrice());
+					i21.putExtra("model", gfe.getModel_number());
+					i21.putExtra("purchase_price", gfe.getPurchase_price());
+					i21.putExtra("brand", gfe.getGood_brand());
+					i21.putExtra("paychannelId", paychannelId);
+					i21.putExtra("goodId", gfe.getId());
+					i21.putExtra("type",1);			
+					if(piclist.size()!=0){
+						i21.putExtra("piclist",piclist.get(0));
+					}					
+					startActivity(i21);
+				}else{
+					Intent i21 = new Intent(GoodDeatail.this, LeaseConfirm.class);
+				
+					i21.putExtra("getTitle", gfe.getTitle());
+					i21.putExtra("price", gfe.getPrice());
+					i21.putExtra("model", gfe.getModel_number());
+					i21.putExtra("purchase_price", gfe.getPurchase_price());
+					i21.putExtra("brand", gfe.getGood_brand());
+					i21.putExtra("paychannelId", paychannelId);
+					i21.putExtra("goodId", gfe.getId());
+					i21.putExtra("goodId", 2);
+					if(piclist.size()!=0){
+						i21.putExtra("piclist",piclist.get(0));
+					}	
+					startActivity(i21);
+				}
+				
 			} else {
 
 				Intent i2 = new Intent(GoodDeatail.this, GoodConfirm.class);
+				i2.putExtra("floor_purchase_quantity", gfe.getFloor_purchase_quantity());
 				i2.putExtra("getTitle", gfe.getTitle());
 				i2.putExtra("price", gfe.getPrice());
 				i2.putExtra("model", gfe.getModel_number());
@@ -289,6 +318,9 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				i2.putExtra("paychannelId", paychannelId);
 				i2.putExtra("brand", gfe.getGood_brand());
 				i2.putExtra("goodId", gfe.getId());
+				if(piclist.size()!=0){
+					i2.putExtra("piclist",piclist.get(0));
+				}	
 				startActivity(i2);
 			}
 			break;
@@ -306,7 +338,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		params.setUseJsonStreamer(true);
 		new AsyncHttpClient().post(Config.GOODDETAIL, params,
 				new AsyncHttpResponseHandler() {
-					private Dialog loadingDialog;
+					private Dialog loadingDialog;					
 
 					@Override
 					public void onStart() {
@@ -352,7 +384,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 								String res = jsonobject.getString("result");
 								jsonobject = new JSONObject(res);
 
-								List<String> piclist = gson.fromJson(
+								piclist = gson.fromJson(
 										jsonobject.getString("goodPics"),
 										new TypeToken<List<String>>() {
 										}.getType());
@@ -470,7 +502,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 										jsonobject.getString("tDates"),
 										new TypeToken<List<ChanelEntitiy>>() {
 										}.getType());
-								Config.celist = celist2;
+								Config.celist2 = celist2;
 								Config.tv_sqkt = jsonobject
 										.getString("opening_requirement");
 								ll_Factory = (LinearLayout) findViewById(R.id.mer_detail);
