@@ -64,7 +64,6 @@ public class UserManageDetailActivity extends Activity implements IXListViewList
 				if (null != data) {
 					myList.addAll(data);
 				}
-				onLoad();
 
 				if (myList.size() == 0) {
 					Xlistview.setVisibility(View.GONE);
@@ -73,7 +72,12 @@ public class UserManageDetailActivity extends Activity implements IXListViewList
 					Xlistview.setVisibility(View.VISIBLE);
 					eva_nodata.setVisibility(View.GONE);
 				}
-				onRefresh_number = true;
+				if (data.size()==0) {
+					onRefresh_number = false;
+				}else {
+					onRefresh_number = true;
+				}
+				onLoad();
 				myAdapter.notifyDataSetChanged();
 			}
 
@@ -108,6 +112,7 @@ public class UserManageDetailActivity extends Activity implements IXListViewList
 			}
 		} else {
 			Xlistview.setPullLoadEnable(false);
+			Xlistview.stopLoadMore();
 			Toast.makeText(getApplicationContext(), "no more data",
 					Toast.LENGTH_SHORT).show();
 		}

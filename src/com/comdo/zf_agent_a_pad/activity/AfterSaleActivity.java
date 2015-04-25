@@ -34,6 +34,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AfterSaleEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -83,6 +84,7 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 	private int page = 1;
 	private int total = 0;
 	private final int rows = 10;
+	private int toDetailPosition = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); 
@@ -147,11 +149,12 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				toDetailPosition = position-2;
 				Intent intent = new Intent(AfterSaleActivity.this,AfterSaleDetailActivity.class);
 				intent.putExtra("mRecordType", mRecordType);
 				intent.putExtra("apply_num", mEntities.get(position-2).getApply_num());
 				intent.putExtra("id", mEntities.get(position-2).getId());
-				startActivity(intent);
+				startActivityForResult(intent, 101);
 			}
 		});
 	}
@@ -164,11 +167,11 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			cancelView_xl.setVisibility(View.VISIBLE);
 			cancelView_xr.setVisibility(View.GONE);
 			updateView_x.setVisibility(View.GONE);
-			
+
 			orderView_y.setVisibility(View.GONE);
 			cancelView_y.setVisibility(View.VISIBLE);
 			updateView_y.setVisibility(View.VISIBLE);
-			
+
 			order_layout.setBackgroundResource(R.color.white);
 			cancel_layout.setBackgroundResource(R.color.e9e8e8);
 			update_layout.setBackgroundResource(R.color.e9e8e8);
@@ -188,7 +191,7 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			cancelView_xl.setVisibility(View.VISIBLE);
 			cancelView_xr.setVisibility(View.VISIBLE);
 			updateView_x.setVisibility(View.GONE);
-			
+
 			orderView_y.setVisibility(View.VISIBLE);
 			cancelView_y.setVisibility(View.GONE);
 			updateView_y.setVisibility(View.VISIBLE);
@@ -211,7 +214,7 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			cancelView_xl.setVisibility(View.GONE);
 			cancelView_xr.setVisibility(View.VISIBLE);
 			updateView_x.setVisibility(View.VISIBLE);
-			
+
 			orderView_y.setVisibility(View.VISIBLE);
 			cancelView_y.setVisibility(View.VISIBLE);
 			updateView_y.setVisibility(View.GONE);
@@ -233,9 +236,9 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			popSelectState();
 			break;
 		case R.id.search_layout:
-				page = 1;
-				mEntities.clear();
-				loadData();
+			page = 1;
+			mEntities.clear();
+			loadData();
 			break;
 		}
 	}	
@@ -489,5 +492,29 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 		mListView.stopRefresh();
 		mListView.stopLoadMore();
 		mListView.setRefreshTime(Tools.getHourAndMin());
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			if (requestCode == 101) {
+				if (data != null) {
+					String result = data.getExtras().getString("isChange");
+					if (!StringUtil.isNull(result)) {
+						if (mRecordType == 0) {
+							mEntities.get(toDetailPosition).setStatus("4");
+						}else if (mRecordType == 2) {
+							mEntities.get(toDetailPosition).setStatus("5");
+						}else if (mRecordType == 1) {
+							if (result.equals("cancel")) {
+								mEntities.get(toDetailPosition).setStatus("5");
+							}else if (result.equals("update")) {
+								mEntities.get(toDetailPosition).setStatus("1");
+							}
+						}
+						afterSaleAdapter.notifyDataSetChanged();
+					}
+				}
+			}
+		}
 	}
 }

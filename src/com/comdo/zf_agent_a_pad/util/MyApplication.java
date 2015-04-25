@@ -1,6 +1,6 @@
 package com.comdo.zf_agent_a_pad.util;
- 
- 
+
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -31,9 +33,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
- 
- 
- 
+
+
+
 
 public class MyApplication extends Application{
 	public TextView mLocationResult,logMsg;
@@ -75,19 +77,19 @@ public class MyApplication extends Application{
 		MyApplication.versionCode = versionCode;
 	}
 
-AsyncHttpClient client = new AsyncHttpClient(); //  
-	
+	AsyncHttpClient client = new AsyncHttpClient(); //  
+
 	public AsyncHttpClient getClient() {
 		//client.setTimeout(6000);
 		client.setTimeout(10000);// 设置超时时间
-    	client.setMaxConnections(10);
+		client.setMaxConnections(10);
 		return client;
 	}
 	public void setClient(AsyncHttpClient client) {
 		this.client = client;
 	}
 	public static List<Good> comfirmList=new LinkedList<Good>();
-	
+
 	public static List<Good> getComfirmList() {
 		return comfirmList;
 	}
@@ -102,52 +104,52 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 	public static void setToken(String token) {
 		MyApplication.token = token;
 	}
-	
+
 
 	/**
 	 * �洢��ǰ�û�������Ϣ,����welcome��ʼ���û���Ϣ
 	 */
 
 	//����list��������ÿһ��activity�ǹؼ�   
-    private List<Activity> mList = new LinkedList<Activity>();   
- // add Activity     
-    public void addActivity(Activity activity) {    
-        mList.add(activity);    
-    }    
-    //�ر�ÿһ��list�ڵ�activity   
-    public void exit() {    
-        try {    
-            for (Activity activity:mList) {    
-                if (activity != null)    
-                    activity.finish();    
-            }    
-        } catch (Exception e) {    
-            e.printStackTrace();    
-        } 
-        
-    }  
- 
+	private List<Activity> mList = new LinkedList<Activity>();   
+	// add Activity     
+	public void addActivity(Activity activity) {    
+		mList.add(activity);    
+	}    
+	//�ر�ÿһ��list�ڵ�activity   
+	public void exit() {    
+		try {    
+			for (Activity activity:mList) {    
+				if (activity != null)    
+					activity.finish();    
+			}    
+		} catch (Exception e) {    
+			e.printStackTrace();    
+		} 
+
+	}  
+
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		mInstance = this;
-		
+
 		initImageLoader(mInstance);
-		
+
 		mLocationClient = new LocationClient(this.getApplicationContext());
 		mMyLocationListener = new MyLocationListener();
 		mLocationClient.registerLocationListener(mMyLocationListener);
 		mGeofenceClient = new GeofenceClient(getApplicationContext());
 		mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
 		mySharedPreferences = getSharedPreferences(Config.SHARED, MODE_PRIVATE);
-		
+
 		if(mySharedPreferences.getBoolean("islogin", false)){
 			UserEntity ue=new UserEntity();
 			ue.setId(mySharedPreferences.getInt("id", -1));
 			this.NewUser=ue;
 		}
-		
+
 	}
 	public static void initImageLoader(Context context) {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
@@ -162,77 +164,77 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 	@SuppressWarnings("deprecation")
 	public static DisplayImageOptions getDisplayOption() {
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		  .showStubImage(R.drawable.moren)			// 设置图片下载期间显示的图片
-		  .showImageForEmptyUri(R.drawable.moren)	// 设置图片Uri为空或是错误的时候显示的图片
-		  .showImageOnFail(R.drawable.moren)		// 设置图片加载或解码过程中发生错误显示的图片	
-		  .cacheInMemory(true)						// 设置下载的图片是否缓存在内存中
-		  .cacheOnDisc(true)							// 设置下载的图片是否缓存在SD卡中
-		  .build();									// 创建配置过得DisplayImageOption对象	
+		.showStubImage(R.drawable.moren)			// 设置图片下载期间显示的图片
+		.showImageForEmptyUri(R.drawable.moren)	// 设置图片Uri为空或是错误的时候显示的图片
+		.showImageOnFail(R.drawable.moren)		// 设置图片加载或解码过程中发生错误显示的图片	
+		.cacheInMemory(true)						// 设置下载的图片是否缓存在内存中
+		.cacheOnDisc(true)							// 设置下载的图片是否缓存在SD卡中
+		.build();									// 创建配置过得DisplayImageOption对象	
 		return options;
 	}
-	
+
 	public static MyApplication getInstance() {
 		return mInstance;
 	}
 	public static UserEntity NewUser = null;
 	private SharedPreferences mySharedPreferences;
-	
-	
+
+
 	public class MyLocationListener implements BDLocationListener {
 
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 			//Receive Location 
 			StringBuffer sb = new StringBuffer(256);
-//			sb.append("time : ");
-//			sb.append(location.getTime());
-//			sb.append("\nerror code : ");
-//			sb.append(location.getLocType());
-//			sb.append("\nlatitude : ");
-//			sb.append(location.getLatitude());
-//			sb.append("\nlontitude : ");
-//			sb.append(location.getLongitude());
-//			sb.append("\nradius : ");
-//			sb.append(location.getRadius());
-//			if (location.getLocType() == BDLocation.TypeGpsLocation){
-//				sb.append("\nspeed : ");
-//				sb.append(location.getSpeed());
-//				sb.append("\nsatellite : ");
-//				sb.append(location.getSatelliteNumber());
-//				sb.append("\ndirection : ");
-//				sb.append("\naddr : ");
-//				sb.append(location.getAddrStr());
-//				sb.append(location.getDirection());
-//			} else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
-//				sb.append("\naddr : ");
-//				sb.append(location.getAddrStr());
-//				//��Ӫ����Ϣ
-//				sb.append("\noperationers : ");
-//				sb.append(location.getOperators());
-//			}
+			//			sb.append("time : ");
+			//			sb.append(location.getTime());
+			//			sb.append("\nerror code : ");
+			//			sb.append(location.getLocType());
+			//			sb.append("\nlatitude : ");
+			//			sb.append(location.getLatitude());
+			//			sb.append("\nlontitude : ");
+			//			sb.append(location.getLongitude());
+			//			sb.append("\nradius : ");
+			//			sb.append(location.getRadius());
+			//			if (location.getLocType() == BDLocation.TypeGpsLocation){
+			//				sb.append("\nspeed : ");
+			//				sb.append(location.getSpeed());
+			//				sb.append("\nsatellite : ");
+			//				sb.append(location.getSatelliteNumber());
+			//				sb.append("\ndirection : ");
+			//				sb.append("\naddr : ");
+			//				sb.append(location.getAddrStr());
+			//				sb.append(location.getDirection());
+			//			} else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
+			//				sb.append("\naddr : ");
+			//				sb.append(location.getAddrStr());
+			//				//��Ӫ����Ϣ
+			//				sb.append("\noperationers : ");
+			//				sb.append(location.getOperators());
+			//			}
 			sb.append(location.getAddrStr());
 			if(location.getCity()!=null&&!location.getCity().equals("")){
-			Config.CITY=location.getCity();
-			logMsg(location.getCity());
-	        List<Province> provinces = CommonUtil.readProvincesAndCities(getApplicationContext());
-            for (Province province : provinces) {
-                List<City> cities = province.getCities();
-              
-                mCities.addAll(cities);
-                 
-            }
-			 for(City cc:mCities ){
-				 if(location.getCity()!=null&&!location.getCity().equals("")){
-					 if(cc.getName().endsWith(location.getCity())){
-						 System.out.println("当前城市 ID----"+cc.getId());
-						 setCITYID(cc.getId());
-					 }
-				 } 
-			 }
-			 Config.isFRIST=true;
-			Log.i("BaiduLocationApiDem", sb.toString());
+				Config.CITY=location.getCity();
+				logMsg(location.getCity());
+				List<Province> provinces = CommonUtil.readProvincesAndCities(getApplicationContext());
+				for (Province province : provinces) {
+					List<City> cities = province.getCities();
+
+					mCities.addAll(cities);
+
+				}
+				for(City cc:mCities ){
+					if(location.getCity()!=null&&!location.getCity().equals("")){
+						if(cc.getName().endsWith(location.getCity())){
+							System.out.println("当前城市 ID----"+cc.getId());
+							setCITYID(cc.getId());
+						}
+					} 
+				}
+				Config.isFRIST=true;
+				Log.i("BaiduLocationApiDem", sb.toString());
+			}
 		}
-	}
 	}
 	public void logMsg(String str) {
 		try {
@@ -245,7 +247,10 @@ AsyncHttpClient client = new AsyncHttpClient(); //
 	}
 	//隐藏软键盘
 	public static void hideSoftKeyboard(Activity activity){
-		InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-		inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+		View view = activity.getWindow().peekDecorView();
+		if (view != null) {
+			InputMethodManager inputmanger = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 	}
 }

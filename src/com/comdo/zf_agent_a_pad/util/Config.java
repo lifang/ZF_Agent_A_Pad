@@ -32,8 +32,22 @@ public class Config {
 	//视频通话
 	public static final String VIDEO_SERVER_IP = "121.40.84.2";
 	public static final int VIDEO_SERVER_PORT = 8906;
+
+	//商户PID
+	public static final String PARTNER = "2088811347108355";
+	//商户收款账号
+	public static final String SELLER = "ebank007@epalmpay.cn";
+	//商户私钥，pkcs8格式
+	public static final String RSA_PRIVATE = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALjI06X8hEw9LiLqTsqmjZAqwSq/VIGJKNQgIeCCr/oReR4OePe5i2u+89PpcFe6kF2v6gWulb4WNdHYw3Iiux56sm7jUQPC1hVYXG8tiaVEb3YhX2y0YGQUS18drBBGzHnlOQlrrmlBh9ugQFzLio2NwUWo0yfcXlLoKYyteDBVAgMBAAECgYBpjW441rHLyvbbwvQXFmSvAX0uKfTfubW01lYDpSNYuTpyTNoUx8w4U+98EVC3DD8DBUWs0TmAR7eeky+xtt0jZ1O8bpHUzRi02NOw2p1ZyAHN28rvUpultfInBpbqgJDvMoWIX4AeqWQcs4gbAbPyEaWvgYM53uW7eo9CtcFMgQJBAOHGVL8Xe9agkiGwYT8e9068+xjXiloAKgQjps8fxLfMCd34sI1tEjyz0jIZ+AK4pGvU1JJdtx7s70INnubqoY0CQQDRhbFcxqaz2c+S2WUQNduFah5EZt/vdWxo4+6EHrXNdAjT7nVyA8CzreRXcPEKQZ+RhuXyXGqSLDJGKYPGQIPpAkBSmqfjCoqKqlEM9mV+HKxLKKWOHz5FU44L2adsXKkyvfpWNmkSNXfYscoT/qBZDolJ0qK7soIPVIztU+JxhiL5AkAC037U9YkCHAoEvRHz6gYQAqJt4cVbgYX41Do/Zfqlzs7frPPAmfRbeBkAZPGbZc81M1CeuEhnuFjlQWIZpn0hAkEAu1Q+fNm01qqVJ0YCMeyUoLqin/rmRAsY93cDNk82ZxY+gc3YDlcvF5qqQqcqiSSHBZkAtQqFTzx3taybP2MKjw==";
+	//支付宝公钥
+	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
+	//异步通知接口  
+	public static final String NOTIFT_URL = "http://121.40.84.2:8080/ZFMerchant/app_notify_url.jsp"; 
+	//支付成功跳转页面
+	public static final String RETURN_URL = "http://121.40.84.2:8080/ZFMerchant/return_url.jsp"; 
 	
-//	public final static String PATHS = "http://114.215.149.242:28080/ZFAgent/api/";
+	
+	//	public final static String PATHS = "http://114.215.149.242:28080/ZFAgent/api/";
 	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
@@ -79,11 +93,11 @@ public class Config {
 	// upload register url
 	public static final String UPLOAD_REGISTER = PATHS
 			+ "agent/upload/register";	
-	
+
 	// upload open url
 	public static final String UPLOAD_OPEN = PATHS
 			+ "apply/upload/tempOpenImg/";
-	
+
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;
@@ -199,6 +213,8 @@ public class Config {
 	// 库存管理详情（下级代理商终端列表）
 	public static final String STOCK_TERMINALLIST = PATHS
 			+ "stock/terminallist";
+	// 代购订单信息
+	public static final String SHOP_PAYORDER = PATHS + "shop/payOrder";
 	// get code
 	public static final String GETCODE4PHONE = PATHS
 			+ "user/sendPhoneVerificationCodeReg";
@@ -242,16 +258,16 @@ public class Config {
 	// upload File
 	public static final String UPLOAD_FILE = PATHS + "lowerAgent/uploadImg/";
 	// edit address
-		//public static final String EDIT_ADDRESS = PATHS
-		//		+ "agents/updateAddress";
-		//public static final String EDIT_ADDRESS = "http://192.168.199.206:8080/zfagent/api/" +
-		//		"message/receiver/batchRead";
-    // creat agent
-		public static final String CREAT_AGENT = PATHS
-				+ "lowerAgent/createNew";
-    // get distribute_list
-		public static final String GET_DISTRIBUTE = PATHS
-				+ "preparegood/list";
+	//public static final String EDIT_ADDRESS = PATHS
+	//		+ "agents/updateAddress";
+	//public static final String EDIT_ADDRESS = "http://192.168.199.206:8080/zfagent/api/" +
+	//		"message/receiver/batchRead";
+	// creat agent
+	public static final String CREAT_AGENT = PATHS
+			+ "lowerAgent/createNew";
+	// get distribute_list
+	public static final String GET_DISTRIBUTE = PATHS
+			+ "preparegood/list";
 	public static final String EDIT_ADDRESS = PATHS + "agents/updateAddress";
 	// public static final String EDIT_ADDRESS =
 	// "http://192.168.199.206:8080/zfagent/api/" +
@@ -272,7 +288,7 @@ public class Config {
 	public static final String SELECTPOS = PATHS + "terminal/screeningPosName";
 	// apply submit
 	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
-    //  get terminal list
+	//  get terminal list
 	public static final String GET_TERMINAL_LIST =PATHS + "preparegood/getterminalslist";
 	//get Pay ways
 	public static final String GET_TERMINAL_PAY_LIST = PATHS + "preparegood/getpaychannellist";
@@ -314,7 +330,7 @@ public class Config {
 	// get terminallist
 	public static final String GETTERMINALLIST = PATHS
 			+ "terminal/getTerminalList";
-   // delect staff
+	// delect staff
 	public static final String DELECT_STAFF = PATHS
 			+ "customerManage/deleteOne";
 	// edit staff
@@ -646,7 +662,14 @@ public class Config {
 	public static void userDelectAgentUser(Context context,
 			int[] customerArrayId, int agentId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customerArrayId", customerArrayId);
+		//params.put("customerArrayId", customerArrayId);
+		Gson gson = new Gson();
+		try {
+			if (customerArrayId != null)
+				params.put("customerArrayId", new JSONArray(gson.toJson(customerArrayId)));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		params.put("agentId", agentId);
 		new HttpRequest(context, callback).post(USER_DELECTAGENTUSER, params);
 	}
@@ -670,8 +693,8 @@ public class Config {
 		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(AGENTS_ADDMARK, params);
 	}
-	
-	
+
+
 	public static void stockList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -851,7 +874,7 @@ public class Config {
 	public static void changePaw(Context context, int customerId,
 			String passwordOld, String password, HttpCallback callback) {
 		//RequestParams params = new RequestParams();
-		 Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("passwordOld", passwordOld);
 		params.put("password", password);
@@ -1043,7 +1066,7 @@ public class Config {
 
 	public static void GetAdressList(Context context, int customerId,
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 		RequestParams params = new RequestParams();
 		params.put("customerId", customerId);
 		params.setUseJsonStreamer(true);
@@ -1199,11 +1222,11 @@ public class Config {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		params.put("page", page);
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(GET_TERMINAL_LIST, params);
@@ -1338,4 +1361,12 @@ public class Config {
 		new HttpRequest(context, callback).post(GET_TERMINALPOS_LIST, params);
 		Log.e("params", String.valueOf(params));
 	}
+	public static void shopPayOrder(Context context,
+			int id,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		new HttpRequest(context, callback).post(SHOP_PAYORDER, params);
+	}
+	
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -66,6 +67,8 @@ public class AfterSaleDetailActivity extends Activity{
 	private int mRecordType = 0;
 	private int id;
 	private String apply_numString;
+	private String isCancelUpdate = "";
+	private LinearLayout titleback_linear_back;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,6 +90,8 @@ public class AfterSaleDetailActivity extends Activity{
 	}
 
 	private void initView() {
+		titleback_linear_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
+
 		terminal_infoTextView = (TextView) findViewById(R.id.terminal_infoTextView);
 		terminal_noTextView = (TextView) findViewById(R.id.terminal_noTextView);
 		apply_time = (TextView) findViewById(R.id.apply_time);
@@ -127,7 +132,22 @@ public class AfterSaleDetailActivity extends Activity{
 				}
 			}
 		});
-
+		titleback_linear_back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent1 = new Intent();
+				if (isCancelUpdate.equals("cancel")) {
+					intent1.putExtra("isChange", "cancel");
+				}else if (isCancelUpdate.equals("update")){
+					intent1.putExtra("isChange", "update");
+				}else {
+					intent1.putExtra("isChange", "");
+				}
+				setResult(RESULT_OK, intent1);
+				finish();
+			}
+		});;
 		resource_infoListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -147,6 +167,9 @@ public class AfterSaleDetailActivity extends Activity{
 	protected void initOrderData() {
 		if (detailOrderEntity.getStatus().equals("1")) {
 			apply_state.setText("待处理");
+			update_operation.setText("取消申请");
+			update_operation.setTextColor(getResources().getColor(R.color.bgtitle));
+			update_operation.setBackgroundResource(R.drawable.bg_right_white);
 			update_operation.setVisibility(View.VISIBLE);
 		}else if (detailOrderEntity.getStatus().equals("2")) {
 			apply_state.setText("处理中");
@@ -185,6 +208,9 @@ public class AfterSaleDetailActivity extends Activity{
 	protected void initCancelData() {
 		if (detailCancelEntity.getStatus().equals("1")) {
 			apply_state.setText("待处理");
+			update_operation.setText("取消申请");
+			update_operation.setTextColor(getResources().getColor(R.color.bgtitle));
+			update_operation.setBackgroundResource(R.drawable.bg_right_white);
 			update_operation.setVisibility(View.VISIBLE);
 		}else if (detailCancelEntity.getStatus().equals("2")) {
 			apply_state.setText("处理中");
@@ -309,6 +335,7 @@ public class AfterSaleDetailActivity extends Activity{
 		Config.cancelApply(this, mRecordType,id,new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {
+				isCancelUpdate = "cancel";
 				if (mRecordType == 0) {
 					apply_state.setText("已取消");
 					update_operation.setVisibility(View.GONE);
@@ -338,11 +365,12 @@ public class AfterSaleDetailActivity extends Activity{
 		Config.resubmitCancel(this, id,new HttpCallback(this) {
 			@Override
 			public void onSuccess(Object data) {
+				isCancelUpdate = "update";
 				apply_state.setText("待处理");
 				update_operation.setVisibility(View.VISIBLE);
 				update_operation.setText("取消申请");
-				update_operation.setTextColor(getResources().getColor(R.color.white));
-				update_operation.setBackgroundResource(R.drawable.bg_right_bgtitle);
+				update_operation.setTextColor(getResources().getColor(R.color.bgtitle));
+				update_operation.setBackgroundResource(R.drawable.bg_right_white);
 				Toast.makeText(AfterSaleDetailActivity.this, "重新提交注销成功", Toast.LENGTH_SHORT).show();
 			}
 
@@ -371,5 +399,23 @@ public class AfterSaleDetailActivity extends Activity{
 			}
 
 		});
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getRepeatCount() == 0) {
+			Intent intent = new Intent();
+			if (isCancelUpdate.equals("cancel")) {
+				intent.putExtra("isChange", "cancel");
+			}else if (isCancelUpdate.equals("update")){
+				intent.putExtra("isChange", "update");
+			}else {
+				intent.putExtra("isChange", "");
+			}
+			setResult(RESULT_OK, intent);
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

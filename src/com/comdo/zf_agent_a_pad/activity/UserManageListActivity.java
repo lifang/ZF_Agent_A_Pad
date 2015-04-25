@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.comdo.zf_agent_a_pad.adapter.UserMLAdapter;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.UserMLEntity;
-import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -45,8 +44,6 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				onLoad();
-
 				if (myList.size() == 0) {
 					Xlistview.setVisibility(View.GONE);
 					eva_nodata.setVisibility(View.VISIBLE);
@@ -54,7 +51,6 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 					Xlistview.setVisibility(View.VISIBLE);
 					eva_nodata.setVisibility(View.GONE);
 				}
-				onRefresh_number = true;
 				myAdapter.notifyDataSetChanged();
 				break;
 			case 1:
@@ -67,7 +63,6 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 3:
-				Xlistview.setPullLoadEnable(false);
 				Toast.makeText(getApplicationContext(), "no more data",
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -127,7 +122,6 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 		if (onRefresh_number) {
 			page = page + 1;
 
-
 			if (Tools.isConnect(getApplicationContext())) {
 				onRefresh_number = false;
 				getData();
@@ -136,6 +130,8 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 				handler.sendEmptyMessage(2);
 			}
 		} else {
+			Xlistview.setPullLoadEnable(false);
+			Xlistview.stopLoadMore();
 			handler.sendEmptyMessage(3);
 		}
 	}
@@ -161,6 +157,12 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 				if (null != data) {
 					myList.addAll(data);
 				}
+				if (data.size()==0) {
+					onRefresh_number = false;
+				} else {
+					onRefresh_number = true;
+				}
+				onLoad();
 				handler.sendEmptyMessage(0);
 			}
 
@@ -177,6 +179,7 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 		ids[0]= myList.get(position).getCustomersId();
 		idArray = new int[ids.length];
 		idArray[0] = Integer.parseInt(ids[0]);
+
 		//代理商id,MyApplication.NewUser.getAgentId()
 		Config.userDelectAgentUser(this,idArray, MyApplication.NewUser.getAgentId(),
 				new HttpCallback(this) {
