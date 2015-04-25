@@ -44,7 +44,7 @@ public class Config {
 	public static int TABID = 1;
 	public static int ScreenWidth = 0;
 	public static int ScreenHeight = 0;
-
+	public static final String INDEXIMG=PATHS + "index/sysshufflingfigure";
 	public static final String POSLIST = PATHS + "good/list";
 	public static final String GOODDETAIL = PATHS + "good/goodinfo";
 	public static final String paychannel_info = PATHS + "paychannel/info";
@@ -62,6 +62,7 @@ public class Config {
 
 	public static GoodinfoEntity gfe = null;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
+	public static ArrayList<ChanelEntitiy> celist2 = new ArrayList<ChanelEntitiy>();
 	public static ArrayList<tDates> tDates = new ArrayList<tDates>();
 	public static ArrayList<other_rate> other_rate = new ArrayList<other_rate>();
 	public static List<ApplyneedEntity> pub = new LinkedList<ApplyneedEntity>();

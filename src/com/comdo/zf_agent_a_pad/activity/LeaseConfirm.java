@@ -39,6 +39,7 @@ import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.entity.AdressEntity;
 import com.comdo.zf_agent_a_pad.entity.UserInfo;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -81,23 +82,35 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private ArrayAdapter<String> adapter_user;
 	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 	private Button bt_add;
+	private int type;
+	private ImageView event_img;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_comfirm1);
-		new TitleMenuUtil(LeaseConfirm.this, "代租赁订单确认").show();
+		type = getIntent().getIntExtra("type", 1);
+		if(type==1){
+			new TitleMenuUtil(LeaseConfirm.this, "代购订单确认").show();
+		}else{
+			new TitleMenuUtil(LeaseConfirm.this, "代租赁订单确认").show();
+		}
+	
 		initView();
+		
 		title2.setText(getIntent().getStringExtra("getTitle"));
 		pg_price = getIntent().getIntExtra("purchase_price", 1);
 		pirce = getIntent().getIntExtra("price", 0);
 		retail_price.setText("原价:￥" + pirce);
 		goodId = getIntent().getIntExtra("goodId", 1);
 		paychannelId = getIntent().getIntExtra("paychannelId", 1);
-		tv_pay.setText("实付：￥ " + ((double)pirce)/100);
-		tv_totle.setText("实付：￥ " + ((double)pirce)/100);
+		tv_pay.setText("实付：￥ " + ((double)pg_price)/100);
+		tv_totle.setText("实付：￥ " + ((double)pg_price)/100);
 		tv_price.setText("￥"+ ((double)pg_price)/100);
 		tv_brand.setText(getIntent().getStringExtra("brand"));
+		String img_url=getIntent().getStringExtra("evevt_img");
+		ImageCacheUtil.IMAGE_CACHE.get(img_url,
+ 				event_img);
 		System.out.println("=paychannelId==" + paychannelId);		
 		GetUser();
 	
@@ -134,6 +147,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		event_img = (ImageView)findViewById(R.id.evevt_img);
 		bt_add = (Button)findViewById(R.id.bt_add);
 		bt_add.setOnClickListener(this);
 		spinner_user = (Spinner) findViewById(R.id.spinner_user);
@@ -196,7 +210,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		tv_pay = (TextView) findViewById(R.id.tv_pay);
 		et_titel = (EditText) findViewById(R.id.et_titel);
 		buyCountEdit = (EditText) findViewById(R.id.buyCountEdit);
-		buyCountEdit.setText("100");
+		
 		// comment_et=(EditText) findViewById(R.id.comment_et);
 		item_cb = (CheckBox) findViewById(R.id.item_cb);
 		item_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {

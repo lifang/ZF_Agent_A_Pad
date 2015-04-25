@@ -89,7 +89,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-
 		case R.id.main_rl_sy:
 			Config.TABID=1;
 			changTabBg();

@@ -23,7 +23,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="POS信息"
-            android:textColor="@color/text6c6c6c6"
+               android:textColor="@color/text292929"
             android:textSize="18sp" />
 <View 
     android:layout_width="fill_parent"
@@ -211,7 +211,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="支付通道信息"
-            android:textColor="@color/text6c6c6c6"
+            android:textColor="@color/text292929"
             android:textSize="18sp" />
 <View 
     android:layout_width="fill_parent"
@@ -306,7 +306,7 @@
                         android:layout_marginLeft="5dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="刷卡交易标准："
+                        android:text="刷卡交易标准手续："
                         android:textColor="@color/text292929"
                         android:textSize="18sp" />
                 </LinearLayout>

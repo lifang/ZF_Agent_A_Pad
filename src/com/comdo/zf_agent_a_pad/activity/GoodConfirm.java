@@ -12,7 +12,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +40,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.AddressManager;
 import com.comdo.zf_agent_a_pad.entity.AdressEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -69,29 +73,44 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private TextView tv_price;
 	private int pg_price;
 	private TextView tv_brand;
+	private TextView tv_least;
+	private int floor_purchase_quantity;
+	private ImageView event_img;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_comfirm);
 		new TitleMenuUtil(GoodConfirm.this, "批购订单确认").show();
+		
+		floor_purchase_quantity = getIntent().getIntExtra("floor_purchase_quantity", 0);
 		initView();
 		title2.setText(getIntent().getStringExtra("getTitle"));
 		pg_price = getIntent().getIntExtra("purchase_price", 1);
 		pirce = getIntent().getIntExtra("price", 0);
-		retail_price.setText("原价:￥" + pirce);
+		String string=" 原价:￥"+((double) pirce) / 100+" ";
+		SpannableString sp = new SpannableString(string);
+		sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		retail_price.setText(sp);
 		goodId = getIntent().getIntExtra("goodId", 1);
 		paychannelId = getIntent().getIntExtra("paychannelId", 1);
-		tv_pay.setText("实付：￥ " + ((double) pirce) / 100);
-		tv_totle.setText("实付：￥ " + ((double) pirce) / 100);
+		tv_pay.setText("实付：￥ " + ((double) pg_price) / 100);
+		tv_totle.setText("实付：￥ " + ((double) pg_price) / 100);
 		tv_price.setText("￥" + ((double) pg_price) / 100);
 		tv_brand.setText(getIntent().getStringExtra("brand"));
+		tv_least.setText("最小起批量："+floor_purchase_quantity+"件");
+		tv_count.setText("共计："+floor_purchase_quantity+"件");
+		String img_url=getIntent().getStringExtra("evevt_img");
+		ImageCacheUtil.IMAGE_CACHE.get(img_url,
+ 				event_img);
 		System.out.println("=paychannelId==" + paychannelId);
 		// getData1();
 
 	}
 
 	private void initView() {
+		event_img = (ImageView)findViewById(R.id.evevt_img);
+		tv_least = (TextView)findViewById(R.id.tv_least);
 		tv_price = (TextView) findViewById(R.id.tv_price);
 		tv_brand = (TextView) findViewById(R.id.content2);
 		sclist = (ScrollViewWithListView) findViewById(R.id.pos_lv1);
@@ -117,6 +136,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		// showCountText = (TextView) findViewById(R.id.showCountText);
 
 		tv_count = (TextView) findViewById(R.id.tv_count);
+		
 		tv_tel = (TextView) findViewById(R.id.tv_tel);
 		tv_adress = (TextView) findViewById(R.id.tv_adress);
 
@@ -127,8 +147,9 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		tv_pay = (TextView) findViewById(R.id.tv_pay);
 		et_titel = (EditText) findViewById(R.id.et_titel);
 		buyCountEdit = (EditText) findViewById(R.id.buyCountEdit);
+		buyCountEdit.setText(floor_purchase_quantity+"");
 		// comment_et=(EditText) findViewById(R.id.comment_et);
-		buyCountEdit.setText("100");
+		buyCountEdit.setText(floor_purchase_quantity+"");
 		item_cb = (CheckBox) findViewById(R.id.item_cb);
 		item_cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
