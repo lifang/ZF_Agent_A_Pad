@@ -117,7 +117,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		case R.id.main_rl_jyls: // 交易流水
 			if (Config.CheckIsLogin(getActivity())) {
 
-				if (!CheckRights.RIGHT_4)
+				if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_4)
 					CommonUtil.toastShort(getActivity(),
 							R.string.right_not_match);
 				else
@@ -128,42 +128,42 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.main_rl_pos: // 我要进货
 
-			if (CheckRights.RIGHT_1 || CheckRights.RIGHT_2) {
-
-				if (MyApplication.NewUser.getTypes() == 6
-						|| MyApplication.NewUser.getParent_id() == 0) {
-					startActivity(new Intent(getActivity(),
-							PosListActivity.class));
-				} else {
-					CommonUtil.toastShort(getActivity(),
-							R.string.right_not_match);
-				}
-
-			} else {
+			if (CheckRights.IS_ERJI
+					|| (!CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			} else {
+
+				startActivity(new Intent(getActivity(), PosListActivity.class));
+
 			}
 
 			break;
 		case R.id.main_rl_renzhen: // 订单管理
 			if (Config.CheckIsLogin(getActivity())) {
-				startActivity(new Intent(getActivity(), OrderList.class));
+				
+				if (CheckRights.IS_ERJI|| (!CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+					CommonUtil.toastShort(getActivity(),
+							R.string.right_not_match);
+				} else {
+					startActivity(new Intent(getActivity(), OrderList.class));
+				}
 			}
 			break;
 		case R.id.main_rl_xtgg: // 售后记录
-			if (!CheckRights.RIGHT_3)
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(), AfterSaleActivity.class));
 			break;
 		case R.id.main_rl_wylc: // 用户管理
-			if (!CheckRights.RIGHT_6)
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_6)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(),
 						UserManageListActivity.class));
 			break;
 		case R.id.main_rl_Forum: // 库存管理
-			if (!CheckRights.RIGHT_9)
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_9)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(), StockListActivity.class));
@@ -173,7 +173,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.main_rl_zdgl: // 终端管理
 			// if (Config.CheckIsLogin(getActivity())) {
-			if (!CheckRights.RIGHT_3)
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(),

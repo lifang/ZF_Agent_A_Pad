@@ -20,12 +20,14 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINA
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,14 +37,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,7 +60,6 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyBank;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
@@ -69,9 +73,13 @@ import com.comdo.zf_agent_a_pad.trade.entity.My_ApplyDetail;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class ApplyDetailActivity extends FragmentActivity {
 
@@ -253,7 +261,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("terminalId", mTerminalId);
 				// yewei
-//				params.put("status", mTerminalStatus == 2 ? 2 : 1);
+				// params.put("status", mTerminalStatus == 2 ? 2 : 1);
 				params.put("applyCustomerId", mMerchant.getCustomerId());
 				params.put("publicPrivateStatus", mApplyType);
 
@@ -355,10 +363,11 @@ public class ApplyDetailActivity extends FragmentActivity {
 		// mMaterialContainer_9.removeAllViews();
 		initMerchantDetailKeys();
 
-		Config.getApplyDetail(this, mTerminalId, applyType,	new HttpCallback<My_ApplyDetail>(this) {
+		Config.getApplyDetail(this, mTerminalId, applyType,
+				new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
-						
+
 						System.out.println("");
 						MyApplyTerminalDetail terminalDetail = data
 								.getTerminalDetail();
@@ -430,10 +439,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 		case REQUEST_CHOOSE_MERCHANT: {
 			mMerchantId = data.getIntExtra(SELECTED_ID, 0);
 			setItemValue(mMerchantKeys[0], data.getStringExtra(SELECTED_TITLE));
-			Config.getApplyMerchantDetail(
-					ApplyDetailActivity.this,
-					mMerchantId,
-					new HttpCallback<MerchantForApply>(ApplyDetailActivity.this) {
+			Config.getApplyMerchantDetail(ApplyDetailActivity.this,
+					mMerchantId, new HttpCallback<MerchantForApply>(
+							ApplyDetailActivity.this) {
 						@Override
 						public void onSuccess(MerchantForApply data) {
 							mMerchant = data;
@@ -484,8 +492,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 				@Override
 				public void handleMessage(Message msg) {
 					if (msg.what == 1) {
-//						CommonUtil.toastShort(ApplyDetailActivity.this,
-//								(String) msg.obj);
+						// CommonUtil.toastShort(ApplyDetailActivity.this,
+						// (String) msg.obj);
 
 						mUploadUri = (String) msg.obj;
 						if (null != uploadingTextView) {
@@ -522,45 +530,97 @@ public class ApplyDetailActivity extends FragmentActivity {
 				uploadingTextView.setText(getString(R.string.apply_uploading));
 				uploadingTextView.setClickable(false);
 			}
-			new Thread() {
-				@Override
-				public void run() {
-					String realPath = "";
-					if (requestCode == REQUEST_TAKE_PHOTO) {
-						realPath = photoPath;
-					} else {
-						Uri uri = data.getData();
-						if (uri != null) {
-							realPath = getRealPathFromURI(uri);
-						}
-					}
-					if (TextUtils.isEmpty(realPath)) {
-						handler.sendEmptyMessage(0);
-						return;
-					}
-					CommonUtil.uploadFile(realPath, "img",
-							new CommonUtil.OnUploadListener() {
-								@Override
-								public void onSuccess(String result) {
-									try {
-										JSONObject jo = new JSONObject(result);
-										String url = jo.getString("result");
-										Message msg = new Message();
-										msg.what = 1;
-										msg.obj = url;
-										handler.sendMessage(msg);
-									} catch (JSONException e) {
-										handler.sendEmptyMessage(0);
-									}
-								}
 
-								@Override
-								public void onFailed(String message) {
+			String realPath = "";
+			if (requestCode == REQUEST_TAKE_PHOTO) {
+				realPath = photoPath;
+			} else {
+				Uri uri = data.getData();
+				if (uri != null) {
+					// realPath = getRealPathFromURI(uri);
+					Cursor cursor = getContentResolver().query(uri, null, null,
+							null, null);
+					cursor.moveToFirst();
+					realPath = cursor.getString(cursor.getColumnIndex("_data"));
+					Log.e("localSelectPath", realPath);
+					cursor.close();
+				}
+			}
+			if (TextUtils.isEmpty(realPath)) {
+				handler.sendEmptyMessage(0);
+				return;
+			}
+
+			File file = new File(realPath);
+			if (file.exists() && file.length() > 0) {
+
+				File img = new File(realPath);
+				RequestParams params = new RequestParams();
+				try {
+					params.put("img", img);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+				AsyncHttpClient client = new AsyncHttpClient();
+				client.setTimeout(10000);// 设置超时时间
+				client.setMaxConnections(10);
+				client.post(
+						Config.UPLOAD_OPEN + MyApplication.NewUser.getAgentId(),
+						params, new AsyncHttpResponseHandler() {
+
+							@Override
+							public void onSuccess(int statusCode,
+									Header[] headers, byte[] responseBody) {
+
+								try {
+									CommonUtil.toastShort(
+											getApplicationContext(), "上传成功");
+									String str = new String(responseBody);
+									JSONObject jo = new JSONObject(str);
+									String url = jo.getString("result");
+									Message msg = new Message();
+									msg.what = 1;
+									msg.obj = url;
+									handler.sendMessage(msg);
+								} catch (JSONException e) {
 									handler.sendEmptyMessage(0);
 								}
-							});
-				}
-			}.start();
+							}
+
+							@Override
+							public void onFailure(int statusCode,
+									Header[] headers, byte[] responseBody,
+									Throwable error) {
+
+								handler.sendEmptyMessage(0);
+							}
+						});
+			} else {
+				CommonUtil.toastShort(getApplicationContext(), "文件不存在");
+			}
+			//
+			// CommonUtil.uploadFile(realPath, "img",
+			// new CommonUtil.OnUploadListener() {
+			// @Override
+			// public void onSuccess(String result) {
+			// try {
+			// JSONObject jo = new JSONObject(result);
+			// String url = jo.getString("result");
+			// Message msg = new Message();
+			// msg.what = 1;
+			// msg.obj = url;
+			// handler.sendMessage(msg);
+			// } catch (JSONException e) {
+			// handler.sendEmptyMessage(0);
+			// }
+			// }
+			//
+			// @Override
+			// public void onFailed(String message) {
+			// handler.sendEmptyMessage(0);
+			// }
+			// });
+
 			break;
 		}
 		}
@@ -1035,9 +1095,16 @@ public class ApplyDetailActivity extends FragmentActivity {
 									mUploadKey = key;
 									switch (which) {
 									case 0: {
-										Intent intent = new Intent();
-										intent.setType("image/*");
-										intent.setAction(Intent.ACTION_GET_CONTENT);
+										Intent intent;
+										if (Build.VERSION.SDK_INT < 19) {
+											intent = new Intent(
+													Intent.ACTION_GET_CONTENT);
+											intent.setType("image/*");
+										} else {
+											intent = new Intent(
+													Intent.ACTION_PICK,
+													android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+										}
 										startActivityForResult(intent,
 												REQUEST_UPLOAD_IMAGE);
 										break;
@@ -1090,8 +1157,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 			ImageButton ibView = (ImageButton) item
 					.findViewById(R.id.apply_detail_view);
 			mUploadUri = value;
-			// TODO:
-			mUploadUri = "http://i2.sinaimg.cn/ty/nba/2015-04-10/U8567P6T12D7570488F44DT20150410181804.jpg";
+//			// TODO:
+//			mUploadUri = "http://i2.sinaimg.cn/ty/nba/2015-04-10/U8567P6T12D7570488F44DT20150410181804.jpg";
 			if (!TextUtils.isEmpty(key))
 				tvKey.setText(key);
 			ibView.setOnClickListener(new onWatchListener()
@@ -1135,7 +1202,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 								.from(ApplyDetailActivity.this);
 						final View textEntryView = factory.inflate(
 								R.layout.show_view, null);
-						// build.setTitle("�Զ��������");
 						build.setView(textEntryView);
 						final ImageView view = (ImageView) textEntryView
 								.findViewById(R.id.imag);

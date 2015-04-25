@@ -106,22 +106,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		case R.id.main_rl_gwc:
 
-			if (CheckRights.RIGHT_1 || CheckRights.RIGHT_2) {
+			if (CheckRights.IS_ERJI
+					|| (!CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+				CommonUtil.toastShort(MainActivity.this, R.string.right_not_match);
+			} else {
 
-				if (MyApplication.NewUser.getTypes() == 6
-						|| MyApplication.NewUser.getParent_id() == 0) {
 					Config.TABID = 2;
 					Intent i = new Intent(MainActivity.this,
 							PosListActivity.class);
 					startActivity(i);
-				} else {
-					CommonUtil.toastShort(MainActivity.this,
-							R.string.right_not_match);
-				}
-
-			} else {
-				CommonUtil.toastShort(MainActivity.this,
-						R.string.right_not_match);
+				
 			}
 
 			break;

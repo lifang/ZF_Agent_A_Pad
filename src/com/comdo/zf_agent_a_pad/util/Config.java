@@ -78,7 +78,12 @@ public class Config {
 
 	// upload register url
 	public static final String UPLOAD_REGISTER = PATHS
-			+ "agent/upload/register";
+			+ "agent/upload/register";	
+	
+	// upload open url
+	public static final String UPLOAD_OPEN = PATHS
+			+ "apply/upload/tempOpenImg/";
+	
 	public static final String SHARED = "zfandroid";
 	public static String CITY = "上海";
 	public static boolean isFRIST = false;

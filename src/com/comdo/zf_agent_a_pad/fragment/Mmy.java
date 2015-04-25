@@ -52,11 +52,34 @@ try {
 	Log.e("inflater", String.valueOf(inflater));
 	Log.e("container", String.valueOf(container));
     view = inflater.inflate(R.layout.f_mine, container, false);
+
+    init();
+    if(!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_8){
+    	
+    	if (!CheckRights.RIGHT_5) {
+    		setback();
+    		im3.setVisibility(View.VISIBLE);
+    		f_distribute=new Distribute();
+    		getActivity().getSupportFragmentManager().beginTransaction().
+    		replace(R.id.f_mine, f_distribute).commit();
+    	}else {
+    		setback();
+    		im2.setVisibility(View.VISIBLE);
+    		f_agentmanager=new Agentmanager();
+    		getActivity().getSupportFragmentManager().beginTransaction().
+    		replace(R.id.f_mine, f_agentmanager).commit();
+		}
+    	
+    }else {
+
+		setback();
+		im1.setVisibility(View.VISIBLE);
+
     f_info = new MineMyinfo();
 
 	getActivity().getSupportFragmentManager().beginTransaction()
-			.replace(R.id.f_mine, f_info).commit();
-    init();
+			.replace(R.id.f_mine, f_info).commit();	
+	}
 } catch (InflateException e) {
     
 }
@@ -146,7 +169,7 @@ private void init() {
 public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.tv_myinfo:
-		if (!CheckRights.RIGHT_8) {
+		if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_8) {
 			CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 		} else {
 		type=1;
@@ -159,7 +182,7 @@ public void onClick(View v) {
 		}
 		break;
 	case R.id.tv_manager_shopper:
-		if (!CheckRights.RIGHT_5) {
+		if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_5) {
 			CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 		} else {
 		type=2;
@@ -190,7 +213,7 @@ public void onClick(View v) {
 		replace(R.id.f_mine, f_transgood).commit();
 		break;
 	case R.id.tv_staffmanagr:
-		if (!CheckRights.RIGHT_8) {
+		if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_8) {
 			CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 		} else {
 		type=5;
