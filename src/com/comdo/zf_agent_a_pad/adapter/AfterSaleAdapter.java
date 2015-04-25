@@ -84,6 +84,7 @@ public class AfterSaleAdapter extends BaseAdapter{
 				viewHolder.update_state.setText("处理完成");
 			}else if (lists.get(position).getStatus().equals("4")) {
 				viewHolder.update_state.setText("已取消");
+				viewHolder.cancel_apply.setVisibility(View.GONE);
 			}
 		}else {
 			//注销、更新资料
