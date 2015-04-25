@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.adapter.OrderAdapter;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.AdressEntity;
 import com.comdo.zf_agent_a_pad.entity.OrderEntity;
 import com.comdo.zf_agent_a_pad.entity.PostPortEntity;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
@@ -90,11 +92,12 @@ public class OrderList extends Activity implements IXListViewListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlist);
 		initView();
-		type="5";
-		q="";
+		type = "5";
+		q = "";
 		// getData();
 	}
 
+	@SuppressLint("NewApi")
 	private void initView() {
 		ll_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		ll_back.setOnClickListener(this);
@@ -139,9 +142,21 @@ public class OrderList extends Activity implements IXListViewListener,
 		tv_pg.setOnClickListener(this);
 		tv_dg = (TextView) findViewById(R.id.tv_dg);
 		tv_dg.setOnClickListener(this);
+		if (!CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
+			sp.setSelection(0);
+			tv_dg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
+			tv_pg.setBackgroundColor(getResources().getColor(R.color.bggray));
+			type = "3";
+			myList.clear();
+			page = 1;
+			q = "";
+			ll_isshow.setVisibility(View.VISIBLE);
+			Xlistview.setPullLoadEnable(true);
+			getData();
+		}
 		myAdapter = new OrderAdapter(OrderList.this, myList);
 		Xlistview = (XListView) findViewById(R.id.x_listview);
-		
+
 		Xlistview.initHeaderAndFooter();
 		Xlistview.setXListViewListener(this);
 		Xlistview.setPullLoadEnable(true);
@@ -185,7 +200,8 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	private void getData() {
 
-		Config.GetOrderList(OrderList.this, MyApplication.NewUser.getAgentUserId(), type, et.getText().toString(), q, page,
+		Config.GetOrderList(OrderList.this, MyApplication.NewUser
+				.getAgentUserId(), type, et.getText().toString(), q, page,
 				Config.ROWS,
 				new HttpCallback<Page<OrderEntity>>(OrderList.this) {
 
@@ -239,28 +255,42 @@ public class OrderList extends Activity implements IXListViewListener,
 			getData();
 			break;
 		case R.id.tv_pg:
-			sp.setSelection(0);
-			tv_pg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
-			tv_dg.setBackgroundColor(getResources().getColor(R.color.bggray));
-			type = "5";
-			ll_isshow.setVisibility(View.GONE);
-			myList.clear();
-			page = 1;
-			q = "";
-			Xlistview.setPullLoadEnable(true);
-			getData();
+			if (!CheckRights.RIGHT_1) {
+
+				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);
+			} else {
+				sp.setSelection(0);
+				tv_pg.setBackground(getResources().getDrawable(
+						R.drawable.tab_bg));
+				tv_dg.setBackgroundColor(getResources()
+						.getColor(R.color.bggray));
+				type = "5";
+				ll_isshow.setVisibility(View.GONE);
+				myList.clear();
+				page = 1;
+				q = "";
+				Xlistview.setPullLoadEnable(true);
+				getData();
+			}
 			break;
 		case R.id.tv_dg:
-			sp.setSelection(0);
-			tv_dg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
-			tv_pg.setBackgroundColor(getResources().getColor(R.color.bggray));
-			type = "3";
-			myList.clear();
-			page = 1;
-			q = "";
-			ll_isshow.setVisibility(View.VISIBLE);
-			Xlistview.setPullLoadEnable(true);
-			getData();
+			if (!CheckRights.RIGHT_2) {
+
+				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);
+			} else {
+				sp.setSelection(0);
+				tv_dg.setBackground(getResources().getDrawable(
+						R.drawable.tab_bg));
+				tv_pg.setBackgroundColor(getResources()
+						.getColor(R.color.bggray));
+				type = "3";
+				myList.clear();
+				page = 1;
+				q = "";
+				ll_isshow.setVisibility(View.VISIBLE);
+				Xlistview.setPullLoadEnable(true);
+				getData();
+			}
 			break;
 		case R.id.AllGood:
 			Intent i = new Intent(OrderList.this, PosListActivity.class);
@@ -277,16 +307,15 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	@Override
 	public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
-		 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-				search = et.getText().toString();
-				myList.clear();
-				page = 1;
-				getData();
-             
-             return false;
-         }
-         return false;
-	
+		if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+			search = et.getText().toString();
+			myList.clear();
+			page = 1;
+			getData();
+
+			return false;
+		}
+		return false;
 
 	}
 

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.entity.StockEntity;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.example.zf_agent_a_pad.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,7 +26,7 @@ public class StockListAdapter extends BaseAdapter{
 	private OnClickListener onClickListener;
 	private ViewHolder viewHolder;
 	DisplayImageOptions options = MyApplication.getDisplayOption();
-	
+
 	public StockListAdapter(Context context, List<StockEntity> list,
 			OnClickListener onClickListener) {
 		this.lists = list;
@@ -70,17 +71,21 @@ public class StockListAdapter extends BaseAdapter{
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		ImageLoader.getInstance().displayImage(lists.get(position).getPicurl(), viewHolder.evevt_img,options);
-		
+
 		viewHolder.title.setText(lists.get(position).getGoodname()+"");
 		viewHolder.brandNum.setText(lists.get(position).getGood_brand() +
 				lists.get(position).getModel_number());
 		viewHolder.paychannel.setText(lists.get(position).getPaychannel()+"");
-		
+
 		viewHolder.hoitoryCount.setText(lists.get(position).getHoitoryCount()+"");
 		viewHolder.openCount.setText(lists.get(position).getOpenCount()+"");
 		viewHolder.agentCount.setText(lists.get(position).getAgentCount()+"");
 		viewHolder.totalCount.setText(lists.get(position).getTotalCount()+"");
-
+		if (CheckRights.IS_ERJI) {
+			viewHolder.changeName.setVisibility(View.GONE);
+		}else {
+			viewHolder.changeName.setVisibility(View.VISIBLE);
+		}
 		viewHolder.changeName.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

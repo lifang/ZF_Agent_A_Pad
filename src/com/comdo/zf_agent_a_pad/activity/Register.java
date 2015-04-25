@@ -32,6 +32,7 @@ import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;

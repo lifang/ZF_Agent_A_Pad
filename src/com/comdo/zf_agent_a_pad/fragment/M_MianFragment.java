@@ -27,15 +27,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.activity.StockListActivity;
 import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.activity.UserManageListActivity;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.entity.PicEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.trade.TradeFlowActivity;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
@@ -136,36 +139,76 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 		case R.id.main_rl_jyls: // 交易流水
 			if (Config.CheckIsLogin(getActivity())) {
-				startActivity(new Intent(getActivity(), TradeFlowActivity.class));
+
+
+				if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_4)
+					CommonUtil.toastShort(getActivity(),
+							R.string.right_not_match);
+				else
+					startActivity(new Intent(getActivity(),
+							TradeFlowActivity.class));
+
 			}
 			break;
-		case R.id.main_rl_pos: //我要进货
+		case R.id.main_rl_pos: // 我要进货
 
-			startActivity(new Intent(getActivity(), PosListActivity.class));
-			
+			if (CheckRights.IS_ERJI
+					|| (!CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			} else {
+
+				startActivity(new Intent(getActivity(), PosListActivity.class));
+
+			}
+
 			break;
+
 		case R.id.main_rl_renzhen: // 订单管理
 			if (Config.CheckIsLogin(getActivity())) {
-			startActivity(new Intent(getActivity(), OrderList.class));
+
+				
+				if (CheckRights.IS_ERJI|| (!CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+					CommonUtil.toastShort(getActivity(),
+							R.string.right_not_match);
+				} else {
+					startActivity(new Intent(getActivity(), OrderList.class));
+				}
 			}
 			break;
 		case R.id.main_rl_xtgg: // 售后记录
-			startActivity(new Intent(getActivity(), AfterSaleActivity.class));
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(), AfterSaleActivity.class));
 			break;
-		case R.id.main_rl_wylc: //用户管理
-			startActivity(new Intent(getActivity(), UserManageListActivity.class));
+		case R.id.main_rl_wylc: // 用户管理
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_6)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(),
+						UserManageListActivity.class));
 			break;
-		case R.id.main_rl_Forum: //库存管理
-			startActivity(new Intent(getActivity(), StockListActivity.class));
+		case R.id.main_rl_Forum: // 库存管理
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_9)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(), StockListActivity.class));
+
+			
 			break;
+
 		case R.id.main_rl_lxwm://开通认证
 			startActivity(new Intent(getActivity(), ApplyListActivity.class));
 			break;
 		case R.id.main_rl_zdgl: // 终端管理
-//			if (Config.CheckIsLogin(getActivity())) {
-			startActivity(new Intent(getActivity(),
-					TerminalManagerActivity.class));
-//			}
+
+			// if (Config.CheckIsLogin(getActivity())) {
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(),
+						TerminalManagerActivity.class));
+
 			break;
 		default:
 			break;

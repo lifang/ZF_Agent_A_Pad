@@ -17,9 +17,12 @@ public class CheckRights {
 	public static Boolean RIGHT_8 = false;
 	public static Boolean RIGHT_9 = false;
 
-	public static void check(UserEntity entity) {
+	public static Boolean IS_ERJI = false;
+	public static Boolean IS_YIJI = false;
+	
+	public static void setUserTrue() {
 
-		List<Machtigingen> list = entity.getMachtigingen();
+		List<Machtigingen> list = MyApplication.NewUser.getMachtigingen();
 		if (list.size() > 0) {
 			for (Machtigingen machtigingen : list) {
 				if ("1".equals(machtigingen.getRole_id())) {
@@ -54,16 +57,23 @@ public class CheckRights {
 		}
 	}
 
-	public static void setAllTrue() {
-		RIGHT_1 = true;
-		RIGHT_2 = true;
-		RIGHT_3 = true;
-		RIGHT_4 = true;
-		RIGHT_5 = true;
-		RIGHT_6 = true;
-		RIGHT_7 = true;
-		RIGHT_8 = true;
-		RIGHT_9 = true;
+	public static void setYijiTrue() {
+		IS_YIJI = true;
+		
 	}
-
+	public static void setErjiTrue() {
+		IS_ERJI = true;
+		
+	}
+	public static void setAllFalse() {
+		RIGHT_1 = false;
+		RIGHT_2 = false;
+		RIGHT_3 = false;
+		RIGHT_4 = false;
+		RIGHT_5 = false;
+		RIGHT_6 = false;
+		RIGHT_7 = false;
+		RIGHT_8 = false;
+		RIGHT_9 = false;
+	}
 }

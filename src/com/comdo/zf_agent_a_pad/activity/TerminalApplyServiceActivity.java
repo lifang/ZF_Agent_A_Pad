@@ -15,10 +15,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -49,19 +52,21 @@ public class TerminalApplyServiceActivity extends Activity implements
 	private String mReceiver="", mPhoneNum="", mAddress="", mReason="";
 
 	private Spinner spinner;
-	private ArrayAdapter<String> adapter;
+//	private ArrayAdapter<String> adapter;
 	public static final int REQUEST_SELECT_CLIENT = 1000;
 	private Button close;
 
 	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 	final List<String> list = new ArrayList<String>();
-
+	private BaseAdapter maAdapter;
+	private LayoutInflater mInflater;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_terminal_apply_service);
 
+		mInflater = LayoutInflater.from(this);
 		items = new ArrayList<Map<String, Object>>();
 
 		Config.getAddressee(this, MyApplication.NewUser.getAgentUserId(),
@@ -94,11 +99,38 @@ public class TerminalApplyServiceActivity extends Activity implements
 				});
 
 		spinner = (Spinner) findViewById(R.id.spinner);
-
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, list);
-		adapter.setDropDownViewResource(R.layout.drop_down_item);
-		spinner.setAdapter(adapter);
+		//自定义适配器  
+				maAdapter= new BaseAdapter(){  
+		  
+		            @Override  
+		            public int getCount() {   
+		                return list.size();  
+		            }  
+		  
+		            @Override  
+		            public Object getItem(int arg0) {  
+		                return list.get(arg0);
+		            }  
+		  
+		            @Override  
+		            public long getItemId(int arg0) {    
+		                return 0;  
+		            }  
+		  
+		            @Override  
+		            public View getView(int position, View convertView, ViewGroup parent) {  
+		            	LinearLayout layout = (LinearLayout) mInflater.inflate(
+		        				R.layout.drop_down_item, null);
+		                TextView tv=(TextView)layout.findViewById(R.id.text);
+		                tv.setText((String)getItem(position));  
+		                return layout;  
+		            }  
+		              
+		        }; 
+//		adapter = new ArrayAdapter<String>(this,
+//				android.R.layout.simple_spinner_item, list);
+//		adapter.setDropDownViewResource(R.layout.drop_down_item);
+		spinner.setAdapter(maAdapter);
 
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -134,7 +166,8 @@ public class TerminalApplyServiceActivity extends Activity implements
 			switch (msg.what) {
 			case 1:
 
-				adapter.notifyDataSetChanged();
+				maAdapter.notifyDataSetChanged();
+//				adapter.notifyDataSetChanged();
 
 				break;
 

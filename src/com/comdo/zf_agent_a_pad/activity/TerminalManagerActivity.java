@@ -70,7 +70,7 @@ public class TerminalManagerActivity extends Activity implements
 	private final int rows = 10;
 	private Boolean isLoadMore = false;
 	private static final int REQUEST_SEARCH = 1000;
-
+	private BaseAdapter maAdapter;
 	private String searchKey;
 	private View.OnClickListener mSyncListener;
 	private View.OnClickListener mOpenListener;
@@ -117,7 +117,7 @@ public class TerminalManagerActivity extends Activity implements
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, getResources()
 						.getStringArray(R.array.terminalAllStatus));
-		adapter.setDropDownViewResource(R.layout.drop_down_item);
+		adapter.setDropDownViewResource(R.layout.drop_down_item_text);
 		spinner.setAdapter(adapter);
 
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

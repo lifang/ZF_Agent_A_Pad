@@ -162,9 +162,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 					""));
 			login_edit_name.setText(mySharedPreferences.getString("username",
 					""));
-			///if (check()) {
-			//	login();
-			//}
+			// /if (check()) {
+			// login();
+			// }
 		} else {
 			login_edit_name.setText(mySharedPreferences.getString("username",
 					""));
@@ -219,12 +219,19 @@ public class LoginActivity extends Activity implements OnClickListener {
 				System.out.println(mySharedPreferences.getBoolean("islogin",
 						false) + "---");
 				MyApplication.NewUser = data;
-				
+
+				CheckRights.setAllFalse();
 				if (MyApplication.NewUser.getParent_id() != 0) {
-					
-					CheckRights.check(MyApplication.NewUser);
+
+					if (MyApplication.NewUser.getTypes() == 2) {
+
+						CheckRights.setErjiTrue();
+					} else if (MyApplication.NewUser.getTypes() == 6) {
+
+						CheckRights.setUserTrue();
+					}
 				} else {
-					CheckRights.setAllTrue();
+					CheckRights.setYijiTrue();
 				}
 				Intent it = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(it);
