@@ -233,13 +233,9 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			popSelectState();
 			break;
 		case R.id.search_layout:
-			if (!searchEditText.getText().toString().trim().equals("")) {
 				page = 1;
 				mEntities.clear();
 				loadData();
-			}else {
-				Toast.makeText(this, "请输入关键字", Toast.LENGTH_SHORT).show();
-			}
 			break;
 		}
 	}	
