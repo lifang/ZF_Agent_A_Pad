@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -16,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.adapter.StockSearchAdapter;
@@ -23,7 +25,6 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.StockAgentEntity;
 import com.comdo.zf_agent_a_pad.entity.StockEntity;
-import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
@@ -120,12 +121,30 @@ public class StockSearchActivity extends Activity implements OnClickListener,IXL
 
 			@Override
 			public void afterTextChanged(Editable s) {
+				
+			}
+		});
+		
+		searchEditText.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				
 				if (!StringUtil.isNull(searchEditText.getText().toString())) {
 					page = 1;
 					mEntities.clear();
 					mListView.setPullLoadEnable(true);
 					loadData();	
+				}else {
+					Toast.makeText(StockSearchActivity.this,"请输入关键词",
+							Toast.LENGTH_SHORT).show();
 				}
+
+				// 关闭软键盘
+				MyApplication.hideSoftKeyboard(StockSearchActivity.this);
+
+				return false;
 			}
 		});
 	}

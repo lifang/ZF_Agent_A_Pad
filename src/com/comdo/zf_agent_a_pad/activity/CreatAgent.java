@@ -188,7 +188,7 @@ private void submit() {
 	}
 	
 	Config.creatAgent(CreatAgent.this, 
-			1, 
+			agentId, 
 			et_login_id.getText().toString(), 
 			agentType, 
 			et_fuze_name.getText().toString(), 
@@ -367,7 +367,7 @@ public void onFailure(String message) {
 		RequestParams params=new RequestParams();
 		params.put("img", img);
 		//params.put("agentsId", agentId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		AsyncHttpClient client=new AsyncHttpClient();
 		client.setTimeout(10000);// 设置超时时间
     	client.setMaxConnections(10);
@@ -375,8 +375,6 @@ public void onFailure(String message) {
 			
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-				// TODO Auto-generated method stub
-				
 				try {
 					dialog.dismiss();
 					CommonUtil.toastShort(getApplicationContext(), "上传成功") ;
@@ -396,8 +394,8 @@ public void onFailure(String message) {
 					byte[] responseBody, Throwable error) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				String str=new String(responseBody);
-				Log.e("str", str);
+				//String str=new String(responseBody);
+				//Log.e("str", str);
 			}
 		});
 	}

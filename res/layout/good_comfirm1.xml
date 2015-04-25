@@ -578,6 +578,7 @@
                                     android:gravity="top"
                                     android:maxLines="1"
                                     android:text="最小起批量：100件"
+                                    android:visibility="gone"
                                     android:textColor="@color/text292929"
                                     android:textSize="@dimen/textmids" />
                             </LinearLayout>
@@ -640,7 +641,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_weight="1"
                                 android:gravity="center|left"
-                                android:text="共计:100件商品"
+                                android:text="共计:1件商品"
                                 android:textColor="#292929"
                                 android:textSize="@dimen/textmids" />
 
@@ -650,7 +651,7 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="运送费"
+                                android:text="配送费:￥0"
                                 android:textColor="#292929"
                                 android:textSize="@dimen/textmids" />
 
@@ -776,8 +777,10 @@
                         android:background="#EEEDED" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                            android:gravity="right" >
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -788,10 +791,9 @@
                         android:paddingRight="@dimen/titilepad1" >
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
+                           
                             android:orientation="vertical" >
 
                             <TextView
@@ -807,7 +809,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
-                                android:text="（ 含配送费：￥999）"
+                                android:text="（ 含配送费：￥0）"
                                 android:textColor="@color/text292929"
                                 android:textSize="@dimen/textsmall" />
                         </LinearLayout>

@@ -26,6 +26,7 @@ public class TransgoodsDetail extends BaseActivity{
 	private ListView lv_list;
 	private TextView tv_distribute_object,tv_date,tv_creator;
 	private int iddd;
+	public static boolean isTra=false;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -39,6 +40,12 @@ protected void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
 	getData();
+}
+@Override
+protected void onPause() {
+	// TODO Auto-generated method stub
+	super.onPause();
+	isTra=true;
 }
 @Override
 protected void onDestroy() {

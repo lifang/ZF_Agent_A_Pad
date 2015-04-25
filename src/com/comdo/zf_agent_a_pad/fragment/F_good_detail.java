@@ -72,6 +72,7 @@ public class F_good_detail extends Fragment implements OnClickListener{
 		tv_qgd.setText(Config.gfe.getSign_order_way());
 		tv_jm.setText(Config.gfe.getEncrypt_card_way());
 		tv_spxx.setText(Config.gfe.getDescription() );
+		if(Config.suportare!=null)
 		 tvc_qy.setText(Config.suportare);
 		 tvc_zx.setText(Config.suportcl);
 		 tv_sqkt.setText(Config.tv_sqkt);
@@ -81,10 +82,7 @@ public class F_good_detail extends Fragment implements OnClickListener{
 		 gview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0,
-					View arg1, int arg2, long arg3) {
-				// TODO Auto-generated method stub
-				System.out.println("���ITEM"+Config.myList.get(arg2).getId());
-				
+					View arg1, int arg2, long arg3) {			
 				Intent i =new Intent (getActivity(),GoodDeatail.class);
 				i.putExtra("id", Config.myList.get(arg2).getId());
 			 

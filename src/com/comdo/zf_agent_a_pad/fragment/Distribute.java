@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,7 +118,31 @@ public void onStart() {
 public void onResume() {
 	// TODO Auto-generated method stub
 	super.onResume();
+    Log.e("data", String.valueOf(datadistribut));
+	if(datadistribut.size()!=0){
+		
+	}
+	if(DistributeDetail.isDri){
+		isrefersh=true;
+		a=page;
+		rows=a*rows;
+		page=1;
+		datadistribut.clear();
+		quary();
+	}
 	
+	//xxlistview.setAdapter(distributeAdapter);
+	/*if(datadistribut.size()!=0){
+		datadistribut.clear();
+ 	}
+	 if(page!=1){
+		 isrefersh=true;
+			a=page;
+			rows=a*rows;
+			page=1;
+			datadistribut.clear();
+	 }
+	quary();*/
 }
 protected void onLoad() {
 	xxlistview.stopRefresh();
@@ -291,6 +316,9 @@ public void onClick(View v) {
 		break;
 	case R.id.btn_confirm:
 		dialog.dismiss();
+		if(tv_choose_terminal.getText().toString().equals("")){
+			return;
+		}
 		distribute();
 		
 		break;
@@ -326,9 +354,17 @@ private void distribute() {
 	
 }
 private void quary() {
-	Config.getDistributeList(getActivity(), agentId, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<DistributeEntity>>(getActivity()) {
+	Config.getDistributeList(getActivity(),
+			agentId, 
+			sonAgentId[cc], 
+			left_time, 
+			right_time, 
+			page, 
+			rows, 
+			new HttpCallback<Page<DistributeEntity>>(getActivity()) {
 		@Override
 		public void onSuccess(Page<DistributeEntity> data) {
+			DistributeDetail.isDri=false;
 			if(isrefersh){
 				page=a;
 				rows=Config.ROWS;

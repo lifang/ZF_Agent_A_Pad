@@ -386,6 +386,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onRefresh() {
+		Xlistview.setPullLoadEnable(true);
 		page = 1;
 		myList.clear();
 		Search();

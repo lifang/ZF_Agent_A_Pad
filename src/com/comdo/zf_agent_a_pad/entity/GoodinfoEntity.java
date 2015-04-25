@@ -3,8 +3,17 @@ package com.comdo.zf_agent_a_pad.entity;
 public class GoodinfoEntity {
 //	 "lease_agreement": "1",
 	private String lease_agreement;
+	private int floor_purchase_quantity;
 	
-//     "encrypt_card_way": "加密卡方式2",
+public int getFloor_purchase_quantity() {
+		return floor_purchase_quantity;
+	}
+
+	public void setFloor_purchase_quantity(int floor_purchase_quantity) {
+		this.floor_purchase_quantity = floor_purchase_quantity;
+	}
+
+	//     "encrypt_card_way": "加密卡方式2",
 	private String encrypt_card_way;
 //     "total_score": 5,
 	private int total_score;

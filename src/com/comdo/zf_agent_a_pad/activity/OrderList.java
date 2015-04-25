@@ -167,6 +167,7 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	@Override
 	public void onRefresh() {
+		Xlistview.setPullLoadEnable(true);
 		page = 1;
 		myList.clear();
 		getData();

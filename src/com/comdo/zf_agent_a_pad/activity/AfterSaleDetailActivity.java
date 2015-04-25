@@ -23,6 +23,7 @@ import com.comdo.zf_agent_a_pad.entity.AfterSaleDetailOrderEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -132,15 +133,13 @@ public class AfterSaleDetailActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(AfterSaleDetailActivity.this,ImgViewActivity.class);
-				if (detailCancelEntity.getResource_info().get(position).getUpload_path().equals("")) {
-					intent.putExtra("IMAGE_PATH", 
-							detailCancelEntity.getResource_info().get(position).getTemplet_path());
-				}else {
+				String upload_path = detailCancelEntity.getResource_info().get(position).getUpload_path();
+				if (!StringUtil.isNull(upload_path)) {
+					Intent intent = new Intent(AfterSaleDetailActivity.this,WebViewActivity.class);
 					intent.putExtra("IMAGE_PATH", 
 							detailCancelEntity.getResource_info().get(position).getUpload_path());
+					startActivity(intent);
 				}
-				startActivity(intent);
 			}
 		});
 	}
@@ -270,7 +269,7 @@ public class AfterSaleDetailActivity extends Activity{
 	}
 
 	private void loadData() {
-		if (mRecordType == 0) {
+ 		if (mRecordType == 0) {
 			//售后单
 			Config.getAfterSaleDetail(this, mRecordType,id,
 					new HttpCallback<AfterSaleDetailOrderEntity>(this) {

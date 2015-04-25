@@ -53,6 +53,7 @@ try {
 	Log.e("container", String.valueOf(container));
     view = inflater.inflate(R.layout.f_mine, container, false);
 
+
     init();
     if(!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_8){
     	
@@ -80,6 +81,13 @@ try {
 	getActivity().getSupportFragmentManager().beginTransaction()
 			.replace(R.id.f_mine, f_info).commit();	
 	}
+
+   /* f_info = new MineMyinfo();
+
+	getActivity().getSupportFragmentManager().beginTransaction()
+			.replace(R.id.f_mine, f_info).commit();*/
+//    init();
+
 } catch (InflateException e) {
     
 }

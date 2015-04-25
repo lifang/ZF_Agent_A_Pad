@@ -125,7 +125,7 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_ddbh.setText("订单编号: "+list.get(position).getOrder_number()	);
  		holder.tv_time.setText(list.get(position).getOrder_createTime()	);
  		if(OrderList.type.equals("5")){
- 			 holder.tv_sum.setText("共计:   "+list.get(position).getOrder_totalNum()	+"件");
+ 			 holder.tv_sum.setText(list.get(position).getOrder_goodsList().get(0).getGood_num().equals("")?"":"共计:   "+list.get(position).getOrder_goodsList().get(0).getGood_num()	+"件");
  		}else{
  			holder.tv_sum.setText("归属用户:   "+list.get(position).getGuishu_user());
  		}

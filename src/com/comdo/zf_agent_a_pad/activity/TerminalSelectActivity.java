@@ -21,6 +21,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.ApplyChannelagain;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
+import com.comdo.zf_agent_a_pad.entity.Pos;
 import com.comdo.zf_agent_a_pad.entity.SelectPOS;
 import com.comdo.zf_agent_a_pad.entity.TerminalList;
 import com.comdo.zf_agent_a_pad.entity.TerminalPriceEntity;
@@ -56,7 +57,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 public class TerminalSelectActivity extends BaseActivity implements OnClickListener,
                 IXListViewListener{
 	private TextView selectedpos,selectedchannel;
-	public static final int REQUEST_CHOOSE_POS = 1000;
+	public static final int REQUEST_CHOOSE_POS = 12543;
 	private int posID;
 	public static int checked = 0;
 	private String posName;
@@ -108,6 +109,18 @@ protected void onStart() {
 			}
 		};
 	};
+}
+@Override
+protected void onPause() {
+	// TODO Auto-generated method stub
+	super.onPause();
+	if(isFromTrans){
+		TransgoodsDetail.isTra=true;
+	}
+	else{
+		DistributeDetail.isDri=true;
+	}
+	
 }
 @Override
 protected void onDestroy() {
@@ -194,7 +207,35 @@ public void onClick(View v) {
 		finish();
 		break;
 	case R.id.selectedpos:
-		Config.selectPOS(TerminalSelectActivity.this, agentId,
+		Config.geTerminalPosList(TerminalSelectActivity.this, agentId, new HttpCallback<List<Pos>>(TerminalSelectActivity.this) {
+
+			@Override
+			public void onSuccess(List<Pos> data) {
+				// TODO Auto-generated method stub
+				final ArrayList<Pos> list = (ArrayList<Pos>) data;
+				for(int i=0;i<data.size();i++){
+					if(data.get(i)==null){
+						data.remove(i);
+					}
+				}
+				Intent intent = new Intent(
+						TerminalSelectActivity.this,
+						TerminalSelectPOSActivity.class);
+				intent.putExtra(CHOOSE_TITLE, getResources()
+						.getString(R.string.title_pos_select));
+				intent.putExtra(SELECTED_ID, 0);
+				intent.putExtra(CHOOSE_ITEMS, list);
+				startActivityForResult(intent, REQUEST_CHOOSE_POS);
+			}
+
+			@Override
+			public TypeToken<List<Pos>> getTypeToken() {
+				// TODO Auto-generated method stub
+				return new TypeToken<List<Pos>>() {
+				};
+			}
+		});
+		/*Config.selectPOS(TerminalSelectActivity.this, agentId,
 				new HttpCallback<List<SelectPOS>>(
 						TerminalSelectActivity.this) {
 					@Override
@@ -221,7 +262,7 @@ public void onClick(View v) {
 						return new TypeToken<List<SelectPOS>>() {
 						};
 					}
-				});
+				});*/
 		break;
 	case R.id.selectedchannel:
 		isfromDisOrTrans=true;
@@ -232,6 +273,9 @@ public void onClick(View v) {
 		startActivityForResult(intent, REQUEST_CHOOSE_CHANNEL);
 		break;
 	case R.id.terminal_commit:
+		if(mTerminalItems.size()!=0){
+			mTerminalItems.clear();
+		}
 		if(isFromTrans){
 			confirmUp_trans();
 		}

@@ -35,7 +35,6 @@ public class Config {
 	
 //	public final static String PATHS = "http://114.215.149.242:28080/ZFAgent/api/";
 	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
-	
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -44,7 +43,7 @@ public class Config {
 	public static int TABID = 1;
 	public static int ScreenWidth = 0;
 	public static int ScreenHeight = 0;
-
+	public static final String INDEXIMG=PATHS + "index/sysshufflingfigure";
 	public static final String POSLIST = PATHS + "good/list";
 	public static final String GOODDETAIL = PATHS + "good/goodinfo";
 	public static final String paychannel_info = PATHS + "paychannel/info";
@@ -62,6 +61,7 @@ public class Config {
 
 	public static GoodinfoEntity gfe = null;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
+	public static ArrayList<ChanelEntitiy> celist2 = new ArrayList<ChanelEntitiy>();
 	public static ArrayList<tDates> tDates = new ArrayList<tDates>();
 	public static ArrayList<other_rate> other_rate = new ArrayList<other_rate>();
 	public static List<ApplyneedEntity> pub = new LinkedList<ApplyneedEntity>();
@@ -325,6 +325,9 @@ public class Config {
 	//		+ "lowerAgent/getDefaultProfit";
 	public static final String GET_DEFAULT_PROFIT = PATHS
 			+ "lowerAgent/getDefaultProfit";
+	// get terminal_pos list
+	public static final String GET_TERMINALPOS_LIST = PATHS
+			+ "preparegood/getgoodlist";
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1247,14 +1250,14 @@ public class Config {
 			int toAgentId,
 			int fromAgentId,
 			int customerId,
-			String[] serial_nums,
+			String[] serialNums,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("toAgentId", toAgentId);
 		params.put("fromAgentId", fromAgentId);
 		params.put("customerId", customerId);
 		try {
-			params.put("serial_nums", new JSONArray(gson.toJson(serial_nums)));
+			params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1325,6 +1328,14 @@ public class Config {
 		params.put("agentsId", agentsId);
 		params.put("img", img);
 		new HttpRequest(context, callback).post(UPLOAD_FILE, params);
+		Log.e("params", String.valueOf(params));
+	}
+	public static void geTerminalPosList(Context context,
+			int agentId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		new HttpRequest(context, callback).post(GET_TERMINALPOS_LIST, params);
 		Log.e("params", String.valueOf(params));
 	}
 }

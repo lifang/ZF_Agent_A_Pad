@@ -93,14 +93,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-
 		case R.id.main_rl_sy:
 			Config.TABID = 1;
 			changTabBg();
 			im_sy.setBackgroundResource(R.drawable.home);
 			textsy.setTextColor(getResources().getColor(R.color.bgtitle));
+
+			 //if (f_sy == null)
+			f_sy = new M_MianFragment();
+
 			if (f_sy == null)
 				f_sy = new M_MianFragment();
+
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.m_fragment, f_sy).commit();
 			break;
@@ -134,9 +138,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			Config.TABID = 4;
 			changTabBg();
 			im_wd.setBackgroundResource(R.drawable.mine);
+
+			textwd.setTextColor(getResources().getColor(R.color.bgtitle));
+			if(f_my==null)
+				f_my=new Mmy();
+
 			textwd.setTextColor(getResources().getColor(R.color.o));
 			if (f_my == null)
 				f_my = new Mmy();
+
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.m_fragment, f_my).commit();
 			break;
@@ -235,5 +245,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		default:
 			break;
 		*/}
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Config.TABID = 1;
 	}
 }
