@@ -52,10 +52,10 @@ try {
 	Log.e("inflater", String.valueOf(inflater));
 	Log.e("container", String.valueOf(container));
     view = inflater.inflate(R.layout.f_mine, container, false);
-    f_info = new MineMyinfo();
+   /* f_info = new MineMyinfo();
 
 	getActivity().getSupportFragmentManager().beginTransaction()
-			.replace(R.id.f_mine, f_info).commit();
+			.replace(R.id.f_mine, f_info).commit();*/
     init();
 } catch (InflateException e) {
     

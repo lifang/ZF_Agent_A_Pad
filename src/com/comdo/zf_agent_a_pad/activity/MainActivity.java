@@ -242,4 +242,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			break;
 		*/}
 	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Config.TABID = 1;
+	}
 }

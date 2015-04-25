@@ -158,6 +158,19 @@ public void onStart() {
 	};
 	
 }
+@Override
+public void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+	if(TransgoodsDetail.isTra){
+		isrefersh=true;
+		a=page;
+		rows=a*rows;
+		page=1;
+		datatrans.clear();
+		quary();
+	}
+}
 protected void onLoad() {
 	xxlistview.stopRefresh();
 	xxlistview.stopLoadMore();
@@ -168,11 +181,13 @@ private void getAgentList() {
     if(datt.size()!=0){
     	datt.clear();
     }
+    if(list.size()!=0){
+    	list.clear();
+    }
 	Config.getlowerAgentList(getActivity(), agent, new HttpCallback<List<AgentEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(List<AgentEntity> data) {
-			
 			datt.addAll(data);
 			sonAgentId=new int[data.size()];
 			myHandler.sendEmptyMessage(1);
@@ -275,6 +290,9 @@ public void onClick(View v) {
 		break;
 	case R.id.btn_confirm:
 		dialog.dismiss();
+		if(tv_choose_terminal.getText().toString().equals("")){
+			return;
+		}
 		trans();
 		break;
 	case R.id.close:
@@ -287,7 +305,7 @@ public void onClick(View v) {
 }
 private void trans() {
 	serialNums=mTerminalArray.split(",");
-	Config.transGoods(getActivity(), sonAgentId[to], sonAgentId[from], 80, serialNums, new HttpCallback(getActivity()) {
+	Config.transGoods(getActivity(), sonAgentId[to], sonAgentId[from], id, serialNums, new HttpCallback(getActivity()) {
 
 		@Override
 		public void onSuccess(Object data) {
@@ -308,6 +326,7 @@ private void quary() {
 
 		@Override
 		public void onSuccess(Page<TransgoodsEntity> data) {
+			TransgoodsDetail.isTra=false;
 			if(isrefersh){
 				page=a;
 				rows=Config.ROWS;

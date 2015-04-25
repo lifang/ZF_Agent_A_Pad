@@ -108,8 +108,8 @@ public void onClick(View v) {
 	case R.id.tv_safe:
 		type=2;
 		tv_safe.setBackgroundResource(R.drawable.tab_bg);
-		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
-		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_jichuinfo.setBackgroundResource(0);
+		tv_manageradress.setBackgroundResource(0);
 		if(m_chpaw==null)
 			m_chpaw=new Mchpaw();
 		getActivity().getSupportFragmentManager().beginTransaction()
@@ -117,8 +117,8 @@ public void onClick(View v) {
 		break;
 	case R.id.tv_manageradress:
 		type=3;
-		tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
-		tv_jichuinfo.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_safe.setBackgroundResource(0);
+		tv_jichuinfo.setBackgroundResource(0);
 		tv_manageradress.setBackgroundResource(R.drawable.tab_bg);
 		if(m_adress==null)
 			m_adress=new Mine_adress();
@@ -131,8 +131,8 @@ public void onClick(View v) {
 	case R.id.tv_jichuinfo:
 		type=1;
 		tv_jichuinfo.setBackgroundResource(R.drawable.tab_bg);
-		tv_safe.setBackgroundColor(getResources().getColor(R.color.bg));
-		tv_manageradress.setBackgroundColor(getResources().getColor(R.color.bg));
+		tv_safe.setBackgroundResource(0);
+		tv_manageradress.setBackgroundResource(0);
 		if(m_baseinfo==null)
 			m_baseinfo=new Mybaseinfo();
 		getActivity().getSupportFragmentManager().beginTransaction()

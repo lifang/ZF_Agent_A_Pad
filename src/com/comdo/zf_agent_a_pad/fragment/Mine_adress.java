@@ -79,6 +79,7 @@ public class Mine_adress extends Fragment implements OnClickListener{
 	private boolean isEdit=false;
 	private Activity mActivity;
 	private AlertDialog dialog;
+	private Button close;
 	//private TextView info,safe,manageradress,score;
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -230,6 +231,9 @@ public void onClick(View v) {
 		//startActivityForResult(intent, REQUEST_CITY);
 		startActivityForResult(intent, com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY);
 		break;
+	case R.id.close:
+		dialog.dismiss();
+		break;
 	default:
 		break;
 	}
@@ -330,6 +334,8 @@ private void opendialog() {
      btn_save=(Button) textEntryView.findViewById(R.id.btn_save);
      cb=(CheckBox) textEntryView.findViewById(R.id.cb);
      tv_title=(TextView) textEntryView.findViewById(R.id.tv_title);
+     close=(Button) textEntryView.findViewById(R.id.close);
+     close.setOnClickListener(this);
      btn_save.setOnClickListener(this);
      area.setOnClickListener(this);
      //final AlertDialog dialog = builder.show();
@@ -359,9 +365,11 @@ private void opendialog() {
 		public void onCheckedChanged(CompoundButton arg0, boolean isCheck) {
 			if(isCheck){
 				isDefault=1;
+				 cb.setBackgroundResource(R.drawable.cb_y);
 			}
 			else{
 				isDefault=2;
+				cb.setBackgroundResource(R.drawable.cb_n);
 			}
 			
 		}
