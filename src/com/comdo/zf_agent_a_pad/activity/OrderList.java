@@ -142,6 +142,15 @@ public class OrderList extends Activity implements IXListViewListener,
 		tv_pg.setOnClickListener(this);
 		tv_dg = (TextView) findViewById(R.id.tv_dg);
 		tv_dg.setOnClickListener(this);
+
+		myAdapter = new OrderAdapter(OrderList.this, myList);
+		Xlistview = (XListView) findViewById(R.id.x_listview);
+
+		Xlistview.initHeaderAndFooter();
+		Xlistview.setXListViewListener(this);
+		Xlistview.setPullLoadEnable(true);
+		Xlistview.setDivider(null);
+		Xlistview.setAdapter(myAdapter);
 		if (!CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
 			sp.setSelection(0);
 			tv_dg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
@@ -154,15 +163,6 @@ public class OrderList extends Activity implements IXListViewListener,
 			Xlistview.setPullLoadEnable(true);
 			getData();
 		}
-		myAdapter = new OrderAdapter(OrderList.this, myList);
-		Xlistview = (XListView) findViewById(R.id.x_listview);
-
-		Xlistview.initHeaderAndFooter();
-		Xlistview.setXListViewListener(this);
-		Xlistview.setPullLoadEnable(true);
-		Xlistview.setDivider(null);
-		Xlistview.setAdapter(myAdapter);
-
 	}
 
 	@Override

@@ -226,12 +226,16 @@ public class LoginActivity extends Activity implements OnClickListener {
 					if (MyApplication.NewUser.getTypes() == 2) {
 
 						CheckRights.setErjiTrue();
-					} else if (MyApplication.NewUser.getTypes() == 6) {
+					} 
+				} else {
+					
+					if (MyApplication.NewUser.getTypes() == 6) {
 
 						CheckRights.setUserTrue();
-					}
-				} else {
+					} else{
+												
 					CheckRights.setYijiTrue();
+					}
 				}
 				Intent it = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(it);

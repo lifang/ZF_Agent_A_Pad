@@ -877,7 +877,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private void setCustomerDetail(List<MyApplyMaterial> materials,
 			List<MyApplyCustomerDetail> customerDetails) {
 		if (null == materials || materials.size() <= 0)
-			return;
+			return;	
+		int pic = 0;
+		int txt = 0;
 		for (MyApplyMaterial material : materials) {
 			mMaterials.put(material.getId(), material);
 		}
@@ -890,8 +892,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 				}
 			}
 		}
-		int pic = 1;
-		int txt = 1;
+		pic = 1;
+		txt = 1;
 
 		for (final MyApplyMaterial material : mMaterials.values()) {
 
@@ -1157,7 +1159,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 			ImageButton ibView = (ImageButton) item
 					.findViewById(R.id.apply_detail_view);
 			mUploadUri = value;
-//			// TODO:
+
 //			mUploadUri = "http://i2.sinaimg.cn/ty/nba/2015-04-10/U8567P6T12D7570488F44DT20150410181804.jpg";
 			if (!TextUtils.isEmpty(key))
 				tvKey.setText(key);
