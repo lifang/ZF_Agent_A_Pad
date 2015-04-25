@@ -143,6 +143,7 @@ public class ApplyListActivity extends Activity implements
 							mTerminalItems.addAll(data.getList());
 							page++;
 							mAdapter.notifyDataSetChanged();
+							loadFinished();
 						}
 
 						@Override
@@ -166,6 +167,7 @@ public class ApplyListActivity extends Activity implements
 							mTerminalItems.addAll(data.getList());
 							page++;
 							mAdapter.notifyDataSetChanged();
+							loadFinished();
 						}
 
 						@Override
@@ -312,14 +314,16 @@ public class ApplyListActivity extends Activity implements
 	public void onRefresh() {
 		page = 0;
 		mTerminalItems.clear();
+		mApplyList.setPullLoadEnable(true);
 		loadData();
 	}
 
 	@Override
 	public void onLoadMore() {
 		if (noMoreData) {
+			mApplyList.setPullLoadEnable(false);
 			mApplyList.stopLoadMore();
-			CommonUtil.toastShort(this, "no more data");
+			CommonUtil.toastShort(this, getResources().getString(R.string.no_more_data));
 		} else {
 			isLoadMore = true;
 			loadData();

@@ -265,7 +265,12 @@ public class TerminalManagerDetailActivity extends Activity {
 		TableLayout terminal_rates = (TableLayout) findViewById(R.id.terminal_rates);
 
 		if (null == category || null == rates || rates.size() <= 0) {
-			terminal_rates.setVisibility(View.GONE);
+			LinearLayout terminalCategory = (LinearLayout) mInflater.inflate(
+					R.layout.after_sale_detail_category, null);
+			LinearLayout tablayoutview=(LinearLayout) terminalCategory.findViewById(R.id.tablayoutview);
+			tablayoutview.setVisibility(View.INVISIBLE);
+			terminal_rates.addView(tablayoutview);
+//			terminal_rates.setVisibility(View.GONE);
 			return;
 		}
 

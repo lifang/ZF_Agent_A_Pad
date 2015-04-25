@@ -7,20 +7,25 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import android.view.ViewGroup;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.PageTerminal;
@@ -46,19 +51,19 @@ public class TerminalApplyBindActivity extends Activity implements
 	private Button mSubmitBtn;
 
 	public static final int REQUEST_CREATE_USER = 1000;
-	private ArrayAdapter<String> adapter;
-
+//	private ArrayAdapter<String> adapter;
 	private Button close;
-
+	private LayoutInflater mInflater;
 	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
-	final List<String> listString = new ArrayList<String>();
+	private List<String> listString = new ArrayList<String>();
+	private BaseAdapter maAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_terminal_apply_bind);
-
+		mInflater = LayoutInflater.from(this);
 		items = new ArrayList<Map<String, Object>>();
 
 		Config.getMerchants(this, MyApplication.NewUser.getAgentId(), page + 1, rows,
@@ -66,14 +71,14 @@ public class TerminalApplyBindActivity extends Activity implements
 					@Override
 					public void onSuccess(PageTerminal<UserInfo> data) {
 
-						for (UserInfo userInfo : data.getList()) {
+						for (int i=0;i<data.getList().size();i++) {
+							UserInfo userInfo = data.getList().get(i);
 							Map<String, Object> item = new HashMap<String, Object>();
 							item.put("id", userInfo.getId());
 							item.put("name", userInfo.getName());
 							listString.add(userInfo.getName());
 							items.add(item);
 						}
-
 						myHandler.sendEmptyMessage(1);
 					}
 
@@ -89,13 +94,42 @@ public class TerminalApplyBindActivity extends Activity implements
 					}
 				});
 
-		spinner = (Spinner) findViewById(R.id.spinner);
+		spinner = (Spinner) findViewById(R.id.bindspinner);
 
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listString);
-		// adapter.setDropDownViewResource(R.layout.drop_down_item);
-		spinner.setAdapter(adapter);
-
+		
+//		adapter = new ArrayAdapter<String>(TerminalApplyBindActivity.this,
+//				android.R.layout.simple_spinner_item, listString);
+		
+        //自定义适配器  
+		maAdapter= new BaseAdapter(){  
+  
+            @Override  
+            public int getCount() {   
+                return listString.size();  
+            }  
+  
+            @Override  
+            public Object getItem(int arg0) {  
+                return listString.get(arg0);
+            }  
+  
+            @Override  
+            public long getItemId(int arg0) {    
+                return 0;  
+            }  
+  
+            @Override  
+            public View getView(int position, View convertView, ViewGroup parent) {  
+            	LinearLayout layout = (LinearLayout) mInflater.inflate(
+        				R.layout.drop_down_item, null);
+                TextView tv=(TextView)layout.findViewById(R.id.text);
+                tv.setText((String)getItem(position));  
+                return layout;  
+            }  
+              
+        }; 
+		spinner.setAdapter(maAdapter);
+		
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
@@ -106,6 +140,7 @@ public class TerminalApplyBindActivity extends Activity implements
 
 			public void onNothingSelected(AdapterView<?> arg0) {
 
+				System.out.println("");
 			}
 
 		});
@@ -128,9 +163,8 @@ public class TerminalApplyBindActivity extends Activity implements
 
 			switch (msg.what) {
 			case 1:
-
-				adapter.notifyDataSetChanged();
-
+				maAdapter.notifyDataSetChanged();
+//				adapter.notifyDataSetChanged();
 				break;
 
 			}

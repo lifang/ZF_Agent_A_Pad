@@ -33,6 +33,7 @@ public class DistributeDetail extends BaseActivity{
 	private int iddd;
 	private TextView tv_distribute_object,tv_date,
 	                 tv_creator;
+	public static boolean isDri=false;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	
@@ -47,6 +48,12 @@ protected void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
 	getData();
+}
+@Override
+protected void onPause() {
+	// TODO Auto-generated method stub
+	super.onPause();
+	isDri=true;
 }
 @Override
 protected void onDestroy() {

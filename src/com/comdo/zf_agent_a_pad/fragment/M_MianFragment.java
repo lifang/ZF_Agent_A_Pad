@@ -414,7 +414,6 @@ private class MyListener implements OnPageChangeListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-	
 		timer = new Timer();
 		TimerTask task = new TimerTask()
 		{

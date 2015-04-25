@@ -67,7 +67,7 @@ public class MessageAdapter extends BaseAdapter{
 		if(datamsg.get(position).isStatus()){
 			holdel.item_cb.setBackgroundResource(R.drawable.cb_y);
 			holdel.item_cb.setChecked(true);
-			holdel.item_cb.setEnabled(false);
+			//holdel.item_cb.setEnabled(false);
 		}
 		else{
 			holdel.item_cb.setBackgroundResource(R.drawable.cb_n);
@@ -90,15 +90,17 @@ public class MessageAdapter extends BaseAdapter{
 			public void onCheckedChanged(CompoundButton arg0, boolean ischeck) {
 				if(ischeck){
 					datamsg.get(position).setStatus(true);
+					//datamsg.get(position).setIscheck(true);
 					holdel.item_cb.setChecked(true);
 					pp=position;
-					//holdel.item_cb.setBackgroundResource(R.drawable.cb_y);
+					holdel.item_cb.setBackgroundResource(R.drawable.cb_y);
 					//Message msg=Mwdxx.myHandler.obtainMessage();
 					//msg.what=2;
 					//msg.sendToTarget();
 				}
 				else{
 					datamsg.get(position).setStatus(false);
+					//datamsg.get(position).setIscheck(false);
 					holdel.item_cb.setChecked(false);
 					holdel.item_cb.setBackgroundResource(R.drawable.cb_n);
 				}

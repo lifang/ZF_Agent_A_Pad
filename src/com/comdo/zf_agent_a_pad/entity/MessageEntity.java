@@ -12,14 +12,16 @@ public class MessageEntity {
 	private String title;
 	private String create_at;
 	private boolean status;
+	private boolean ischeck;
 	public MessageEntity(String content,int id,String title,
-			String create_at,boolean status){
+			String create_at,boolean status,boolean ischeck){
 		super();
 		this.content=content;
 		this.id=id;
 		this.title=title;
 		this.create_at=create_at;
 		this.status=status;
+		this.ischeck=ischeck;
 	}
 	public String getContent() {
 		return content;
@@ -51,13 +53,18 @@ public class MessageEntity {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	public boolean isIscheck() {
+		return ischeck;
+	}
+	public void setIscheck(boolean ischeck) {
+		this.ischeck = ischeck;
+	}
 	@Override
 	public String toString() {
 		return "MessageEntity [content=" + content + ", id=" + id + ", title="
 				+ title + ", create_at=" + create_at + ", status=" + status
-				+ "]";
+				+ ", ischeck=" + ischeck + "]";
 	}
-	
 	
 	
 	

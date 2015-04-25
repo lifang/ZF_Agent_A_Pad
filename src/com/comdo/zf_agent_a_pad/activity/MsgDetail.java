@@ -26,6 +26,7 @@ public class MsgDetail extends BaseActivity {
 	private String content="";
 	private Handler myHandler;
 	private int agentUserId=MyApplication.NewUser.getAgentUserId();
+	//public static boolean isdelect=false;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -70,6 +71,7 @@ private void init() {
 			
 			@Override
 			public void onClick(View v) {
+				//isdelect=true;
 				delectOne();
 				
 			}
@@ -96,7 +98,7 @@ private void getMsgdetail() {
 	
 }
 protected void delectOne() {
-	Config.DelectOneMsg(MsgDetail.this, id, 80, new HttpCallback(MsgDetail.this) {
+	Config.DelectOneMsg(MsgDetail.this, id, agentUserId, new HttpCallback(MsgDetail.this) {
 
 		@Override
 		public void onSuccess(Object data) {

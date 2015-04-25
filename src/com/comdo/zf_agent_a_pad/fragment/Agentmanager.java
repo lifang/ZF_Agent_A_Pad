@@ -55,6 +55,7 @@ public class Agentmanager extends Fragment implements OnClickListener,IXListView
 	private int id=MyApplication.NewUser.getAgentId();
 	private String str="";
 	private AlertDialog dialog;
+	private int agentsId=MyApplication.NewUser.getAgentId();
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -76,7 +77,7 @@ if (view != null) {
 try {
     view = inflater.inflate(R.layout.agentmanager, container, false);
     init();
-    //getDefaultProfit();
+    getDefaultProfit();
 } catch (InflateException e) {
     
 }
@@ -143,7 +144,7 @@ protected void onLode() {
 	
 }
 private void getData() {
-	Config.GetAgentList(getActivity(), 1, page, rows, 
+	Config.GetAgentList(getActivity(), agentsId, page, rows, 
 			new HttpCallback<Page<AgentManager>>(getActivity()) {
 
 				@Override
