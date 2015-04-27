@@ -375,7 +375,7 @@ public class TerminalManagerActivity extends Activity implements
 
 							@Override
 							public void onSuccess(Object data) {
-								
+								System.out.println();
 							}
 
 							@Override
