@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		case R.id.main_rl_gwc:
 
 			if (CheckRights.IS_ERJI
-					|| (!CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+					|| (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
 				CommonUtil.toastShort(MainActivity.this, R.string.right_not_match);
 			} else {
 
