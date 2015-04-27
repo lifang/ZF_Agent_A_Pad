@@ -75,5 +75,8 @@ public class CheckRights {
 		RIGHT_7 = false;
 		RIGHT_8 = false;
 		RIGHT_9 = false;
+		
+		IS_YIJI = false;
+		IS_ERJI = false;
 	}
 }
