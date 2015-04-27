@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
+import com.comdo.zf_agent_a_pad.entity.CreateUser;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
@@ -148,10 +149,11 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 			Config.addCustomer(this, setCode.getText().toString(), name,
 					password, mChannelId, MyApplication.NewUser.getAgentId(),
-					new HttpCallback(TerminalApplyCreateActivity.this) {
+					checkCode.getText().toString(), new HttpCallback<CreateUser>(
+							TerminalApplyCreateActivity.this) {
 
 						@Override
-						public void onSuccess(Object data) {
+						public void onSuccess(CreateUser data) {
 
 							CommonUtil.toastShort(
 									TerminalApplyCreateActivity.this,
@@ -161,9 +163,9 @@ public class TerminalApplyCreateActivity extends Activity implements
 						}
 
 						@Override
-						public TypeToken getTypeToken() {
+						public TypeToken<CreateUser> getTypeToken() {
 
-							return null;
+							return new TypeToken<CreateUser>(){};
 						}
 					});
 

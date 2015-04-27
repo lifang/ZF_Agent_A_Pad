@@ -1,19 +1,24 @@
 package com.comdo.zf_agent_a_pad.entity;
 
-public class UserInfo {
+import com.google.gson.annotations.SerializedName;
 
-	private int id;
+public class UserInfo {
+	@SerializedName("customersId")
+	private String id;
 	private String name;
-	
-	public int getId() {
+
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
