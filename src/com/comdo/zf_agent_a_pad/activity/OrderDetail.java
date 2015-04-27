@@ -59,7 +59,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			case 0:
 				OrderDetailEntity entity = ode;
 				tv_sjps.setText("实际配送金额(含配送费) ：￥ "
-						+ check(entity.getOrder_totalprice()) / 100);
+						+ check(entity.getOrder_totalPrice()) / 100);
 				tv_psf.setText("含配送费 ：￥ " + entity.getOrder_psf());
 				tv_reperson.setText("收件人  ：   " + entity.getOrder_receiver());
 				tv_tel.setText(entity.getOrder_receiver_phone());
@@ -71,9 +71,9 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				tv_ddbh.setText("订单编号  ：   " + entity.getOrder_number());
 				tv_pay.setText("支付方式  ：   " + entity.getOrder_payment_type());
 				tv_time.setText("实付金额  ：   ￥"
-						+ check(entity.getOrder_totalprice()) / 100);
+						+ check(entity.getOrder_totalPrice()) / 100);
 				tv_money.setText("订单日期  ：   " + entity.getOrder_createTime());
-				tv_gj.setText("共计  ：   " + entity.getOrder_totalNum() + "件商品");
+				tv_gj.setText("共计  ：   " + entity.getTotal_quantity() + "件商品");
 				if (!OrderList.type.equals("5")) {
 					tv_user.setText(entity.getGuishu_user());
 				}
