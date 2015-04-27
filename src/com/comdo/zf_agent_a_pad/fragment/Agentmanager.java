@@ -206,7 +206,7 @@ public void onClick(View v) {
 private void resetProfit() {
 	Config.resetprofit(getActivity(), 
 			Integer.parseInt(et_profit.getText().toString()), 
-			1, new HttpCallback(getActivity()) {
+			agentsId, new HttpCallback(getActivity()) {
 
 				@Override
 				public void onSuccess(Object data) {

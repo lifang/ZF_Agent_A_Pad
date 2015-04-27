@@ -70,7 +70,7 @@ public class TerminalManagerActivity extends Activity implements
 	private final int rows = 10;
 	private Boolean isLoadMore = false;
 	private static final int REQUEST_SEARCH = 1000;
-
+	private BaseAdapter maAdapter;
 	private String searchKey;
 	private View.OnClickListener mSyncListener;
 	private View.OnClickListener mOpenListener;
@@ -117,7 +117,7 @@ public class TerminalManagerActivity extends Activity implements
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, getResources()
 						.getStringArray(R.array.terminalAllStatus));
-		adapter.setDropDownViewResource(R.layout.drop_down_item);
+		adapter.setDropDownViewResource(R.layout.drop_down_item_text);
 		spinner.setAdapter(adapter);
 
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -367,8 +367,22 @@ public class TerminalManagerActivity extends Activity implements
 		mSyncListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				CommonUtil.toastShort(TerminalManagerActivity.this,
-						"synchronising...");
+
+				TerminalManagerEntity item = (TerminalManagerEntity) view
+						.getTag();
+				Config.synchronous(TerminalManagerActivity.this, item.getPosPortID(),new HttpCallback(TerminalManagerActivity.this)
+						{
+
+							@Override
+							public void onSuccess(Object data) {
+								
+							}
+
+							@Override
+							public TypeToken getTypeToken() {
+								return null;
+							}
+				} );
 			}
 		};
 		mOpenListener = new View.OnClickListener() {

@@ -32,6 +32,8 @@ import com.comdo.zf_agent_a_pad.fragment.Constants;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -225,6 +227,15 @@ public class Register extends BaseActivity implements OnClickListener {
 				.equals(et_paw1.getText().toString())) {
 
 			CommonUtil.toastShort(Register.this, "登录密码与确认密码不一致");
+		} else if (!RegText.isMobileNO(et_phone.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "手机号码格式不正确");
+		} else if (!RegText.isEmail(et_email.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "邮箱格式不正确");
+		} else if (!RegText.isIdentityCard(et_fuze_id_no.getText().toString())) {
+
+			CommonUtil.toastShort(Register.this, "负责人身份证号格式不正确");
 		} else {
 
 			companyName = et_company_name.getText().toString();

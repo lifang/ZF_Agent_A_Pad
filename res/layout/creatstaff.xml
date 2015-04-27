@@ -83,7 +83,7 @@
        android:id="@+id/et_paw"
     android:layout_width="240dp"
     android:layout_height="30dp"
-    
+     android:inputType="textPassword"
     android:background="@drawable/sc_edit"
     android:layout_marginLeft="10dp"/>
   
@@ -103,7 +103,7 @@
        android:id="@+id/et_confirm_paw"
     android:layout_width="240dp"
     android:layout_height="30dp"
-    
+     android:inputType="textPassword"
     android:background="@drawable/sc_edit"
     android:layout_marginLeft="10dp"/>
   

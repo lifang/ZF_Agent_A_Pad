@@ -150,6 +150,7 @@ public void onStart() {
 			case 2:
 				onLoad();
 				xxlistview.setAdapter(transAdapter);
+				
 				break;
 			default:
 				break;
@@ -278,6 +279,13 @@ public void onClick(View v) {
 				});
 		break;
 	case R.id.btn_quary:
+		if(tv_time_left.getText().equals("开始日期")||tv_time_right.getText().toString().equals("结束日期")){
+			CommonUtil.toastShort(getActivity(), "请选择日期");
+			return;
+		}
+		if(datatrans.size()!=0){
+			datatrans.clear();
+		}
 		quary();
 		
 		break;
@@ -327,19 +335,23 @@ private void quary() {
 		@Override
 		public void onSuccess(Page<TransgoodsEntity> data) {
 			TransgoodsDetail.isTra=false;
-			if(isrefersh){
+			/*if(isrefersh){
 				page=a;
 				rows=Config.ROWS;
 				isrefersh=false;
-			}
+			}*/
 			if(datatrans.size()!=0&&data.getList().size()==0){
 				Toast.makeText(getActivity(), "没有更多数据!", 1000).show();
+				xxlistview.setPullLoadEnable(false);
 			}
 			else{
 				idd=new int[data.getList().size()];
-				datatrans.addAll(data.getList());
+				if(datatrans.size()==0){
+					datatrans.addAll(data.getList());
+				}
+				
 			}
-			
+			isrefersh=false;
 			myHandler.sendEmptyMessage(2);
 			
 		}
@@ -447,9 +459,13 @@ public void onRefresh() {
 		CommonUtil.toastShort(getActivity(), "网络异常");
 		return;
 	}
-	isrefersh=true;
+	if(isrefersh){
+		CommonUtil.toastShort(getActivity(), "请勿重复刷新");
+		return;
+	}
+/*	isrefersh=true;
 	a=page;
-	rows=a*rows;
+	rows=a*rows;*/
 	page=1;
 	datatrans.clear();
 	quary();

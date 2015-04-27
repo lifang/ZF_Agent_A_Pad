@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ public class MineMyinfo extends Fragment implements OnClickListener{
 	 private Mybaseinfo m_baseinfo;
 	 private int type=0;
 	 public static Handler myHandler;
+	 private Activity mActivity;
+	 private int dd;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -53,15 +56,16 @@ try {
 return view;
 }
 @Override
+public void onAttach(Activity activity) {
+	// TODO Auto-generated method stub
+	super.onAttach(activity);
+	mActivity=activity;
+}
+@Override
 public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
-	
-}
-@Override
-public void onResume() {
-	// TODO Auto-generated method stub
-	super.onResume();
+	Log.e("get", String.valueOf(getActivity()));
 	switch (type) {
 	case 1:
 		tv_jichuinfo.setBackgroundResource(R.drawable.tab_bg);
@@ -92,7 +96,25 @@ public void onResume() {
 	break;
 	default:
 		break;
-	}
+	}	
+	
+}
+@Override
+public void onSaveInstanceState(Bundle outState) {
+	// TODO Auto-generated method stub
+	super.onSaveInstanceState(outState);
+}
+@Override
+public void onPause() {
+	// TODO Auto-generated method stub
+	super.onPause();
+}
+@Override
+public void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+	Log.e("get1", String.valueOf(getActivity()));
+	
 }
 private void init() {
 	tv_jichuinfo=(TextView) view.findViewById(R.id.tv_jichuinfo);

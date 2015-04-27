@@ -1,4 +1,5 @@
 package com.comdo.zf_agent_a_pad.fragment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
 import com.comdo.zf_agent_a_pad.activity.MyWebView;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
@@ -34,9 +36,11 @@ import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.activity.StockListActivity;
 import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.activity.UserManageListActivity;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.entity.PicEntity;
 import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.trade.TradeFlowActivity;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
@@ -79,7 +83,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 				Toast.makeText(getActivity(), (String) msg.obj,
 						Toast.LENGTH_SHORT).show();
 				break;
-			case 2: 
+			case 2:
 				Toast.makeText(getActivity(), "网络连接错误", Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -88,7 +92,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 				break;
 			case 4:
 				index_ima++;
-				index_ima = index_ima>list.size()-1?0:index_ima;
+				index_ima = index_ima > list.size() - 1 ? 0 : index_ima;
 				view_pager.setCurrentItem(index_ima);
 				break;
 			}
@@ -99,9 +103,9 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
-		
+
 	}
 
 	@Override
@@ -109,64 +113,106 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		// view = inflater.inflate(R.layout.f_main,container,false);
 		if (view != null) {
-			
+
 			ViewGroup parent = (ViewGroup) view.getParent();
 			if (parent != null)
 				parent.removeView(view);
 		}
 		try {
-			
+
 			view = inflater.inflate(R.layout.f_main, container, false);
-	
+
 			initView();
-		
+
 			getdata();
 		} catch (InflateException e) {
 
 		}
 		return view;
 	}
+
 	@Override
 	public void onStart() {
 		super.onStart();
-		
+
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 
 		case R.id.main_rl_jyls: // 交易流水
 			if (Config.CheckIsLogin(getActivity())) {
-				startActivity(new Intent(getActivity(), TradeFlowActivity.class));
+
+
+				if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_4)
+					CommonUtil.toastShort(getActivity(),
+							R.string.right_not_match);
+				else
+					startActivity(new Intent(getActivity(),
+							TradeFlowActivity.class));
+
 			}
 			break;
-		case R.id.main_rl_pos: //我要进货
+		case R.id.main_rl_pos: // 我要进货
 
-			startActivity(new Intent(getActivity(), PosListActivity.class));
-			
+			if (CheckRights.IS_ERJI
+					|| (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			} else {
+
+				startActivity(new Intent(getActivity(), PosListActivity.class));
+
+			}
+
 			break;
+
 		case R.id.main_rl_renzhen: // 订单管理
 			if (Config.CheckIsLogin(getActivity())) {
-			startActivity(new Intent(getActivity(), OrderList.class));
+
+				
+				if (CheckRights.IS_ERJI|| (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+					CommonUtil.toastShort(getActivity(),
+							R.string.right_not_match);
+				} else {
+					startActivity(new Intent(getActivity(), OrderList.class));
+				}
 			}
 			break;
 		case R.id.main_rl_xtgg: // 售后记录
-			startActivity(new Intent(getActivity(), AfterSaleActivity.class));
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(), AfterSaleActivity.class));
 			break;
-		case R.id.main_rl_wylc: //用户管理
-			startActivity(new Intent(getActivity(), UserManageListActivity.class));
+		case R.id.main_rl_wylc: // 用户管理
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_6)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(),
+						UserManageListActivity.class));
 			break;
-		case R.id.main_rl_Forum: //库存管理
-			startActivity(new Intent(getActivity(), StockListActivity.class));
+		case R.id.main_rl_Forum: // 库存管理
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_9)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(), StockListActivity.class));
+
+			
 			break;
+
 		case R.id.main_rl_lxwm://开通认证
 			startActivity(new Intent(getActivity(), ApplyListActivity.class));
 			break;
 		case R.id.main_rl_zdgl: // 终端管理
-//			if (Config.CheckIsLogin(getActivity())) {
-			startActivity(new Intent(getActivity(),
-					TerminalManagerActivity.class));
-//			}
+
+			// if (Config.CheckIsLogin(getActivity())) {
+			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			else
+				startActivity(new Intent(getActivity(),
+						TerminalManagerActivity.class));
+
 			break;
 		default:
 			break;
@@ -204,8 +250,9 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		view_pager.setOnPageChangeListener(new MyListener());
 
 	}
-private void getdata() {
-		
+
+	private void getdata() {
+
 		MyApplication.getInstance().getClient()
 				.post(Config.INDEXIMG, new AsyncHttpResponseHandler() {
 
@@ -251,97 +298,99 @@ private void getdata() {
 					}
 				});
 	}
-private void initIndicator() {
 
-	// ImageView imgView;
-	View v = view.findViewById(R.id.indicator);// 线性水平布局，负责动态调整导航图标
+	private void initIndicator() {
 
-	for (int i = 0; i < ma.size(); i++) {
-		try {
-			ImageView imgView = new ImageView(getActivity());
+		// ImageView imgView;
+		View v = view.findViewById(R.id.indicator);// 线性水平布局，负责动态调整导航图标
 
-			LinearLayout.LayoutParams params_linear = new LinearLayout.LayoutParams(
-					10, 10);
-			params_linear.setMargins(7, 10, 7, 10);
-			imgView.setLayoutParams(params_linear);
-			indicator_imgs[i] = imgView;
-			if (i == 0) { // 初始化第一个为选中状态
+		for (int i = 0; i < ma.size(); i++) {
+			try {
+				ImageView imgView = new ImageView(getActivity());
 
-				indicator_imgs[i]
-						.setBackgroundResource(R.drawable.indicator_focused);
-			} else {
-				indicator_imgs[i]
-						.setBackgroundResource(R.drawable.indicator);
+				LinearLayout.LayoutParams params_linear = new LinearLayout.LayoutParams(
+						10, 10);
+				params_linear.setMargins(7, 10, 7, 10);
+				imgView.setLayoutParams(params_linear);
+				indicator_imgs[i] = imgView;
+				if (i == 0) { // 初始化第一个为选中状态
+
+					indicator_imgs[i]
+							.setBackgroundResource(R.drawable.indicator_focused);
+				} else {
+					indicator_imgs[i]
+							.setBackgroundResource(R.drawable.indicator);
+				}
+				((ViewGroup) v).addView(indicator_imgs[i]);
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-			((ViewGroup) v).addView(indicator_imgs[i]);
-		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 	}
 
-}
-
-/**
- * 适配器，负责装配 、销毁 数据 和 组件 。
- */
-private class MyAdapter extends PagerAdapter {
-
-	private List<View> mList;
-	private int index;
-
-	public MyAdapter(List<View> list) {
-		mList = list;
-
-	}
-
-	public int getIndex() {
-		return index;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
-	}
-
 	/**
-	 * Return the number of views available.
+	 * 适配器，负责装配 、销毁 数据 和 组件 。
 	 */
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return mList.size();
-	}
+	private class MyAdapter extends PagerAdapter {
 
-	/**
-	 * Remove a page for the given position. 滑动过后就销毁 ，销毁当前页的前一个的前一个的页！
-	 * instantiateItem(View container, int position) This method was
-	 * deprecated in API level . Use instantiateItem(ViewGroup, int)
-	 */
-	@Override
-	public void destroyItem(ViewGroup container, int position, Object object) {
-		// TODO Auto-generated method stub
-		container.removeView(mList.get(position));
+		private List<View> mList;
+		private int index;
 
-	}
+		public MyAdapter(List<View> list) {
+			mList = list;
 
-	@Override
-	public boolean isViewFromObject(View arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		return arg0 == arg1;
-	}
+		}
 
-	/**
-	 * Create the page for the given position.
-	 */
-	@Override
-	public Object instantiateItem(final ViewGroup container,
-			final int position) {
+		public int getIndex() {
+			return index;
+		}
 
-		View view = mList.get(position);
-		ImageView image = ((ImageView) view.findViewById(R.id.image));
+		public void setIndex(int index) {
+			this.index = index;
+		}
 
-		ImageCacheUtil.IMAGE_CACHE.get(ma.get(position), image);
-		image.setOnClickListener(new OnClickListener() {
+		/**
+		 * Return the number of views available.
+		 */
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return mList.size();
+		}
+
+		/**
+		 * Remove a page for the given position. 滑动过后就销毁 ，销毁当前页的前一个的前一个的页！
+		 * instantiateItem(View container, int position) This method was
+		 * deprecated in API level . Use instantiateItem(ViewGroup, int)
+		 */
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			// TODO Auto-generated method stub
+			container.removeView(mList.get(position));
+
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			// TODO Auto-generated method stub
+			return arg0 == arg1;
+		}
+
+		/**
+		 * Create the page for the given position.
+		 */
+		@Override
+		public Object instantiateItem(final ViewGroup container,
+				final int position) {
+
+			View view = mList.get(position);
+			ImageView image = ((ImageView) view.findViewById(R.id.image));
+
+			ImageCacheUtil.IMAGE_CACHE.get(ma.get(position), image);
+			image.setOnClickListener(new OnClickListener() {
+
 
 			@Override
 			public void onClick(View arg0) {
@@ -349,85 +398,83 @@ private class MyAdapter extends PagerAdapter {
 				i.putExtra("title", "详情");
 				i.putExtra("url", myList.get(position).getWebsite_url());
 				startActivity(i);
+				}
+			});
+			container.removeView(mList.get(position));
+			container.addView(mList.get(position));
+			setIndex(position);
+			// image.setOnClickListener(new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(View v) {
+			// // TODO Auto-generated method stub
+			// // Toast.makeText(getApplicationContext(), index_ima+"----",
+			// 1000).show();
+			// Intent i=new Intent(AroundDetail.this,VPImage.class);
+			// // i.putExtra("image_url", ma.get(index_ima));
+			// i.putExtra("index", index_ima);
+			// i.putExtra("mal", mal);
+			// startActivityForResult(i, 9);
+			// }
+			// });
+
+			return mList.get(position);
+		}
+	}
+
+	/**
+	 * 动作监听器，可异步加载图片
+	 * 
+	 */
+	private class MyListener implements OnPageChangeListener {
+
+		@Override
+		public void onPageScrollStateChanged(int state) {
+			// TODO Auto-generated method stub
+			if (state == 0) {
+				// new MyAdapter(null).notifyDataSetChanged();
+			}
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onPageSelected(int position) {
+
+			// 改变所有导航的背景图片为：未选中
+			for (int i = 0; i < indicator_imgs.length; i++) {
+
+				indicator_imgs[i].setBackgroundResource(R.drawable.indicator);
 
 			}
-		});
-		container.removeView(mList.get(position));
-		container.addView(mList.get(position));
-		setIndex(position);
-		// image.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// // Toast.makeText(getApplicationContext(), index_ima+"----",
-		// 1000).show();
-		// Intent i=new Intent(AroundDetail.this,VPImage.class);
-		// // i.putExtra("image_url", ma.get(index_ima));
-		// i.putExtra("index", index_ima);
-		// i.putExtra("mal", mal);
-		// startActivityForResult(i, 9);
-		// }
-		// });
 
-		return mList.get(position);
-	}
-}
-
-/**
- * 动作监听器，可异步加载图片
- * 
- */
-private class MyListener implements OnPageChangeListener {
-
-	@Override
-	public void onPageScrollStateChanged(int state) {
-		// TODO Auto-generated method stub
-		if (state == 0) {
-			// new MyAdapter(null).notifyDataSetChanged();
-		}
-	}
-
-	@Override
-	public void onPageScrolled(int arg0, float arg1, int arg2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onPageSelected(int position) {
-
-		// 改变所有导航的背景图片为：未选中
-		for (int i = 0; i < indicator_imgs.length; i++) {
-
-			indicator_imgs[i].setBackgroundResource(R.drawable.indicator);
-
+			// 改变当前背景图片为：选中
+			index_ima = position;
+			indicator_imgs[position]
+					.setBackgroundResource(R.drawable.indicator_focused);
 		}
 
-		// 改变当前背景图片为：选中
-		index_ima = position;
-		indicator_imgs[position]
-				.setBackgroundResource(R.drawable.indicator_focused);
 	}
-
-}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		timer = new Timer();
-		TimerTask task = new TimerTask()
-		{
-			public void run()
-			{
+		TimerTask task = new TimerTask() {
+			public void run() {
 				handler.sendEmptyMessage(4);
 			}
 		};
 		timer.schedule(task, 0, time);
 	}
+
 	@Override
 	public void onStop() {
-		
+
 		super.onStop();
 
 		timer.cancel();

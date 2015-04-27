@@ -69,10 +69,17 @@ private void init() {
 		
 		@Override
 		public void onClick(View v) {
+			checkPaw();
 			save();
-			
+			CreatStaff.this.finish();
 		}
 	});
+}
+protected void checkPaw() {
+	if(et_paw.getText().toString().length()<6){
+		CommonUtil.toastShort(getApplicationContext(), "密码长度不能小于六位");
+		return;
+	}
 }
 protected void save() {
 	String rolesnew=roles.substring(0, roles.length()-1);

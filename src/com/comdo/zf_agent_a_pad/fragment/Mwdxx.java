@@ -1,13 +1,8 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.http.Header;
-
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,16 +23,12 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.DialogUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 public class Mwdxx extends Fragment implements IXListViewListener,OnClickListener{
 	private View view;

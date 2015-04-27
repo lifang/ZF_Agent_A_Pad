@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.comdo.zf_agent_a_pad.activity.MainActivity;
 import com.comdo.zf_agent_a_pad.adapter.AddressManagerAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -212,7 +213,26 @@ public void onClick(View v) {
 		opendialog();
 		break;
 	case R.id.btn_save:
-		//AlertDialog dialog = builder.show();
+		if(login_edit_name.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "收件人不能为空");
+			return ;
+		}
+		if(mobile_phone.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "联系电话不能为空");
+			return ;
+		}
+		if(zip_code.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "邮政编码不能为空");
+			return ;
+		}
+		if(area.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "请选择所在地");
+			return ;
+		}
+		if(detail_address.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "详细地址不能为空");
+			return ;
+		}
 		dialog.dismiss();
 		if(isEdit){
 			
@@ -237,6 +257,30 @@ public void onClick(View v) {
 	default:
 		break;
 	}
+	
+}
+private boolean checkisNull() {
+	if(login_edit_name.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "收件人不能为空");
+		return false;
+	}
+	if(mobile_phone.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "联系电话不能为空");
+		return false;
+	}
+	if(zip_code.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "邮政编码不能为空");
+		return false;
+	}
+	if(area.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "请选择所在地");
+		return false;
+	}
+	if(detail_address.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "详细地址不能为空");
+		return false;
+	}
+	return true;
 	
 }
 private void changeAddress() {
@@ -283,6 +327,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 			area.setText(mMerchantCity.getName());
 			Log.e("1", area.getText().toString());
 			CityProvinceActivity.isClickconfirm=false;
+			MainActivity.isCity=true;
+			Log.e("1", "1");
 			/*cityId = data.getIntExtra(CITY_ID, 0);
 			cityName = data.getStringExtra(CITY_NAME);
 			tv_city_select.setText(cityName);*/

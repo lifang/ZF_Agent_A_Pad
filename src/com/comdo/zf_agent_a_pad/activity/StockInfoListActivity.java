@@ -25,7 +25,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.StockAgentEntity;
 import com.comdo.zf_agent_a_pad.entity.StockEntity;
-import com.comdo.zf_agent_a_pad.fragment.Constants;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -109,6 +109,12 @@ public class StockInfoListActivity extends Activity implements OnClickListener,I
 		mListView = (XListView) findViewById(R.id.mListView);
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 
+		if (CheckRights.IS_ERJI) {
+			changeName.setVisibility(View.GONE);
+		}else {
+			changeName.setVisibility(View.VISIBLE);
+		}
+		
 		changeName.setOnClickListener(this);
 		search_layout.setOnClickListener(this);
 		titleback_linear_back.setOnClickListener(this);

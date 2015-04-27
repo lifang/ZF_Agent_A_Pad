@@ -47,7 +47,8 @@
                         android:layout_marginRight="@dimen/zc_margin"
                         android:background="@drawable/shape_edittext"
                         android:hint="请输入手机号/邮箱"
-                        android:paddingLeft="@dimen/zc_margin" >
+                        android:paddingLeft="@dimen/zc_margin"
+                        android:singleLine="true" >
                     </EditText>
 
                     <LinearLayout
@@ -56,19 +57,19 @@
                         android:layout_height="fill_parent"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/zc_margin_top2"
-                        android:gravity="center_vertical" >
+                        android:gravity="center_vertical"
+                        android:visibility="gone" >
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/login_delete"
-                            android:visibility="invisible" />
+                            android:background="@drawable/login_delete" />
                     </LinearLayout>
                 </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_code"
-                    android:layout_width="118dp"
+                    android:layout_width="150dp"
                     android:layout_height="40dp"
                     android:background="@drawable/normal_button_selector"
                     android:gravity="center"
@@ -109,24 +110,10 @@
                             android:layout_marginRight="@dimen/zc_margin"
                             android:background="@drawable/shape_edittext"
                             android:hint="请输入验证码"
-                            android:paddingLeft="@dimen/zc_margin" >
+                            android:paddingLeft="@dimen/zc_margin"
+                            android:maxLength="6"
+                            android:singleLine="true" >
                         </EditText>
-
-                        <LinearLayout
-                            android:id="@+id/login_linear_deletpass"
-                            android:layout_width="@dimen/zc_rl_h"
-                            android:layout_height="fill_parent"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/zc_margin_top2"
-                            android:gravity="center_vertical"
-                            android:visibility="gone" >
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/login_delete"
-                                android:visibility="visible" />
-                        </LinearLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -155,7 +142,7 @@
 
                 <TextView
                     android:id="@+id/tv_check"
-                    android:layout_width="118dp"
+                    android:layout_width="150dp"
                     android:layout_height="40dp"
                     android:background="@drawable/normal_button_selector"
                     android:gravity="center"
@@ -196,10 +183,13 @@
                             android:layout_marginRight="@dimen/zc_margin"
                             android:background="@drawable/shape_edittext"
                             android:hint="请输入密码"
-                            android:paddingLeft="@dimen/zc_margin" >
+                            android:inputType="textPassword"
+                            android:paddingLeft="@dimen/zc_margin"
+                            android:singleLine="true" >
                         </EditText>
 
                         <LinearLayout
+                            android:id="@+id/login_linear_deletpass"
                             android:layout_width="@dimen/zc_rl_h"
                             android:layout_height="fill_parent"
                             android:layout_alignParentRight="true"
@@ -210,13 +200,14 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/login_delete" />
+                                android:background="@drawable/login_delete"
+                                android:visibility="visible" />
                         </LinearLayout>
                     </RelativeLayout>
 
                     <Button
                         android:id="@+id/button1"
-                        android:layout_width="118dp"
+                        android:layout_width="150dp"
                         android:layout_height="40dp"
                         android:background="@drawable/normal_button_selector"
                         android:text="获取验证码"
@@ -250,7 +241,9 @@
                             android:layout_marginRight="@dimen/zc_margin"
                             android:background="@drawable/shape_edittext"
                             android:hint="请确认密码"
-                            android:paddingLeft="@dimen/zc_margin" >
+                            android:inputType="textPassword"
+                            android:paddingLeft="@dimen/zc_margin"
+                            android:singleLine="true" >
                         </EditText>
 
                         <LinearLayout
@@ -270,7 +263,7 @@
                     </RelativeLayout>
 
                     <Button
-                        android:layout_width="118dp"
+                        android:layout_width="150dp"
                         android:layout_height="40dp"
                         android:background="@drawable/normal_button_selector"
                         android:text="获取验证码"
@@ -305,5 +298,4 @@
         </LinearLayout>
     </ScrollView>
 
->>>>>>> origin/master
 </LinearLayout>
