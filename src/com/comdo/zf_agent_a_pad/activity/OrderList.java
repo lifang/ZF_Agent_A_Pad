@@ -64,7 +64,6 @@ public class OrderList extends Activity implements IXListViewListener,
 			case 1:
 				Toast.makeText(OrderList.this, (String) msg.obj,
 						Toast.LENGTH_SHORT).show();
-
 				break;
 			case 2:
 				Toast.makeText(OrderList.this, "网络连接错误", Toast.LENGTH_SHORT)
@@ -98,6 +97,7 @@ public class OrderList extends Activity implements IXListViewListener,
 	}
 
 	@SuppressLint("NewApi")
+
 	private void initView() {
 		ll_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		ll_back.setOnClickListener(this);

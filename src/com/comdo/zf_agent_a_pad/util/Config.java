@@ -485,15 +485,17 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.ZDORDER, params);
 	}
 
-	public static void GOODCONFIRM1(Context context, int customerId,
-			int agentId, int orderType, int goodId, int paychannelId,
-			int quantity, int addressId, String comment, int is_need_invoice,
-			int invoice_type, String invoice_info,
 
+	public static void GOODCONFIRM1(Context context, int customerId,int agentId,int creatid,int belongId,int orderType,
+			int goodId, int paychannelId, int quantity, int addressId,
+			String comment, int is_need_invoice, int invoice_type,
+			String invoice_info,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("customerId", customerId);
+		params.put("customerId", customerId);		
 		params.put("agentId", agentId);
+		params.put("creatid", creatid);
+		params.put("belongId", belongId);
 		params.put("orderType", orderType);
 		params.put("goodId", goodId);
 		params.put("paychannelId", paychannelId);

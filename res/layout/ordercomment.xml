@@ -47,12 +47,12 @@
  	        android:gravity="center_horizontal"
  	        android:layout_width="fill_parent">
  	        
- 	        <com.example.zf_pad.util.ScrollViewWithListView
+ 	        <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
                 android:id="@+id/pos_lv1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:divider="@null" >
-            </com.example.zf_pad.util.ScrollViewWithListView>
+            </com.comdo.zf_agent_a_pad.util.ScrollViewWithListView>
  	        <Button
                 android:id="@+id/btn_pay"
                 android:layout_width="240dp"
