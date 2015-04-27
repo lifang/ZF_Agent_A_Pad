@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
+import com.comdo.zf_agent_a_pad.activity.MyWebView;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.activity.StockListActivity;
@@ -344,10 +345,10 @@ private class MyAdapter extends PagerAdapter {
 
 			@Override
 			public void onClick(View arg0) {
-				//Intent i = new Intent(getActivity(), MyWebView.class);
-				//i.putExtra("title", "详情");
-				//i.putExtra("url", myList.get(position).getWebsite_url());
-				//startActivity(i);
+				Intent i = new Intent(getActivity(), MyWebView.class);
+				i.putExtra("title", "详情");
+				i.putExtra("url", myList.get(position).getWebsite_url());
+				startActivity(i);
 
 			}
 		});

@@ -5,8 +5,11 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
+import android.sax.StartElementListener;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
@@ -22,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.activity.GoodDeatail;
 import com.comdo.zf_agent_a_pad.activity.OrderDetail;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.activity.PayFromCar;
@@ -41,6 +45,7 @@ public class OrderAdapter extends BaseAdapter{
 	private LayoutInflater inflater;
 	private ViewHolder holder = null;
 	private OrderList dd;
+	private int type;
 	public OrderAdapter(Context context, List<OrderEntity> list) {
 		this.context = context;
 		this.list = list;
@@ -75,7 +80,7 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_status = (TextView) convertView.findViewById(R.id.tv_status);	
  		holder.btn_comment=(Button)convertView.findViewById(R.id.btn_comment);
  		holder.ll_ishow = (LinearLayout) convertView.findViewById(R.id.ll_ishow);
- 		
+ 	
  		holder.tv_sum = (TextView) convertView.findViewById(R.id.tv_sum);		
  		holder.tv_psf = (TextView) convertView.findViewById(R.id.tv_psf);		
  		holder.tv_pay = (TextView) convertView.findViewById(R.id.tv_pay);		
@@ -97,6 +102,11 @@ public class OrderAdapter extends BaseAdapter{
  		holder = (ViewHolder)convertView.getTag();
  	}	
  		if(OrderList.type.equals("5")){
+ 			holder.isshow.setVisibility(View.VISIBLE);
+ 		}else{
+ 			holder.isshow.setVisibility(View.GONE);
+ 		}
+ 		if(OrderList.type.equals("5")){
  			holder.btn_pay.setText("支付订金");
  		}else{
  			holder.btn_pay.setText("付款");
@@ -111,7 +121,12 @@ public class OrderAdapter extends BaseAdapter{
  			sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
  			holder.isshow.setText(sp);
  		 }
- 		 
+ 		if(list.get(position).getOrder_goodsList().get(0).getGood_id()!=""){
+ 			holder.btn_comment.setId(Integer.parseInt(list.get(position).getOrder_goodsList().get(0).getGood_id()));
+ 			//holder.btn_comment.setId(position);
+ 		}else{
+ 			holder.btn_comment.setId(-1);
+ 		}
  		holder.tv_price.setText(list.get(position).getOrder_goodsList().get(0).getGood_price().equals("")
  				?"":"￥"+check(list.get(position).getOrder_goodsList().get(0).getGood_price())/100);
  		holder.content2.setText(list.get(position).getOrder_goodsList().get(0).getGood_brand());
@@ -167,8 +182,10 @@ public class OrderAdapter extends BaseAdapter{
 			holder.btn_comment.setVisibility(View.VISIBLE);
 			if(OrderList.type.equals("5")){
 				holder.btn_comment.setText("再次批购");
+				
 			}else{
 				holder.btn_comment.setText("再次代购");
+				
 			}
 			
 			break;
@@ -253,6 +270,23 @@ public class OrderAdapter extends BaseAdapter{
 				
 			}
 		});
+	holder.btn_comment.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			//Toast.makeText(context, v.getId()+"", 1000).show();	
+			if(v.getId()!=-1){
+				Intent i=new Intent(context,GoodDeatail.class);
+				i.putExtra("id", v.getId());
+							
+				context.startActivity(i);
+			}else{
+				Toast.makeText(context, "商品id为空!", 1000).show();	
+			}
+			
+			
+		}
+	});
  		holder.btn_pay.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -271,7 +305,10 @@ public class OrderAdapter extends BaseAdapter{
 				Intent i = new Intent(context, OrderDetail.class);
 				i.putExtra("status", list.get(index).getOrder_status());
 				i.putExtra("id", list.get(index).getOrder_id());
-			
+				if(list.get(index).getOrder_goodsList().get(0).getGood_id().equals("")){
+					i.putExtra("goodid", list.get(index).getOrder_goodsList().get(0).getGood_id());
+				}
+				
 				if(OrderList.type.equals("5")){
 					typeint = 0;
 				}else{

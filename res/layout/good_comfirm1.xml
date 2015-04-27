@@ -199,6 +199,7 @@
                                 android:background="@drawable/normal_button_selector"
                                 android:text="新增地址"
                                 android:textColor="#ffffff"
+                                android:id="@+id/bt_addadress"
                                 android:textSize="@dimen/textmid" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -591,6 +592,7 @@
                         android:orientation="vertical" >
 
                         <LinearLayout
+                            android:id="@+id/zl_isshow"
                             android:layout_width="fill_parent"
                             android:layout_height="@dimen/normai_height1"
                             android:background="#E9E8E8"
@@ -612,7 +614,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="center"
+                                android:gravity="left|center_vertical"
                                 android:text="最短租赁时间:365天"
                                 android:textColor="#292929"
                                 android:textSize="@dimen/textmids" />
@@ -650,7 +652,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                android:gravity="center"
+                                 android:gravity="left|center_vertical"
                                 android:text="配送费:￥0"
                                 android:textColor="#292929"
                                 android:textSize="@dimen/textmids" />
@@ -709,19 +711,14 @@
                                 android:layout_marginLeft="14dp"
                                 android:checked="false" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="7dp"
-                                android:text="我同意"
-                                android:textColor="@color/text6c6c6c6"
-                                android:textSize="@dimen/textbig" />
+                       
 
                             <TextView
+                                android:id="@+id/tv_zl"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
-                                android:text="《租赁协议》"
+                                android:text="我同意    《租赁协议》"
                                 android:textColor="#FD7D24"
                                 android:textSize="@dimen/textbig" />
                         </LinearLayout>
