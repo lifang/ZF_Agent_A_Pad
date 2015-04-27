@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.comdo.zf_agent_a_pad.activity.MainActivity;
 import com.comdo.zf_agent_a_pad.adapter.AddressManagerAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -283,6 +284,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 			area.setText(mMerchantCity.getName());
 			Log.e("1", area.getText().toString());
 			CityProvinceActivity.isClickconfirm=false;
+			MainActivity.isCity=true;
+			Log.e("1", "1");
 			/*cityId = data.getIntExtra(CITY_ID, 0);
 			cityName = data.getStringExtra(CITY_NAME);
 			tv_city_select.setText(cityName);*/
