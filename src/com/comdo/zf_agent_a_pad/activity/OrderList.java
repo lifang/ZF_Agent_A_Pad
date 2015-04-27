@@ -151,7 +151,7 @@ public class OrderList extends Activity implements IXListViewListener,
 		Xlistview.setPullLoadEnable(true);
 		Xlistview.setDivider(null);
 		Xlistview.setAdapter(myAdapter);
-		if (!CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
+		if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
 			sp.setSelection(0);
 			tv_dg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
 			tv_pg.setBackgroundColor(getResources().getColor(R.color.bggray));
@@ -255,7 +255,7 @@ public class OrderList extends Activity implements IXListViewListener,
 			getData();
 			break;
 		case R.id.tv_pg:
-			if (!CheckRights.RIGHT_1) {
+			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1) {
 
 				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);
 			} else {
@@ -274,7 +274,7 @@ public class OrderList extends Activity implements IXListViewListener,
 			}
 			break;
 		case R.id.tv_dg:
-			if (!CheckRights.RIGHT_2) {
+			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_2) {
 
 				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);
 			} else {
