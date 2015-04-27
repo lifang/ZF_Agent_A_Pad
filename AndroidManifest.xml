@@ -394,6 +394,11 @@
             android:exported="false"
             android:screenOrientation="behind" >
         </activity> 
+         <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectPOSSActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

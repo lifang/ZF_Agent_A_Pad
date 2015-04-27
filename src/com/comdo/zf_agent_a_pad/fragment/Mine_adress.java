@@ -213,7 +213,26 @@ public void onClick(View v) {
 		opendialog();
 		break;
 	case R.id.btn_save:
-		//AlertDialog dialog = builder.show();
+		if(login_edit_name.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "收件人不能为空");
+			return ;
+		}
+		if(mobile_phone.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "联系电话不能为空");
+			return ;
+		}
+		if(zip_code.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "邮政编码不能为空");
+			return ;
+		}
+		if(area.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "请选择所在地");
+			return ;
+		}
+		if(detail_address.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "详细地址不能为空");
+			return ;
+		}
 		dialog.dismiss();
 		if(isEdit){
 			
@@ -238,6 +257,30 @@ public void onClick(View v) {
 	default:
 		break;
 	}
+	
+}
+private boolean checkisNull() {
+	if(login_edit_name.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "收件人不能为空");
+		return false;
+	}
+	if(mobile_phone.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "联系电话不能为空");
+		return false;
+	}
+	if(zip_code.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "邮政编码不能为空");
+		return false;
+	}
+	if(area.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "请选择所在地");
+		return false;
+	}
+	if(detail_address.getText().toString().equals("")){
+		CommonUtil.toastShort(getActivity(), "详细地址不能为空");
+		return false;
+	}
+	return true;
 	
 }
 private void changeAddress() {
