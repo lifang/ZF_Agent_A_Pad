@@ -118,7 +118,7 @@
                     android:layout_height="@dimen/titleback_height"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="代购赁"
+                    android:text="代租赁"
                     android:textColor="#292929"
                     android:textSize="@dimen/textmid" />
             </LinearLayout>

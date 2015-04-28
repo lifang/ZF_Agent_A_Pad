@@ -22,6 +22,9 @@
     <string name="clear_history">清除历史数据</string>
     <string name="right_not_match">权限不足</string>
     <string name="no_more_data">已加载全部数据</string>
+    <string name="send_mail">发送重置密码邮件</string>
+    <string name="no_user_find">未查找到用户</string>
+    <string name="two_pwd_diff">两次密码不一样</string>
 
     <string-array name="agent_type">
         <item>公司</item>
@@ -172,7 +175,7 @@
     <string name="title_pos_select">选择POS机</string>
     <string name="terminal_add_success">绑定终端成功</string>
     <string name="phone_no_error">请填写正确的手机号码!</string>
-    <string name="terminal_new_success">绑定终端成功</string>
+    <string name="terminal_new_success">创建成功</string>
     <string name="terminal_apply_success">申请售后成功</string>
     <string name="terminal_price_error">最高价不能低于最低价</string>
 

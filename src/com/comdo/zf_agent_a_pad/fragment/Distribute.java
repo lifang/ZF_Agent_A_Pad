@@ -305,6 +305,10 @@ public void onClick(View v) {
 				});
 		break;
 	case R.id.btn_quary:
+		if(tv_time_left.getText().equals("开始日期")||tv_time_right.getText().toString().equals("结束日期")){
+			CommonUtil.toastShort(getActivity(), "请选择日期");
+			return;
+		}
 		quary();
 		break;
 	case R.id.tv_choose_terminal:
@@ -315,10 +319,12 @@ public void onClick(View v) {
 		startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 		break;
 	case R.id.btn_confirm:
-		dialog.dismiss();
+		
 		if(tv_choose_terminal.getText().toString().equals("")){
+			CommonUtil.toastShort(getActivity(), "请选择终端号");
 			return;
 		}
+		dialog.dismiss();
 		distribute();
 		
 		break;

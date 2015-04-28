@@ -40,7 +40,6 @@ public class Comment extends BaseActivity{
 	List<Goodlist>  goodlist = new ArrayList<Goodlist>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ordercomment);
 		lv=(ScrollViewWithListView) findViewById(R.id.pos_lv1);
@@ -55,7 +54,6 @@ public class Comment extends BaseActivity{
 			
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				submit();
 			}	 
 		});
@@ -76,7 +74,6 @@ public class Comment extends BaseActivity{
 		try {
 			params.put("json", new JSONArray(gson.toJson(as)));
 		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	  
@@ -109,8 +106,6 @@ public class Comment extends BaseActivity{
 								finish();
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							 ;	
 							e.printStackTrace();
 							
 						}
@@ -120,7 +115,6 @@ public class Comment extends BaseActivity{
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							byte[] responseBody, Throwable error) {
-						// TODO Auto-generated method stub
 						System.out.println("-onFailure---");
 						Log.e("print", "-onFailure---" + error);
 					}

@@ -26,14 +26,14 @@ public class Goodlist {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	private int good_actualprice;
+	private int good_batch_price;
 	private String terminals;
 	
 public int getGood_actualprice() {
-		return good_actualprice;
+		return good_batch_price;
 	}
 	public void setGood_actualprice(int good_actualprice) {
-		this.good_actualprice = good_actualprice;
+		this.good_batch_price = good_actualprice;
 	}
 	public String getTerminals() {
 		return terminals;

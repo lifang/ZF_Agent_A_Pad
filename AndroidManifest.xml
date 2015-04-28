@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -160,7 +159,7 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
-              <activity
+        <activity
             android:name="com.comdo.zf_agent_a_pad.activity.WebViewActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
@@ -376,7 +375,17 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
-                <!-- alipay -->
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AddAdress"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.MyWebView"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <!-- alipay -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -398,6 +407,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> 
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectPOSSActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

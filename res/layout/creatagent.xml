@@ -451,6 +451,7 @@
        android:id="@+id/et_paw"
     android:layout_width="240dp"
     android:layout_height="30dp"
+    android:inputType="textPassword"
     android:background="@drawable/sc_edit"
     android:layout_marginLeft="10dp"/>
    
@@ -471,6 +472,7 @@
     android:layout_width="240dp"
     android:layout_height="30dp"
     android:background="@drawable/sc_edit"
+    android:inputType="textPassword"
     android:layout_marginLeft="10dp"/>
    
    </TableRow>

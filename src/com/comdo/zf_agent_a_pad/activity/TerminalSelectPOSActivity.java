@@ -32,17 +32,17 @@ public class TerminalSelectPOSActivity extends ListActivity {
 		setContentView(R.layout.activity_simple_list);
 
 		String title = getIntent().getStringExtra(CHOOSE_TITLE);
-		List<Pos> posItems = (List<Pos>) getIntent()
+		List<SelectPOS> posItems = (List<SelectPOS>)getIntent()
 				.getSerializableExtra(CHOOSE_ITEMS);
 		int selectedId = getIntent().getIntExtra(SELECTED_ID, 0);
 
 		new TitleMenuUtil(this, title).show();
 
 		final List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
-		for (Pos selectPOS : posItems) {
+		for (SelectPOS selectPOS : posItems) {
 			Map<String, Object> item = new HashMap<String, Object>();
 			item.put("id", selectPOS.getId());
-			item.put("name", selectPOS.getGoodname());
+			item.put("name", selectPOS.getTitle());
 			item.put("selected",
 					selectPOS.getId() == selectedId ? R.drawable.icon_selected
 							: null);

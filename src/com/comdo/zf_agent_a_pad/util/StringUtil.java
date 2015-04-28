@@ -14,10 +14,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
 
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
-
-
 
 /***
  * ���ַ��� ���ܣ�����
@@ -27,7 +26,6 @@ import android.util.Log;
  *         comdo
  */
 public class StringUtil {
-
 
 	public static String timeUtil(String time) {
 		String t = time;
@@ -41,11 +39,9 @@ public class StringUtil {
 		String T1 = t.split("-")[1];
 		if (T1.equals("01")) {
 			T1 = T1 + "st,";
-		}else 
-		if (T1.equals("02")) {
+		} else if (T1.equals("02")) {
 			T1 = T1 + "nd,";
-		}
-		else if (T1.equals("03")) {
+		} else if (T1.equals("03")) {
 			T1 = T1 + "rd,";
 		} else {
 			T1 = T1 + "th,";
@@ -72,7 +68,7 @@ public class StringUtil {
 		if (T2.equals("07")) {
 			T2 = "Jul";
 		}
- 
+
 		if (T2.equals("08")) {
 			T2 = "Aug";
 		}
@@ -101,13 +97,15 @@ public class StringUtil {
 
 		return t;
 	}
-	//判断是否为空
+
+	// 判断是否为空
 	public static boolean isNull(String s) {
 		if (null == s || s.equals("") || s.equalsIgnoreCase("null")) {
 			return true;
 		}
 		return false;
 	}
+
 	/**
 	 * MD5�����㷨
 	 * 
@@ -218,4 +216,9 @@ public class StringUtil {
 		return sign.toString();
 	}
 
+	public static String formatNull(String str) {
+		if (TextUtils.isEmpty(str))
+			return "";
+		return str;
+	}
 }

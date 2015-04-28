@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
+import com.comdo.zf_agent_a_pad.entity.CreateUser;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
@@ -146,27 +147,35 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			Config.addCustomer(this, setCode.getText().toString(), name,
-					password, mChannelId, MyApplication.NewUser.getAgentId(),
-					new HttpCallback(TerminalApplyCreateActivity.this) {
+			if (pwd.getText().toString()
+					.equals(confirmpwd.getText().toString())) {
+				Config.addCustomer(this, StringUtil.Md5(setCode.getText().toString()), name,
+						password, mChannelId, MyApplication.NewUser
+								.getAgentId(), checkCode.getText().toString(),
+						new HttpCallback<CreateUser>(
+								TerminalApplyCreateActivity.this) {
 
-						@Override
-						public void onSuccess(Object data) {
+							@Override
+							public void onSuccess(CreateUser data) {
 
-							CommonUtil.toastShort(
-									TerminalApplyCreateActivity.this,
-									getResources().getString(
-											R.string.terminal_new_success));
-							finish();
-						}
+								CommonUtil.toastShort(
+										TerminalApplyCreateActivity.this,
+										getResources().getString(
+												R.string.terminal_new_success));
+								finish();
+							}
 
-						@Override
-						public TypeToken getTypeToken() {
+							@Override
+							public TypeToken<CreateUser> getTypeToken() {
 
-							return null;
-						}
-					});
-
+								return new TypeToken<CreateUser>() {
+								};
+							}
+						});
+			} else {
+				CommonUtil.toastShort(TerminalApplyCreateActivity.this,
+						getResources().getString(R.string.two_pwd_diff));
+			}
 			break;
 		case R.id.selectcity:
 			Intent intent = new Intent(TerminalApplyCreateActivity.this,

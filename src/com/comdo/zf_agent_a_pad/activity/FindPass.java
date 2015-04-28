@@ -32,7 +32,7 @@ public class FindPass extends Activity implements OnClickListener {
 	private TextView tv_code, tv_check;
 	private EditText login_edit_email, login_edit_code, login_edit_pass,
 			login_edit_pass2;
-	private LinearLayout login_linear_deletemali, login_linear_deletcode,
+	private LinearLayout login_linear_deletemali,
 			login_linear_deletpass, login_linear_deletpass2,
 			login_linear_signin, ll_jy_type;
 	private int Countmun = 120;
@@ -80,8 +80,8 @@ public class FindPass extends Activity implements OnClickListener {
 		System.out.println("Register4phone---");
 		initView();
 
-		img_check.setVisibility(View.VISIBLE);
-		img_check_n.setVisibility(View.GONE);
+		img_check.setVisibility(View.GONE);
+		img_check_n.setVisibility(View.VISIBLE);
 		chenckcode = true;
 		runnable = new Runnable() {
 			@Override
@@ -134,8 +134,9 @@ public class FindPass extends Activity implements OnClickListener {
 				}
 				if (s.toString().contains(".")) {
 					ll_isshow.setVisibility(View.GONE);
-					tv_code.setVisibility(View.GONE);
-					tv_code.setText("获取验证码");
+					tv_code.setVisibility(View.VISIBLE);
+					tv_code.setText(getResources()
+							.getString(R.string.send_mail));
 					ll_isshow1.setVisibility(View.GONE);
 					ismail = true;
 				} else {
@@ -171,7 +172,7 @@ public class FindPass extends Activity implements OnClickListener {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
+
 				if (s.length() > 0) {
 
 					login_linear_deletpass.setVisibility(View.VISIBLE);
@@ -183,13 +184,11 @@ public class FindPass extends Activity implements OnClickListener {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -201,7 +200,7 @@ public class FindPass extends Activity implements OnClickListener {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
+
 				if (s.length() > 0) {
 
 					login_linear_deletpass2.setVisibility(View.VISIBLE);
@@ -213,13 +212,11 @@ public class FindPass extends Activity implements OnClickListener {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -279,14 +276,8 @@ public class FindPass extends Activity implements OnClickListener {
 				@Override
 				public void onSuccess(Object data) {
 
-					String responseMsg = data.toString();
+					vcode = data.toString();
 
-					try {
-						vcode = new JSONObject(responseMsg).getString("result");
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 					System.out.println("-vcode---" + vcode);
 					handler.postDelayed(runnable, 1000);
 					tv_code.setClickable(false);
@@ -399,7 +390,6 @@ public class FindPass extends Activity implements OnClickListener {
 	}
 
 	private void sure() {
-		// TODO Auto-generated method stub
 
 		RequestParams params = new RequestParams();
 		params.put("password", pass);
@@ -407,12 +397,11 @@ public class FindPass extends Activity implements OnClickListener {
 		params.put("username", email);
 
 		System.out.println(pass + "-------" + email + "----" + vcode);
-		Config.updatePassword(FindPass.this, pass, vcode, email,
+		Config.updatePassword(FindPass.this,email, pass, vcode, 
 
 		new HttpCallback(FindPass.this) {
 			@Override
 			public void onSuccess(Object data) {
-				// TODO Auto-generated method stub
 				Toast.makeText(FindPass.this, "修改密码成功", 1000).show();
 				Intent i = new Intent(getApplication(),
 						FindpassmailSucces.class);
@@ -428,7 +417,6 @@ public class FindPass extends Activity implements OnClickListener {
 
 			@Override
 			public TypeToken getTypeToken() {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});

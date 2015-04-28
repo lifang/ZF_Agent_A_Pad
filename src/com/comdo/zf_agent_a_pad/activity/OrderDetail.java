@@ -7,6 +7,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.R.integer;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.adapter.OrderDetail_PosAdapter;
 import com.comdo.zf_agent_a_pad.adapter.RecordAdapter;
+import com.comdo.zf_agent_a_pad.common.DialogUtil;
 import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.entity.MarkEntity;
 import com.comdo.zf_agent_a_pad.entity.OrderDetailEntity;
@@ -45,7 +47,8 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private RecordAdapter reAdapter;
 	private LinearLayout ll_ishow;
 	private Button btn_ishow;
-	private OrderDetailEntity ode ;
+	private OrderDetailEntity ode;
+	 private Dialog loadingDialog;
 	private TextView tv_status, tv_sjps, tv_psf, tv_reperson, tv_tel,
 			tv_adress, tv_ly, tv_fplx, fptt, tv_ddbh, tv_pay, tv_time, tv_gj,
 			tv_money;
@@ -56,8 +59,8 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			case 0:
 				OrderDetailEntity entity = ode;
 				tv_sjps.setText("实际配送金额(含配送费) ：￥ "
-						+check(entity.getOrder_totalprice())/100 );
-				tv_psf.setText("含配送费 ：￥ " + entity.getOrder_psf());
+						+ check(entity.getOrder_totalPrice()) / 100);
+				//tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
 				tv_reperson.setText("收件人  ：   " + entity.getOrder_receiver());
 				tv_tel.setText(entity.getOrder_receiver_phone());
 				tv_adress.setText("收货地址  ：   " + entity.getOrder_address());
@@ -67,10 +70,11 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				fptt.setText("发票抬头  ：   " + entity.getOrder_invoce_info());
 				tv_ddbh.setText("订单编号  ：   " + entity.getOrder_number());
 				tv_pay.setText("支付方式  ：   " + entity.getOrder_payment_type());
-				tv_time.setText("实付金额  ：   ￥" + check(entity.getOrder_totalprice())/100);
+				tv_time.setText("实付金额  ：   ￥"
+						+ check(entity.getOrder_totalPrice()) / 100);
 				tv_money.setText("订单日期  ：   " + entity.getOrder_createTime());
-				tv_gj.setText("共计  ：   " + entity.getOrder_totalNum() + "件商品");
-				if(!OrderList.type.equals("5")){
+				tv_gj.setText("共计  ：   " + entity.getTotal_quantity() + "件商品");
+				if (!OrderList.type.equals("5")) {
 					tv_user.setText(entity.getGuishu_user());
 				}
 				break;
@@ -79,7 +83,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 						Toast.LENGTH_SHORT).show();
 
 				break;
-			case 2: 
+			case 2:
 				Toast.makeText(getApplicationContext(),
 						"no 3g or wifi content", Toast.LENGTH_SHORT).show();
 				break;
@@ -101,22 +105,24 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private String url;
 	private LinearLayout ll_user;
 	private TextView tv_user;
+	private int goodid;
+	private View line;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_detail);
-	
+
 		status = getIntent().getIntExtra("status", 0);
 		id = Integer.parseInt(getIntent().getStringExtra("id"));
-		type =getIntent().getIntExtra("type", 1);
-	
-		if(type==0){
+		type = getIntent().getIntExtra("type", 1);
+		goodid = getIntent().getIntExtra("goodid", -1);
+		if (type == 0) {
 			new TitleMenuUtil(OrderDetail.this, "批购订单详情").show();
-		}else{
+		} else {
 			new TitleMenuUtil(OrderDetail.this, "代购订单详情").show();
 		}
-		
+
 		getData();
 	}
 
@@ -125,96 +131,102 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		params.put("id", id);
 		System.out.println("id```" + id);
 		params.setUseJsonStreamer(true);
-		
-		if(OrderList.type.equals("5")){
+
+		if (OrderList.type.equals("5")) {
 			url = Config.ORDERDETAIL;
-		}else{
-			url=Config.ORDERDETAIL1;
+		} else {
+			url = Config.ORDERDETAIL1;
 		}
-		MyApplication
-				.getInstance()
-				.getClient()
-				.post(url, params,
-						new AsyncHttpResponseHandler() {
-							@Override
-							public void onSuccess(int statusCode,
-									Header[] headers, byte[] responseBody) {
-								String responseMsg = new String(responseBody)
-										.toString();
-								Log.e("print", responseMsg);
-								Gson gson = new Gson();
+		MyApplication.getInstance().getClient()
+				.post(url, params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onStart() {
 
-								JSONObject jsonobject = null;
-								String code = null;
-								try {
-									jsonobject = new JSONObject(responseMsg);
-									code = jsonobject.getString("code");
-									int a = jsonobject.getInt("code");
-									if (a == Config.CODE) {
-										initView();
-										String res = jsonobject
-												.getString("result");
-										// jsonobject = new JSONObject(res);
-										System.out.println("````" + res);
-										ode = gson
-												.fromJson(
-														res,
-														new TypeToken<OrderDetailEntity>() {
-														}.getType());
-									
-										// jsonobject = new JSONObject(res);
-										goodlist = ode
-												.getOrder_goodsList();
-										relist = ode.getComments()
-												.getContent();
-										
+						super.onStart();
+						 loadingDialog = DialogUtil.getLoadingDialg(OrderDetail.this);
+						 loadingDialog.show();
+					}
 
-										posAdapter = new OrderDetail_PosAdapter(
-												OrderDetail.this, goodlist,
-												status);
-										pos_lv.setAdapter(posAdapter);
-										if(relist==null){
-											tv_comment.setVisibility(View.GONE);
-										}else{
-											reAdapter = new RecordAdapter(
-													OrderDetail.this, relist);
-											his_lv.setAdapter(reAdapter);
-										}
-										
+					@Override
+					public void onFinish() {
 
-										handler.sendEmptyMessage(0);
+						super.onFinish();
+						loadingDialog.dismiss();
+					}
 
-									} else {
-										code = jsonobject.getString("message");
-										Toast.makeText(getApplicationContext(),
-												code, 1000).show();
-									}
-								} catch (JSONException e) {
-							
-									e.printStackTrace();
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							byte[] responseBody) {
+						String responseMsg = new String(responseBody)
+								.toString();
+						Log.e("print", responseMsg);
+						Gson gson = new Gson();
+
+						JSONObject jsonobject = null;
+						String code = null;
+						try {
+							jsonobject = new JSONObject(responseMsg);
+							code = jsonobject.getString("code");
+							int a = jsonobject.getInt("code");
+							if (a == Config.CODE) {
+								initView();
+								String res = jsonobject.getString("result");
+								// jsonobject = new JSONObject(res);
+								System.out.println("````" + res);
+								ode = gson.fromJson(res,
+										new TypeToken<OrderDetailEntity>() {
+										}.getType());
+
+								// jsonobject = new JSONObject(res);
+								goodlist = ode.getOrder_goodsList();
+								relist = ode.getComments().getContent();
+
+								posAdapter = new OrderDetail_PosAdapter(
+										OrderDetail.this, goodlist, status);
+								pos_lv.setAdapter(posAdapter);
+								if (relist == null) {
+									tv_comment.setVisibility(View.GONE);
+								} else {
+									reAdapter = new RecordAdapter(
+											OrderDetail.this, relist);
+									his_lv.setAdapter(reAdapter);
 								}
-							}
 
-							@Override
-							public void onFailure(int statusCode,
-									Header[] headers, byte[] responseBody,
-									Throwable error) {
-								
-								System.out.println("-onFailure---");
-								Log.e("print", "-onFailure---" + error);
+								handler.sendEmptyMessage(0);
+
+							} else {
+								code = jsonobject.getString("message");
+								Toast.makeText(getApplicationContext(), code,
+										1000).show();
 							}
-						});
+						} catch (JSONException e) {
+
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							byte[] responseBody, Throwable error) {
+
+						System.out.println("-onFailure---");
+						Log.e("print", "-onFailure---" + error);
+					}
+				});
 	}
+
 	private void initView() {
-		tv_user = (TextView)findViewById(R.id.tv_user);
-		ll_user = (LinearLayout)findViewById(R.id.ll_user);
-		if(!OrderList.type.equals("5")){
+		line = (View)findViewById(R.id.line);
+		tv_user = (TextView) findViewById(R.id.tv_user);
+		ll_user = (LinearLayout) findViewById(R.id.ll_user);
+		if (!OrderList.type.equals("5")) {
 			ll_user.setVisibility(View.VISIBLE);
+			line.setVisibility(View.VISIBLE);
 		}
-		bt_pay = (Button)findViewById(R.id.bt_pay);
+		bt_pay = (Button) findViewById(R.id.bt_pay);
 		bt_pay.setOnClickListener(this);
-		bt_cancel = (Button)findViewById(R.id.bt_cancel);
-		tv_comment = (TextView)findViewById(R.id.tv_comment);
+		bt_cancel = (Button) findViewById(R.id.bt_cancel);
+		tv_comment = (TextView) findViewById(R.id.tv_comment);
 		bt_cancel.setOnClickListener(this);
 		tv_money = (TextView) findViewById(R.id.tv_money);
 		bt_pj = (Button) findViewById(R.id.btn_pj);
@@ -239,35 +251,35 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 																				// 才有下面的按钮
 		pos_lv = (ScrollViewWithListView) findViewById(R.id.pos_lv1);
 		his_lv = (ScrollViewWithListView) findViewById(R.id.his_lv);
-		tv_price = (TextView)findViewById(R.id.tv_price);
-		tv_sl = (TextView)findViewById(R.id.tv_quantity);
+		tv_price = (TextView) findViewById(R.id.tv_price);
+		tv_sl = (TextView) findViewById(R.id.tv_quantity);
 
 		switch (status) {
 		case 1:
 			tv_status.setText("未付款");
-			
+
 			break;
 		case 2:
-			if(OrderList.type.equals("5")){
+			if (OrderList.type.equals("5")) {
 				tv_status.setText("已付订金");
 				btn_ishow.setVisibility(View.VISIBLE);
-			}else{
+			} else {
 				tv_status.setText("已付款");
 				btn_ishow.setVisibility(View.VISIBLE);
 			}
-			
+
 			break;
 		case 3:
-			if(OrderList.type.equals("5")){
+			if (OrderList.type.equals("5")) {
 				tv_status.setText("已完成");
 				btn_ishow.setVisibility(View.VISIBLE);
 				bt_pj.setVisibility(View.VISIBLE);
-			}else{
+			} else {
 				tv_status.setText("已发货");
 				btn_ishow.setVisibility(View.VISIBLE);
 				bt_pj.setVisibility(View.VISIBLE);
 			}
-			
+
 			break;
 		case 4:
 			tv_status.setText("已评价");
@@ -275,7 +287,14 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			break;
 		case 5:
 			tv_status.setText("已取消");
+			bt_pj.setVisibility(View.VISIBLE);
+			if (OrderList.type.equals("5")) {
+				bt_pj.setText("再次批购");
 
+			} else {
+				bt_pj.setText("再次代购");
+
+			}
 			break;
 		case 6:
 
@@ -285,13 +304,24 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
+
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.btn_pj:
-			Config.list = ode.getOrder_goodsList();
-			if (Config.list.size() != 0) {
-				startActivity(new Intent(OrderDetail.this, Comment.class));
+			if (status == 5) {
+				if (goodid != -1) {
+					Intent i = new Intent(OrderDetail.this, GoodDeatail.class);
+					i.putExtra("id", goodid);
+					startActivity(i);
+				}
+
+			} else if (status == 3) {
+				Config.list = ode.getOrder_goodsList();
+				if (Config.list.size() != 0) {
+					startActivity(new Intent(OrderDetail.this, Comment.class));
+				}
+
 			}
 			break;
 		case R.id.btn_ishow:
@@ -299,70 +329,88 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			amd.setTitle("查看终端号");
 			amd.setMessage(ode.getTerminals());
 			amd.setNegativeButton("确认", new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					amd.dismiss();
-					
+
 				}
 			});
 			break;
 		case R.id.bt_pay:
-			startActivity(new Intent(OrderDetail.this,PayFromCar.class));
+			startActivity(new Intent(OrderDetail.this, PayFromCar.class));
 			break;
 		case R.id.bt_cancel:
 			final AlertDialog ad = new AlertDialog(OrderDetail.this);
 			ad.setTitle("提示");
 			ad.setMessage("确认取消?");
-			ad.setPositiveButton("取消", new OnClickListener() {				
+			ad.setPositiveButton("取消", new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					ad.dismiss();				
+					ad.dismiss();
 				}
 			});
-			ad.setNegativeButton("确定", new OnClickListener() {				
+			ad.setNegativeButton("确定", new OnClickListener() {
 				@Override
 				public void onClick(final View arg0) {
 					ad.dismiss();
 					RequestParams params = new RequestParams();
 					params.put("id", id);
-					System.out.println("`getTag``"+id);					 
+					System.out.println("`getTag``" + id);
 					params.setUseJsonStreamer(true);
-					MyApplication.getInstance().getClient()
-							.post(Config.ORDERDELTE, params, new AsyncHttpResponseHandler() {
+					MyApplication
+							.getInstance()
+							.getClient()
+							.post(Config.ORDERDELTE, params,
+									new AsyncHttpResponseHandler() {
 
-								@Override
-								public void onSuccess(int statusCode, Header[] headers,
-										byte[] responseBody) {
-									String responseMsg = new String(responseBody)
-											.toString();
-									Log.e("print", responseMsg);			 
-									Gson gson = new Gson();								
-									JSONObject jsonobject = null;
-									String code = null;
-									try {
-										jsonobject = new JSONObject(responseMsg);
-										code = jsonobject.getString("code");
-										int a =jsonobject.getInt("code");
-										if(a==Config.CODE){  
-											Toast.makeText(OrderDetail.this, jsonobject.getString("message"), 1000).show();
-											ll_ishow.setVisibility(View.INVISIBLE);
-										}else{
-											code = jsonobject.getString("message");
-											Toast.makeText(OrderDetail.this, code, 1000).show();
+										@Override
+										public void onSuccess(int statusCode,
+												Header[] headers,
+												byte[] responseBody) {
+											String responseMsg = new String(
+													responseBody).toString();
+											Log.e("print", responseMsg);
+											Gson gson = new Gson();
+											JSONObject jsonobject = null;
+											String code = null;
+											try {
+												jsonobject = new JSONObject(
+														responseMsg);
+												code = jsonobject
+														.getString("code");
+												int a = jsonobject
+														.getInt("code");
+												if (a == Config.CODE) {
+													Toast.makeText(
+															OrderDetail.this,
+															jsonobject
+																	.getString("message"),
+															1000).show();
+													ll_ishow.setVisibility(View.INVISIBLE);
+												} else {
+													code = jsonobject
+															.getString("message");
+													Toast.makeText(
+															OrderDetail.this,
+															code, 1000).show();
+												}
+											} catch (JSONException e) {
+												;
+												e.printStackTrace();
+											}
 										}
-									} catch (JSONException e) {
-										 ;	
-										e.printStackTrace();									
-									}
-								}
-								@Override
-								public void onFailure(int statusCode, Header[] headers,
-										byte[] responseBody, Throwable error) {
-									System.out.println("-onFailure---");
-									Log.e("print", "-onFailure---" + error);
-								}
-							});	
+
+										@Override
+										public void onFailure(int statusCode,
+												Header[] headers,
+												byte[] responseBody,
+												Throwable error) {
+											System.out.println("-onFailure---");
+											Log.e("print", "-onFailure---"
+													+ error);
+										}
+									});
 				}
 			});
 			break;
@@ -370,13 +418,14 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
+
 	double check(String str) {
 		try {
 
 			double min = Double.valueOf(str);// 把字符串强制转换为数字
 			return min;// 如果是数字，返回True
 		} catch (Exception e) {
-			
+
 			return 0;// 如果抛出异常，返回False
 		}
 	}
