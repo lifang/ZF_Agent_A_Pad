@@ -119,7 +119,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 					body = subject;
 				}
 				outTradeNo = orderDetail.getOrder_number();
-				price = orderDetail.getOrder_totalprice();
+				price = orderDetail.getOrder_totalPrice();
 				price = String.format("%.2f", Integer.parseInt(price)/100f);
 				handler.sendEmptyMessage(0);
 			}
