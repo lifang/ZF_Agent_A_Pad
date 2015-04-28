@@ -74,4 +74,7 @@
     <dimen name="order_image">80dp</dimen>
 <dimen name="order_image1">54dp</dimen>
 <dimen name="goodimg">350dp</dimen>
+
+<dimen name="guidebtnwidth">150dp</dimen>
+	<dimen name="guidebtnheight">42dp</dimen>
 </resources>
