@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.example.zf_agent_a_pad.R;
@@ -79,7 +80,12 @@ public class PosAdapter extends BaseAdapter {
 				+ "");
 		holder.content1.setText(list.get(position).getModel_number());
 		holder.tv_td.setText(list.get(position).getPay_channe());
-		holder.ys.setText("" + list.get(position).getVolume_number());
+		if(PosListActivity.shoptype==1){
+			holder.ys.setText("" + list.get(position).getPurchase_number());
+		}else{
+			holder.ys.setText("" + list.get(position).getVolume_number());
+		}
+		
 		String string=" 原价:￥"+((double)list.get(position).getPurchase_price()/100)+" ";
 		SpannableString sp = new SpannableString(string);
 		sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

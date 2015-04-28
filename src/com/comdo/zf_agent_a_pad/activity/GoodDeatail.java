@@ -285,7 +285,8 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					i21.putExtra("brand", gfe.getGood_brand());
 					i21.putExtra("paychannelId", paychannelId);
 					i21.putExtra("goodId", gfe.getId());
-					i21.putExtra("type",1);			
+					i21.putExtra("commets", commentsCount);
+					i21.putExtra("type",2);		
 					if(piclist.size()!=0){
 						i21.putExtra("piclist",piclist.get(0));
 					}					
@@ -300,7 +301,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					i21.putExtra("brand", gfe.getGood_brand());
 					i21.putExtra("paychannelId", paychannelId);
 					i21.putExtra("goodId", gfe.getId());
-					i21.putExtra("goodId", 2);
+					i21.putExtra("type", 1);
 					if(piclist.size()!=0){
 						i21.putExtra("piclist",piclist.get(0));
 					}	
@@ -332,7 +333,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private void getdata() {
 		RequestParams params = new RequestParams();
 		params.put("goodId", id);
-		params.put("agentId", 1);
+		params.put("agentId", MyApplication.NewUser.getAgentId());
 		params.put("type", PosListActivity.shoptype);
 
 		params.setUseJsonStreamer(true);

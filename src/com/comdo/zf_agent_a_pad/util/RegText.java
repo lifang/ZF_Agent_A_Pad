@@ -21,5 +21,12 @@ public class RegText {
 	           
 	        return m.matches();     
 	    } 
+	    
+	    public static boolean isIdentityCard(String identityCard){     
+	        Pattern p = Pattern.compile("\\d{15}|\\d{18}");     
+	        Matcher m = p.matcher(identityCard);     
+	         
+	        return m.matches();     
+	    } 
 	     
 }

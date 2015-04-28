@@ -220,7 +220,7 @@ public void onClick(View v) {
 				}
 				Intent intent = new Intent(
 						TerminalSelectActivity.this,
-						TerminalSelectPOSActivity.class);
+						TerminalSelectPOSSActivity.class);
 				intent.putExtra(CHOOSE_TITLE, getResources()
 						.getString(R.string.title_pos_select));
 				intent.putExtra(SELECTED_ID, 0);

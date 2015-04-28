@@ -41,7 +41,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
@@ -70,10 +69,12 @@ import com.comdo.zf_agent_a_pad.trade.entity.MyApplyCustomerDetail;
 import com.comdo.zf_agent_a_pad.trade.entity.MyApplyMaterial;
 import com.comdo.zf_agent_a_pad.trade.entity.MyApplyTerminalDetail;
 import com.comdo.zf_agent_a_pad.trade.entity.My_ApplyDetail;
+import com.comdo.zf_agent_a_pad.trade.entity.OpeningInfos;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -376,7 +377,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 						List<MyApplyMaterial> materials = data.getMaterials();
 						List<MyApplyCustomerDetail> customerDetails = data
 								.getCustomerDetails();
-
+						final OpeningInfos openingInfos = data
+								.getOpeningInfos();
 						if (null != terminalDetail) {
 							mPosBrand.setText(terminalDetail.getBrandName());
 							mPosModel.setText(terminalDetail.getModelNumber());
@@ -411,7 +413,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 								});
 						// set the customer details
 						setCustomerDetail(materials, customerDetails);
-
+						if (openingInfos != null) {
+							setData(openingInfos);
+						}
+						updateUIWithValidation();
 					}
 
 					@Override
@@ -427,6 +432,46 @@ public class ApplyDetailActivity extends FragmentActivity {
 					}
 				});
 
+	}
+
+	private void setData(final OpeningInfos openingInfos) {
+		final String[] items = getResources().getStringArray(
+				R.array.apply_detail_gender);
+		setItemValue(mMerchantKeys[1], openingInfos.getName());
+		setItemValue(mMerchantKeys[2], openingInfos.getMerchant_name());
+		setItemValue(mMerchantKeys[3], items[openingInfos.getSex() % 2]);
+		mMerchantGender = openingInfos.getSex() % 2;
+		setItemValue(mMerchantKeys[4],
+				String.valueOf(openingInfos.getBirthday()));
+		setItemValue(mMerchantKeys[5], openingInfos.getCard_id());
+		setItemValue(mMerchantKeys[6], openingInfos.getPhone());
+		setItemValue(mMerchantKeys[7], openingInfos.getEmail());
+		CommonUtil.findCityById(this, openingInfos.getCity_id(),
+				new CommonUtil.OnCityFoundListener() {
+					@Override
+					public void onCityFound(Province province, City city) {
+						mMerchantProvince = province;
+						mMerchantCity = city;
+						Log.e("--mMerchantCity--", mMerchantCity.getName());
+						setItemValue(mMerchantKeys[8], city.getName());
+						updateUIWithValidation();
+					}
+				});
+
+		setItemValue(mBankKeys[0], openingInfos.getAccount_bank_name());
+		setItemValue(mBankKeys[1], openingInfos.getAccount_bank_num());
+		setItemValue(mBankKeys[2], openingInfos.getAccount_bank_code());
+		setItemValue(mBankKeys[3], openingInfos.getTax_registered_no());
+		setItemValue(mBankKeys[4], openingInfos.getOrganization_code_no());
+		setItemValue(mBankKeys[5],
+				StringUtil.formatNull(openingInfos.getChannelname())
+						+ StringUtil.formatNull(openingInfos.getBillingname()));
+		mChosenChannel = new ApplyChannel();
+		mChosenChannel.setId(openingInfos.getPay_channel_id());
+		mChosenChannel.setName(openingInfos.getChannelname());
+		mChosenBilling = mChosenChannel.new Billing();
+		mChosenBilling.id = openingInfos.getBilling_cyde_id();
+		mChosenBilling.name = openingInfos.getBillingname();
 	}
 
 	@Override
@@ -839,7 +884,17 @@ public class ApplyDetailActivity extends FragmentActivity {
 		setItemValue(mMerchantKeys[2], merchant.getTitle());
 		setItemValue(mMerchantKeys[5], merchant.getLegalPersonCardId());
 		setItemValue(mMerchantKeys[6], merchant.getPhone());
-
+		// CommonUtil.findCityById(this, merchant.getCityId(),
+		// new CommonUtil.OnCityFoundListener() {
+		// @Override
+		// public void onCityFound(Province province, City city) {
+		// mMerchantProvince = province;
+		// mMerchantCity = city;
+		// Log.e("--mMerchantCity--", mMerchantCity.getName());
+		// setItemValue(mMerchantKeys[8], city.getName());
+		// updateUIWithValidation();
+		// }
+		// });
 		setItemValue(mBankKeys[0], merchant.getAccountBankName());
 		setItemValue(mBankKeys[1], merchant.getAccountBankNum());
 		setItemValue(mBankKeys[2], merchant.getBankOpenAccount());
@@ -861,11 +916,36 @@ public class ApplyDetailActivity extends FragmentActivity {
 	 */
 	private void startChooseItemActivity(int requestCode, String title,
 			int selectedId, ArrayList<ApplyChooseItem> items) {
+
+		final ArrayList<ApplyChooseItem> list = new ArrayList<ApplyChooseItem>();
+
+		// TODO:
+		Config.getApplyMerchantDetail(ApplyDetailActivity.this,
+				187,
+				new HttpCallback<List<ApplyChooseItem>>(
+						ApplyDetailActivity.this) {
+
+					@Override
+					public void onSuccess(List<ApplyChooseItem> data) {
+						for (ApplyChooseItem item : data) {
+
+							list.add(item);
+						}
+
+					}
+
+					@Override
+					public TypeToken<List<ApplyChooseItem>> getTypeToken() {
+
+						return new TypeToken<List<ApplyChooseItem>>() {
+						};
+					}
+				});
 		Intent intent = new Intent(ApplyDetailActivity.this,
 				ApplyChooseActivity.class);
 		intent.putExtra(CHOOSE_TITLE, title);
 		intent.putExtra(SELECTED_ID, selectedId);
-		intent.putExtra(CHOOSE_ITEMS, items);
+		intent.putExtra(CHOOSE_ITEMS, list);
 		startActivityForResult(intent, requestCode);
 	}
 
@@ -877,7 +957,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private void setCustomerDetail(List<MyApplyMaterial> materials,
 			List<MyApplyCustomerDetail> customerDetails) {
 		if (null == materials || materials.size() <= 0)
-			return;	
+			return;
 		int pic = 0;
 		int txt = 0;
 		for (MyApplyMaterial material : materials) {
@@ -1160,7 +1240,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 					.findViewById(R.id.apply_detail_view);
 			mUploadUri = value;
 
-//			mUploadUri = "http://i2.sinaimg.cn/ty/nba/2015-04-10/U8567P6T12D7570488F44DT20150410181804.jpg";
+			// mUploadUri =
+			// "http://i2.sinaimg.cn/ty/nba/2015-04-10/U8567P6T12D7570488F44DT20150410181804.jpg";
 			if (!TextUtils.isEmpty(key))
 				tvKey.setText(key);
 			ibView.setOnClickListener(new onWatchListener()

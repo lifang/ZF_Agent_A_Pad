@@ -4,6 +4,8 @@ import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
 import com.comdo.zf_agent_a_pad.fragment.Mmy;
 import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
+import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
@@ -30,7 +32,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private RelativeLayout re_shopcar, re_myinfo, re_mine, re_sy;
 	private LinearLayout set;
 	private Mmy f_my;
-
+    public static boolean isCity=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -167,8 +169,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
+		Log.e("2", "2");
 		switch (Config.TABID) {
 		case 1:
 			changTabBg();
@@ -192,6 +194,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case 4:
+			if(!CityProvinceActivity.isClickconfirm){
+				return;
+			}
 			changTabBg();
 			im_wd.setBackgroundResource(R.drawable.mine);
 			textwd.setTextColor(getResources().getColor(R.color.o));
@@ -248,7 +253,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		Config.TABID = 1;
 	}

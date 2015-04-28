@@ -61,8 +61,7 @@ public class GridviewAdapter extends BaseAdapter {
 	 
 		holder.title.setText(list.get(position).getTitle());
 		holder.tv_price.setText("￥"+list.get(position).getRetail_price()/100+"");
- 
-		holder.ys.setText("已售"+list.get(position).getVolume_number());
+		holder.ys.setText("已售"+list.get(position).getPurchase_number());
 
 		return convertView;
 	}

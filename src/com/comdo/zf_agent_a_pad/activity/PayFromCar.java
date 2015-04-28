@@ -50,7 +50,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
 
-		//orderId = getIntent().getExtras().getString("orderId", "");
+		orderId = getIntent().getExtras().getString("orderId", "");
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
 
 		if (orderId.equals("")) {
@@ -119,7 +119,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 					body = subject;
 				}
 				outTradeNo = orderDetail.getOrder_number();
-				price = orderDetail.getOrder_totalprice();
+				price = orderDetail.getOrder_totalPrice();
 				price = String.format("%.2f", Integer.parseInt(price)/100f);
 				handler.sendEmptyMessage(0);
 			}
