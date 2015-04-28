@@ -27,7 +27,7 @@ import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.common.Page;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeRecord;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.XListView;
+import com.comdo.zf_agent_a_pad.trade.widget.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -500,7 +500,7 @@ public class TradeFlowFragment extends Fragment implements
 			case PHONE_PAY:
 				// holder.tvAccountKey.setVisibility(View.INVISIBLE);
 				// holder.tvReceiveAccountKey.setText(getString(R.string.trade_phone_number));
-
+				holder.tvAccount.setVisibility(View.GONE);
 				holder.tvReceiveAccount.setText(record.getPhone());
 				break;
 			}
