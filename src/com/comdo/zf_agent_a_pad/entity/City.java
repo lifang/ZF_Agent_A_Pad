@@ -3,12 +3,13 @@ package com.comdo.zf_agent_a_pad.entity;
 import java.io.Serializable;
 
 
+
 public class City implements Serializable {
     private int id;
     private String name;
     private int parentId;
     private String pinyin;
-
+	private Province province;
     public int getId() {
         return id;
     }
@@ -40,6 +41,13 @@ public class City implements Serializable {
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin;
     }
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
 
     @Override
     public boolean equals(Object o) {

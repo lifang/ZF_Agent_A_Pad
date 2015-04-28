@@ -21,6 +21,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -28,6 +30,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.google.gson.reflect.TypeToken;
@@ -181,6 +184,50 @@ public class CommonUtil {
 		}
 	}
 
+	/**
+	 * Find the city from asset file by id
+	 * 
+	 * @param context
+	 * @param id
+	 *            the city id
+	 * @param listener
+	 *            callback after city found
+	 */
+	public static void findCityById(final Context context, final Integer id,
+			final OnCityFoundListener listener) {
+		if (null == id)
+			return;
+		final Handler handler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				City city = (City) msg.obj;
+				if (null != listener) {
+					listener.onCityFound(city.getProvince(), city);
+				}
+			}
+		};
+		new Thread() {
+			@Override
+			public void run() {
+				List<Province> provinces = readProvincesAndCities(context);
+				for (Province province : provinces) {
+					if (null != province && provinces.size() > 0) {
+						for (City city : province.getCities()) {
+							if (city.getId() == id) {
+								city.setProvince(province);
+								Message msg = new Message();
+								msg.what = 1;
+								msg.obj = city;
+								handler.sendMessage(msg);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}.start();
+	}
+
 	public static interface OnUploadListener {
 		void onSuccess(String result);
 
@@ -189,5 +236,9 @@ public class CommonUtil {
 
 	public static interface OnDateSetListener {
 		void onDateSet(String date);
+	}
+
+	public static interface OnCityFoundListener {
+		void onCityFound(Province province, City city);
 	}
 }

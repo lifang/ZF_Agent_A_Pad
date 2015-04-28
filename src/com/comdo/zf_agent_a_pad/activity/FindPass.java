@@ -132,7 +132,7 @@ public class FindPass extends Activity implements OnClickListener {
 				} else {
 					login_linear_deletemali.setVisibility(View.GONE);
 				}
-				if (RegText.isEmail(s.toString())) {
+				if (s.toString().contains(".")) {
 					ll_isshow.setVisibility(View.GONE);
 					tv_code.setVisibility(View.VISIBLE);
 					tv_code.setText(getResources()

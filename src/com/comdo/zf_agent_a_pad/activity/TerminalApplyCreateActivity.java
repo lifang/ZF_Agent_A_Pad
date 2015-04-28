@@ -147,28 +147,35 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 		case R.id.terminal_submit:
 
-			Config.addCustomer(this, setCode.getText().toString(), name,
-					password, mChannelId, MyApplication.NewUser.getAgentId(),
-					checkCode.getText().toString(), new HttpCallback<CreateUser>(
-							TerminalApplyCreateActivity.this) {
+			if (pwd.getText().toString()
+					.equals(confirmpwd.getText().toString())) {
+				Config.addCustomer(this, StringUtil.Md5(setCode.getText().toString()), name,
+						password, mChannelId, MyApplication.NewUser
+								.getAgentId(), checkCode.getText().toString(),
+						new HttpCallback<CreateUser>(
+								TerminalApplyCreateActivity.this) {
 
-						@Override
-						public void onSuccess(CreateUser data) {
+							@Override
+							public void onSuccess(CreateUser data) {
 
-							CommonUtil.toastShort(
-									TerminalApplyCreateActivity.this,
-									getResources().getString(
-											R.string.terminal_new_success));
-							finish();
-						}
+								CommonUtil.toastShort(
+										TerminalApplyCreateActivity.this,
+										getResources().getString(
+												R.string.terminal_new_success));
+								finish();
+							}
 
-						@Override
-						public TypeToken<CreateUser> getTypeToken() {
+							@Override
+							public TypeToken<CreateUser> getTypeToken() {
 
-							return new TypeToken<CreateUser>(){};
-						}
-					});
-
+								return new TypeToken<CreateUser>() {
+								};
+							}
+						});
+			} else {
+				CommonUtil.toastShort(TerminalApplyCreateActivity.this,
+						getResources().getString(R.string.two_pwd_diff));
+			}
 			break;
 		case R.id.selectcity:
 			Intent intent = new Intent(TerminalApplyCreateActivity.this,
