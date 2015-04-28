@@ -140,12 +140,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 	private void GetUser() {
 		items = new ArrayList<Map<String, Object>>();
-		Config.getMerchants(this, 1, page + 1, rows,
-				new HttpCallback<PageTerminal<UserInfo>>(this) {
+		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), page + 1, rows,
+				new HttpCallback<List<UserInfo>>(this) {
 					@Override
-					public void onSuccess(PageTerminal<UserInfo> data) {
+					public void onSuccess(List<UserInfo> data) {
 
-						for (UserInfo userInfo : data.getList()) {
+						for (UserInfo userInfo :data) {
 							Map<String, Object> item = new HashMap<String, Object>();
 							item.put("id", userInfo.getId());
 							item.put("name", userInfo.getName());
@@ -161,8 +161,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					}
 
 					@Override
-					public TypeToken<PageTerminal<UserInfo>> getTypeToken() {
-						return new TypeToken<PageTerminal<UserInfo>>() {
+					public TypeToken<List<UserInfo>> getTypeToken() {
+						return new TypeToken<List<UserInfo>>() {
 						};
 					}
 				});
@@ -189,7 +189,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					public void onItemSelected(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
 
-						mChannelId = (Integer) items.get(arg2).get("id");
+						mChannelId = Integer.parseInt(items.get(arg2).get("id").toString()) ;
 						ue.setAgentUserId(mChannelId);
 
 					}
@@ -248,12 +248,18 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				if (arg1) {
 					flag = true;
-					if (type == 1)
+					if (type == 1){
 						is_need_invoice = 1;
+						et_titel.setEnabled(true);
+					}
+						
 				} else {
 					flag = false;
-					if (type == 1)
+					if (type == 1){
 						is_need_invoice = 0;
+						et_titel.setEnabled(false);
+					}
+						
 				}
 			}
 		});

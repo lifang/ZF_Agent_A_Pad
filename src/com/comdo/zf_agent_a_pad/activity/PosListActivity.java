@@ -183,7 +183,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 		Xlistview = (XListView) findViewById(R.id.x_listview);
 		// refund_listview.getmFooterView().getmHintView().setText("�Ѿ�û�������");
-		Xlistview.initHeaderAndFooter();
+		//Xlistview.initHeaderAndFooter();
 		Xlistview.setXListViewListener(this);
 		Xlistview.setPullLoadEnable(true);
 		Xlistview.setDivider(null);

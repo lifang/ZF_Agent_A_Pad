@@ -50,7 +50,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
 
-		//orderId = getIntent().getExtras().getString("orderId", "");
+		orderId = getIntent().getExtras().getString("orderId", "");
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
 
 		if (orderId.equals("")) {

@@ -559,7 +559,7 @@
                                             android:layout_height="fill_parent"
                                             android:layout_weight="1"
                                             android:background="@color/ffffff"
-                                            android:editable="false"
+                                         android:editable="false"
                                             android:gravity="center"
                                             android:text="1" />
 
