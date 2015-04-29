@@ -450,12 +450,12 @@ private void submit() {
 			cardPhotoPath, 
 			licensePhotoPath, 
 			taxPhotoPath, 
-			et_tax_registered_no.getText().toString(), new HttpCallback(CreatAgent.this) {
+			et_tax_registered_no.getText().toString(),false, new HttpCallback(CreatAgent.this) {
 
 				@Override
 				public void onSuccess(Object data) {
-					CommonUtil.toastShort(getApplicationContext(), "创建代理商成功");
-					//finish();
+					//CommonUtil.toastShort(getApplicationContext(), "创建代理商成功");
+					finish();
 					
 				}
 @Override
