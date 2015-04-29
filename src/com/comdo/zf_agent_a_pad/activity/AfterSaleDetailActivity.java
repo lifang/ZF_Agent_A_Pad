@@ -134,7 +134,7 @@ public class AfterSaleDetailActivity extends Activity{
 			}
 		});
 		titleback_linear_back.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent1 = new Intent();
@@ -156,14 +156,14 @@ public class AfterSaleDetailActivity extends Activity{
 					int position, long id) {
 				String upload_path = detailCancelEntity.getResource_info().get(position).getUpload_path();
 				if (!StringUtil.isNull(upload_path)) {
-					Uri uri = Uri.parse(detailCancelEntity.getResource_info().get(position).getUpload_path());  
+					Uri uri = Uri.parse(upload_path);  
 					Intent it = new Intent(Intent.ACTION_VIEW, uri);  
 					startActivity(it);
-					
-//					Intent intent = new Intent(AfterSaleDetailActivity.this,WebViewActivity.class);
-//					intent.putExtra("IMAGE_PATH", 
-//							detailCancelEntity.getResource_info().get(position).getUpload_path());
-//					startActivity(intent);
+
+					//					Intent intent = new Intent(AfterSaleDetailActivity.this,WebViewActivity.class);
+					//					intent.putExtra("IMAGE_PATH", 
+					//							detailCancelEntity.getResource_info().get(position).getUpload_path());
+					//					startActivity(intent);
 				}
 			}
 		});
@@ -226,10 +226,14 @@ public class AfterSaleDetailActivity extends Activity{
 		}else if (detailCancelEntity.getStatus().equals("5")) {
 			apply_state.setText("已取消");
 
-			update_operation.setVisibility(View.VISIBLE);
-			update_operation.setText("重新提交注销");
-			update_operation.setTextColor(getResources().getColor(R.color.white));
-			update_operation.setBackgroundResource(R.drawable.bg_right_bgtitle);
+			if (mRecordType == 1) {
+				update_operation.setVisibility(View.VISIBLE);
+				update_operation.setText("重新提交注销");
+				update_operation.setTextColor(getResources().getColor(R.color.white));
+				update_operation.setBackgroundResource(R.drawable.bg_right_bgtitle);
+			}else {
+				update_operation.setVisibility(View.GONE);
+			}
 
 		}
 		apply_time.setText("申请时间："+detailCancelEntity.getApply_time());
@@ -300,7 +304,7 @@ public class AfterSaleDetailActivity extends Activity{
 	}
 
 	private void loadData() {
- 		if (mRecordType == 0) {
+		if (mRecordType == 0) {
 			//售后单
 			Config.getAfterSaleDetail(this, mRecordType,id,
 					new HttpCallback<AfterSaleDetailOrderEntity>(this) {
