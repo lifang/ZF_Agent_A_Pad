@@ -407,6 +407,11 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 						Intent i1 = new Intent(LeaseConfirm.this,
 								PayFromCar.class);
 						i1.putExtra("orderId", data.toString());
+						if(PosListActivity.shoptype==1){
+							i1.putExtra("type", 0);
+						}else{
+							i1.putExtra("type", 1);
+						}
 						startActivity(i1);
 					}
 
