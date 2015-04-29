@@ -1,19 +1,5 @@
 package com.comdo.zf_agent_a_pad.activity;
 
-import java.util.List;
-
-import com.comdo.zf_agent_a_pad.alipay.PayActivity;
-import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.entity.Goodlist;
-import com.comdo.zf_agent_a_pad.entity.OrderDetailEntity;
-import com.comdo.zf_agent_a_pad.entity.PayOrderEntity;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.DialogUtil;
-import com.comdo.zf_agent_a_pad.util.DialogUtil.CallBackChange;
-import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.reflect.TypeToken;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,6 +12,17 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.alipay.PayActivity;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.entity.PayOrderEntity;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.DialogUtil;
+import com.comdo.zf_agent_a_pad.util.DialogUtil.CallBackChange;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
+import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
+
 public class PayFromCar extends PayActivity implements OnClickListener{
 	private TextView tv_pay;
 	private LinearLayout titleback_linear_back, ll_request;
@@ -54,8 +51,8 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		setContentView(R.layout.pay);
 
 		orderId = getIntent().getExtras().getString("orderId", "");
+		type = getIntent().getIntExtra("type", 0);
 		
-		type = 0;
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
 
 		if (orderId.equals("")) {
@@ -159,7 +156,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
 		intent.putExtra("status",1);
 		intent.putExtra("id", orderId);
-		intent.putExtra("type", 0);
+		intent.putExtra("type", type);
 		startActivity(intent);
 		finish();
 	}

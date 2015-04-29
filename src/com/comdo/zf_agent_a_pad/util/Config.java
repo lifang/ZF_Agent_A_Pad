@@ -130,10 +130,7 @@ public class Config {
 
 	// find pos password
 	public static final String TERMINAL_FIND_POS = PATHS
-
-			+ "terminal/Encryption";
-
-
+			+ "terminal/encryption";
 	// Terminal list
 	public static final String TERMINAL_APPLY_LIST = PATHS
 			+ "terminal/getApplyList";
@@ -699,7 +696,7 @@ public class Config {
 	public static void userDelectAgentUser(Context context,
 			int[] customerArrayId, int agentId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-
+		Gson gson = new Gson();
 		//params.put("customerArrayId", customerArrayId);
 
 		try {
@@ -1243,7 +1240,7 @@ public class Config {
 	}
 
 	public static void screeningTerminalNum(Context context, String title,
-			int channelsId, int minPrice, int maxPrice, int agentId,
+			int channelsId, int minPrice, int maxPrice, int agentId,int page, int rows,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("title", title);
@@ -1251,6 +1248,8 @@ public class Config {
 		params.put("minPrice", minPrice);
 		params.put("maxPrice", maxPrice);
 		params.put("agentId", agentId);
+		params.put("page", page);
+		params.put("rows", rows);
 		new HttpRequest(context, callback).post(TERMINAL_SCREEN_TERMINALNUM,
 				params);
 	}
