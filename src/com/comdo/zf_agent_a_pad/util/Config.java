@@ -24,6 +24,7 @@ import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -33,6 +34,8 @@ public class Config {
 	public static final String VIDEO_SERVER_IP = "121.40.84.2";
 	public static final int VIDEO_SERVER_PORT = 8906;
 
+	public static final String URL_NOTICE_VIDEO = "http://121.40.84.2:8180/zfmanager/notice/video";
+	
 	// 商户PID
 	public static final String PARTNER = "2088811347108355";
 	// 商户收款账号

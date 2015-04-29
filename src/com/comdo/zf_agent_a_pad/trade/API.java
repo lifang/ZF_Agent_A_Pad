@@ -1,20 +1,16 @@
 package com.comdo.zf_agent_a_pad.trade;
 
-import android.content.Context;
-import android.util.Log;
-
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import android.content.Context;
+import android.util.Log;
 
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.common.HttpRequest;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.google.gson.Gson;
-
-import com.google.gson.Gson;
+import com.loopj.android.http.RequestParams;
 
 public class API {
 
@@ -251,4 +247,11 @@ public class API {
 					"terminalNumber=="+terminalNumber+"isHaveProfit=="+isHaveProfit);
 			new HttpRequest(context, callback).post(TRADE_RECORD_STATISTIC, params);
 		}
+		public static void noticeVideo(
+	 			Context context,
+	 			int terminalId) {
+			RequestParams params = new RequestParams();
+	 		params.put("terminalId", terminalId);
+	 		new HttpRequest(context, null).post(Config.URL_NOTICE_VIDEO, params);
+	 	}
 }
