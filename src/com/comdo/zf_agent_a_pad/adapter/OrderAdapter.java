@@ -346,12 +346,18 @@ public class OrderAdapter extends BaseAdapter{
 							try {
 								i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
 								i.putExtra("type", Integer.parseInt(OrderList.type));
-								i.putExtra("pay",pay);
-								Toast.makeText(context, pay, 1000).show();
+								i.putExtra("pay",pay);							
+							
 							} catch (Exception e) {
 								
-							}								
-							context.startActivity(i);					
+							}	
+							Log.i(pay,list.get(v.getId()).getShengyu_price());
+							if(Float.parseFloat(pay)<Float.parseFloat(list.get(v.getId()).getShengyu_price())){
+								context.startActivity(i);	
+							}else{
+								Toast.makeText(context, "金额不能大于剩余金额！", 1000).show();	
+							}
+											
 						}
 					});		
 				}else{

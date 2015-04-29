@@ -125,8 +125,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_detail);
-
-		status = getIntent().getIntExtra("status", 0);
+		//status = getIntent().getIntExtra("status", 0);
 		id = getIntent().getIntExtra("id", 0);
 		type = getIntent().getIntExtra("type",5);
 		//goodid = getIntent().getIntExtra("goodid", -1);
@@ -183,14 +182,15 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 							code = jsonobject.getString("code");
 							int a = jsonobject.getInt("code");
 							if (a == Config.CODE) {
-								initView();
+								
 								String res = jsonobject.getString("result");
 								// jsonobject = new JSONObject(res);
 								System.out.println("````" + res);
 								ode = gson.fromJson(res,
 										new TypeToken<OrderDetailEntity>() {
 										}.getType());
-
+								status=ode.getOrder_status();
+								initView();
 								// jsonobject = new JSONObject(res);
 								goodlist = ode.getOrder_goodsList();
 								relist = ode.getComments().getContent();
@@ -390,8 +390,14 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 								i.putExtra("orderId",id );
 								i.putExtra("type",type);
 								i.putExtra("pay",pay);
-								startActivity(i);
-							
+								
+								
+								if(Float.parseFloat(pay)<(float)entity.getShengyu_price()){
+									OrderDetail.this.finish();
+									OrderDetail.this.startActivity(i);	
+								}else{
+									Toast.makeText(OrderDetail.this, "金额不能大于剩余金额！", 1000).show();	
+								}
 							} catch (Exception e) {
 								
 							}								
@@ -401,6 +407,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				}else{
 					i.putExtra("orderId",id );
 					i.putExtra("type",type);
+					OrderDetail.this.finish();
 					startActivity(i);
 				}
 				

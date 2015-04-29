@@ -178,7 +178,11 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 					}
 				}else {
 					price = priceEdit;
-					price = String.format("%.2f", Integer.parseInt(price)/1f);
+					if (!StringUtil.isNull(price)) {
+						price = String.format("%.2f", Integer.parseInt(price)/1f);
+					}else {
+						price = "0.00";
+					}
 				}
 				handler.sendEmptyMessage(0);
 			}
