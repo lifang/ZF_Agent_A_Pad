@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken;
 public class PayFromCar extends PayActivity implements OnClickListener{
 	private TextView tv_pay;
 	private LinearLayout titleback_linear_back, ll_request;
-	private String orderId = "";
+	private int orderId;
 	private String outTradeNo;
 	private String subject;
 	private String body;
@@ -50,14 +50,10 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
 
-		orderId = getIntent().getExtras().getString("orderId", "");
+		orderId = getIntent().getIntExtra("orderId", 0);
 		type = getIntent().getIntExtra("type", 0);
 		
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
-
-		if (orderId.equals("")) {
-			Toast.makeText(this, "没有传订单id", Toast.LENGTH_SHORT).show();
-		}
 
 		tv_pay=(TextView) findViewById(R.id.tv_pay);
 
@@ -110,9 +106,9 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 	
 	private void getData() {
 
-		Config.shopPayOrder(this, Integer.parseInt(orderId), 
+		Config.shopPayOrder(this, orderId, 
 				new HttpCallback<PayOrderEntity>(this) {
-
+ 
 			@Override
 			public void onSuccess(PayOrderEntity data) {
 				if (data.getGood().size()>0) {
