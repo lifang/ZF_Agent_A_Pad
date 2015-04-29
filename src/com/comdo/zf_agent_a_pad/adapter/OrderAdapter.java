@@ -157,7 +157,7 @@ public class OrderAdapter extends BaseAdapter{
  		}else{
  			holder.btn_comment.setId(-1);
  		}
- 		holder.tv_price.setText("￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice()/100);
+ 		holder.tv_price.setText("￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice()*1.0f/100);
  		holder.content2.setText(list.get(position).getOrder_goodsList().get(0).getGood_brand());
  		holder.tv_gtd.setText(list.get(position).getOrder_goodsList().get(0).getGood_channel());
  		holder.content_pp.setText(list.get(position).getOrder_goodsList().get(0).getGood_name()); 		 
