@@ -369,8 +369,8 @@ public class TradeFlowFragment extends Fragment implements
 				&& !TextUtils.isEmpty(tradeStartDate)
 				&& !TextUtils.isEmpty(tradeEndDate)
 				&& !TextUtils.isEmpty(tradeAgentName);
-		mTradeSearch.setEnabled(shouldEnable);
-		mTradeStatistic.setEnabled(shouldEnable);
+		mTradeSearch.setEnabled(true);
+		mTradeStatistic.setEnabled(true);
 	}
 
 	/**
