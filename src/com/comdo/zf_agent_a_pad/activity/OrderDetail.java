@@ -370,39 +370,47 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			i = new Intent(OrderDetail.this,
 					PayFromCar.class);
 			if(type==5){
-				
-			
-				ad = new PayAlertDialog(OrderDetail.this);   
-				ad.setTitle("付款");				
-				ad.setPositiveButton("取消", new OnClickListener() {				
-					@Override
-					public void onClick(View arg0) {
-						ad.dismiss();				
-					}
-				});
-				ad.setNegativeButton("确定", new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						String pay=ad.getPay();
+				if(status==2){
+					ad = new PayAlertDialog(OrderDetail.this);   
+					ad.setTitle("付款");				
+					ad.setPositiveButton("取消", new OnClickListener() {				
+						@Override
+						public void onClick(View arg0) {
+							ad.dismiss();				
+						}
+					});
+					ad.setNegativeButton("确定", new OnClickListener() {
 						
-						ad.dismiss();
-						try {
-							i.putExtra("orderId",id );
-							i.putExtra("type",type);
-							i.putExtra("pay",pay);
-							Toast.makeText(OrderDetail.this, pay, 1000).show();
-						} catch (Exception e) {
+						@Override
+						public void onClick(View arg0) {
+							String pay=ad.getPay();
 							
-						}								
-											
-					}
-				});		
+							ad.dismiss();
+							try {
+								i.putExtra("orderId",id );
+								i.putExtra("type",type);
+								i.putExtra("pay",pay);
+								startActivity(i);
+							
+							} catch (Exception e) {
+								
+							}								
+												
+						}
+					});	
+				}else{
+					i.putExtra("orderId",id );
+					i.putExtra("type",type);
+					startActivity(i);
+				}
+				
+				
 			}else{
 				i.putExtra("orderId",id );
 				i.putExtra("type",type);
+				startActivity(i);
 			}
-			startActivity(i);
+			
 			break;
 		case R.id.bt_cancel:
 			final AlertDialog ad = new AlertDialog(OrderDetail.this);
