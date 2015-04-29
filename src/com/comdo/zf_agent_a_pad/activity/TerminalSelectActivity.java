@@ -8,8 +8,10 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_C
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TITLE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ARRAY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TOTAL;
-
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +52,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -82,6 +86,9 @@ public class TerminalSelectActivity extends BaseActivity implements OnClickListe
 	public static boolean allCheck = false;
 	public static boolean isFromTrans=false;
 	private int agentId=MyApplication.NewUser.getAgentId();
+	private ImageView search; 
+	private static final int REQUEST_SEARCH = 1001;
+	private LinearLayout searchLinear;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -136,6 +143,8 @@ protected void onLoad() {
 	
 }
 private void init() {
+	searchLinear=(LinearLayout) findViewById(R.id.searchLinear);
+	search=(ImageView) findViewById(R.id.search);
 	terminal_comfirm = (Button) findViewById(R.id.terminal_comfirm);
 	terminal_comfirm.setOnClickListener(this);
 	mTerminalItems=new ArrayList<TerminalList>();
@@ -149,6 +158,8 @@ private void init() {
 	selectedchannel=(TextView) findViewById(R.id.selectedchannel);
 	selectedpos=(TextView) findViewById(R.id.selectedpos);
 	checkboxAll = (CheckBox) findViewById(R.id.checkboxAll);
+	searchLinear.setOnClickListener(this);
+	search.setOnClickListener(this);
 	selectedpos.setOnClickListener(this);
 	selectedchannel.setOnClickListener(this);
 	mTerminalList.setPullLoadEnable(true);
@@ -285,6 +296,20 @@ public void onClick(View v) {
         
 		
 		break;
+	case R.id.search:
+	/*	Intent iIntent = new Intent(TerminalSelectActivity.this,
+				GenerateSearch.class);
+		iIntent.putExtra(TERMINAL_TYPE, 3);
+		iIntent.putExtra(TERMINAL_STATUS, -1);
+		startActivityForResult(iIntent, REQUEST_SEARCH);
+		break;*/
+	case R.id.searchLinear:
+		Intent iIntent = new Intent(TerminalSelectActivity.this,
+				GenerateSearch.class);
+		iIntent.putExtra(TERMINAL_TYPE, 3);
+		iIntent.putExtra(TERMINAL_STATUS, -1);
+		startActivityForResult(iIntent, REQUEST_SEARCH);
+		break;
 	default:
 		break;
 	}
@@ -390,6 +415,10 @@ protected void onActivityResult(final int requestCode, int resultCode,
 		mChannelId = mChosenChannel.getId();
 		selectedchannel.setText(mChosenChannel.getPaychannel());
 	}
+	case REQUEST_SEARCH:
+		/*String str=data.getStringExtra(SELECTED_TERMINAL);
+		Log.e("str", data.getStringExtra(SELECTED_TERMINAL));*/
+		break;
 	}
 }
 @Override
