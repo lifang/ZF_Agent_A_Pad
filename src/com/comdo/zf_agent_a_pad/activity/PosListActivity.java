@@ -136,7 +136,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		tv_dg = (TextView) findViewById(R.id.tv_dg);
 		tv_dg.setOnClickListener(this);
 
-		if (!CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
+		if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
 			shoptype = 2;
 			tv_pg.setTextColor(getResources().getColor(R.color.text292929));
 			tv_dg.setTextColor(getResources().getColor(R.color.bgtitle));
@@ -183,7 +183,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		eva_nodata = (LinearLayout) findViewById(R.id.eva_nodata);
 		Xlistview = (XListView) findViewById(R.id.x_listview);
 		// refund_listview.getmFooterView().getmHintView().setText("�Ѿ�û�������");
-		Xlistview.initHeaderAndFooter();
+		//Xlistview.initHeaderAndFooter();
 		Xlistview.setXListViewListener(this);
 		Xlistview.setPullLoadEnable(true);
 		Xlistview.setDivider(null);
@@ -336,7 +336,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.tv_pg:
-			if (!CheckRights.RIGHT_1) {
+			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1) {
 
 				CommonUtil.toastShort(PosListActivity.this,
 						R.string.right_not_match);
@@ -351,7 +351,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.tv_dg:
-			if (!CheckRights.RIGHT_2) {
+			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_2) {
 
 				CommonUtil.toastShort(PosListActivity.this,
 						R.string.right_not_match);

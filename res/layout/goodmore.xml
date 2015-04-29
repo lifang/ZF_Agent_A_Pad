@@ -24,7 +24,7 @@
             android:maxLines="1"
             android:text="POS信息"
                android:textColor="@color/text292929"
-            android:textSize="18sp" />
+            android:textSize="@dimen/textbig"  />
 <View 
     android:layout_width="fill_parent"
     android:layout_height="1dp"
@@ -50,7 +50,7 @@
                     android:maxLines="1"
                     android:text="品      牌     型     号"
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 
                 <TextView
                     android:id="@+id/ppxx"
@@ -62,7 +62,7 @@
                     android:maxLines="1"
                     android:text="泰山TS9000"
                     android:textColor="@color/text6c6c6c6"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,7 +79,7 @@
                     android:maxLines="1"
                     android:text="电      池     信     息"
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 
                 <TextView
                     android:id="@+id/dcxx"
@@ -91,7 +91,7 @@
                     android:maxLines="1"
                     android:text="泰山TS9000"
                     android:textColor="@color/text6c6c6c6"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
             </LinearLayout>
         </LinearLayout>
 
@@ -115,7 +115,7 @@
                     android:maxLines="1"
                     android:text="外      壳     信     息"
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 
                 <TextView
                     android:id="@+id/wkxx"
@@ -127,7 +127,7 @@
                     android:maxLines="1"
                     android:text="泰山TS9000"
                     android:textColor="@color/text6c6c6c6"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
             </LinearLayout>
 
             <LinearLayout
@@ -144,7 +144,7 @@
                     android:maxLines="1"
                     android:text="签约购单打印方式"
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 
                 <TextView
                     android:id="@+id/tv_qgd"
@@ -156,7 +156,7 @@
                     android:maxLines="1"
                     android:text="泰山TS9000"
                     android:textColor="@color/text6c6c6c6"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
             </LinearLayout>
         </LinearLayout>
 
@@ -179,7 +179,7 @@
                     android:maxLines="1"
                     android:text="加    密   卡  方   式"
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 
                 <TextView
                     android:id="@+id/tv_jm"
@@ -191,7 +191,7 @@
                     android:maxLines="1"
                     android:text="泰山TS9000"
                     android:textColor="@color/text6c6c6c6"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
             </LinearLayout>
 
             <LinearLayout
@@ -212,7 +212,7 @@
             android:maxLines="1"
             android:text="支付通道信息"
             android:textColor="@color/text292929"
-            android:textSize="18sp" />
+             android:textSize="@dimen/textbig"  />
 <View 
     android:layout_width="fill_parent"
     android:layout_height="1dp"
@@ -231,7 +231,7 @@
                 android:maxLines="1"
                 android:text="支 持 支 付 区 域"
                 android:textColor="@color/text292929"
-                android:textSize="18sp" />
+                 android:textSize="@dimen/textbig"  />
 
             <TextView
                 android:id="@+id/tvc_qy"
@@ -243,7 +243,7 @@
                 android:maxLines="1"
                 android:text="全国"
                 android:textColor="@color/text6c6c6c6"
-                android:textSize="18sp" />
+                 android:textSize="@dimen/textbig"  />
         </LinearLayout>
 
         <LinearLayout
@@ -259,7 +259,7 @@
                 android:maxLines="1"
                 android:text="是 否 支 持 注 销"
                 android:textColor="@color/text292929"
-                android:textSize="18sp" />
+                 android:textSize="@dimen/textbig"  />
 
             <TextView
                 android:id="@+id/tvc_zx"
@@ -271,7 +271,7 @@
                 android:maxLines="1"
                 android:text="支持"
                 android:textColor="@color/text6c6c6c6"
-                android:textSize="18sp" />
+                 android:textSize="@dimen/textbig"  />
         </LinearLayout>
 
         <LinearLayout
@@ -308,7 +308,7 @@
                         android:maxLines="1"
                         android:text="刷卡交易标准手续："
                         android:textColor="@color/text292929"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/textbig" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -409,7 +409,7 @@
                         android:maxLines="1"
                         android:text="资金服务费"
                         android:textColor="@color/text292929"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/textbig" />
                 </LinearLayout>
 <LinearLayout
                     android:layout_width="fill_parent"
@@ -515,7 +515,7 @@
                         android:maxLines="1"
                         android:text="其他交易费率"
                         android:textColor="@color/text292929"
-                        android:textSize="18sp" />
+                         android:textSize="@dimen/textbig"  />
                 </LinearLayout>
 
                 <LinearLayout
@@ -614,7 +614,7 @@
                     android:maxLines="1"
                     android:text="申请开通条件"
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 
                 
             </LinearLayout>
@@ -635,7 +635,7 @@
                 android:layout_marginRight="@dimen/margin_left2"
                     
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -652,8 +652,7 @@
                     android:maxLines="1"
                     android:text="商品详细说明"
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
-
+                    android:textSize="@dimen/textbig" />
                 
             </LinearLayout>
 <View android:layout_marginLeft="7dp"
@@ -673,7 +672,7 @@
                 android:layout_marginRight="@dimen/margin_left2"
                     
                     android:textColor="@color/text292929"
-                    android:textSize="18sp" />
+                     android:textSize="@dimen/textbig"  />
 <LinearLayout  android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

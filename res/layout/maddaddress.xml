@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+       android:background="#9000"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        
+        >
+    <LinearLayout
+        android:layout_width="460dp"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/close"
+                android:layout_width="@dimen/dlimg"
+                android:layout_height="@dimen/dlimg"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/zc_margin_top"
+                android:background="@drawable/lgclose"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="新增地址"
+                android:textColor="#292929"
+                android:textSize="@dimen/dltext" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#484849" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="@dimen/textbig"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/zc_land_h"
+            android:paddingRight="@dimen/zc_land_h" >
+
+           
+            <TableLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TableRow 
+                    android:layout_marginBottom="@dimen/textbig"
+                    android:paddingBottom="4dp"
+                android:paddingTop="10dp">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="收件人" />
+
+                <EditText
+                    android:id="@+id/login_edit_name"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/shape_edittext"
+                    android:maxWidth="@dimen/zc_margin_top"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textbig" />
+                </TableRow>
+                <TableRow 
+                    android:layout_marginBottom="@dimen/textbig"
+                    android:paddingBottom="4dp"
+                android:paddingTop="10dp">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="联系电话" />
+
+                <EditText
+                    android:id="@+id/mobile_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/shape_edittext"
+                
+                    android:maxWidth="@dimen/zc_margin_top"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textbig" />
+                </TableRow>
+                <TableRow 
+                    android:layout_marginBottom="@dimen/textbig"
+                    android:paddingBottom="4dp"
+                android:paddingTop="10dp">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="邮政编码" />
+
+                <EditText
+                    android:id="@+id/zip_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/shape_edittext"
+                
+                    android:maxWidth="@dimen/zc_margin_top"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textbig" />
+                </TableRow>
+                <TableRow 
+                    
+                    android:layout_marginBottom="22dp"
+                    android:paddingBottom="4dp"
+                android:paddingTop="10dp">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="所在地" />
+
+                <TextView
+                    android:id="@+id/area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/ed_adress"
+                
+                    android:maxWidth="@dimen/zc_margin_top"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textbig" />
+                </TableRow>
+                <TableRow 
+                    android:layout_marginBottom="@dimen/textbig"
+                    android:paddingBottom="4dp"
+                android:paddingTop="10dp">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="详细地址" />
+
+                <EditText
+                    android:id="@+id/detail_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/shape_edittext"
+                  
+                    android:maxWidth="@dimen/zc_margin_top"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textbig" />
+                </TableRow>
+            </TableLayout>
+            
+            
+
+         <LinearLayout
+                
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginBottom="22dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyCheckBox"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:text="设为默认地址"
+                    
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <Button 
+                android:id="@+id/btn_save"
+                android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:text="保存"
+                     android:background="@drawable/bg_blue_shape"
+                    android:textColor="@color/fffefe"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center" />
+            
+        </LinearLayout>
+        
+            
+    </LinearLayout>
+</ScrollView>
+    
+
+</LinearLayout>

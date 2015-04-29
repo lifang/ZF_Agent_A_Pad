@@ -269,6 +269,7 @@
                         android:paddingRight="30dp"
                         android:singleLine="true"
                     	android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
+                    	android:inputType="textPassword"
                         android:textColor="@color/text6c6c6c6"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -303,6 +304,7 @@
                         android:gravity="left"
                         android:paddingRight="30dp"
                         android:singleLine="true"
+                    	android:inputType="textPassword"
                     	android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
                         android:textColor="@color/text6c6c6c6"
                         android:textSize="20sp" />

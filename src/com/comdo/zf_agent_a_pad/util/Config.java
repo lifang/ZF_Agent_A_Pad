@@ -344,6 +344,8 @@ public class Config {
 	// get terminal_pos list
 	public static final String GET_TERMINALPOS_LIST = PATHS
 			+ "preparegood/getgoodlist";
+	// synchronous
+		public static final String SYNCHRONOUS = PATHS + "terminal/synchronous";
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -481,7 +483,7 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.ZDORDER, params);
 	}
 
-	public static void GOODCONFIRM1(Context context, int customerId,int agentId,int orderType,
+	public static void GOODCONFIRM1(Context context, int customerId,int agentId,int creatid,int belongId,int orderType,
 			int goodId, int paychannelId, int quantity, int addressId,
 			String comment, int is_need_invoice, int invoice_type,
 			String invoice_info,
@@ -490,6 +492,8 @@ public class Config {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("agentId", agentId);
+		params.put("creatid", creatid);
+		params.put("belongId", belongId);
 		params.put("orderType", orderType);
 		params.put("goodId", goodId);
 		params.put("paychannelId", paychannelId);
@@ -1131,7 +1135,7 @@ public class Config {
 	}
 
 	public static void addCustomer(Context context, String codeNumber,
-			String name, String password, int cityId, int agentId,
+			String name, String password, int cityId, int agentId,String code,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("codeNumber", codeNumber);
@@ -1139,6 +1143,7 @@ public class Config {
 		params.put("password", password);
 		params.put("cityId", cityId);
 		params.put("agentId", agentId);
+		params.put("code", code);
 		new HttpRequest(context, callback).post(ADD_CUSTOMER, params);
 	}
 
@@ -1370,5 +1375,11 @@ public class Config {
 		params.put("id", id);
 		new HttpRequest(context, callback).post(SHOP_PAYORDER, params);
 	}
-	
+	public static void synchronous(Context context, String terminalid,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("terminalid", terminalid);
+		new HttpRequest(context, callback).post(SYNCHRONOUS, params);
+	}
 }
+

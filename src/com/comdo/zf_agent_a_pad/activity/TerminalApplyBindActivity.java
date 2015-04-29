@@ -44,14 +44,14 @@ public class TerminalApplyBindActivity extends Activity implements
 
 	private int mChannelId;
 	private Spinner spinner;
-	private LinearLayout createUser;
+	private LinearLayout createUser, getspinnerdata;
 	private int page = 0;
 	private final int rows = 10;
 	private EditText mTerminalNumber;
 	private Button mSubmitBtn;
 
 	public static final int REQUEST_CREATE_USER = 1000;
-//	private ArrayAdapter<String> adapter;
+	// private ArrayAdapter<String> adapter;
 	private Button close;
 	private LayoutInflater mInflater;
 	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
@@ -66,13 +66,15 @@ public class TerminalApplyBindActivity extends Activity implements
 		mInflater = LayoutInflater.from(this);
 		items = new ArrayList<Map<String, Object>>();
 
-		Config.getMerchants(this, MyApplication.NewUser.getAgentId(), page + 1, rows,
-				new HttpCallback<PageTerminal<UserInfo>>(this) {
+		getspinnerdata = (LinearLayout) findViewById(R.id.getspinnerdata);
+		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), page + 1,
+				rows, new HttpCallback<List<UserInfo>>(this) {
 					@Override
-					public void onSuccess(PageTerminal<UserInfo> data) {
+					public void onSuccess(
+							List<UserInfo> data) {
 
-						for (int i=0;i<data.getList().size();i++) {
-							UserInfo userInfo = data.getList().get(i);
+						for (int i = 0; i < data.size(); i++) {
+							UserInfo userInfo = data.get(i);
 							Map<String, Object> item = new HashMap<String, Object>();
 							item.put("id", userInfo.getId());
 							item.put("name", userInfo.getName());
@@ -88,53 +90,52 @@ public class TerminalApplyBindActivity extends Activity implements
 					}
 
 					@Override
-					public TypeToken<PageTerminal<UserInfo>> getTypeToken() {
-						return new TypeToken<PageTerminal<UserInfo>>() {
+					public TypeToken<List<UserInfo>> getTypeToken() {
+						return new TypeToken<List<UserInfo>>() {
 						};
 					}
 				});
 
 		spinner = (Spinner) findViewById(R.id.bindspinner);
 
-		
-//		adapter = new ArrayAdapter<String>(TerminalApplyBindActivity.this,
-//				android.R.layout.simple_spinner_item, listString);
-		
-        //自定义适配器  
-		maAdapter= new BaseAdapter(){  
-  
-            @Override  
-            public int getCount() {   
-                return listString.size();  
-            }  
-  
-            @Override  
-            public Object getItem(int arg0) {  
-                return listString.get(arg0);
-            }  
-  
-            @Override  
-            public long getItemId(int arg0) {    
-                return 0;  
-            }  
-  
-            @Override  
-            public View getView(int position, View convertView, ViewGroup parent) {  
-            	LinearLayout layout = (LinearLayout) mInflater.inflate(
-        				R.layout.drop_down_item, null);
-                TextView tv=(TextView)layout.findViewById(R.id.text);
-                tv.setText((String)getItem(position));  
-                return layout;  
-            }  
-              
-        }; 
+		// adapter = new ArrayAdapter<String>(TerminalApplyBindActivity.this,
+		// android.R.layout.simple_spinner_item, listString);
+
+		// 自定义适配器
+		maAdapter = new BaseAdapter() {
+
+			@Override
+			public int getCount() {
+				return listString.size();
+			}
+
+			@Override
+			public Object getItem(int arg0) {
+				return listString.get(arg0);
+			}
+
+			@Override
+			public long getItemId(int arg0) {
+				return 0;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				LinearLayout layout = (LinearLayout) mInflater.inflate(
+						R.layout.drop_down_item, null);
+				TextView tv = (TextView) layout.findViewById(R.id.text);
+				tv.setText((String) getItem(position));
+				return layout;
+			}
+
+		};
 		spinner.setAdapter(maAdapter);
-		
+
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 
-				mChannelId = (Integer) items.get(arg2).get("id");
+				mChannelId = Integer.parseInt(items.get(arg2).get("id").toString());
 
 			}
 
@@ -163,8 +164,20 @@ public class TerminalApplyBindActivity extends Activity implements
 
 			switch (msg.what) {
 			case 1:
-				maAdapter.notifyDataSetChanged();
-//				adapter.notifyDataSetChanged();
+				if (listString.size() <= 0) {
+					spinner.setVisibility(View.GONE);
+					getspinnerdata.setBackgroundResource(R.drawable.ed_adress);
+					getspinnerdata.setClickable(true);
+					getspinnerdata
+							.setOnClickListener(TerminalApplyBindActivity.this);
+				} else {
+
+					getspinnerdata.setBackgroundResource(0);
+					spinner.setVisibility(View.VISIBLE);
+					getspinnerdata.setClickable(false);
+					maAdapter.notifyDataSetChanged();
+				}
+				// adapter.notifyDataSetChanged();
 				break;
 
 			}
@@ -221,9 +234,14 @@ public class TerminalApplyBindActivity extends Activity implements
 			this.finish();
 			break;
 		case R.id.create_user:
-			// TODO:
+
 			startActivityForResult(new Intent(TerminalApplyBindActivity.this,
 					TerminalApplyCreateActivity.class), REQUEST_CREATE_USER);
+			break;
+
+		case R.id.getspinnerdata:
+			CommonUtil.toastShort(TerminalApplyBindActivity.this,
+					getResources().getString(R.string.no_user_find));
 			break;
 		}
 	}

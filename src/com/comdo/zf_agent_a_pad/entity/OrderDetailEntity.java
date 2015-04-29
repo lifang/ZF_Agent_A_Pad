@@ -7,6 +7,24 @@ public class OrderDetailEntity {
 	private String total_dingjin;
 	private String pay_status; 
 	private String guishu_user;
+	private String total_quantity;
+	private String order_totalPrice;
+	public String getOrder_totalPrice() {
+		return order_totalPrice;
+	}
+
+	public void setOrder_totalPrice(String order_totalPrice) {
+		this.order_totalPrice = order_totalPrice;
+	}
+
+	public String getTotal_quantity() {
+		return total_quantity;
+	}
+
+	public void setTotal_quantity(String total_quantity) {
+		this.total_quantity = total_quantity;
+	}
+
 	public String getTotal_dingjin() {
 		return total_dingjin;
 	}
@@ -76,7 +94,7 @@ public class OrderDetailEntity {
 
 	private String good_merchant;
 	private String order_invoce_info;
-	private String order_totalprice;
+	
 	private CommentG comments;
 	private List<Goodlist> order_goodsList;
 
@@ -200,13 +218,7 @@ public class OrderDetailEntity {
 		this.order_invoce_info = order_invoce_info;
 	}
 
-	public String getOrder_totalprice() {
-		return order_totalprice;
-	}
 
-	public void setOrder_totalprice(String order_totalprice) {
-		this.order_totalprice = order_totalprice;
-	}
 
 	public CommentG getComments() {
 		return comments;

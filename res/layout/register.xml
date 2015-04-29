@@ -235,6 +235,8 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/tv_bg"
+                        android:digits="1234567890Xx"
+                        android:maxLength="18"
                         android:singleLine="true" />
 
                     <TextView
@@ -270,6 +272,8 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/tv_bg"
+                        android:digits="1234567890"
+                        android:maxLength="11"
                         android:singleLine="true" />
 
                     <TextView
@@ -305,6 +309,7 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/tv_bg"
+                        android:inputType="textEmailAddress"
                         android:singleLine="true" />
 
                     <TextView
@@ -339,6 +344,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
                         android:background="@drawable/selection_state" />
 
                     <TextView
@@ -526,6 +532,7 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/tv_bg"
+                        android:inputType="textPassword"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -548,6 +555,7 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/tv_bg"
+                        android:inputType="textPassword"
                         android:singleLine="true" />
                 </TableRow>
             </TableLayout>
@@ -573,5 +581,4 @@
         </LinearLayout>
     </ScrollView>
 
->>>>>>> origin/master
 </LinearLayout>

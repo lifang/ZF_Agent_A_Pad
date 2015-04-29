@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
+import com.comdo.zf_agent_a_pad.activity.MyWebView;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.activity.StockListActivity;
@@ -389,13 +390,13 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			ImageCacheUtil.IMAGE_CACHE.get(ma.get(position), image);
 			image.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View arg0) {
-					// Intent i = new Intent(getActivity(), MyWebView.class);
-					// i.putExtra("title", "详情");
-					// i.putExtra("url", myList.get(position).getWebsite_url());
-					// startActivity(i);
 
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(getActivity(), MyWebView.class);
+				i.putExtra("title", "详情");
+				i.putExtra("url", myList.get(position).getWebsite_url());
+				startActivity(i);
 				}
 			});
 			container.removeView(mList.get(position));

@@ -2,9 +2,9 @@ package com.comdo.zf_agent_a_pad.trade.entity;
 
 import java.io.Serializable;
 
-
 public class ApplyChooseItem implements Serializable {
 
+	private static final long serialVersionUID = -8498896186807080462L;
 	private int id;
 	private String title;
 

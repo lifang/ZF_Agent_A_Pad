@@ -64,7 +64,6 @@ public class OrderList extends Activity implements IXListViewListener,
 			case 1:
 				Toast.makeText(OrderList.this, (String) msg.obj,
 						Toast.LENGTH_SHORT).show();
-
 				break;
 			case 2:
 				Toast.makeText(OrderList.this, "网络连接错误", Toast.LENGTH_SHORT)
@@ -98,6 +97,7 @@ public class OrderList extends Activity implements IXListViewListener,
 	}
 
 	@SuppressLint("NewApi")
+
 	private void initView() {
 		ll_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		ll_back.setOnClickListener(this);
@@ -151,7 +151,7 @@ public class OrderList extends Activity implements IXListViewListener,
 		Xlistview.setPullLoadEnable(true);
 		Xlistview.setDivider(null);
 		Xlistview.setAdapter(myAdapter);
-		if (!CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
+		if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && CheckRights.RIGHT_2) {
 			sp.setSelection(0);
 			tv_dg.setBackground(getResources().getDrawable(R.drawable.tab_bg));
 			tv_pg.setBackgroundColor(getResources().getColor(R.color.bggray));
@@ -255,7 +255,7 @@ public class OrderList extends Activity implements IXListViewListener,
 			getData();
 			break;
 		case R.id.tv_pg:
-			if (!CheckRights.RIGHT_1) {
+			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1) {
 
 				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);
 			} else {
@@ -274,7 +274,7 @@ public class OrderList extends Activity implements IXListViewListener,
 			}
 			break;
 		case R.id.tv_dg:
-			if (!CheckRights.RIGHT_2) {
+			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_2) {
 
 				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);
 			} else {

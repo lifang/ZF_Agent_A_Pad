@@ -169,7 +169,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		Log.e("2", "2");
 		switch (Config.TABID) {
@@ -254,7 +253,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		Config.TABID = 1;
 	}

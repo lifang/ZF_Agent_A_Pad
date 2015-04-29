@@ -36,7 +36,6 @@ public class F_good_detail extends Fragment implements OnClickListener{
 	private GridviewAdapter gadapter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 	@Override
@@ -93,7 +92,6 @@ public class F_good_detail extends Fragment implements OnClickListener{
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
