@@ -106,7 +106,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				adapter.notifyDataSetChanged();
 				tv_title.setText(gfe.getTitle());
 				content1.setText(gfe.getSecond_title());
-				tv_pp.setText(gfe.getGood_brand());
+				tv_pp.setText(gfe.getGood_brand()+gfe.getModel_number());
 				//tv_price.setText("￥" + ((double) (gfe.getPurchase_price())+opening_cost) / 100);
 				tv_lx.setText(gfe.getCategory());
 				tv_sjhttp.setText(factoryEntity.getWebsite_url());

@@ -76,6 +76,9 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				tv_gj.setText("共计  ：   " + entity.getTotal_quantity() + "件商品");
 				if (!OrderList.type.equals("5")) {
 					tv_user.setText(entity.getGuishu_user());
+				}else{
+					tv_yf.setText("已发货数量："+entity.getShipped_quantity());
+					tv_sy.setText("剩余货品总数："+(Integer.parseInt(entity.getTotal_quantity())-Integer.parseInt(entity.getShipped_quantity())));
 				}
 				break;
 			case 1:
@@ -107,6 +110,9 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private TextView tv_user;
 	private int goodid;
 	private View line;
+	private LinearLayout ll_pg;
+	private TextView tv_yf;
+	private TextView tv_sy;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +228,11 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		if (!OrderList.type.equals("5")) {
 			ll_user.setVisibility(View.VISIBLE);
 			line.setVisibility(View.VISIBLE);
+		}else{
+			ll_pg = (LinearLayout)findViewById(R.id.ll_pg);
+			ll_pg.setVisibility(View.VISIBLE);
+			tv_yf = (TextView)findViewById(R.id.tv_yf);
+			tv_sy = (TextView)findViewById(R.id.tv_sy);
 		}
 		bt_pay = (Button) findViewById(R.id.bt_pay);
 		bt_pay.setOnClickListener(this);
@@ -341,6 +352,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		case R.id.bt_pay:
 			Intent i = new Intent(OrderDetail.this,
 					PayFromCar.class);
+			i.putExtra("orderId",id);
 			if(OrderList.type.equals("5")){
 				i.putExtra("type", 0);
 			}else{

@@ -15,7 +15,7 @@
     <dimen name="mainvpheight">225dp</dimen>
     <!-- POS机列表 -->
     <dimen name="itemheight1">230dp</dimen>
-    <dimen name="itemwidth1">180dp</dimen>
+    <dimen name="itemwidth1">170dp</dimen>
     <dimen name="itemheight">90dp</dimen>
     <dimen name="postimg">78dp</dimen>
 

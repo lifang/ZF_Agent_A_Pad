@@ -99,6 +99,12 @@ public class OrderAdapter extends BaseAdapter{
  		holder.btn_pay= (Button) convertView.findViewById(R.id.btn_pay);
  		holder.btn_pay.setId(position);
  		holder.im=(ImageView)convertView.findViewById(R.id.evevt_img);
+ 		holder.tv_yf=(TextView)convertView.findViewById(R.id.tv_yf);
+ 		holder.tv_sy=(TextView)convertView.findViewById(R.id.tv_sy);
+ 		holder.tv_yfh=(TextView)convertView.findViewById(R.id.tv_yfh);
+ 		holder.tv_hj=(TextView)convertView.findViewById(R.id.tv_hj);
+ 		holder.ll_pg=(LinearLayout)convertView.findViewById(R.id.ll_pg);
+ 		holder.ll_dg=(LinearLayout)convertView.findViewById(R.id.ll_dg);
  		//holder.btn_cancle.setTag(list.get(position).getOrder_id());
  		holder.btn_cancle.setId(Integer.parseInt(list.get(position).getOrder_id()));
  	
@@ -109,8 +115,18 @@ public class OrderAdapter extends BaseAdapter{
  	}	
  		if(OrderList.type.equals("5")){
  			holder.isshow.setVisibility(View.VISIBLE);
+ 			holder.ll_pg.setVisibility(View.VISIBLE);
+ 			holder.ll_dg.setVisibility(View.GONE);
+ 			holder.tv_yf.setText("已付定金：￥"+df.format(Integer.parseInt(list.get(position).getZhifu_dingjin())*1.0f/100));
+ 			holder.tv_sy.setText("剩余金额：￥"+df.format(Integer.parseInt(list.get(position).getShengyu_price())*1.0f/100));
+ 			holder.tv_yfh.setText("已发货数量："+list.get(position).getShipped_quantity());
+ 			holder.tv_hj.setText("合计：￥"+df.format(Integer.parseInt(list.get(position).getActual_price())*1.0f/100));
  		}else{
+ 			holder.tv_pay.setText("实付：￥"+df.format(Integer.parseInt(list.get(position).getOrder_totalPrice())*1.0f/100));
+ 	 		holder.tv_psf.setText("配送费：￥"+list.get(position).getOrder_psf()	);
  			holder.isshow.setVisibility(View.GONE);
+ 			holder.ll_pg.setVisibility(View.GONE);
+ 			holder.ll_dg.setVisibility(View.VISIBLE);
  		}
  		if(OrderList.type.equals("5")){
  			holder.btn_pay.setText("支付订金");
@@ -141,10 +157,11 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_goodnum.setText(list.get(position).getOrder_goodsList().get(0).getGood_num().equals("")?
  				"":"X   "+list.get(position).getOrder_goodsList().get(0).getGood_num());
  		}
- 		holder.tv_pay.setText("实付：￥"+df.format(Integer.parseInt(list.get(position).getActual_price())*1.0f/100));
- 		holder.tv_psf.setText("配送费：￥"+list.get(position).getOrder_psf()	);
+ 	
+ 		
  		holder.tv_ddbh.setText("订单编号: "+list.get(position).getOrder_number()	);
  		holder.tv_time.setText(list.get(position).getOrder_createTime()	);
+ 		
  		if(OrderList.type.equals("5")){
  			 holder.tv_sum.setText(list.get(position).getOrder_goodsList().get(0).getGood_num().equals("")?"":"共计:   "+list.get(position).getOrder_goodsList().get(0).getGood_num()	+"件");
  		}else{
@@ -337,8 +354,8 @@ public class OrderAdapter extends BaseAdapter{
 	}
 
 	public  class ViewHolder {
-		public TextView tv_goodnum,tv_price,content,tv_ddbh,tv_time,tv_status,tv_sum,tv_psf,tv_pay,tv_gtd,content2,content_pp,isshow;
-		private LinearLayout ll_ishow;
+		public TextView tv_goodnum,tv_price,content,tv_ddbh,tv_time,tv_status,tv_sum,tv_psf,tv_pay,tv_gtd,content2,content_pp,isshow,tv_yf,tv_sy,tv_hj,tv_yfh;
+		private LinearLayout ll_ishow,ll_pg,ll_dg;
 		public Button btn_cancle,btn_pay,btn_comment;
 		public ImageView im;
 	}

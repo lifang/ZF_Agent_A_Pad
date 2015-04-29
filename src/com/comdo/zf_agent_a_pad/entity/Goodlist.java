@@ -27,6 +27,12 @@ public class Goodlist {
 		this.content = content;
 	}
 	private int good_batch_price;
+	public int getGood_batch_price() {
+		return good_batch_price;
+	}
+	public void setGood_batch_price(int good_batch_price) {
+		this.good_batch_price = good_batch_price;
+	}
 	private String terminals;
 	
 public int getGood_actualprice() {
