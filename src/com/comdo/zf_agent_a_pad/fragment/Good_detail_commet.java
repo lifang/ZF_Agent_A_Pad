@@ -79,7 +79,6 @@ public class Good_detail_commet extends Fragment implements  IXListViewListener{
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 	@Override
@@ -160,7 +159,7 @@ public class Good_detail_commet extends Fragment implements  IXListViewListener{
 		String url = Config.goodcomment;
 		RequestParams params = new RequestParams();
 		params.put("goodId", Config.goodId);
-		params.put("indexPage", page);
+		params.put("page", page);
 	 	params.put("rows", rows);
 	 	System.out.println("---"+page);
 		params.setUseJsonStreamer(true);
@@ -191,7 +190,9 @@ public class Good_detail_commet extends Fragment implements  IXListViewListener{
 								
 								moreList= gson.fromJson(jsonobject.getString("list"), new TypeToken<List<GoodCommentEntity>>() {
 			 					}.getType());
-			 				 
+			 				 if(myList.size()!=0&&moreList.size()==0){
+			 					 Toast.makeText(getActivity(), "没有更多数据！", 1000).show();
+			 				 }
 								myList.addAll(moreList);
 				 				handler.sendEmptyMessage(0);
  		 					  

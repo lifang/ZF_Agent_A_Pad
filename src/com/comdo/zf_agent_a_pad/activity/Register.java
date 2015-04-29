@@ -34,6 +34,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.RegText;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -251,7 +252,7 @@ public class Register extends BaseActivity implements OnClickListener {
 
 			if (agentType == 1) {
 
-				Config.userRegistration(Register.this, username, password,
+				Config.userRegistration(Register.this, username, StringUtil.Md5(password),
 						cityId, cardId, phone, email, name, agentType,
 						companyName, address, businessLicense, cardPhotoPath,
 						taxRegisteredNo, licensePhotoPath, taxPhotoPath,
@@ -280,7 +281,7 @@ public class Register extends BaseActivity implements OnClickListener {
 
 			} else if (agentType == 2) {
 
-				Config.userRegistration(Register.this, username, password,
+				Config.userRegistration(Register.this, username, StringUtil.Md5(password),
 						cityId, cardId, phone, email, name, agentType, address,
 						cardPhotoPath, new HttpCallback(Register.this) {
 

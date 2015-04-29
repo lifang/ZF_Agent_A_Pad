@@ -5,6 +5,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.entity.StaffEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +29,7 @@ public class StallmanagerDetail extends BaseActivity{
 	private String[] str=new String[]{};
 	private Handler myHandler;
 	private Button btn_edit;
+	private int agentId=MyApplication.NewUser.getAgentId();
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -81,7 +83,7 @@ protected void onStart() {
 	};
 }
 private void getData() {
-	Config.getStallDetail(StallmanagerDetail.this, customerId, 1, new HttpCallback<StaffEntity>(StallmanagerDetail.this) {
+	Config.getStallDetail(StallmanagerDetail.this, customerId, agentId, new HttpCallback<StaffEntity>(StallmanagerDetail.this) {
 
 		@Override
 		public void onSuccess(StaffEntity data) {
@@ -132,3 +134,4 @@ private void init() {
 	});
 }
 }
+

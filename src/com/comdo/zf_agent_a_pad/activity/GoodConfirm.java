@@ -106,7 +106,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		String img_url=getIntent().getStringExtra("evevt_img");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url,
  				event_img);
-		System.out.println("=paychannelId==" + paychannelId);
+		System.out.println("=pg_price==" + pg_price);
 		// getData1();
 	}
 
@@ -291,6 +291,11 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 					public void onSuccess(Object data) {	
 						Intent i1 = new Intent(GoodConfirm.this, PayFromCar.class);
 						i1.putExtra("orderId", data.toString());
+						if(PosListActivity.shoptype==1){
+							i1.putExtra("type", 0);
+						}else{
+							i1.putExtra("type", 1);
+						}
 						startActivity(i1);
 					}
 

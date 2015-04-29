@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeClient;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -39,7 +40,7 @@ public class TradeClientActivity extends ListActivity {
                 new int[]{R.id.trade_client_name, R.id.trade_client_selected});
         setListAdapter(adapter);
 
-        API.getTerminalList(this, 1, new HttpCallback<List<TradeClient>>(this) {
+        API.getTerminalList(this, MyApplication.NewUser.getAgentId(), new HttpCallback<List<TradeClient>>(this) {
 
 			@Override
 			public void onSuccess(List<TradeClient> data) {

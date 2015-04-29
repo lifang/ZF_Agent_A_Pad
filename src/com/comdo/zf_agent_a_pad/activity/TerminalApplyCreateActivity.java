@@ -149,8 +149,8 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 			if (pwd.getText().toString()
 					.equals(confirmpwd.getText().toString())) {
-				Config.addCustomer(this, StringUtil.Md5(setCode.getText().toString()), name,
-						password, mChannelId, MyApplication.NewUser
+				Config.addCustomer(this, setCode.getText().toString(), name,
+						StringUtil.Md5(password), mChannelId, MyApplication.NewUser
 								.getAgentId(), checkCode.getText().toString(),
 						new HttpCallback<CreateUser>(
 								TerminalApplyCreateActivity.this) {
@@ -328,7 +328,7 @@ public class TerminalApplyCreateActivity extends Activity implements
 		updateUIWithValidation();
 		// 从共享数据存储对象中获取所需的数据
 		SharedPreferences getData = getPreferences(0);
-		vcode = getData.getString("vcode", null);
+		vcode = getData.getString("vcode", "");
 		checkcode = getData.getBoolean("check", false);
 		if (checkcode) {
 			img_check_y.setVisibility(View.VISIBLE);
