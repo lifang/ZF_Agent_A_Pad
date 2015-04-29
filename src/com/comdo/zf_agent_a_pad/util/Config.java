@@ -50,6 +50,7 @@ public class Config {
 	// public final static String PATHS =
 	// "http://114.215.149.242:28080/ZFAgent/api/";
 	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+//	public final static String PATHS = "http://agent.ebank007.com/api/";
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -1169,7 +1170,7 @@ public class Config {
 	}
 
 	public static void screeningTerminalNum(Context context, String title,
-			int channelsId, int minPrice, int maxPrice, int agentId,
+			int channelsId, int minPrice, int maxPrice, int agentId,int page, int rows,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("title", title);
@@ -1177,6 +1178,8 @@ public class Config {
 		params.put("minPrice", minPrice);
 		params.put("maxPrice", maxPrice);
 		params.put("agentId", agentId);
+		params.put("page", page);
+		params.put("rows", rows);
 		new HttpRequest(context, callback).post(TERMINAL_SCREEN_TERMINALNUM,
 				params);
 	}
