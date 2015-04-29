@@ -12,6 +12,7 @@ import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.entity.StaffmanagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -46,6 +47,8 @@ public class Staffmanagr extends Fragment implements OnClickListener,IXListViewL
 	 private int a=1;
 	 private int page=1;
 	 private int rows=Config.ROWS;
+	 private int agentId=MyApplication.NewUser.getAgentId();
+	 private Activity mActivity;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -67,6 +70,7 @@ if (view != null) {
 try {
     view = inflater.inflate(R.layout.staffmanagr, container, false);
     init();
+    
 } catch (InflateException e) {
     
 }
@@ -108,7 +112,7 @@ public void onResume() {
 	
 }
 protected void delectone() {
-	Config.delectStaff(getActivity(),  datastaff.get(StaffmanagerAdapter.pp).getId(),1, new HttpCallback(getActivity()) {
+	Config.delectStaff(getActivity(),  datastaff.get(StaffmanagerAdapter.pp).getId(),agentId, new HttpCallback(getActivity()) {
 
 		@Override
 		public void onSuccess(Object data) {
@@ -135,7 +139,7 @@ private void getData() {
 	if(datastaff.size()!=0){
 		datastaff.clear();
 	}
-	Config.getStaffList(getActivity(), 1, 1, 10, new HttpCallback<Page<StaffmanagerEntity>>(getActivity()) {
+	Config.getStaffList(mActivity, agentId, 1, 10, new HttpCallback<Page<StaffmanagerEntity>>(mActivity) {
 
 		@Override
 		public void onSuccess(Page<StaffmanagerEntity> data) {
@@ -183,18 +187,40 @@ private void init() {
 	btn_creatstaff.setOnClickListener(this);
 }
 @Override
+public void onAttach(Activity activity) {
+	// TODO Auto-generated method stub
+	super.onAttach(activity);
+	mActivity=activity;
+}
+@Override
 public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.btn_creatstaff:
 		Intent intent=new Intent(getActivity(),CreatStaff.class);
 		startActivity(intent);
-		//opendialog();
+		//getActivity().startActivityForResult(intent, 1001);
 		break;
 
 	default:
 		break;
 	}
 	
+}
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	// TODO Auto-generated method stub
+	super.onActivityResult(requestCode, resultCode, data);
+	if(data==null){
+		return;
+	}
+	switch (requestCode) {
+	case 1001:
+		getData();
+		break;
+
+	default:
+		break;
+	}
 }
 private void opendialog() {
 	final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

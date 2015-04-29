@@ -104,7 +104,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override

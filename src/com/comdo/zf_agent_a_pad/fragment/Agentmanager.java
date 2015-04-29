@@ -189,13 +189,23 @@ private void init() {
 public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.btn_reset:
+		
 		openDialog();
 		break;
 	case R.id.btn_creat_agent:
 		startActivity(new Intent(getActivity(),CreatAgent.class));
 		break;
 	case R.id.btn_save:
-		dialog.dismiss();
+		boolean result=et_profit.getText().toString().matches("[0-9]+");
+		if(!result){
+			CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字");
+			return;
+		}
+		/*if(!(Integer.parseInt(et_profit.getText().toString())<100&&Integer.parseInt(et_profit.getText().toString())>0)){
+			CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字");
+			return;
+		}*/
+		
 		resetProfit();
 		break;
 	default:
@@ -212,6 +222,7 @@ private void resetProfit() {
 				public void onSuccess(Object data) {
 					// TODO Auto-generated method stub
 					CommonUtil.toastShort(getActivity(), "设置成功");
+					dialog.dismiss();
 					getDefaultProfit();
 					//tv_default.setText(et_profit.getText().toString());
 				}

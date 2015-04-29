@@ -27,6 +27,11 @@ public class Mchpaw extends Fragment{
 	private EditText et_oldpaw,et_newpaw,et_confirmpaw;
 	private Button btn_save;
 	private int id=com.comdo.zf_agent_a_pad.util.MyApplication.NewUser.getId();
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState) {

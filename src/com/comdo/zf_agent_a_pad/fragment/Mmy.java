@@ -1,13 +1,16 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
+import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.example.zf_agent_a_pad.R;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.InflateException;
@@ -21,19 +24,18 @@ import android.widget.TextView;
 public class Mmy extends Fragment implements OnClickListener {
 	private View view;
 	private TextView tv_myinfo, tv_manager_shopper, tv_distribute,
-			tv_transgoods, tv_staffmanagr;
+			tv_transgoods, tv_staffmanagr,tv_exit;
 	private MineMyinfo f_info;
 	private Agentmanager f_agentmanager;
 	private Distribute f_distribute;
 	private Transgoods f_transgood;
 	private Staffmanagr f_staffmanagr;
-	private ImageView im1,im2,im3,im4,im5;
+	private ImageView im1,im2,im3,im4,im5,im6;
 	private int type;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
 	super.onCreate(savedInstanceState);
-	
 }
 @Override
 	public View onCreateView(LayoutInflater inflater,
@@ -52,7 +54,6 @@ try {
 	Log.e("inflater", String.valueOf(inflater));
 	Log.e("container", String.valueOf(container));
     view = inflater.inflate(R.layout.f_mine, container, false);
-
 
     init();
     if(!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_8){
@@ -113,6 +114,12 @@ private void changeTap() {
 		im1.setVisibility(View.VISIBLE);
 		if(f_info==null)
 			f_info=new MineMyinfo();
+		/*else{
+			  Fragment p =  f_info.getParentFragment();
+			  if(p!=null){
+				  p.getFragmentManager().getFragments().remove(R.id.f_mine);
+			  }
+		}*/
 		getActivity().getSupportFragmentManager().beginTransaction().
 		replace(R.id.f_mine, f_info).commit();
 		break;
@@ -123,6 +130,7 @@ case 2:
 		f_agentmanager=new Agentmanager();
 	getActivity().getSupportFragmentManager().beginTransaction().
 	replace(R.id.f_mine, f_agentmanager).commit();
+	
 		break;
 case 3:
 	setback();
@@ -151,6 +159,17 @@ case 5:
 	replace(R.id.f_mine, f_staffmanagr).
 	commit();
 	break;
+case 6:
+	setback();
+	im6.setVisibility(View.VISIBLE);
+	if(f_staffmanagr==null)
+		f_staffmanagr=new Staffmanagr();
+	getActivity().
+	getSupportFragmentManager().
+	beginTransaction().
+	replace(R.id.f_mine, f_staffmanagr).
+	commit();
+	break;
 	default:
 		break;
 	}
@@ -162,16 +181,19 @@ private void init() {
 	im3 = (ImageView) view.findViewById(R.id.im3);
 	im4 = (ImageView) view.findViewById(R.id.im4);
 	im5 = (ImageView) view.findViewById(R.id.im5);
+	im6 = (ImageView) view.findViewById(R.id.im6);
 	tv_myinfo=(TextView) view.findViewById(R.id.tv_myinfo);
 	tv_manager_shopper=(TextView) view.findViewById(R.id.tv_manager_shopper);
 	tv_distribute=(TextView) view.findViewById(R.id.tv_distribute);
 	tv_transgoods=(TextView) view.findViewById(R.id.tv_transgoods);
 	tv_staffmanagr=(TextView) view.findViewById(R.id.tv_staffmanagr);
+	tv_exit=(TextView) view.findViewById(R.id.tv_exit);
 	tv_myinfo.setOnClickListener(this);
 	tv_manager_shopper.setOnClickListener(this);
 	tv_distribute.setOnClickListener(this);
 	tv_transgoods.setOnClickListener(this);
 	tv_staffmanagr.setOnClickListener(this);
+	tv_exit.setOnClickListener(this);
 }
 @Override
 public void onClick(View v) {
@@ -233,6 +255,13 @@ public void onClick(View v) {
 		replace(R.id.f_mine, f_staffmanagr).commit();
 		}
 		break;
+	case R.id.tv_exit:
+		type=6;
+		setback();
+		im6.setVisibility(View.VISIBLE);
+		startActivity(new Intent(getActivity(),LoginActivity.class));
+    	getActivity().finish();
+		break;
 	default:
 		break;
 	}
@@ -244,6 +273,7 @@ private void setback() {
 	im3.setVisibility(View.GONE);
 	im4.setVisibility(View.GONE);
 	im5.setVisibility(View.GONE);
+	im6.setVisibility(View.GONE);
 	tv_myinfo.setTextColor(getResources().getColor(R.color.white));
 	tv_manager_shopper.setTextColor(getResources().getColor(R.color.white));
 	tv_distribute.setTextColor(getResources().getColor(R.color.white));

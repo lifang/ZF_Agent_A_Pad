@@ -570,12 +570,12 @@ public class Config {
 
 	public static void getMsgList(Context context, int customerId, int page,
 			int rows, HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		// Map<String, Object> params = new HashMap<String, Object>();
+		//RequestParams params = new RequestParams();
+		 Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("page", page);
 		params.put("rows", rows);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_MSGLIST, params);
 		Log.e("params", String.valueOf(params));
 		Log.e("url", GET_MSGLIST);
@@ -951,6 +951,7 @@ public class Config {
 			String phoneNum, String emailStr, String addressStr, String pwd,
 			String pwd1, int isProfit, int cityId, String cardPhotoPath,
 			String licensePhotoPath, String taxPhotoPath, String taxNumStr,
+			boolean isEncrypt,
 			HttpCallback callback) {
 		// RequestParams params=new RequestParams();
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -972,6 +973,7 @@ public class Config {
 		params.put("licensePhotoPath", licensePhotoPath);
 		params.put("taxPhotoPath", taxPhotoPath);
 		params.put("taxNumStr", taxNumStr);
+		params.put("isEncrypt", isEncrypt);
 		// params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(CREAT_AGENT, params);
 		Log.e("params", String.valueOf(params));
