@@ -138,7 +138,7 @@ public class OrderAdapter extends BaseAdapter{
  		 ImageCacheUtil.IMAGE_CACHE.get(list.get(position).getOrder_goodsList().get(0).getGood_logo(), holder.im);
  		 if(OrderList.type.equals("5")){
  			holder.isshow.setVisibility(View.VISIBLE);
- 			String string=" 原价:￥"+(double)list.get(position).getOrder_goodsList().get(0).getGood_actualprice()+" ";
+ 			String string=" 原价:￥"+(double)Integer.parseInt(list.get(position).getOrder_goodsList().get(0).getGood_price())*1.0f/100+" ";
  			SpannableString sp = new SpannableString(string);
  			sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
  			holder.isshow.setText(sp);
@@ -149,8 +149,7 @@ public class OrderAdapter extends BaseAdapter{
  		}else{
  			holder.btn_comment.setId(-1);
  		}
- 		holder.tv_price.setText(list.get(position).getOrder_goodsList().get(0).getGood_price().equals("")
- 				?"":"￥"+check(list.get(position).getOrder_goodsList().get(0).getGood_price())/100);
+ 		holder.tv_price.setText("￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice()/100);
  		holder.content2.setText(list.get(position).getOrder_goodsList().get(0).getGood_brand());
  		holder.tv_gtd.setText(list.get(position).getOrder_goodsList().get(0).getGood_channel());
  		holder.content_pp.setText(list.get(position).getOrder_goodsList().get(0).getGood_name()); 		 
@@ -315,13 +314,12 @@ public class OrderAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(context,PayFromCar.class);
-				i.putExtra("orderId",list.get(v.getId()).getOrder_id() );
-
-				if(OrderList.type.equals("5")){
-					i.putExtra("type", 0);
-				}else{
-					i.putExtra("type", 1);
-				}
+				try {
+					i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
+					i.putExtra("type", Integer.parseInt(OrderList.type));
+				} catch (Exception e) {
+					
+				}								
 				context.startActivity(i);
 			}
 		});
@@ -337,15 +335,8 @@ public class OrderAdapter extends BaseAdapter{
 				i.putExtra("id", list.get(index).getOrder_id());
 				if(list.get(index).getOrder_goodsList().get(0).getGood_id().equals("")){
 					i.putExtra("goodid", list.get(index).getOrder_goodsList().get(0).getGood_id());
-				}
-				
-				if(OrderList.type.equals("5")){
-					typeint = 0;
-				}else{
-					typeint=1;
-				}
-				
-				i.putExtra("type",typeint);			
+				}	
+				i.putExtra("type",Integer.parseInt(OrderList.type));			
 				context.startActivity(i);
 			}
 		});

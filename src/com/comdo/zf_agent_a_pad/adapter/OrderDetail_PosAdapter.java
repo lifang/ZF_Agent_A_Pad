@@ -7,6 +7,7 @@ import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.example.zf_agent_a_pad.R;
 
+import android.R.integer;
 import android.content.Context;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -74,13 +75,12 @@ public class OrderDetail_PosAdapter extends BaseAdapter {
 		holder.content2.setText(list.get(position).getGood_brand());
 		holder.content.setText(list.get(position).getGood_name());
 		if(OrderList.type.equals("5")){
-			String string=" 原价:￥"+(double)list.get(position).getGood_batch_price()*1.0f/100;
+			String string=" 原价:￥"+Double.parseDouble(list.get(position).getGood_price())*1.0f/100;
 			SpannableString sp = new SpannableString(string);
 			sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-			holder.pg_price.setText("￥ "
-					+ ((double) list.get(position).getGood_actualprice()) *1.0f/ 100);
+			holder.pg_price.setText(sp);
 			holder.tv_price.setText("￥ "
-					+ ((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100);
+					+ ((double) list.get(position).getGood_actualprice())*1.0f / 100);
 		}else{
 			holder.tv_price.setText("￥ "
 					+ ((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100);

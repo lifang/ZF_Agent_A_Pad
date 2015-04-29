@@ -121,9 +121,9 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 
 		status = getIntent().getIntExtra("status", 0);
 		id = Integer.parseInt(getIntent().getStringExtra("id"));
-		type = getIntent().getIntExtra("type", 1);
+		type = getIntent().getIntExtra("type",5);
 		goodid = getIntent().getIntExtra("goodid", -1);
-		if (type == 0) {
+		if (type == 5) {
 			new TitleMenuUtil(OrderDetail.this, "批购订单详情").show();
 		} else {
 			new TitleMenuUtil(OrderDetail.this, "代购订单详情").show();
@@ -138,7 +138,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		System.out.println("id```" + id);
 		params.setUseJsonStreamer(true);
 
-		if (OrderList.type.equals("5")) {
+		if (type==5) {
 			url = Config.ORDERDETAIL;
 		} else {
 			url = Config.ORDERDETAIL1;
