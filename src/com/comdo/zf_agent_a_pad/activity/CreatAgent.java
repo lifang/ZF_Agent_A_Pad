@@ -19,6 +19,7 @@ import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
@@ -175,7 +176,7 @@ public void onClick(View v) {
 		try {
 			
 			boolean isId=checkId(et_fuze_id_no.getText().toString());
-			boolean isPhone=checkPhone();
+			boolean isPhone=RegText.isMobileNO(et_phone.getText().toString());
 			 boolean isEmail=checkEmail();
 			if(!isId){
 				CommonUtil.toastShort(getApplicationContext(), "身份证号码格式不正确");
