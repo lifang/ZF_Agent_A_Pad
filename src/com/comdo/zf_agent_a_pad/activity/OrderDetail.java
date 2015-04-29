@@ -114,7 +114,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.order_detail);
 
 		status = getIntent().getIntExtra("status", 0);
-		id = Integer.parseInt(getIntent().getStringExtra("id"));
+		id = getIntent().getIntExtra("id", 0);
 		type = getIntent().getIntExtra("type", 1);
 		goodid = getIntent().getIntExtra("goodid", -1);
 		if (type == 0) {
