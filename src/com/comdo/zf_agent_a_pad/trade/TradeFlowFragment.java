@@ -3,6 +3,8 @@ package com.comdo.zf_agent_a_pad.trade;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -27,6 +29,7 @@ import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.common.Page;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeRecord;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.trade.widget.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -291,8 +294,9 @@ public class TradeFlowFragment extends Fragment implements
 			// 点击按钮重拉
 			page = 1;
 			canLoadMore = true;
-			API.getTradeRecordList(getActivity(), 1, tradeAgentId, mTradeType,
-					tradeClientName, tradeStartDate, tradeEndDate, page, Config.ROWS,
+			API.getTradeRecordList(getActivity(), MyApplication.NewUser
+					.getAgentId(), tradeAgentId, mTradeType, tradeClientName,
+					tradeStartDate, tradeEndDate, page, Config.ROWS,
 					new HttpCallback<Page<TradeRecord>>(getActivity()) {
 
 						@Override
@@ -328,30 +332,32 @@ public class TradeFlowFragment extends Fragment implements
 	}
 
 	// 加载更多
-		private void getMoreData() {
-			page += 1;
-			API.getTradeRecordList(getActivity(), 1, tradeAgentId, mTradeType,
-					tradeClientName, tradeStartDate, tradeEndDate, page, Config.ROWS,
-					new HttpCallback<Page<TradeRecord>>(getActivity()) {
+	private void getMoreData() {
+		page += 1;
+		API.getTradeRecordList(getActivity(),  MyApplication.NewUser
+				.getAgentId(), tradeAgentId, mTradeType,
+				tradeClientName, tradeStartDate, tradeEndDate, page,
+				Config.ROWS,
+				new HttpCallback<Page<TradeRecord>>(getActivity()) {
 
-						@Override
-						public void onSuccess(Page<TradeRecord> data) {
+					@Override
+					public void onSuccess(Page<TradeRecord> data) {
 
-							mRecordList.stopLoadMore();
-							mRecords.addAll(data.getList());
-							mAdapter.notifyDataSetChanged();
-							total = data.getTotal();
+						mRecordList.stopLoadMore();
+						mRecords.addAll(data.getList());
+						mAdapter.notifyDataSetChanged();
+						total = data.getTotal();
 
-						}
+					}
 
-						@Override
-						public TypeToken<Page<TradeRecord>> getTypeToken() {
-							return new TypeToken<Page<TradeRecord>>() {
-							};
-						}
-					});
-		}
-	
+					@Override
+					public TypeToken<Page<TradeRecord>> getTypeToken() {
+						return new TypeToken<Page<TradeRecord>>() {
+						};
+					}
+				});
+	}
+
 	/**
 	 * enable or disable the buttons
 	 * 
@@ -363,8 +369,8 @@ public class TradeFlowFragment extends Fragment implements
 				&& !TextUtils.isEmpty(tradeStartDate)
 				&& !TextUtils.isEmpty(tradeEndDate)
 				&& !TextUtils.isEmpty(tradeAgentName);
-		mTradeSearch.setEnabled(shouldEnable);
-		mTradeStatistic.setEnabled(shouldEnable);
+		mTradeSearch.setEnabled(true);
+		mTradeStatistic.setEnabled(true);
 	}
 
 	/**
@@ -377,7 +383,15 @@ public class TradeFlowFragment extends Fragment implements
 	 * @return
 	 */
 	private void showDatePicker(final String date, final boolean isStartDate) {
-
+		final Calendar now = Calendar.getInstance();
+		now.setTime(new Date());
+		int nowyear = now.get(Calendar.YEAR);
+		;
+		int nowmonth = now.get(Calendar.MONTH) + 1;
+		int nowday = now.get(Calendar.DAY_OF_MONTH);
+		final String nowStr = nowyear + "-"
+				+ (nowmonth < 10 ? "0" + nowmonth : nowmonth) + "-"
+				+ (nowday < 10 ? "0" + nowday : nowday);
 		final Calendar c = Calendar.getInstance();
 		if (TextUtils.isEmpty(date)) {
 			c.setTime(new Date());
@@ -390,13 +404,14 @@ public class TradeFlowFragment extends Fragment implements
 			}
 		}
 
-		new DialogFragment() {
+		DialogFragment df = new DialogFragment() {
 			@Override
 			public Dialog onCreateDialog(Bundle savedInstanceState) {
 				int year = c.get(Calendar.YEAR);
 				int month = c.get(Calendar.MONTH);
 				int day = c.get(Calendar.DAY_OF_MONTH);
-				return new DatePickerDialog(getActivity(),
+
+				return new MyDatePickerDialog(getActivity(),
 						new DatePickerDialog.OnDateSetListener() {
 							@Override
 							public void onDateSet(DatePicker datePicker,
@@ -406,8 +421,23 @@ public class TradeFlowFragment extends Fragment implements
 										+ (month < 10 ? "0" + month : month)
 										+ "-" + (day < 10 ? "0" + day : day);
 								if (isStartDate) {
+
+									if (!TextUtils.isEmpty(tradeEndDate)
+											&& dateStr.compareTo(tradeEndDate) > 0) {
+										Toast.makeText(getActivity(),
+												"开始时间不能大于结束时间",
+												Toast.LENGTH_SHORT).show();
+										return;
+									} else if (dateStr.compareTo(nowStr) >= 0) {
+										Toast.makeText(getActivity(),
+												"开始时间不能大于当前时间",
+												Toast.LENGTH_SHORT).show();
+										return;
+									}
+
 									mTradeStartDate.setText(dateStr);
 									tradeStartDate = dateStr;
+
 								} else {
 									if (!TextUtils.isEmpty(tradeStartDate)
 											&& dateStr
@@ -417,7 +447,13 @@ public class TradeFlowFragment extends Fragment implements
 												getString(R.string.toast_end_date_error),
 												Toast.LENGTH_SHORT).show();
 										return;
+									} else if (dateStr.compareTo(nowStr) > 0) {
+										Toast.makeText(getActivity(),
+												"截止时间不能大于当前时间",
+												Toast.LENGTH_SHORT).show();
+										return;
 									}
+
 									mTradeEndDate.setText(dateStr);
 									tradeEndDate = dateStr;
 								}
@@ -425,7 +461,9 @@ public class TradeFlowFragment extends Fragment implements
 							}
 						}, year, month, day);
 			}
-		}.show(getActivity().getSupportFragmentManager(), "DatePicker");
+		};
+		// df.setCancelable(false);
+		df.show(getActivity().getSupportFragmentManager(), "DatePicker");
 	}
 
 	class TradeRecordListAdapter extends BaseAdapter {
@@ -476,10 +514,10 @@ public class TradeFlowFragment extends Fragment implements
 			}
 			final TradeRecord record = getItem(i);
 			convertView.setTag(R.id.trade_status, record);
-			
+
 			DecimalFormat df = (DecimalFormat) NumberFormat.getInstance();
 			df.applyPattern("0.00");
-			
+
 			switch (mTradeType) {
 			case TRANSFER:
 			case REPAYMENT:
@@ -509,8 +547,6 @@ public class TradeFlowFragment extends Fragment implements
 					R.array.trade_status)[record.getTradedStatus()]);
 			holder.tvTime.setText(record.getTradedTimeStr());
 			holder.tvClientNumber.setText(record.getTerminalNumber());
-
-			
 
 			holder.tvAmount.setText(getString(R.string.notation_yuan)
 					+ df.format(record.getAmount() * 1.0f / 100));
@@ -545,6 +581,21 @@ public class TradeFlowFragment extends Fragment implements
 			CommonUtil.toastShort(getActivity(), "没有更多数据");
 		} else {
 			getMoreData();
+		}
+	}
+
+	class MyDatePickerDialog extends DatePickerDialog {
+
+		public MyDatePickerDialog(Context context, OnDateSetListener callBack,
+				int year, int monthOfYear, int dayOfMonth) {
+			super(context, callBack, year, monthOfYear, dayOfMonth);
+		}
+
+		@Override
+		protected void onStop() {
+			// super.onStop();
+			// DatePickerDialog 源码当中，onStop()生命周期当中，会调用tryNotifyDateSet();
+			// 然后调用onDateSet()会引以onDateSet()方法回调两次
 		}
 	}
 }

@@ -2,6 +2,8 @@ package com.comdo.zf_agent_a_pad.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -82,6 +84,11 @@ public class Mine_adress extends Fragment implements OnClickListener{
 	private AlertDialog dialog;
 	private Button close;
 	//private TextView info,safe,manageradress,score;
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState) {
@@ -221,6 +228,11 @@ public void onClick(View v) {
 			CommonUtil.toastShort(getActivity(), "联系电话不能为空");
 			return ;
 		}
+		boolean isPhone=checkPhone();
+		if(!isPhone){
+			CommonUtil.toastShort(getActivity(), "手机号码格式不正确");
+			return;
+		}
 		if(zip_code.getText().toString().equals("")){
 			CommonUtil.toastShort(getActivity(), "邮政编码不能为空");
 			return ;
@@ -258,6 +270,16 @@ public void onClick(View v) {
 		break;
 	}
 	
+}
+private boolean checkPhone() {
+		 Pattern pattern = Pattern.compile("^13\\d{9}||15[8,9]\\d{8}$");
+	     Matcher matcher = pattern.matcher(mobile_phone.getText().toString());
+	     
+	     if (matcher.matches()) {
+	         return true;
+	     }
+	     return false;
+		
 }
 private boolean checkisNull() {
 	if(login_edit_name.getText().toString().equals("")){
@@ -439,3 +461,4 @@ public void onDestroyView() {
 	super.onDestroyView();
 }
 }
+

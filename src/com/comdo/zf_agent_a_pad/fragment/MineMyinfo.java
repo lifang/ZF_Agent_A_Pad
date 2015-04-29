@@ -41,12 +41,15 @@ public void onCreate(Bundle savedInstanceState) {
 	//view = inflater.inflate(R.layout.f_main,container,false);
 	
 
-
+Log.e("container", String.valueOf(container));
 if (view != null) {
     ViewGroup parent = (ViewGroup) view.getParent();
     if (parent != null)
         parent.removeView(view);
 }
+/*if(container!=null){
+	container.removeAllViewsInLayout();
+}*/
 try {
     view = inflater.inflate(R.layout.myinfo, container, false);
     init();
@@ -55,12 +58,12 @@ try {
 }
 return view;
 }
-@Override
+/*@Override
 public void onAttach(Activity activity) {
 	// TODO Auto-generated method stub
 	super.onAttach(activity);
 	mActivity=activity;
-}
+}*/
 @Override
 public void onStart() {
 	// TODO Auto-generated method stub
@@ -108,6 +111,12 @@ public void onSaveInstanceState(Bundle outState) {
 public void onPause() {
 	// TODO Auto-generated method stub
 	super.onPause();
+	type=0;
+	if(view!=null){
+		ViewGroup parent = (ViewGroup) view.getParent();
+	    if (parent != null)
+	        parent.removeView(view);
+	}
 }
 @Override
 public void onResume() {
@@ -168,6 +177,11 @@ public void onClick(View v) {
 @Override
 public void onDestroyView() {
 	try {
+		if (view != null) {
+		    ViewGroup parent = (ViewGroup) view.getParent();
+		    if (parent != null)
+		        parent.removeAllViewsInLayout();
+		}
 		mRecordType=0;
 		FragmentTransaction transaction = getActivity()
 				.getSupportFragmentManager().beginTransaction();

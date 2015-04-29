@@ -1,14 +1,11 @@
 package com.comdo.zf_agent_a_pad.activity;
-
-
-
 import com.comdo.zf_agent_a_pad.fragment.F_good_detail;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_apply;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_commet;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_trade;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_zd;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,14 +34,15 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 	private ImageView search2;
 	private LinearLayout ll_back;
 	private int comments;
+	private LinearLayout ll_isshow;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goodmoremain);
 	
 		type = getIntent().getIntExtra("type", 0);
-		comments = getIntent().getIntExtra("comments", 0);
+		comments = getIntent().getIntExtra("commets", 0);
+		
 		initView();
 		switch (type) {
 		case 0:
@@ -89,6 +87,9 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 	}
 
 	private void initView() {
+		ll_isshow = (LinearLayout)findViewById(R.id.ll_isshow);
+		if(Config.iszd)
+			ll_isshow.setVisibility(View.GONE);
 		ll_back = (LinearLayout)findViewById(R.id.titleback_linear_back);
 		ll_back.setOnClickListener(this);
 
@@ -167,6 +168,11 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			break;
 		}
 		
+	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		Config.iszd=false;
 	}
 
 }

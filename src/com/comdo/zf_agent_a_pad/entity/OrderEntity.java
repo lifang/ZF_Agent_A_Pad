@@ -9,6 +9,14 @@ public class OrderEntity {
 	private String order_number;
 	private String order_type;
 	private String guishu_user;
+	private String actual_price;
+	public String getActual_price() {
+		return actual_price;
+	}
+
+	public void setActual_price(String actual_price) {
+		this.actual_price = actual_price;
+	}
 
 	public String getGuishu_user() {
 		return guishu_user;

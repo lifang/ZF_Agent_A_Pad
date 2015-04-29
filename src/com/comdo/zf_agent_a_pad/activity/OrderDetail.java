@@ -319,6 +319,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			} else if (status == 3) {
 				Config.list = ode.getOrder_goodsList();
 				if (Config.list.size() != 0) {
+				
 					startActivity(new Intent(OrderDetail.this, Comment.class));
 				}
 
@@ -338,7 +339,15 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			});
 			break;
 		case R.id.bt_pay:
-			startActivity(new Intent(OrderDetail.this, PayFromCar.class));
+			Intent i = new Intent(OrderDetail.this,
+					PayFromCar.class);
+			i.putExtra("orderId",id);
+			if(OrderList.type.equals("5")){
+				i.putExtra("type", 0);
+			}else{
+				i.putExtra("type", 1);
+			}
+			startActivity(i);
 			break;
 		case R.id.bt_cancel:
 			final AlertDialog ad = new AlertDialog(OrderDetail.this);

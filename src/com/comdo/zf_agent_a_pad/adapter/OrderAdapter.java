@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.adapter;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -46,10 +48,13 @@ public class OrderAdapter extends BaseAdapter{
 	private ViewHolder holder = null;
 	private OrderList dd;
 	private int type;
-	public OrderAdapter(Context context, List<OrderEntity> list) {
+	private DecimalFormat df;
+	public OrderAdapter(Context context, List<OrderEntity> list,OrderList dd) {
 		this.context = context;
 		this.list = list;
-
+		this.dd=dd;
+		df = (DecimalFormat)NumberFormat.getInstance();
+		df.applyPattern("0.00");
 	}
 	@Override
 	public int getCount() {
@@ -92,6 +97,7 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_goodnum = (TextView) convertView.findViewById(R.id.tv_goodnum);
 		holder.btn_cancle= (Button) convertView.findViewById(R.id.btn_cancle);
  		holder.btn_pay= (Button) convertView.findViewById(R.id.btn_pay);
+ 		holder.btn_pay.setId(position);
  		holder.im=(ImageView)convertView.findViewById(R.id.evevt_img);
  		//holder.btn_cancle.setTag(list.get(position).getOrder_id());
  		holder.btn_cancle.setId(Integer.parseInt(list.get(position).getOrder_id()));
@@ -135,7 +141,7 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_goodnum.setText(list.get(position).getOrder_goodsList().get(0).getGood_num().equals("")?
  				"":"X   "+list.get(position).getOrder_goodsList().get(0).getGood_num());
  		}
- 		holder.tv_pay.setText("实付：￥"+list.get(position).getOrder_totalPrice()/100);
+ 		holder.tv_pay.setText("实付：￥"+df.format(Integer.parseInt(list.get(position).getActual_price())*1.0f/100));
  		holder.tv_psf.setText("配送费：￥"+list.get(position).getOrder_psf()	);
  		holder.tv_ddbh.setText("订单编号: "+list.get(position).getOrder_number()	);
  		holder.tv_time.setText(list.get(position).getOrder_createTime()	);
@@ -290,8 +296,15 @@ public class OrderAdapter extends BaseAdapter{
  		holder.btn_pay.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
 				Intent i = new Intent(context,PayFromCar.class);
+				i.putExtra("orderId",list.get(v.getId()).getOrder_id());
+
+				if(OrderList.type.equals("5")){
+					i.putExtra("type", 0);
+				}else{
+					i.putExtra("type", 1);
+				}
 				context.startActivity(i);
 			}
 		});
