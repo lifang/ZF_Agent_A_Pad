@@ -76,7 +76,8 @@
     <dimen name="order_image1">86dp</dimen>
     <dimen name="goodimg">560dp</dimen>
     
-
+	<dimen name="guidebtnwidth">210dp</dimen>
+	<dimen name="guidebtnheight">56dp</dimen>
 
 
 </resources>

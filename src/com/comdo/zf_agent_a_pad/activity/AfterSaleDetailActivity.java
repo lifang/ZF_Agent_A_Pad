@@ -3,6 +3,7 @@ package com.comdo.zf_agent_a_pad.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -155,10 +156,14 @@ public class AfterSaleDetailActivity extends Activity{
 					int position, long id) {
 				String upload_path = detailCancelEntity.getResource_info().get(position).getUpload_path();
 				if (!StringUtil.isNull(upload_path)) {
-					Intent intent = new Intent(AfterSaleDetailActivity.this,WebViewActivity.class);
-					intent.putExtra("IMAGE_PATH", 
-							detailCancelEntity.getResource_info().get(position).getUpload_path());
-					startActivity(intent);
+					Uri uri = Uri.parse(detailCancelEntity.getResource_info().get(position).getUpload_path());  
+					Intent it = new Intent(Intent.ACTION_VIEW, uri);  
+					startActivity(it);
+					
+//					Intent intent = new Intent(AfterSaleDetailActivity.this,WebViewActivity.class);
+//					intent.putExtra("IMAGE_PATH", 
+//							detailCancelEntity.getResource_info().get(position).getUpload_path());
+//					startActivity(intent);
 				}
 			}
 		});

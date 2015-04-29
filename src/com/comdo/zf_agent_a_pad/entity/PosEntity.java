@@ -4,6 +4,13 @@ public class PosEntity {
 
 	private Boolean has_lease;
 	private int purchase_price;
+	private int volume_number;
+	public int getVolume_number() {
+		return volume_number;
+	}
+	public void setVolume_number(int volume_number) {
+		this.volume_number = volume_number;
+	}
 	public int getPurchase_price() {
 		return purchase_price;
 	}
@@ -16,7 +23,7 @@ public class PosEntity {
 	public void setHas_lease(Boolean has_lease) {
 		this.has_lease = has_lease;
 	}
-	private int volume_number;
+	private int purchase_number;
 	private int id;
 	private String good_brand;
     private String url_path;
@@ -44,11 +51,12 @@ public class PosEntity {
 	private String pay_channe;
 	private String Title;
 	private String Model_number;
-	public int getVolume_number() {
-		return volume_number;
+
+	public int getPurchase_number() {
+		return purchase_number;
 	}
-	public void setVolume_number(int volume_number) {
-		this.volume_number = volume_number;
+	public void setPurchase_number(int purchase_number) {
+		this.purchase_number = purchase_number;
 	}
 	public int getId() {
 		return id;

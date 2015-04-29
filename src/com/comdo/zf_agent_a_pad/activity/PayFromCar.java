@@ -6,6 +6,7 @@ import com.comdo.zf_agent_a_pad.alipay.PayActivity;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.entity.OrderDetailEntity;
+import com.comdo.zf_agent_a_pad.entity.PayOrderEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.DialogUtil;
 import com.comdo.zf_agent_a_pad.util.DialogUtil.CallBackChange;
@@ -27,12 +28,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 public class PayFromCar extends PayActivity implements OnClickListener{
 	private TextView tv_pay;
-	private LinearLayout titleback_linear_back, ll_sh;
+	private LinearLayout titleback_linear_back, ll_request;
 	private String orderId = "";
 	private String outTradeNo;
 	private String subject;
 	private String body;
 	private String price;
+	
+	private int type;
 	
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -50,7 +53,9 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
 
-		//orderId = getIntent().getExtras().getString("orderId", "");
+		orderId = getIntent().getExtras().getString("orderId", "");
+		
+		type = 0;
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
 
 		if (orderId.equals("")) {
@@ -61,8 +66,8 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 
 		titleback_linear_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		titleback_linear_back.setOnClickListener(this);
-		ll_sh = (LinearLayout) findViewById(R.id.ll_sh);
-		ll_sh.setOnClickListener(this);
+		ll_request = (LinearLayout) findViewById(R.id.ll_request);
+		ll_request.setOnClickListener(this);
 		
 		getData();
 	}
@@ -72,8 +77,8 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		case R.id.titleback_linear_back:
 				dialogIntent();
 			break;
-		case R.id.ll_sh:
-				//pay(outTradeNo, subject, body, price);
+		case R.id.ll_request:
+				pay(outTradeNo, subject, body, price);
 			break;
 		default:
 			break;
@@ -89,6 +94,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 						Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
 						intent.putExtra("status",1);
 						intent.putExtra("id", orderId);
+						intent.putExtra("type", type);
 						startActivity(intent);
 						finish();
 					}
@@ -108,24 +114,22 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 	private void getData() {
 
 		Config.shopPayOrder(this, Integer.parseInt(orderId), 
-				new HttpCallback<List<OrderDetailEntity>>(this) {
+				new HttpCallback<PayOrderEntity>(this) {
 
 			@Override
-			public void onSuccess(List<OrderDetailEntity> data) {
-				OrderDetailEntity orderDetail = data.get(0);
-				List<Goodlist> goodlist= orderDetail.getOrder_goodsList();
-				if (goodlist.size()>0) {
-					subject = goodlist.get(0).getGood_name();
+			public void onSuccess(PayOrderEntity data) {
+				if (data.getGood().size()>0) {
+					subject = data.getGood().get(0).getTitle();
 					body = subject;
 				}
-				outTradeNo = orderDetail.getOrder_number();
-				price = orderDetail.getOrder_totalPrice();
+				outTradeNo = data.getOrder_number();
+				price = data.getTotal_price();
 				price = String.format("%.2f", Integer.parseInt(price)/100f);
 				handler.sendEmptyMessage(0);
 			}
 			@Override
-			public TypeToken<List<OrderDetailEntity>> getTypeToken() {
-				return new TypeToken<List<OrderDetailEntity>>() {
+			public TypeToken<PayOrderEntity> getTypeToken() {
+				return new TypeToken<PayOrderEntity>() {
 				};
 			}
 		});
@@ -137,6 +141,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
 		intent.putExtra("status",2);
 		intent.putExtra("id", orderId);
+		intent.putExtra("type", type);
 		startActivity(intent);
 		finish();
 	}
@@ -145,6 +150,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
 		intent.putExtra("status",1);
 		intent.putExtra("id", orderId);
+		intent.putExtra("type", type);
 		startActivity(intent);
 		finish();
 	}
@@ -153,6 +159,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
 		intent.putExtra("status",1);
 		intent.putExtra("id", orderId);
+		intent.putExtra("type", 0);
 		startActivity(intent);
 		finish();
 	}

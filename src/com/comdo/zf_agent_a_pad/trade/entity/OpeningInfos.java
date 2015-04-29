@@ -1,3 +1,4 @@
+
 package com.comdo.zf_agent_a_pad.trade.entity;
 
 import com.google.gson.annotations.SerializedName;

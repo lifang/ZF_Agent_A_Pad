@@ -111,6 +111,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		et_comment = (EditText) findViewById(R.id.ed_comment);
 		bt_addadress = (Button)findViewById(R.id.bt_addadress);
 		bt_addadress.setOnClickListener(this);
 		event_img = (ImageView)findViewById(R.id.evevt_img);
@@ -149,7 +150,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		btn_pay = (Button) findViewById(R.id.btn_pay);
 		btn_pay.setOnClickListener(this);
 		tv_pay = (TextView) findViewById(R.id.tv_pay);
-		et_titel = (EditText) findViewById(R.id.et_titel);
+		et_titel = (EditText) findViewById(R.id.et_titel);		
 		buyCountEdit = (EditText) findViewById(R.id.buyCountEdit);
 		buyCountEdit.setText(floor_purchase_quantity+"");
 		// comment_et=(EditText) findViewById(R.id.comment_et);
@@ -161,8 +162,10 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				if (arg1) {
 					is_need_invoice = 1;
+					et_titel.setEnabled(true);
 				} else {
 					is_need_invoice = 0;
+					et_titel.setEnabled(false);
 				}
 			}
 		});
@@ -258,7 +261,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 			buyCountEdit.setText(quantity + "");
 			break;
 		case R.id.reduce:
-			if (quantity == 0) {
+			if (quantity <= floor_purchase_quantity) {
 				break;
 			}
 			quantity = Integer.parseInt(buyCountEdit.getText().toString()) - 1;
@@ -274,7 +277,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void confirmGood() {
-		et_comment = (EditText) findViewById(R.id.ed_comment);
+		
 		comment = et_comment.getText().toString();
 		quantity = Integer.parseInt(buyCountEdit.getText().toString());
 		
@@ -282,13 +285,12 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	
 		Config.GOODCONFIRM1(GoodConfirm.this,ue.getAgentUserId(),ue.getAgentId(),ue.getId(),ue.getAgentUserId(),5,goodId,paychannelId,
 				quantity,addressId,comment,is_need_invoice,invoice_type,invoice_info,
-        		
-				
+        				
                 new HttpCallback  (GoodConfirm.this) {
-
 					@Override
-					public void onSuccess(Object data) {						
+					public void onSuccess(Object data) {	
 						Intent i1 = new Intent(GoodConfirm.this, PayFromCar.class);
+						i1.putExtra("orderId", data.toString());
 						startActivity(i1);
 					}
 

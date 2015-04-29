@@ -60,7 +60,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				OrderDetailEntity entity = ode;
 				tv_sjps.setText("实际配送金额(含配送费) ：￥ "
 						+ check(entity.getOrder_totalPrice()) / 100);
-				tv_psf.setText("含配送费 ：￥ " + entity.getOrder_psf());
+				//tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
 				tv_reperson.setText("收件人  ：   " + entity.getOrder_receiver());
 				tv_tel.setText(entity.getOrder_receiver_phone());
 				tv_adress.setText("收货地址  ：   " + entity.getOrder_address());
