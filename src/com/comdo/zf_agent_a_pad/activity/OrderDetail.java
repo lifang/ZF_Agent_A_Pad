@@ -276,14 +276,18 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		switch (status) {
 		case 1:
 			tv_status.setText("未付款");
-
+			bt_pay.setText("支付订金");
 			break;
 		case 2:
-			if (OrderList.type.equals("5")) {
+			if (type==5) {
+				
+				ll_ishow.setVisibility(View.VISIBLE);
 				bt_pay.setText("付款");
 				tv_status.setText("已付订金");
 				btn_ishow.setVisibility(View.VISIBLE);
 			} else {
+				
+				
 				tv_status.setText("已付款");
 				btn_ishow.setVisibility(View.VISIBLE);
 			}
