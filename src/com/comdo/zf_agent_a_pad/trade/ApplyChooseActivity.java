@@ -30,7 +30,7 @@ public class ApplyChooseActivity extends ListActivity {
 		setContentView(R.layout.activity_simple_list);
 
 		String title = getIntent().getStringExtra(CHOOSE_TITLE);
-		List<ApplyChooseItem> chooseItems = (List<ApplyChooseItem>) getIntent()
+		ApplyChooseItem chooseItems = (ApplyChooseItem) getIntent()
 				.getSerializableExtra(CHOOSE_ITEMS);
 		int selectedId = getIntent().getIntExtra(SELECTED_ID, 0);
 
@@ -38,16 +38,16 @@ public class ApplyChooseActivity extends ListActivity {
 
 		final List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 		if (chooseItems != null) {
-			for (ApplyChooseItem chooseItem : chooseItems) {
+//			for (ApplyChooseItem chooseItem : chooseItems) {
 				Map<String, Object> item = new HashMap<String, Object>();
-				item.put("id", chooseItem.getId());
-				item.put("name", chooseItem.getTitle());
+				item.put("id", chooseItems.getId());
+				item.put("name", chooseItems.getTitle());
 				item.put(
 						"selected",
-						chooseItem.getId() == selectedId ? R.drawable.icon_selected
+						chooseItems.getId() == selectedId ? R.drawable.icon_selected
 								: null);
 				items.add(item);
-			}
+//			}
 		}
 		final SimpleAdapter adapter = new SimpleAdapter(this, items,
 				R.layout.simple_list_item, new String[] { "id", "name",

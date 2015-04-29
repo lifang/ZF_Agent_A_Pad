@@ -252,6 +252,7 @@
                             android:id="@+id/apply_detail_material_container_1_1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:gravity="left"
                             android:layout_weight="1"
                             android:orientation="horizontal" >
                         </LinearLayout>
@@ -261,6 +262,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="center"
                             android:layout_marginLeft="20dp"
                             android:orientation="horizontal" >
                         </LinearLayout>
@@ -271,6 +273,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginLeft="20dp"
+                            android:gravity="right"
                             android:orientation="horizontal" >
                         </LinearLayout>
                     </LinearLayout>
@@ -288,6 +291,7 @@
                             android:id="@+id/apply_detail_material_container_2_1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:gravity="left"
                             android:layout_weight="1"
                             android:orientation="horizontal" >
                         </LinearLayout>
@@ -298,6 +302,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginLeft="25dp"
+                            android:gravity="right"
                             android:orientation="horizontal" >
                         </LinearLayout>
                     </LinearLayout>
