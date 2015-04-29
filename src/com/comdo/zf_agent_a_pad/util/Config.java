@@ -130,10 +130,7 @@ public class Config {
 
 	// find pos password
 	public static final String TERMINAL_FIND_POS = PATHS
-
 			+ "terminal/encryption";
-
-
 	// Terminal list
 	public static final String TERMINAL_APPLY_LIST = PATHS
 			+ "terminal/getApplyList";
