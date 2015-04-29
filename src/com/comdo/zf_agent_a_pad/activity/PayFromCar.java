@@ -90,13 +90,13 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 			break;
 		case R.id.ll_request:
 			if (pay_status.equals("1")) {
-				pay(outTradeNo, subject, body, price);
+				payShop(outTradeNo, subject, body, price);
 			}else {
 				if (!StringUtil.isNull(shengyu_price) && !StringUtil.isNull(priceEdit)) {
 					if (Integer.valueOf(shengyu_price) > Integer.valueOf(shengyu_price)) {
 						Toast.makeText(this, "付款金额大于剩余金额", Toast.LENGTH_SHORT).show();
 					}else {
-						pay(outTradeNo, subject, body, price);
+						payOrder(outTradeNo, subject, body, price);
 					}
 				}
 			}
@@ -170,6 +170,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 				subject = "POS机";
 				body = subject;
 				outTradeNo = data.getOrder_number();
+				System.out.println("pay_status:::orderId"+pay_status+":::"+orderId);
 				if (pay_status.equals("1")) {
 					price = price_dingjin;
 					if (!StringUtil.isNull(price)) {
