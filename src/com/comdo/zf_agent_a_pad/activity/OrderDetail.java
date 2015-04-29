@@ -390,14 +390,15 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 								i.putExtra("orderId",id );
 								i.putExtra("type",type);
 								i.putExtra("pay",pay);
+								OrderDetail.this.finish();
+								OrderDetail.this.startActivity(i);
 								
-								
-								if(Float.parseFloat(pay)<(float)entity.getShengyu_price()){
+							/*	if(Float.parseFloat(pay)<(float)entity.getShengyu_price()){
 									OrderDetail.this.finish();
 									OrderDetail.this.startActivity(i);	
 								}else{
 									Toast.makeText(OrderDetail.this, "金额不能大于剩余金额！", 1000).show();	
-								}
+								}*/
 							} catch (Exception e) {
 								
 							}								

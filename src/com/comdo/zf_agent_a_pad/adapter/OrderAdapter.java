@@ -187,6 +187,7 @@ public class OrderAdapter extends BaseAdapter{
 			if(OrderList.type.equals("5")){
 				holder.tv_status.setText("已付订金");
 				holder.btn_pay.setText("付款");
+				holder.btn_comment.setVisibility(View.GONE);
 				holder.ll_ishow.setVisibility(View.VISIBLE);
 			}else{
 				holder.tv_status.setText("已付款");
@@ -352,11 +353,12 @@ public class OrderAdapter extends BaseAdapter{
 								
 							}	
 							Log.i(pay,list.get(v.getId()).getShengyu_price());
-							if(Float.parseFloat(pay)<Float.parseFloat(list.get(v.getId()).getShengyu_price())){
+							context.startActivity(i);	
+							/*if(Float.parseFloat(pay)<Float.parseFloat(list.get(v.getId()).getShengyu_price())){
 								context.startActivity(i);	
 							}else{
 								Toast.makeText(context, "金额不能大于剩余金额！", 1000).show();	
-							}
+							}*/
 											
 						}
 					});		

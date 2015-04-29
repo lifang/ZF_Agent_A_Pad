@@ -52,10 +52,10 @@ public class Config {
 	public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
 	// 支付成功跳转页面
 	public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-	// public final static String PATHS =
-	// "http://114.215.149.242:28080/ZFAgent/api/";
+	 public final static String PATHS =
+	 "http://114.215.149.242:28080/ZFAgent/api/";
 
-	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+	//public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
