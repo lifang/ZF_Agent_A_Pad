@@ -31,6 +31,7 @@ import com.comdo.zf_agent_a_pad.util.AlertDialog;
 import com.comdo.zf_agent_a_pad.util.AlertMessDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.PayAlertDialog;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -117,6 +118,8 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private LinearLayout ll_pg;
 	private TextView tv_yf;
 	private TextView tv_sy;
+	private PayAlertDialog ad;
+	private Intent i;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -360,13 +363,40 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			});
 			break;
 		case R.id.bt_pay:
-			Intent i = new Intent(OrderDetail.this,
+			i = new Intent(OrderDetail.this,
 					PayFromCar.class);
-			i.putExtra("orderId",id);
-			if(OrderList.type.equals("5")){
-				i.putExtra("type", 0);
+			if(type==5){
+				
+			
+				ad = new PayAlertDialog(OrderDetail.this);   
+				ad.setTitle("付款");				
+				ad.setPositiveButton("取消", new OnClickListener() {				
+					@Override
+					public void onClick(View arg0) {
+						ad.dismiss();				
+					}
+				});
+				ad.setNegativeButton("确定", new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						String pay=ad.getPay();
+						
+						ad.dismiss();
+						try {
+							i.putExtra("orderId",id );
+							i.putExtra("type",type);
+							i.putExtra("pay",pay);
+							Toast.makeText(OrderDetail.this, pay, 1000).show();
+						} catch (Exception e) {
+							
+						}								
+											
+					}
+				});		
 			}else{
-				i.putExtra("type", 1);
+				i.putExtra("orderId",id );
+				i.putExtra("type",type);
 			}
 			startActivity(i);
 			break;
