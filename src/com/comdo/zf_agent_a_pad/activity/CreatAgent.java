@@ -694,6 +694,18 @@ private void showchooseDialog(Button btn,final int tag) {
 			//dialog.dismiss();
 		}
 	});
+     seeimg.setOnClickListener(new OnClickListener() {
+ 		
+ 		@Override
+ 		public void onClick(View v) {
+ 			dialog.dismiss();
+ 				Intent intent = new Intent(Intent.ACTION_VIEW);    
+ 	            intent.setDataAndType(Uri.parse("file://"+imgLocalPath[tag-1]), "image/*"); 
+ 	            startActivity(intent);
+ 			//dialog.dismiss();
+ 			//builder.show().dismiss(); 
+ 		}
+ 	});
     // builder.create().show();
      dialog=builder.create();
 	 dialog.show();
