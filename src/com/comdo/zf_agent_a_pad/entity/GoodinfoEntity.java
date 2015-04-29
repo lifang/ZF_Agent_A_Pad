@@ -70,6 +70,7 @@ public int getFloor_purchase_quantity() {
 	private boolean has_lease;
 //     "Model_number": "型号11"
 	private String Model_number;
+	
 	public String getLease_agreement() {
 		return lease_agreement;
 	}

@@ -143,7 +143,7 @@ public class OrderList extends Activity implements IXListViewListener,
 		tv_dg = (TextView) findViewById(R.id.tv_dg);
 		tv_dg.setOnClickListener(this);
 
-		myAdapter = new OrderAdapter(OrderList.this, myList);
+		myAdapter = new OrderAdapter(OrderList.this, myList,OrderList.this);
 		Xlistview = (XListView) findViewById(R.id.x_listview);
 
 		Xlistview.initHeaderAndFooter();

@@ -215,7 +215,10 @@ public class StringUtil {
 		Log.e("sign", sign.toString());
 		return sign.toString();
 	}
+	public static String getMoneyString(int money){
+		return String.format("%.2f", money/100f);
 
+	}
 	public static String formatNull(String str) {
 		if (TextUtils.isEmpty(str))
 			return "";

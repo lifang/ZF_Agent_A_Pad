@@ -75,6 +75,7 @@ public class Config {
 	public static final String Comment = PATHS + "order/batchSaveComment";
 
 	public static GoodinfoEntity gfe = null;
+	public static boolean iszd = false;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
 	public static ArrayList<ChanelEntitiy> celist2 = new ArrayList<ChanelEntitiy>();
 	public static ArrayList<tDates> tDates = new ArrayList<tDates>();

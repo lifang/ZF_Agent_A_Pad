@@ -328,7 +328,7 @@ public class TerminalApplyCreateActivity extends Activity implements
 		updateUIWithValidation();
 		// 从共享数据存储对象中获取所需的数据
 		SharedPreferences getData = getPreferences(0);
-		vcode = getData.getString("vcode", null);
+		vcode = getData.getString("vcode", "");
 		checkcode = getData.getBoolean("check", false);
 		if (checkcode) {
 			img_check_y.setVisibility(View.VISIBLE);
