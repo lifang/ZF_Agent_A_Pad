@@ -232,7 +232,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		tv_count = (TextView) findViewById(R.id.tv_count);
 		tv_tel = (TextView) findViewById(R.id.tv_tel);
 		tv_adress = (TextView) findViewById(R.id.tv_adress);
-		title2 = (TextView) findViewById(R.id.title2);
+		title2 = (TextView) findViewById(R.id.title);
 		retail_price = (TextView) findViewById(R.id.retail_price);
 		btn_pay = (Button) findViewById(R.id.btn_pay);
 		btn_pay.setOnClickListener(this);
@@ -401,13 +401,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 				ue.getAgentId(), ue.getId(), ue.getAgentUserId(), ordertype,
 				goodId, paychannelId, quantity, addressId, comment,
 				is_need_invoice, invoice_type, invoice_info,
-
 				new HttpCallback(LeaseConfirm.this) {
-
 					@Override
 					public void onSuccess(Object data) {
 						Intent i1 = new Intent(LeaseConfirm.this,
 								PayFromCar.class);
+						i1.putExtra("orderId", data.toString());
 						startActivity(i1);
 					}
 

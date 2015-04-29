@@ -231,6 +231,7 @@ containing a value of this type.
         public static final int alertll=0x7f06004b;
         /**  弹窗 
  弹窗 
+ 弹窗 
          */
         public static final int alertwidth=0x7f060049;
         public static final int d_10dp=0x7f060018;
@@ -259,6 +260,7 @@ containing a value of this type.
         public static final int d_9dp=0x7f060017;
         /**  订单确认 
  订单确认 
+ 订单确认 
          */
         public static final int ddheight=0x7f060051;
         public static final int ddheight1=0x7f060052;
@@ -266,12 +268,14 @@ containing a value of this type.
         public static final int ddrl_height=0x7f060055;
         /**  订单编辑框 
  订单编辑框 
+ 订单编辑框 
          */
         public static final int ddrl_width=0x7f060054;
         public static final int dlheight=0x7f06004e;
         public static final int dlimg=0x7f06004d;
         public static final int dlpad=0x7f060050;
         /**  登陆 
+ 登陆 
  登陆 
          */
         public static final int dltext=0x7f06004c;
@@ -286,6 +290,7 @@ containing a value of this type.
         public static final int edheight=0x7f060048;
         /**  编辑框 
  编辑框 
+ 编辑框 
          */
         public static final int edwidth=0x7f060047;
         public static final int goodimg=0x7f060068;
@@ -293,10 +298,12 @@ containing a value of this type.
         public static final int guidebtnwidth=0x7f060069;
         /**  首页 
  首页 
+ 首页 
          */
         public static final int iconma=0x7f060038;
         public static final int itemheight=0x7f06003c;
         /**  POS机列表 
+ POS机列表 
  POS机列表 
          */
         public static final int itemheight1=0x7f06003a;
@@ -304,6 +311,7 @@ containing a value of this type.
         public static final int leftfristtop=0x7f06003f;
         public static final int leftitemheight=0x7f060040;
         /**  我的 
+ 我的 
  我的 
          */
         public static final int leftwidth=0x7f06003e;
@@ -340,6 +348,7 @@ containing a value of this type.
         public static final int sp_height=0x7f060057;
         /**  下拉选择框 
  下拉选择框 
+ 下拉选择框 
          */
         public static final int sp_width=0x7f060056;
         public static final int sy_bt_height=0x7f060034;
@@ -348,12 +357,14 @@ containing a value of this type.
         public static final int textbig1=0x7f060042;
         /**  文字大小 
  文字大小 
+ 文字大小 
          */
         public static final int textbigs=0x7f060041;
         public static final int textmid=0x7f060044;
         public static final int textmids=0x7f060045;
         public static final int textsmall=0x7f060046;
         /**  Default screen margins, per the Android Design guidelines. 
+ Default screen margins, per the Android Design guidelines. 
          */
         public static final int titilepad=0x7f06002f;
         public static final int titilepad1=0x7f060030;
@@ -366,6 +377,7 @@ containing a value of this type.
         public static final int zc_margin_top2=0x7f06005f;
         public static final int zc_rl_h=0x7f060059;
         /**  注册找回密码 
+ 注册找回密码 
  注册找回密码 
          */
         public static final int zc_rl_w=0x7f060058;

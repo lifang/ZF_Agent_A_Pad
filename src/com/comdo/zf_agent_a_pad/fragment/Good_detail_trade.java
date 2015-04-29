@@ -22,7 +22,6 @@ public class Good_detail_trade extends Fragment implements OnClickListener{
 	private List<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 	@Override

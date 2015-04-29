@@ -106,7 +106,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		String img_url=getIntent().getStringExtra("evevt_img");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url,
  				event_img);
-		System.out.println("=paychannelId==" + paychannelId);
+		System.out.println("=pg_price==" + pg_price);
 		// getData1();
 	}
 
