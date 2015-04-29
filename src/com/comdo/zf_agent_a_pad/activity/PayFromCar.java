@@ -61,6 +61,11 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 
 		orderId = getIntent().getIntExtra("orderId", -1);
 		type = getIntent().getIntExtra("type", 5);
+		if (type == 5) {
+			priceEdit = getIntent().getStringExtra("pay");
+		}else {
+			priceEdit = "";
+		}
 		
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
 
@@ -162,7 +167,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 				order_totalPrice = data.getOrder_totalPrice();
 				shengyu_price = data.getShengyu_price();
 				
-				subject = "";
+				subject = "POS机";
 				body = subject;
 				outTradeNo = data.getOrder_number();
 				if (pay_status.equals("1")) {
