@@ -31,6 +31,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -101,7 +102,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private int mTerminalId;
 	private int mTerminalStatus;
 
-	private MerchantForApply mMerchant=new MerchantForApply();
+	private MerchantForApply mMerchant = new MerchantForApply();
 
 	private LayoutInflater mInflater;
 
@@ -231,7 +232,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mMaterialContainer_2_1 = (LinearLayout) findViewById(R.id.apply_detail_material_container_2_1);
 		mMaterialContainer_2_2 = (LinearLayout) findViewById(R.id.apply_detail_material_container_2_2);
 
-
 		mApplySubmit = (Button) findViewById(R.id.apply_submit);
 
 		mApplySubmit.setOnClickListener(new View.OnClickListener() {
@@ -289,8 +289,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 					// image types' value have been set in advance
 					Map<String, Object> param = new HashMap<String, Object>();
 					// yewei
-					param.put("Key", material.getName());
-					param.put("Value", material.getValue());
+					param.put("key", material.getName());
+					param.put("value", material.getValue());
 					param.put("types", material.getTypes());
 					param.put("openingRequirementId",
 							material.getOpeningRequirementId());
@@ -379,7 +379,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 												REQUEST_CHOOSE_MERCHANT,
 												getString(R.string.title_apply_choose_merchant),
 												mMerchantId,
-												(ArrayList<ApplyChooseItem>) merchants);
+												mTerminalId);
 									}
 								});
 						// set the customer details
@@ -412,8 +412,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		setItemValue(mMerchantKeys[2], openingInfos.getMerchant_name());
 		setItemValue(mMerchantKeys[3], items[openingInfos.getSex() % 2]);
 		mMerchantGender = openingInfos.getSex() % 2;
-		setItemValue(mMerchantKeys[4],
-				openingInfos.getBirthday());
+		setItemValue(mMerchantKeys[4], openingInfos.getBirthday());
 		setItemValue(mMerchantKeys[5], openingInfos.getCard_id());
 		setItemValue(mMerchantKeys[6], openingInfos.getPhone());
 		setItemValue(mMerchantKeys[7], openingInfos.getEmail());
@@ -462,7 +461,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 						public void onSuccess(MerchantForApply data) {
 							mMerchant = data;
 							setMerchantDetailValues(data);
-							mApplySubmit.setEnabled(true);
+//							mApplySubmit.setEnabled(true);
+							updateUIWithValidation();
 						}
 
 						@Override
@@ -508,7 +508,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 				@Override
 				public void handleMessage(Message msg) {
 					if (msg.what == 1) {
-	
 
 						mUploadUri = (String) msg.obj;
 						if (null != uploadingTextView) {
@@ -617,7 +616,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 	}
 
 	private void updateUIWithValidation() {
-		final boolean enabled = !TextUtils.isEmpty(getItemValue(mMerchantKeys[1]))
+		final boolean enabled = !TextUtils
+				.isEmpty(getItemValue(mMerchantKeys[1]))
 				&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[2]))
 				&& (mMerchantGender == 0 || mMerchantGender == 1)
 				&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[4]))
@@ -796,17 +796,17 @@ public class ApplyDetailActivity extends FragmentActivity {
 		setItemValue(mMerchantKeys[2], merchant.getTitle());
 		setItemValue(mMerchantKeys[5], merchant.getLegalPersonCardId());
 		setItemValue(mMerchantKeys[6], merchant.getPhone());
-		 CommonUtil.findCityById(this, merchant.getCityId(),
-		 new CommonUtil.OnCityFoundListener() {
-		 @Override
-		 public void onCityFound(Province province, City city) {
-		 mMerchantProvince = province;
-		 mMerchantCity = city;
-		 Log.e("--mMerchantCity--", mMerchantCity.getName());
-		 setItemValue(mMerchantKeys[8], city.getName());
-		 updateUIWithValidation();
-		 }
-		 });
+		CommonUtil.findCityById(this, merchant.getCityId(),
+				new CommonUtil.OnCityFoundListener() {
+					@Override
+					public void onCityFound(Province province, City city) {
+						mMerchantProvince = province;
+						mMerchantCity = city;
+						Log.e("--mMerchantCity--", mMerchantCity.getName());
+						setItemValue(mMerchantKeys[8], city.getName());
+						updateUIWithValidation();
+					}
+				});
 		setItemValue(mBankKeys[0], merchant.getAccountBankName());
 		setItemValue(mBankKeys[1], merchant.getAccountBankNum());
 		setItemValue(mBankKeys[2], merchant.getBankOpenAccount());
@@ -826,39 +826,16 @@ public class ApplyDetailActivity extends FragmentActivity {
 	 * @param items
 	 *            the items to choose
 	 */
-	private void startChooseItemActivity(final int requestCode, final String title,
-			final int selectedId, ArrayList<ApplyChooseItem> items) {
+	private void startChooseItemActivity(final int requestCode,
+			final String title, final int selectedId,int mTerminalId) {
 
-		final ArrayList<ApplyChooseItem> list = new ArrayList<ApplyChooseItem>();
-		
-		// TODO:
-		Config.getApplyMerchantDetail(ApplyDetailActivity.this,
-				187,
-				new HttpCallback<ApplyChooseItem>(
-						ApplyDetailActivity.this) {
+		Intent intent = new Intent(ApplyDetailActivity.this,
+				ApplyChooseActivity.class);
+		intent.putExtra(CHOOSE_TITLE, title);
+		intent.putExtra(SELECTED_ID, selectedId);
+		intent.putExtra(CHOOSE_ITEMS, mTerminalId);
+		startActivityForResult(intent, requestCode);
 
-					@Override
-					public void onSuccess(ApplyChooseItem data) {
-//						for (ApplyChooseItem item : data) {
-//
-//							list.add(item);
-//						}
-						Intent intent = new Intent(ApplyDetailActivity.this,
-								ApplyChooseActivity.class);
-						intent.putExtra(CHOOSE_TITLE, title);
-						intent.putExtra(SELECTED_ID, selectedId);
-						intent.putExtra(CHOOSE_ITEMS, data);
-						startActivityForResult(intent, requestCode);
-					}
-
-					@Override
-					public TypeToken<ApplyChooseItem> getTypeToken() {
-
-						return new TypeToken<ApplyChooseItem>() {
-						};
-					}
-				});
-	
 	}
 
 	/**
@@ -1189,8 +1166,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 					case 1: {
 						Intent intent = new Intent();
 						if (Build.VERSION.SDK_INT < 19) {
-							intent = new Intent(
-									Intent.ACTION_GET_CONTENT);
+							intent = new Intent(Intent.ACTION_GET_CONTENT);
 							intent.setType("image/*");
 						} else {
 							intent = new Intent(

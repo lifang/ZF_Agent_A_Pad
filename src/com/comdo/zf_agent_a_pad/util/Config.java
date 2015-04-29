@@ -1161,14 +1161,6 @@ public class Config {
 		new HttpRequest(context, callback).post(APPLY_SUBMIT, params);
 	}
 
-	public static void getMerchants(Context context, int agentId, int page,
-			int rows, HttpCallback callback) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("agentId", agentId);
-		params.put("page", page);
-		params.put("rows", rows);
-		new HttpRequest(context, callback).post(TERMINAL_MERCHANTS, params);
-	}
 
 	public static void getMerchants(Context context, int terminalId, int page,
 			int rows, String title, HttpCallback callback) {
@@ -1181,10 +1173,11 @@ public class Config {
 	}
 
 	public static void bindingTerminal(Context context, String terminalsNum,
-			int userId, HttpCallback callback) {
+			int userId,int agentId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("terminalsNum", terminalsNum);
 		params.put("userId", userId);
+		params.put("agentId", agentId);
 		new HttpRequest(context, callback).post(TERMINAL_BIND, params);
 	}
 
