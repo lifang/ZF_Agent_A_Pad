@@ -23,15 +23,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.fragment.Constants;
+import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
@@ -150,15 +153,15 @@ public class Register extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btn_uplode_card:
 			tag = 1;
-			showchooseDialog(btn_uplode_card, tag);
+			showchooseDialog(btn_uplode_card, tag, cardPhotoPath);
 			break;
 		case R.id.btn_uplode_business:
 			tag = 2;
-			showchooseDialog(btn_uplode_business, tag);
+			showchooseDialog(btn_uplode_business, tag, licensePhotoPath);
 			break;
 		case R.id.btn_uplode_tax:
 			tag = 3;
-			showchooseDialog(btn_uplode_tax, tag);
+			showchooseDialog(btn_uplode_tax, tag, taxPhotoPath);
 			break;
 		case R.id.btn_save:
 			submit();
@@ -252,11 +255,11 @@ public class Register extends BaseActivity implements OnClickListener {
 
 			if (agentType == 1) {
 
-				Config.userRegistration(Register.this, username, StringUtil.Md5(password),
-						cityId, cardId, phone, email, name, agentType,
-						companyName, address, businessLicense, cardPhotoPath,
-						taxRegisteredNo, licensePhotoPath, taxPhotoPath,
-						new HttpCallback(Register.this) {
+				Config.userRegistration(Register.this, username,
+						StringUtil.Md5(password), cityId, cardId, phone, email,
+						name, agentType, companyName, address, businessLicense,
+						cardPhotoPath, taxRegisteredNo, licensePhotoPath,
+						taxPhotoPath, new HttpCallback(Register.this) {
 
 							@Override
 							public void onSuccess(Object data) {
@@ -281,9 +284,10 @@ public class Register extends BaseActivity implements OnClickListener {
 
 			} else if (agentType == 2) {
 
-				Config.userRegistration(Register.this, username, StringUtil.Md5(password),
-						cityId, cardId, phone, email, name, agentType, address,
-						cardPhotoPath, new HttpCallback(Register.this) {
+				Config.userRegistration(Register.this, username,
+						StringUtil.Md5(password), cityId, cardId, phone, email,
+						name, agentType, address, cardPhotoPath,
+						new HttpCallback(Register.this) {
 
 							@Override
 							public void onSuccess(Object data) {
@@ -463,7 +467,7 @@ public class Register extends BaseActivity implements OnClickListener {
 
 	}
 
-	private void showchooseDialog(Button btn, final int tag) {
+	private void showchooseDialog(Button btn, final int tag, final String uri) {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
 		LayoutInflater factory = LayoutInflater.from(this);
@@ -480,6 +484,23 @@ public class Register extends BaseActivity implements OnClickListener {
 		if (btn.getText().toString().equals("")) {
 			seeimg.setVisibility(View.VISIBLE);
 			line_one.setVisibility(View.VISIBLE);
+			seeimg.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					dialog.dismiss();
+					AlertDialog.Builder build = new AlertDialog.Builder(Register.this);
+					LayoutInflater factory = LayoutInflater.from(Register.this);
+					final View textEntryView = factory.inflate(
+							R.layout.show_view, null);
+					build.setView(textEntryView);
+					final ImageView view = (ImageView) textEntryView
+							.findViewById(R.id.imag);
+					Log.e("YYYYYYYYYYYYYYYYY", uri);
+					ImageCacheUtil.IMAGE_CACHE.get(uri, view);
+				     build.create().show();
+				}
+			});
 		}
 		choosealbum.setOnClickListener(new OnClickListener() {
 

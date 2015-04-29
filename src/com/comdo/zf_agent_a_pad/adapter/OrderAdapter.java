@@ -157,7 +157,7 @@ public class OrderAdapter extends BaseAdapter{
  		}else{
  			holder.btn_comment.setId(-1);
  		}
- 		holder.tv_price.setText("￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice()*1.0f/100);
+ 		
  		holder.content2.setText(list.get(position).getOrder_goodsList().get(0).getGood_brand());
  		holder.tv_gtd.setText(list.get(position).getOrder_goodsList().get(0).getGood_channel());
  		holder.content_pp.setText(list.get(position).getOrder_goodsList().get(0).getGood_name()); 		 
@@ -170,8 +170,10 @@ public class OrderAdapter extends BaseAdapter{
  		holder.tv_time.setText(list.get(position).getOrder_createTime()	);
  		
  		if(OrderList.type.equals("5")){
+ 			holder.tv_price.setText("￥"+list.get(position).getOrder_goodsList().get(0).getGood_actualprice()*1.0f/100);
  			 holder.tv_sum.setText(list.get(position).getOrder_goodsList().get(0).getGood_num().equals("")?"":"共计:   "+list.get(position).getOrder_goodsList().get(0).getGood_num()	+"件");
  		}else{
+ 			holder.tv_price.setText("￥"+Integer.parseInt(list.get(position).getOrder_goodsList().get(0).getGood_price())*1.0f/100);
  			holder.tv_sum.setText("归属用户:   "+list.get(position).getGuishu_user());
  		}
  		
@@ -185,6 +187,7 @@ public class OrderAdapter extends BaseAdapter{
 			if(OrderList.type.equals("5")){
 				holder.tv_status.setText("已付订金");
 				holder.btn_pay.setText("付款");
+				holder.btn_comment.setVisibility(View.GONE);
 				holder.ll_ishow.setVisibility(View.VISIBLE);
 			}else{
 				holder.tv_status.setText("已付款");
@@ -344,12 +347,19 @@ public class OrderAdapter extends BaseAdapter{
 							try {
 								i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
 								i.putExtra("type", Integer.parseInt(OrderList.type));
-								i.putExtra("pay",pay);
-								Toast.makeText(context, pay, 1000).show();
+								i.putExtra("pay",pay);							
+							
 							} catch (Exception e) {
 								
-							}								
-							context.startActivity(i);					
+							}	
+							Log.i(pay,list.get(v.getId()).getShengyu_price());
+							context.startActivity(i);	
+							/*if(Float.parseFloat(pay)<Float.parseFloat(list.get(v.getId()).getShengyu_price())){
+								context.startActivity(i);	
+							}else{
+								Toast.makeText(context, "金额不能大于剩余金额！", 1000).show();	
+							}*/
+											
 						}
 					});		
 				}else{
