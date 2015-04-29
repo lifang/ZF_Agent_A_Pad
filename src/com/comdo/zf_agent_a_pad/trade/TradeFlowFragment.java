@@ -217,6 +217,7 @@ public class TradeFlowFragment extends Fragment implements
 		mRecordList.initHeaderAndFooter();
 		mRecordList.setXListViewListener(this);
 		mRecordList.setPullRefreshEnable(false);
+		mRecordList.setPullLoadEnable(true);
 		mRecordList.setAdapter(mAdapter);
 
 		mRecordList

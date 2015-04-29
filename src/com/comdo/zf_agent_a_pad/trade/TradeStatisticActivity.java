@@ -62,8 +62,12 @@ public class TradeStatisticActivity extends Activity {
 						statisticAmount.setText(getString(R.string.notation_yuan)
 								+ df.format(data.getAmountTotal() * 1.0f / 100));
 						statisticCount.setText("" + data.getTradeTotal());
-						statisticTime.setText(mStartDate.replaceAll("-", "/")
-								+ " - " + mEndDate.replaceAll("-", "/"));
+						
+						if(mStartDate != null && mEndDate != null){
+							statisticTime.setText(mStartDate.replaceAll("-", "/")
+									+ " - " + mEndDate.replaceAll("-", "/"));
+						}
+						
 						statisticClient.setText(data.getTerminalNumber());
 						statisticChannel.setText(data.getPayChannelName());
 					}

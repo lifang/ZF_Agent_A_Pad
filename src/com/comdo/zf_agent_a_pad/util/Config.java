@@ -34,6 +34,8 @@ public class Config {
 	public static final String VIDEO_SERVER_IP = "121.40.84.2";
 	public static final int VIDEO_SERVER_PORT = 8906;
 
+	public static final String URL_NOTICE_VIDEO = "http://121.40.84.2:8180/zfmanager/notice/video";
+
 	// 商户PID
 	public static final String PARTNER = "2088811347108355";
 	// 商户收款账号
@@ -222,6 +224,8 @@ public class Config {
 			+ "stock/terminallist";
 	// 代购订单信息
 	public static final String SHOP_PAYORDER = PATHS + "shop/payOrder";
+	// 批购订单信息
+	public static final String ORDER_PAYORDER = PATHS + "order/payOrder";
 	// get code
 	public static final String GETCODE4PHONE = PATHS
 			+ "user/sendPhoneVerificationCodeReg";
@@ -304,7 +308,7 @@ public class Config {
 	// apply submit
 	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
 
-	
+
 	// get terminal list
 	public static final String GET_TERMINAL_LIST = PATHS
 			+ "preparegood/getterminalslist";
@@ -368,7 +372,7 @@ public class Config {
 			+ "preparegood/getgoodlist";
 	// synchronous
 
-		public static final String SYNCHRONOUS = PATHS + "terminal/synchronous";
+	public static final String SYNCHRONOUS = PATHS + "terminal/synchronous";
 
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
@@ -605,7 +609,7 @@ public class Config {
 			int rows, HttpCallback callback) {
 
 		//RequestParams params = new RequestParams();
-		 Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("page", page);
 		params.put("rows", rows);
@@ -849,7 +853,7 @@ public class Config {
 	public static void GetAdressLis(Context context, int customerId,
 
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 
 		RequestParams params = new RequestParams();
 		params.put("customerId", customerId);
@@ -963,7 +967,7 @@ public class Config {
 		new HttpRequest(context, callback).post(RESET_PROFIT, params);
 	}
 
-;
+	;
 
 	public static void changeAdres(Context context, int id, String cityId,
 			String receiver, String moblephone, String zipCode, String address,
@@ -1431,13 +1435,18 @@ public class Config {
 
 
 	public static void shopPayOrder(Context context, int id,
-
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		new HttpRequest(context, callback).post(SHOP_PAYORDER, params);
 	}
-
+	public static void orderPayOrder(Context context, int id,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		new HttpRequest(context, callback).post(ORDER_PAYORDER, params);
+	}
+	
 	public static void synchronous(Context context, String terminalid,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();

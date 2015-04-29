@@ -24,6 +24,7 @@ import com.bairuitech.anychat.AnyChatBaseEvent;
 import com.bairuitech.anychat.AnyChatCoreSDK;
 import com.bairuitech.anychat.AnyChatDefine;
 import com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent;
+import com.comdo.zf_agent_a_pad.trade.API;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.video.config.ConfigEntity;
@@ -64,7 +65,7 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 		Intent intent = getIntent();
 		mSRoomID = intent.getIntExtra(TerminalIntent.TERMINAL_ID, 0);
 		mStrIP = Config.VIDEO_SERVER_IP;
-		mStrName = MyApplication.NewUser.getAgentUserId()+"";
+		mStrName = MyApplication.NewUser.getId()+"";
 		mSPort = Config.VIDEO_SERVER_PORT;
 		InitSDK();
 		InitLayout();
@@ -401,6 +402,8 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 
 	protected void onDestroy() {
 		super.onDestroy();
+		anychatSDK.LeaveRoom(-1);
+		anychatSDK.Logout();
 		handler.removeCallbacks(runnable);
 		anychatSDK.mSensorHelper.DestroySensor();
 		finish();
@@ -477,7 +480,10 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 	@Override
 	public void OnAnyChatEnterRoomMessage(int dwRoomId, int dwErrorCode) {
 		Log.i(TAG, "OnAnyChatEnterRoomMessage:" + "dwRoomId-" + dwRoomId + " dwErrorCode-"+dwErrorCode);
-		videoOther();
+		int userId = videoOther();
+		if(userId == 0){
+			API.noticeVideo(VideoActivity.this, dwRoomId);
+		}
 		anychatSDK.UserCameraControl(-1, 1);// -1表示对本地视频进行控制，打开本地视频
 		anychatSDK.UserSpeakControl(-1, 1);// -1表示对本地音频进行控制，打开本地音频
 	}
@@ -527,7 +533,7 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 //		sendBroadcast(mIntent);
 	}
 	
-	private void videoOther(){
+	private int videoOther(){
 		int[] ids = anychatSDK.GetOnlineUser();
 		userID = 0;
 		for (int id : ids) {
@@ -535,9 +541,10 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 		}
 		int index = anychatSDK.mVideoHelper.bindVideo(mOtherView
 				.getHolder());
-		anychatSDK.mVideoHelper.SetVideoUser(index, 80);
+		anychatSDK.mVideoHelper.SetVideoUser(index, userID);
 
-		anychatSDK.UserCameraControl(80, 1);
-		anychatSDK.UserSpeakControl(80, 1);
+		anychatSDK.UserCameraControl(userID, 1);
+		anychatSDK.UserSpeakControl(userID, 1);
+		return userID;
 	}
 }

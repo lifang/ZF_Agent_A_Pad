@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.alipay.PayActivity;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -26,7 +25,7 @@ import com.google.gson.reflect.TypeToken;
 public class PayFromCar extends PayActivity implements OnClickListener{
 	private TextView tv_pay;
 	private LinearLayout titleback_linear_back, ll_request;
-	private String orderId = "";
+	private int orderId;
 	private String outTradeNo;
 	private String subject;
 	private String body;
@@ -50,14 +49,10 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pay);
 
-		orderId = getIntent().getExtras().getString("orderId", "");
+		orderId = getIntent().getIntExtra("orderId", 0);
 		type = getIntent().getIntExtra("type", 0);
 		
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
-
-		if (orderId.equals("")) {
-			Toast.makeText(this, "没有传订单id", Toast.LENGTH_SHORT).show();
-		}
 
 		tv_pay=(TextView) findViewById(R.id.tv_pay);
 
@@ -66,7 +61,11 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		ll_request = (LinearLayout) findViewById(R.id.ll_request);
 		ll_request.setOnClickListener(this);
 		
-		getData();
+		if (type == 5) {
+			getOrderPayOrder();//批购
+		}else {
+			getShopPayOrder();//代购
+		}
 	}
 	@Override
 	public void onClick(View v) {
@@ -108,11 +107,11 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	private void getData() {
+	private void getShopPayOrder() {
 
-		Config.shopPayOrder(this, Integer.parseInt(orderId), 
+		Config.shopPayOrder(this, orderId, 
 				new HttpCallback<PayOrderEntity>(this) {
-
+ 
 			@Override
 			public void onSuccess(PayOrderEntity data) {
 				if (data.getGood().size()>0) {
@@ -131,7 +130,29 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 			}
 		});
 	}
+	private void getOrderPayOrder() {
 
+		Config.orderPayOrder(this, orderId, 
+				new HttpCallback<PayOrderEntity>(this) {
+ 
+			@Override
+			public void onSuccess(PayOrderEntity data) {
+				if (data.getGood().size()>0) {
+					subject = data.getGood().get(0).getTitle();
+					body = subject;
+				}
+				outTradeNo = data.getOrder_number();
+				price = data.getTotal_price();
+				price = String.format("%.2f", Integer.parseInt(price)/100f);
+				handler.sendEmptyMessage(0);
+			}
+			@Override
+			public TypeToken<PayOrderEntity> getTypeToken() {
+				return new TypeToken<PayOrderEntity>() {
+				};
+			}
+		});
+	}
 	
 	@Override
 	public void success() {
