@@ -118,7 +118,7 @@ public class GenerateSearch extends Activity implements OnClickListener,
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				if (position - 1 == data.size() - 1) {
+				if (position == data.size() - 1) {
 
 					DeletaData();
 				} else {

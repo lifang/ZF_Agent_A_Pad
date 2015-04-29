@@ -224,8 +224,8 @@ private void openimg(int tag) {
      build.setView(textEntryView);
      final ImageView view=(ImageView) textEntryView.findViewById(R.id.imag);
      int ppp=tag-1;
-     //ImageCacheUtil.IMAGE_CACHE.get(imgPath[ppp], view);
-     ImageCacheUtil.IMAGE_CACHE.get("http://www.sinaimg.cn/dy/slidenews/2_img/2015_16/789_1481006_298613.jpg", view);
+     ImageCacheUtil.IMAGE_CACHE.get(imgPath[ppp], view);
+     //ImageCacheUtil.IMAGE_CACHE.get("http://www.sinaimg.cn/dy/slidenews/2_img/2015_16/789_1481006_298613.jpg", view);
      build.create().show();
 
 	
