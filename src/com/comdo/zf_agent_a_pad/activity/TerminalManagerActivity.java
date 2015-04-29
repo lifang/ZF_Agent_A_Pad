@@ -119,7 +119,7 @@ public class TerminalManagerActivity extends Activity implements
 						.getStringArray(R.array.terminalAllStatus));
 		adapter.setDropDownViewResource(R.layout.drop_down_item_text);
 		spinner.setAdapter(adapter);
-
+		spinner.setSelection(0, false);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int status, long arg3) {
@@ -128,6 +128,7 @@ public class TerminalManagerActivity extends Activity implements
 					mStatus = status;
 				} else {
 					mStatus = -1;
+					mTerminalList.setPullLoadEnable(true);
 				}
 
 				isLoadMore = false;
@@ -370,19 +371,20 @@ public class TerminalManagerActivity extends Activity implements
 
 				TerminalManagerEntity item = (TerminalManagerEntity) view
 						.getTag();
-				Config.synchronous(TerminalManagerActivity.this, item.getPosPortID(),new HttpCallback(TerminalManagerActivity.this)
-						{
+				Config.synchronous(TerminalManagerActivity.this, item
+						.getPosPortID(), new HttpCallback(
+						TerminalManagerActivity.this) {
 
-							@Override
-							public void onSuccess(Object data) {
-								System.out.println();
-							}
+					@Override
+					public void onSuccess(Object data) {
+						System.out.println(data.toString());
+					}
 
-							@Override
-							public TypeToken getTypeToken() {
-								return null;
-							}
-				} );
+					@Override
+					public TypeToken getTypeToken() {
+						return null;
+					}
+				});
 			}
 		};
 		mOpenListener = new View.OnClickListener() {
@@ -452,14 +454,15 @@ public class TerminalManagerActivity extends Activity implements
 		mVideoListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				//添加视频审核
+				// 添加视频审核
 				TerminalManagerEntity item = (TerminalManagerEntity) view
 						.getTag();
-				
-				Intent intent = new Intent(TerminalManagerActivity.this, VideoActivity.class);
+
+				Intent intent = new Intent(TerminalManagerActivity.this,
+						VideoActivity.class);
 				intent.putExtra(TERMINAL_ID, item.getId());
 				startActivity(intent);
-				
+
 			}
 		};
 	}
@@ -469,6 +472,7 @@ public class TerminalManagerActivity extends Activity implements
 		if (!isLoadMore) {
 
 			page = 0;
+			mTerminalItems.clear();
 		}
 		if ((searchKey != null && !"".equals(searchKey)) || mStatus != -1) {
 
@@ -481,8 +485,6 @@ public class TerminalManagerActivity extends Activity implements
 						public void onSuccess(
 								PageApply<TerminalManagerEntity> data) {
 							if (null != data.getList()) {
-								if (!isLoadMore)
-									mTerminalItems.clear();
 								mTerminalItems.addAll(data.getList());
 							}
 							total = data.getTotal();
@@ -574,7 +576,8 @@ public class TerminalManagerActivity extends Activity implements
 		if (mTerminalItems.size() >= total) {
 			mTerminalList.setPullLoadEnable(false);
 			mTerminalList.stopLoadMore();
-			CommonUtil.toastShort(this, getResources().getString(R.string.no_more_data));
+			CommonUtil.toastShort(this,
+					getResources().getString(R.string.no_more_data));
 		} else {
 			isLoadMore = true;
 			loadData();

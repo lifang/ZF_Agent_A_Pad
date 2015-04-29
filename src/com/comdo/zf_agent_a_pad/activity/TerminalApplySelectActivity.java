@@ -46,6 +46,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
+import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -54,7 +55,8 @@ import com.google.gson.reflect.TypeToken;
 
  */
 public class TerminalApplySelectActivity extends Activity implements
-		View.OnClickListener {
+		View.OnClickListener,
+		XListView.IXListViewListener {
 
 	private View mChooseChannel;
 	private TextView selectedpos, selectedchannel;
@@ -78,9 +80,12 @@ public class TerminalApplySelectActivity extends Activity implements
 	private ApplyChannel mChosenChannel;
 	private ApplyChannel.Billing mChosenBilling;
 	public static final int REQUEST_CHOOSE_POS = 1000;
-
 	private static final int REQUEST_SEARCH = 1001;
 
+	private Boolean isLoadMore = true;
+	private int page = 0;
+	private int total = 0;
+	private final int rows = 10;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,7 +97,10 @@ public class TerminalApplySelectActivity extends Activity implements
 		mTerminalList = (XListView) findViewById(R.id.apply_list);
 		mTerminalItems = new ArrayList<TerminalPriceEntity>();
 		mAdapter = new TerminalListAdapter();
-		mTerminalList.setPullLoadEnable(false);
+		// init the XListView
+		mTerminalList.initHeaderAndFooter();
+		mTerminalList.setXListViewListener(this);
+		mTerminalList.setPullLoadEnable(true);
 		mTerminalList.getmFooterView().setVisibility(View.GONE);
 		mTerminalList.setAdapter(mAdapter);
 		posselect = (LinearLayout) findViewById(R.id.posselect);
@@ -255,67 +263,7 @@ public class TerminalApplySelectActivity extends Activity implements
 
 		case R.id.terminal_commit:
 
-			if (zdhString != null && !"".equals(zdhString)) {
-
-				String[] str = new String[] {};
-
-				str = zdhString.split("\n");
-
-				Config.batchTerminalNum(TerminalApplySelectActivity.this, str,
-						MyApplication.NewUser.getAgentId(),
-						new HttpCallback<List<TerminalPriceEntity>>(this) {
-							@Override
-							public void onSuccess(List<TerminalPriceEntity> data) {
-
-								mTerminalItems.addAll(data);
-								mAdapter.notifyDataSetChanged();
-
-							}
-
-							@Override
-							public void onFailure(String message) {
-								super.onFailure(message);
-							}
-
-							@Override
-							public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
-								return new TypeToken<List<TerminalPriceEntity>>() {
-								};
-							}
-						});
-
-			} else if (maxPrice < minPrice) {
-
-				CommonUtil
-						.toastShort(
-								TerminalApplySelectActivity.this,
-								getResources().getString(
-										R.string.terminal_price_error));
-
-			} else {
-
-				Config.screeningTerminalNum(TerminalApplySelectActivity.this,
-						posName, mChannelId, minPrice, maxPrice,
-						MyApplication.NewUser.getAgentId(),
-						new HttpCallback<List<TerminalPriceEntity>>(this) {
-							@Override
-							public void onSuccess(List<TerminalPriceEntity> data) {
-
-							}
-
-							@Override
-							public void onFailure(String message) {
-								super.onFailure(message);
-							}
-
-							@Override
-							public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
-								return new TypeToken<List<TerminalPriceEntity>>() {
-								};
-							}
-						});
-
-			}
+			loadData();
 
 			break;
 		case R.id.posselect:
@@ -373,6 +321,87 @@ public class TerminalApplySelectActivity extends Activity implements
 		}
 	}
 
+	private void loadData() {
+		
+		if (zdhString != null && !"".equals(zdhString)) {
+
+			String[] str = new String[] {};
+
+			str = zdhString.split("\n");
+
+			Config.batchTerminalNum(TerminalApplySelectActivity.this, str,
+					MyApplication.NewUser.getAgentId(),
+					new HttpCallback<List<TerminalPriceEntity>>(this) {
+						@Override
+						public void onSuccess(List<TerminalPriceEntity> data) {
+
+							if (data.size()<rows) {
+								isLoadMore=false;
+							}else {
+								isLoadMore=true;
+							}
+							mTerminalItems.addAll(data);
+							page++;
+							mAdapter.notifyDataSetChanged();
+							loadFinished();
+
+						}
+
+						@Override
+						public void onFailure(String message) {
+							super.onFailure(message);
+						}
+
+						@Override
+						public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
+							return new TypeToken<List<TerminalPriceEntity>>() {
+							};
+						}
+					});
+
+		} else if (maxPrice < minPrice) {
+
+			CommonUtil
+					.toastShort(
+							TerminalApplySelectActivity.this,
+							getResources().getString(
+									R.string.terminal_price_error));
+
+		} else {
+
+			Config.screeningTerminalNum(TerminalApplySelectActivity.this,
+					posName, mChannelId, minPrice, maxPrice,
+					MyApplication.NewUser.getAgentId(),page+1,rows,
+					new HttpCallback<List<TerminalPriceEntity>>(this) {
+						@Override
+						public void onSuccess(List<TerminalPriceEntity> data) {
+
+							if (data.size()<rows) {
+								isLoadMore=false;
+							} else {
+								isLoadMore=true;
+							}
+							mTerminalItems.addAll(data);
+							page++;
+							mAdapter.notifyDataSetChanged();
+							loadFinished();
+						}
+
+						@Override
+						public void onFailure(String message) {
+							super.onFailure(message);
+						}
+
+						@Override
+						public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
+							return new TypeToken<List<TerminalPriceEntity>>() {
+							};
+						}
+					});
+
+		}
+	}
+
 	@Override
 	protected void onActivityResult(final int requestCode, int resultCode,
 			final Intent data) {
@@ -397,6 +426,32 @@ public class TerminalApplySelectActivity extends Activity implements
 			mChannelId = mChosenChannel.getId();
 			selectedchannel.setText(mChosenChannel.getName());
 		}
+		}
+	}
+
+	private void loadFinished() {
+		mTerminalList.stopRefresh();
+		mTerminalList.stopLoadMore();
+		mTerminalList.setRefreshTime(Tools.getHourAndMin());
+	}
+
+	@Override
+	public void onRefresh() {
+		page = 0;
+		mTerminalItems.clear();
+		mTerminalList.setPullLoadEnable(true);
+		loadData();
+	}
+
+	@Override
+	public void onLoadMore() {
+		if (!isLoadMore) {
+			mTerminalList.setPullLoadEnable(false);
+			mTerminalList.stopLoadMore();
+			CommonUtil.toastShort(this,
+					getResources().getString(R.string.no_more_data));
+		} else {
+			loadData();
 		}
 	}
 }

@@ -126,11 +126,12 @@ public class ApplyListActivity extends Activity implements
 		if (!isLoadMore) {
 
 			page = 0;
+			mTerminalItems.clear();
 		}
 		if ((searchKey != null && !"".equals(searchKey))) {
 
 			Config.searchApplyList(ApplyListActivity.this,
-					MyApplication.NewUser.getAgentId(), page, rows, searchKey,
+					MyApplication.NewUser.getAgentId(), page+1, rows, searchKey,
 					new HttpCallback<PageApply<TerminalManagerEntity>>(
 							ApplyListActivity.this) {
 						@Override
@@ -138,8 +139,6 @@ public class ApplyListActivity extends Activity implements
 								PageApply<TerminalManagerEntity> data) {
 							if (null == data || data.getList().size() <= 0)
 								noMoreData = true;
-							if (!isLoadMore)
-								mTerminalItems.clear();
 							mTerminalItems.addAll(data.getList());
 							page++;
 							mAdapter.notifyDataSetChanged();
