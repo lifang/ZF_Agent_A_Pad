@@ -167,7 +167,11 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 				order_totalPrice = data.getOrder_totalPrice();
 				shengyu_price = data.getShengyu_price();
 				
-				subject = "POS机";
+				if (!StringUtil.isNull(data.getBody())) {
+					subject = data.getBody();
+				}else {
+					subject = "";
+				}
 				body = subject;
 				outTradeNo = data.getOrder_number();
 				System.out.println("pay_status:::orderId"+pay_status+":::"+orderId);
@@ -178,7 +182,11 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 					}
 				}else {
 					price = priceEdit;
-					price = String.format("%.2f", Integer.parseInt(price)/1f);
+					if (!StringUtil.isNull(price)) {
+						price = String.format("%.2f", Float.parseFloat(price));
+					}else {
+						price = "0.00";
+					}
 				}
 				handler.sendEmptyMessage(0);
 			}
