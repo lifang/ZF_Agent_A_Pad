@@ -298,7 +298,7 @@ public class OrderAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(context,PayFromCar.class);
-				i.putExtra("orderId",list.get(v.getId()).getOrder_id() );
+				i.putExtra("orderId",list.get(v.getId()).getOrder_id());
 
 				if(OrderList.type.equals("5")){
 					i.putExtra("type", 0);

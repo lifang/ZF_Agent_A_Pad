@@ -341,6 +341,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		case R.id.bt_pay:
 			Intent i = new Intent(OrderDetail.this,
 					PayFromCar.class);
+			i.putExtra("orderId",id);
 			if(OrderList.type.equals("5")){
 				i.putExtra("type", 0);
 			}else{
