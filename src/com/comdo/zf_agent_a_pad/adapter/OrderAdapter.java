@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,6 +38,7 @@ import com.comdo.zf_agent_a_pad.util.AlertDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.PayAlertDialog;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
@@ -181,8 +184,8 @@ public class OrderAdapter extends BaseAdapter{
 		case 2:
 			if(OrderList.type.equals("5")){
 				holder.tv_status.setText("已付订金");
-				
-				holder.ll_ishow.setVisibility(View.GONE);
+				holder.btn_pay.setText("付款");
+				holder.ll_ishow.setVisibility(View.VISIBLE);
 			}else{
 				holder.tv_status.setText("已付款");
 				holder.ll_ishow.setVisibility(View.GONE);
@@ -316,16 +319,49 @@ public class OrderAdapter extends BaseAdapter{
 	});
  		holder.btn_pay.setOnClickListener(new OnClickListener() {
 			
+			private PayAlertDialog ad;
+			private Intent i;
+
 			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(context,PayFromCar.class);
-				try {
-					i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
-					i.putExtra("type", Integer.parseInt(OrderList.type));
-				} catch (Exception e) {
-					
-				}								
-				context.startActivity(i);
+			public void onClick(final View v) {
+				i = new Intent(context,PayFromCar.class);
+				if(((Button)v).getText().equals("付款")&&OrderList.type.equals("5")){
+					ad = new PayAlertDialog(context);   
+					ad.setTitle("付款");				
+					ad.setPositiveButton("取消", new OnClickListener() {				
+						@Override
+						public void onClick(View arg0) {
+							ad.dismiss();				
+						}
+					});
+					ad.setNegativeButton("确定", new OnClickListener() {
+						
+						@Override
+						public void onClick(View arg0) {
+							String pay=ad.getPay();
+							
+							ad.dismiss();
+							try {
+								i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
+								i.putExtra("type", Integer.parseInt(OrderList.type));
+								i.putExtra("pay",pay);
+								Toast.makeText(context, pay, 1000).show();
+							} catch (Exception e) {
+								
+							}								
+							context.startActivity(i);					
+						}
+					});		
+				}else{
+					try {
+						i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
+						i.putExtra("type", Integer.parseInt(OrderList.type));
+					} catch (Exception e) {
+						
+					}								
+					context.startActivity(i);
+				}
+				
 			}
 		});
  		convertView.setId(position);
@@ -337,11 +373,16 @@ public class OrderAdapter extends BaseAdapter{
 				int index=v.getId();
 				Intent i = new Intent(context, OrderDetail.class);
 				i.putExtra("status", list.get(index).getOrder_status());
-				i.putExtra("id", list.get(index).getOrder_id());
+				try {
+					i.putExtra("id", Integer.parseInt(list.get(index).getOrder_id()));
+				} catch (Exception e) {
+					
+				}
+				
 				/*if(list.get(index).getOrder_goodsList().get(0).getGood_id().equals("")){
 					i.putExtra("goodid", list.get(index).getOrder_goodsList().get(0).getGood_id());
 				}*/	
-				i.putExtra("type",Integer.parseInt(OrderList.type));			
+				i.putExtra("type",Integer.parseInt(OrderList.type));
 				context.startActivity(i);
 			}
 		});

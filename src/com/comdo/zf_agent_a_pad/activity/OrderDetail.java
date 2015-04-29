@@ -124,7 +124,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.order_detail);
 
 		status = getIntent().getIntExtra("status", 0);
-		id = Integer.parseInt(getIntent().getStringExtra("id"));
+		id = getIntent().getIntExtra("id", 0);
 		type = getIntent().getIntExtra("type",5);
 		//goodid = getIntent().getIntExtra("goodid", -1);
 		if (type == 5) {
@@ -147,6 +147,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		} else {
 			url = Config.ORDERDETAIL1;
 		}
+		Log.i("url",url);
 		MyApplication.getInstance().getClient()
 				.post(url, params, new AsyncHttpResponseHandler() {
 					@Override
@@ -276,6 +277,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			break;
 		case 2:
 			if (OrderList.type.equals("5")) {
+				bt_pay.setText("付款");
 				tv_status.setText("已付订金");
 				btn_ishow.setVisibility(View.VISIBLE);
 			} else {
