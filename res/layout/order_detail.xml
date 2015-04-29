@@ -101,14 +101,15 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:gravity="center|right" >
+                     >
 
                     <LinearLayout
                         android:id="@+id/ll_ishow"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:layout_marginBottom="11dp"
-                        android:gravity="right|center_vertical"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
                         android:paddingTop="20dp" >
 
                         <LinearLayout
@@ -153,8 +154,36 @@
                         android:layout_centerInParent="true"
                         android:background="@color/bgtitle"
                         android:text="评价"
+                        android:textSize="@dimen/textmid"
                         android:textColor="@color/ffffff"
                         android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_pg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone"
+                        android:orientation="vertical" >
+                         <TextView
+                            android:id="@+id/tv_yf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                           
+                            android:textColor="@color/text292929"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_sy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text292929"
+                         
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
                 </RelativeLayout>
             </LinearLayout>
 

@@ -10,6 +10,34 @@ public class OrderEntity {
 	private String order_type;
 	private String guishu_user;
 	private String actual_price;
+	private String zhifu_dingjin;
+	private String shengyu_price;
+	private String shipped_quantity;
+	
+	public String getShipped_quantity() {
+		return shipped_quantity;
+	}
+
+	public void setShipped_quantity(String shipped_quantity) {
+		this.shipped_quantity = shipped_quantity;
+	}
+
+	public String getZhifu_dingjin() {
+		return zhifu_dingjin;
+	}
+
+	public void setZhifu_dingjin(String zhifu_dingjin) {
+		this.zhifu_dingjin = zhifu_dingjin;
+	}
+
+	public String getShengyu_price() {
+		return shengyu_price;
+	}
+
+	public void setShengyu_price(String shengyu_price) {
+		this.shengyu_price = shengyu_price;
+	}
+
 	public String getActual_price() {
 		return actual_price;
 	}
@@ -53,7 +81,7 @@ public class OrderEntity {
 	private String order_id;
 
 	// "order_totalPrice": 35000,
-	private int order_totalPrice;
+	private String order_totalPrice;
 	// "order_status": 4,
 	private int order_status;
 	private List<Goodlist> order_goodsList;
@@ -103,11 +131,12 @@ public class OrderEntity {
 		this.order_id = order_id;
 	}
 
-	public int getOrder_totalPrice() {
+
+	public String getOrder_totalPrice() {
 		return order_totalPrice;
 	}
 
-	public void setOrder_totalPrice(int order_totalPrice) {
+	public void setOrder_totalPrice(String order_totalPrice) {
 		this.order_totalPrice = order_totalPrice;
 	}
 

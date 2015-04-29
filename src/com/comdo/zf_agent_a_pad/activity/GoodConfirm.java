@@ -7,6 +7,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -290,11 +291,15 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 					@Override
 					public void onSuccess(Object data) {	
 						Intent i1 = new Intent(GoodConfirm.this, PayFromCar.class);
-						i1.putExtra("orderId", data.toString());
+						try {
+							i1.putExtra("orderId", Integer.parseInt(data.toString()));
+						} catch (Exception e) {
+							
+						}					
 						if(PosListActivity.shoptype==1){
-							i1.putExtra("type", 0);
+							i1.putExtra("type", 5);
 						}else{
-							i1.putExtra("type", 1);
+							i1.putExtra("type", 3);
 						}
 						startActivity(i1);
 					}

@@ -52,6 +52,7 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithGView;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
+
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -106,7 +107,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				adapter.notifyDataSetChanged();
 				tv_title.setText(gfe.getTitle());
 				content1.setText(gfe.getSecond_title());
-				tv_pp.setText(gfe.getGood_brand());
+				tv_pp.setText(gfe.getGood_brand()+gfe.getModel_number());
 				//tv_price.setText("￥" + ((double) (gfe.getPurchase_price())+opening_cost) / 100);
 				tv_lx.setText(gfe.getCategory());
 				tv_sjhttp.setText(factoryEntity.getWebsite_url());
