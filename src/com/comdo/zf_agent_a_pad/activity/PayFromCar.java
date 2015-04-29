@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.alipay.PayActivity;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -62,7 +61,11 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		ll_request = (LinearLayout) findViewById(R.id.ll_request);
 		ll_request.setOnClickListener(this);
 		
-		getData();
+		if (type == 5) {
+			getOrderPayOrder();//批购
+		}else {
+			getShopPayOrder();//代购
+		}
 	}
 	@Override
 	public void onClick(View v) {
@@ -104,7 +107,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	private void getData() {
+	private void getShopPayOrder() {
 
 		Config.shopPayOrder(this, orderId, 
 				new HttpCallback<PayOrderEntity>(this) {
@@ -127,7 +130,29 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 			}
 		});
 	}
+	private void getOrderPayOrder() {
 
+		Config.orderPayOrder(this, orderId, 
+				new HttpCallback<PayOrderEntity>(this) {
+ 
+			@Override
+			public void onSuccess(PayOrderEntity data) {
+				if (data.getGood().size()>0) {
+					subject = data.getGood().get(0).getTitle();
+					body = subject;
+				}
+				outTradeNo = data.getOrder_number();
+				price = data.getTotal_price();
+				price = String.format("%.2f", Integer.parseInt(price)/100f);
+				handler.sendEmptyMessage(0);
+			}
+			@Override
+			public TypeToken<PayOrderEntity> getTypeToken() {
+				return new TypeToken<PayOrderEntity>() {
+				};
+			}
+		});
+	}
 	
 	@Override
 	public void success() {
