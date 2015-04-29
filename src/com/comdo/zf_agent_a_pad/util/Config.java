@@ -55,7 +55,8 @@ public class Config {
 	// public final static String PATHS =
 	// "http://114.215.149.242:28080/ZFAgent/api/";
 
-	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+	//public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+	public final static String PATHS = "http://agent.ebank007.com/api/";
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -847,9 +848,10 @@ public class Config {
 
 	public static void GetInfo(Context context, int customerId,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_INFO, params);
 	}
 
@@ -858,9 +860,10 @@ public class Config {
 
 			HttpCallback callback) {
 
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_ADDRESS_LIST, params);
 		Log.e("customerId", customerId + "");
 		Log.e("GET_ADDRESS_LIST", GET_ADDRESS_LIST);
