@@ -349,11 +349,6 @@
             android:name="com.comdo.zf_agent_a_pad.activity.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.FindPass"
@@ -402,7 +397,16 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind" >
-        </activity>
+        </activity> 
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.WelcomeActivity"
+            android:screenOrientation="landscape" >
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> 
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectPOSSActivity"
             android:label="@string/app_name"

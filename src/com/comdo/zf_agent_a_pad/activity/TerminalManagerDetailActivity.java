@@ -102,20 +102,29 @@ public class TerminalManagerDetailActivity extends Activity {
 		mSyncListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				CommonUtil.toastShort(TerminalManagerDetailActivity.this,
-						"synchronising...");
+				Config.synchronous(TerminalManagerDetailActivity.this, String.valueOf(mTerminalId),new HttpCallback(TerminalManagerDetailActivity.this)
+				{
+
+					@Override
+					public void onSuccess(Object data) {
+						System.out.println();
+					}
+
+					@Override
+					public TypeToken getTypeToken() {
+						return null;
+					}
+		} );
 			}
 		};
 		mOpenListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				TerminalManagerEntity item = (TerminalManagerEntity) view
-						.getTag();
 				Intent intent = new Intent(TerminalManagerDetailActivity.this,
 						ApplyDetailActivity.class);
-				intent.putExtra(TERMINAL_ID, item.getId());
-				intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-				intent.putExtra(TERMINAL_STATUS, item.getOpenState());
+				intent.putExtra(TERMINAL_ID, mTerminalId);
+				intent.putExtra(TERMINAL_NUMBER, mTerminalNumber);
+				intent.putExtra(TERMINAL_STATUS, mTerminalStatus);
 				startActivity(intent);
 			}
 		};

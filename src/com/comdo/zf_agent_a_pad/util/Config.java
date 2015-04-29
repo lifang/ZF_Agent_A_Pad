@@ -1101,7 +1101,15 @@ public class Config {
 		params.put("rows", rows);
 		new HttpRequest(context, callback).post(TERMINAL_MERCHANTS, params);
 	}
-
+	public static void getMerchants(Context context, int terminalId, int page,
+			int rows, String title, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("terminalId", terminalId);
+		params.put("page", page);
+		params.put("rows", rows);
+		params.put("title", title);
+		new HttpRequest(context, callback).post(TERMINAL_MERCHANTS, params);
+	}
 	public static void bindingTerminal(Context context, String terminalsNum,
 			int userId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();

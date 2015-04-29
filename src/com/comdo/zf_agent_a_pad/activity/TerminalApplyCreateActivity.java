@@ -149,8 +149,8 @@ public class TerminalApplyCreateActivity extends Activity implements
 
 			if (pwd.getText().toString()
 					.equals(confirmpwd.getText().toString())) {
-				Config.addCustomer(this, StringUtil.Md5(setCode.getText().toString()), name,
-						password, mChannelId, MyApplication.NewUser
+				Config.addCustomer(this, setCode.getText().toString(), name,
+						StringUtil.Md5(password), mChannelId, MyApplication.NewUser
 								.getAgentId(), checkCode.getText().toString(),
 						new HttpCallback<CreateUser>(
 								TerminalApplyCreateActivity.this) {

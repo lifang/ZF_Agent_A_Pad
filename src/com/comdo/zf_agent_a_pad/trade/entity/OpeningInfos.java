@@ -1,3 +1,4 @@
+
 package com.comdo.zf_agent_a_pad.trade.entity;
 
 import com.google.gson.annotations.SerializedName;
@@ -9,11 +10,11 @@ import java.util.List;
  */
 public class OpeningInfos {
 
-	private int birthday;
-	public int getBirthday() {
+	private String birthday;
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(int birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	public int getPreliminary_verify_user_id() {
