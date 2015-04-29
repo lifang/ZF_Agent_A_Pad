@@ -253,10 +253,10 @@
             android:layout_height="wrap_content"
             android:background="@color/F6F9FA"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/order_image" >
+            android:paddingLeft="@dimen/sp_height" >
 
             <LinearLayout
-                android:layout_width="@dimen/normal_width1"
+                android:layout_width="@dimen/normal_width4"
                 android:layout_height="@dimen/titleback_height"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal" >

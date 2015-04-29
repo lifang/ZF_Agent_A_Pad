@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class Agentmanager extends Fragment implements OnClickListener,IXListView
 	private String str="";
 	private AlertDialog dialog;
 	private int agentsId=MyApplication.NewUser.getAgentId();
+	private LinearLayout eva_nodata;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -118,8 +120,16 @@ public void onStart() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case 0:
-				onLode();
-				xxlistview.setAdapter(agentadapter);
+				if(dataadagent.size()!=0){
+					xxlistview.setVisibility(View.VISIBLE);
+					eva_nodata.setVisibility(View.GONE);
+					onLode();
+					xxlistview.setAdapter(agentadapter);
+				}
+				else{
+					xxlistview.setVisibility(View.GONE);
+					eva_nodata.setVisibility(View.VISIBLE);
+				}
 				break;
 			case 1:
 				Intent intent=new Intent(getActivity(),AgentDetail.class);
@@ -173,6 +183,7 @@ private void getData() {
 	
 }
 private void init() {
+	eva_nodata=(LinearLayout) view.findViewById(R.id.eva_nodata);
 	btn_creat_agent=(Button) view.findViewById(R.id.btn_creat_agent);
 	btn_reset=(Button) view.findViewById(R.id.btn_reset);
 	tv_default=(TextView) view.findViewById(R.id.tv_default);

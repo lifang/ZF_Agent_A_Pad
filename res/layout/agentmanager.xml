@@ -83,6 +83,9 @@
     android:layout_gravity="center_vertical"/>
     </LinearLayout>
     </LinearLayout>
+    <FrameLayout 
+        android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <com.comdo.zf_agent_a_pad.util.XListView 
         android:id="@+id/list"
             android:layout_width="fill_parent"
@@ -90,4 +93,20 @@
             android:fadingEdge="none"
             android:scrollbars="none" >   
     </com.comdo.zf_agent_a_pad.util.XListView>
+      <LinearLayout
+            android:id="@+id/eva_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_left"
+            android:layout_marginTop="10dp"
+            android:background="@color/ffffff"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <include layout="@layout/include_norecord" />
+        </LinearLayout>
+    
+    </FrameLayout>
     </LinearLayout>

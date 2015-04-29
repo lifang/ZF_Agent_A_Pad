@@ -31,7 +31,9 @@ import com.comdo.zf_agent_a_pad.util.AlertDialog;
 import com.comdo.zf_agent_a_pad.util.AlertMessDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.PayAlertDialog;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
@@ -53,11 +55,14 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			tv_adress, tv_ly, tv_fplx, fptt, tv_ddbh, tv_pay, tv_time, tv_gj,
 			tv_money;
 	private int status, id;
+	private OrderDetailEntity entity;
 	private Handler handler = new Handler() {
+		
+
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				OrderDetailEntity entity = ode;
+				entity = ode;
 				tv_sjps.setText("实际配送金额(含配送费) ：￥ "
 						+ check(entity.getOrder_totalPrice()) / 100);
 				//tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
@@ -76,6 +81,9 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				tv_gj.setText("共计  ：   " + entity.getTotal_quantity() + "件商品");
 				if (!OrderList.type.equals("5")) {
 					tv_user.setText(entity.getGuishu_user());
+				}else{
+					tv_yf.setText("已发货数量："+entity.getShipped_quantity());
+					tv_sy.setText("剩余货品总数："+(Integer.parseInt(entity.getTotal_quantity())-Integer.parseInt(entity.getShipped_quantity())));
 				}
 				break;
 			case 1:
@@ -107,6 +115,11 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private TextView tv_user;
 	private int goodid;
 	private View line;
+	private LinearLayout ll_pg;
+	private TextView tv_yf;
+	private TextView tv_sy;
+	private PayAlertDialog ad;
+	private Intent i;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,10 +127,10 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.order_detail);
 
 		status = getIntent().getIntExtra("status", 0);
-		id = Integer.parseInt(getIntent().getStringExtra("id"));
-		type = getIntent().getIntExtra("type", 1);
-		goodid = getIntent().getIntExtra("goodid", -1);
-		if (type == 0) {
+		id = getIntent().getIntExtra("id", 0);
+		type = getIntent().getIntExtra("type",5);
+		//goodid = getIntent().getIntExtra("goodid", -1);
+		if (type == 5) {
 			new TitleMenuUtil(OrderDetail.this, "批购订单详情").show();
 		} else {
 			new TitleMenuUtil(OrderDetail.this, "代购订单详情").show();
@@ -132,11 +145,12 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		System.out.println("id```" + id);
 		params.setUseJsonStreamer(true);
 
-		if (OrderList.type.equals("5")) {
+		if (type==5) {
 			url = Config.ORDERDETAIL;
 		} else {
 			url = Config.ORDERDETAIL1;
 		}
+		Log.i("url",url);
 		MyApplication.getInstance().getClient()
 				.post(url, params, new AsyncHttpResponseHandler() {
 					@Override
@@ -222,6 +236,11 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		if (!OrderList.type.equals("5")) {
 			ll_user.setVisibility(View.VISIBLE);
 			line.setVisibility(View.VISIBLE);
+		}else{
+			ll_pg = (LinearLayout)findViewById(R.id.ll_pg);
+			ll_pg.setVisibility(View.VISIBLE);
+			tv_yf = (TextView)findViewById(R.id.tv_yf);
+			tv_sy = (TextView)findViewById(R.id.tv_sy);
 		}
 		bt_pay = (Button) findViewById(R.id.bt_pay);
 		bt_pay.setOnClickListener(this);
@@ -257,13 +276,18 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		switch (status) {
 		case 1:
 			tv_status.setText("未付款");
-
+			bt_pay.setText("支付订金");
 			break;
 		case 2:
-			if (OrderList.type.equals("5")) {
+			if (type==5) {
+				
+				ll_ishow.setVisibility(View.VISIBLE);
+				bt_pay.setText("付款");
 				tv_status.setText("已付订金");
 				btn_ishow.setVisibility(View.VISIBLE);
 			} else {
+				
+				
 				tv_status.setText("已付款");
 				btn_ishow.setVisibility(View.VISIBLE);
 			}
@@ -310,10 +334,13 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.btn_pj:
 			if (status == 5) {
-				if (goodid != -1) {
+				
 					Intent i = new Intent(OrderDetail.this, GoodDeatail.class);
-					i.putExtra("id", goodid);
-					startActivity(i);
+					if(entity!=null){
+						if(!StringUtil.isNull(entity.getOrder_goodsList().get(0).getGood_id()))
+						i.putExtra("id", Integer.parseInt(entity.getOrder_goodsList().get(0).getGood_id()));
+						startActivity(i);
+					
 				}
 
 			} else if (status == 3) {
@@ -324,6 +351,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				}
 
 			}
+		
 			break;
 		case R.id.btn_ishow:
 			amd = new AlertMessDialog(OrderDetail.this);
@@ -339,15 +367,50 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			});
 			break;
 		case R.id.bt_pay:
-			Intent i = new Intent(OrderDetail.this,
+			i = new Intent(OrderDetail.this,
 					PayFromCar.class);
-			i.putExtra("orderId",id);
-			if(OrderList.type.equals("5")){
-				i.putExtra("type", 0);
+			if(type==5){
+				if(status==2){
+					ad = new PayAlertDialog(OrderDetail.this);   
+					ad.setTitle("付款");				
+					ad.setPositiveButton("取消", new OnClickListener() {				
+						@Override
+						public void onClick(View arg0) {
+							ad.dismiss();				
+						}
+					});
+					ad.setNegativeButton("确定", new OnClickListener() {
+						
+						@Override
+						public void onClick(View arg0) {
+							String pay=ad.getPay();
+							
+							ad.dismiss();
+							try {
+								i.putExtra("orderId",id );
+								i.putExtra("type",type);
+								i.putExtra("pay",pay);
+								startActivity(i);
+							
+							} catch (Exception e) {
+								
+							}								
+												
+						}
+					});	
+				}else{
+					i.putExtra("orderId",id );
+					i.putExtra("type",type);
+					startActivity(i);
+				}
+				
+				
 			}else{
-				i.putExtra("type", 1);
+				i.putExtra("orderId",id );
+				i.putExtra("type",type);
+				startActivity(i);
 			}
-			startActivity(i);
+			
 			break;
 		case R.id.bt_cancel:
 			final AlertDialog ad = new AlertDialog(OrderDetail.this);

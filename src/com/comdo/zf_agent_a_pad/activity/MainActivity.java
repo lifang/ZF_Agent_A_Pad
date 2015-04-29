@@ -140,14 +140,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			Config.TABID = 4;
 			changTabBg();
 			im_wd.setBackgroundResource(R.drawable.mine);
-
 			textwd.setTextColor(getResources().getColor(R.color.bgtitle));
 			if(f_my==null)
 				f_my=new Mmy();
-
-			textwd.setTextColor(getResources().getColor(R.color.o));
-			if (f_my == null)
-				f_my = new Mmy();
 
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.m_fragment, f_my).commit();

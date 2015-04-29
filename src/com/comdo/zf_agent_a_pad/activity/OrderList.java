@@ -3,29 +3,12 @@ package com.comdo.zf_agent_a_pad.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.comdo.zf_agent_a_pad.adapter.OrderAdapter;
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.common.Page;
-import com.comdo.zf_agent_a_pad.entity.AdressEntity;
-import com.comdo.zf_agent_a_pad.entity.OrderEntity;
-import com.comdo.zf_agent_a_pad.entity.PostPortEntity;
-import com.comdo.zf_agent_a_pad.util.CheckRights;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.MyApplication;
-import com.comdo.zf_agent_a_pad.util.Tools;
-import com.comdo.zf_agent_a_pad.util.XListView;
-import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.reflect.TypeToken;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,8 +20,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.adapter.OrderAdapter;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.Page;
+import com.comdo.zf_agent_a_pad.entity.OrderEntity;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.Tools;
+import com.comdo.zf_agent_a_pad.util.XListView;
+import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
+import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
 
 public class OrderList extends Activity implements IXListViewListener,
 		OnClickListener, OnEditorActionListener {

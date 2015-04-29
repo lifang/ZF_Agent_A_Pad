@@ -224,6 +224,10 @@ private void openimg(int tag) {
      build.setView(textEntryView);
      final ImageView view=(ImageView) textEntryView.findViewById(R.id.imag);
      int ppp=tag-1;
+     if(imgPath[ppp].equals("http://121.40.84.2:8888/")){
+    	 CommonUtil.toastShort(getActivity(), "个人信息不完善，未上传照片");
+    	 return;
+     }
      ImageCacheUtil.IMAGE_CACHE.get(imgPath[ppp], view);
      //ImageCacheUtil.IMAGE_CACHE.get("http://www.sinaimg.cn/dy/slidenews/2_img/2015_16/789_1481006_298613.jpg", view);
      build.create().show();
