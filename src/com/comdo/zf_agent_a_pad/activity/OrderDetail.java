@@ -32,6 +32,7 @@ import com.comdo.zf_agent_a_pad.util.AlertMessDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
@@ -53,11 +54,14 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			tv_adress, tv_ly, tv_fplx, fptt, tv_ddbh, tv_pay, tv_time, tv_gj,
 			tv_money;
 	private int status, id;
+	private OrderDetailEntity entity;
 	private Handler handler = new Handler() {
+		
+
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				OrderDetailEntity entity = ode;
+				entity = ode;
 				tv_sjps.setText("实际配送金额(含配送费) ：￥ "
 						+ check(entity.getOrder_totalPrice()) / 100);
 				//tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
@@ -122,7 +126,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		status = getIntent().getIntExtra("status", 0);
 		id = Integer.parseInt(getIntent().getStringExtra("id"));
 		type = getIntent().getIntExtra("type",5);
-		goodid = getIntent().getIntExtra("goodid", -1);
+		//goodid = getIntent().getIntExtra("goodid", -1);
 		if (type == 5) {
 			new TitleMenuUtil(OrderDetail.this, "批购订单详情").show();
 		} else {
@@ -321,10 +325,13 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.btn_pj:
 			if (status == 5) {
-				if (goodid != -1) {
+				
 					Intent i = new Intent(OrderDetail.this, GoodDeatail.class);
-					i.putExtra("id", goodid);
-					startActivity(i);
+					if(entity!=null){
+						if(!StringUtil.isNull(entity.getOrder_goodsList().get(0).getGood_id()))
+						i.putExtra("id", Integer.parseInt(entity.getOrder_goodsList().get(0).getGood_id()));
+						startActivity(i);
+					
 				}
 
 			} else if (status == 3) {
@@ -335,6 +342,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				}
 
 			}
+		
 			break;
 		case R.id.btn_ishow:
 			amd = new AlertMessDialog(OrderDetail.this);

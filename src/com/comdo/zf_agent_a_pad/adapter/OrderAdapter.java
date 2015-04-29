@@ -36,6 +36,7 @@ import com.comdo.zf_agent_a_pad.util.AlertDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -138,12 +139,16 @@ public class OrderAdapter extends BaseAdapter{
  		 ImageCacheUtil.IMAGE_CACHE.get(list.get(position).getOrder_goodsList().get(0).getGood_logo(), holder.im);
  		 if(OrderList.type.equals("5")){
  			holder.isshow.setVisibility(View.VISIBLE);
- 			String string=" 原价:￥"+(double)Integer.parseInt(list.get(position).getOrder_goodsList().get(0).getGood_price())*1.0f/100+" ";
- 			SpannableString sp = new SpannableString(string);
- 			sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
- 			holder.isshow.setText(sp);
+ 			if (!StringUtil.isNull(list.get(position).getOrder_goodsList().get(0).getGood_price())) {
+ 				String string=" 原价:￥"+(double)Integer.parseInt(list.get(position).getOrder_goodsList().get(0).getGood_price())*1.0f/100+" ";
+ 				SpannableString sp = new SpannableString(string);
+ 				sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+ 				holder.isshow.setText(sp);
+			}else {
+				holder.isshow.setText(" 原价:");
+			}
  		 }
- 		if(list.get(position).getOrder_goodsList().get(0).getGood_id()!=""){
+ 		if(!StringUtil.isNull(list.get(position).getOrder_goodsList().get(0).getGood_id())){
  			holder.btn_comment.setId(Integer.parseInt(list.get(position).getOrder_goodsList().get(0).getGood_id()));
  			//holder.btn_comment.setId(position);
  		}else{
@@ -333,9 +338,9 @@ public class OrderAdapter extends BaseAdapter{
 				Intent i = new Intent(context, OrderDetail.class);
 				i.putExtra("status", list.get(index).getOrder_status());
 				i.putExtra("id", list.get(index).getOrder_id());
-				if(list.get(index).getOrder_goodsList().get(0).getGood_id().equals("")){
+				/*if(list.get(index).getOrder_goodsList().get(0).getGood_id().equals("")){
 					i.putExtra("goodid", list.get(index).getOrder_goodsList().get(0).getGood_id());
-				}	
+				}*/	
 				i.putExtra("type",Integer.parseInt(OrderList.type));			
 				context.startActivity(i);
 			}
