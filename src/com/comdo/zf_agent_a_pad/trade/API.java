@@ -196,6 +196,7 @@ public class API {
 	 			HttpCallback callback) {
 	 		Map<String, Object> params = new HashMap<String, Object>();
 			params.put("agentId", agentId);
+			Log.e("", ""+agentId);
 	 		new HttpRequest(context, callback).post(TERMINAL_LIST,params);
 	 	}
 	 	
@@ -203,6 +204,7 @@ public class API {
 				HttpCallback callback) {
 	 		Map<String, Object> params = new HashMap<String, Object>();
 			params.put("agentId", agentId);
+			Log.e("", ""+agentId);
 			new HttpRequest(context, callback).post(AGENT_LIST,params);
 		}
 	 	
@@ -212,6 +214,7 @@ public class API {
 	 		params.put("id", recordId);
 	 		params.put("agentId", agentId);
 	 		params.put("isHaveProfit", isHaveProfit);
+	 		Log.e("", recordId+"---"+agentId+"---"+isHaveProfit);
 			new HttpRequest(context, callback).post(TRADE_RECORD_DETAIL,params);
 		}
 	 	
@@ -227,6 +230,9 @@ public class API {
 	 		params.put("endTime", endTime);
 	 		params.put("page", page);
 			params.put("rows", rows);
+			
+			Log.e("", "tradeTypeId=="+tradeTypeId+"agentId=="+agentId+"sonagentId=="+sonagentId+
+					"terminalNumber=="+terminalNumber);
 			new HttpRequest(context, callback).post(TRADE_RECORD_LIST, params);
 		}
 	 	
@@ -241,6 +247,8 @@ public class API {
 	 		params.put("startTime", startTime);
 	 		params.put("endTime", endTime);
 	 		params.put("isHaveProfit", isHaveProfit);
+	 		Log.e("", "tradeTypeId=="+tradeTypeId+"agentId=="+agentId+"sonagentId=="+sonagentId+
+					"terminalNumber=="+terminalNumber+"isHaveProfit=="+isHaveProfit);
 			new HttpRequest(context, callback).post(TRADE_RECORD_STATISTIC, params);
 		}
 }
