@@ -1452,5 +1452,6 @@ public class Config {
 		params.put("terminalid", terminalid);
 		new HttpRequest(context, callback).post(SYNCHRONOUS, params);
 	}
+	
 }
 
