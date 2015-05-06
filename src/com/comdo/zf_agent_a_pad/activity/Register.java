@@ -215,6 +215,9 @@ public class Register extends BaseActivity implements OnClickListener {
 		} else if ("".equals(et_paw.getText().toString())) {
 
 			CommonUtil.toastShort(Register.this, "登录密码不能为空");
+		} else if (et_paw.getText().toString().length()<6) {
+
+			CommonUtil.toastShort(Register.this, "密码应不小于6位");
 		} else if ("".equals(et_paw1.getText().toString())) {
 
 			CommonUtil.toastShort(Register.this, "确认密码不能为空");
