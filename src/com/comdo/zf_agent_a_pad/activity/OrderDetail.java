@@ -1,9 +1,14 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.R.integer;
@@ -125,8 +130,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_detail);
-
-		status = getIntent().getIntExtra("status", 0);
+		//status = getIntent().getIntExtra("status", 0);
 		id = getIntent().getIntExtra("id", 0);
 		type = getIntent().getIntExtra("type",5);
 		//goodid = getIntent().getIntExtra("goodid", -1);
@@ -140,10 +144,18 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	}
 
 	private void getData() {
-		RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		System.out.println("id```" + id);
-		params.setUseJsonStreamer(true);
+		JSONObject jsonParams = new JSONObject(params);
+		HttpEntity entity;
+		try {
+			entity = new StringEntity(jsonParams.toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			
+		
+			return;
+		}
 
 		if (type==5) {
 			url = Config.ORDERDETAIL;
@@ -152,7 +164,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		}
 		Log.i("url",url);
 		MyApplication.getInstance().getClient()
-				.post(url, params, new AsyncHttpResponseHandler() {
+				.post(getApplicationContext(),url, null,entity,"application/json", new AsyncHttpResponseHandler() {
 					@Override
 					public void onStart() {
 
@@ -183,14 +195,15 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 							code = jsonobject.getString("code");
 							int a = jsonobject.getInt("code");
 							if (a == Config.CODE) {
-								initView();
+								
 								String res = jsonobject.getString("result");
 								// jsonobject = new JSONObject(res);
 								System.out.println("````" + res);
 								ode = gson.fromJson(res,
 										new TypeToken<OrderDetailEntity>() {
 										}.getType());
-
+								status=ode.getOrder_status();
+								initView();
 								// jsonobject = new JSONObject(res);
 								goodlist = ode.getOrder_goodsList();
 								relist = ode.getComments().getContent();
@@ -390,8 +403,15 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 								i.putExtra("orderId",id );
 								i.putExtra("type",type);
 								i.putExtra("pay",pay);
-								startActivity(i);
-							
+								OrderDetail.this.finish();
+								OrderDetail.this.startActivity(i);
+								
+							/*	if(Float.parseFloat(pay)<(float)entity.getShengyu_price()){
+									OrderDetail.this.finish();
+									OrderDetail.this.startActivity(i);	
+								}else{
+									Toast.makeText(OrderDetail.this, "金额不能大于剩余金额！", 1000).show();	
+								}*/
 							} catch (Exception e) {
 								
 							}								
@@ -401,6 +421,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				}else{
 					i.putExtra("orderId",id );
 					i.putExtra("type",type);
+					OrderDetail.this.finish();
 					startActivity(i);
 				}
 				
