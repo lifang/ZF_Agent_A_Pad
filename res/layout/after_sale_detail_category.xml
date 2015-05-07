@@ -3,18 +3,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:paddingTop="30dp"
 	android:orientation="vertical">
 
-	<TextView
-		android:id="@+id/category_title"
-		style="@style/TextDetail.Title"/>
-
-	<View
-		style="@style/Divider"
-		android:layout_marginTop="6dp"
-		android:layout_marginBottom="6dp"
-		android:background="@color/bgtitle"/>
 
 	<LinearLayout
 	    android:id="@+id/tablayoutview"

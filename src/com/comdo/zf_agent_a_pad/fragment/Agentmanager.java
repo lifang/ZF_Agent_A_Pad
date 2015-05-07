@@ -40,253 +40,261 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Agentmanager extends Fragment implements OnClickListener,IXListViewListener{
+public class Agentmanager extends Fragment implements OnClickListener,
+		IXListViewListener {
 	private View view;
 	private List<AgentManager> dataadagent;
 	private BaseAdapter agentadapter;
 	private XListView xxlistview;
 	private TextView tv_default;
-	private Button btn_reset,btn_creat_agent,btn_save;
-	private int page=1;
+	private Button btn_reset, btn_creat_agent, btn_save;
+	private int page = 1;
 	public static Handler myHandler;
-	private boolean isrefersh=false;
-	private int rows=Config.ROWS;
-	private int a=1;
+	private boolean isrefersh = false;
+	private int rows = Config.ROWS;
+	private int a = 1;
 	private EditText et_profit;
-	private int id=MyApplication.NewUser.getAgentId();
-	private String str="";
+	private int id = MyApplication.NewUser.getAgentId();
+	private String str = "";
 	private AlertDialog dialog;
-	private int agentsId=MyApplication.NewUser.getAgentId();
+	private int agentsId = MyApplication.NewUser.getAgentId();
 	private LinearLayout eva_nodata;
-@Override
-public void onCreate(Bundle savedInstanceState) {
-	// TODO Auto-generated method stub
-	super.onCreate(savedInstanceState);
-}
-@Override
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-	
-	//view = inflater.inflate(R.layout.f_main,container,false);
-	
 
+		// view = inflater.inflate(R.layout.f_main,container,false);
 
-if (view != null) {
-    ViewGroup parent = (ViewGroup) view.getParent();
-    if (parent != null)
-        parent.removeView(view);
-}
-try {
-    view = inflater.inflate(R.layout.agentmanager, container, false);
-    init();
-    getDefaultProfit();
-} catch (InflateException e) {
-    
-}
-return view;
-}
-private void getDefaultProfit() {
-	Config.getDefaultProfit(getActivity(), id, new HttpCallback(getActivity()) {
-
-		@Override
-		public void onSuccess(Object data) {
-			str=String.valueOf(data);
-			myHandler.sendEmptyMessage(2);
-				
-			
+		if (view != null) {
+			ViewGroup parent = (ViewGroup) view.getParent();
+			if (parent != null)
+				parent.removeView(view);
 		}
-@Override
-public void onFailure(String message) {
-	// TODO Auto-generated method stub
-	super.onFailure(message);
-}
-		@Override
-		public TypeToken getTypeToken() {
-			// TODO Auto-generated method stub
-			return null;
+		try {
+			view = inflater.inflate(R.layout.agentmanager, container, false);
+			init();
+			getDefaultProfit();
+		} catch (InflateException e) {
+
 		}
-	});
-	
-}
-@Override
-public void onStart() {
-	// TODO Auto-generated method stub
-	super.onStart();
-	if(dataadagent.size()!=0){
-		dataadagent.clear();
+		return view;
 	}
-	getData();
-	myHandler=new Handler(){
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case 0:
-				if(dataadagent.size()!=0){
-					xxlistview.setVisibility(View.VISIBLE);
-					eva_nodata.setVisibility(View.GONE);
-					onLode();
-					xxlistview.setAdapter(agentadapter);
-				}
-				else{
-					xxlistview.setVisibility(View.GONE);
-					eva_nodata.setVisibility(View.VISIBLE);
-				}
-				break;
-			case 1:
-				Intent intent=new Intent(getActivity(),AgentDetail.class);
-				intent.putExtra("id", dataadagent.get(AgentManagerAdapter.pp).getId());
-				startActivity(intent);
-				break;
-			case 2:
-				tv_default.setText(str);
-				break;
-			default:
-				break;
+
+	private void getDefaultProfit() {
+		Config.getDefaultProfit(getActivity(), id, new HttpCallback(
+				getActivity()) {
+
+			@Override
+			public void onSuccess(Object data) {
+				str = String.valueOf(data);
+				myHandler.sendEmptyMessage(2);
+
 			}
+
+			@Override
+			public void onFailure(String message) {
+				super.onFailure(message);
+			}
+
+			@Override
+			public TypeToken getTypeToken() {
+				return null;
+			}
+		});
+
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		if (dataadagent.size() != 0) {
+			dataadagent.clear();
+		}
+		getData();
+		myHandler = new Handler() {
+			public void handleMessage(android.os.Message msg) {
+				switch (msg.what) {
+				case 0:
+					if (dataadagent.size() != 0) {
+						xxlistview.setVisibility(View.VISIBLE);
+						eva_nodata.setVisibility(View.GONE);
+						onLode();
+						xxlistview.setAdapter(agentadapter);
+					} else {
+						xxlistview.setVisibility(View.GONE);
+						eva_nodata.setVisibility(View.VISIBLE);
+					}
+					break;
+				case 1:
+					Intent intent = new Intent(getActivity(), AgentDetail.class);
+					intent.putExtra("id",
+							dataadagent.get(AgentManagerAdapter.pp).getId());
+					startActivity(intent);
+					break;
+				case 2:
+					tv_default.setText(str+"%");
+					break;
+				default:
+					break;
+				}
+			}
+
+		};
+	}
+
+	protected void onLode() {
+		xxlistview.stopRefresh();
+		xxlistview.stopLoadMore();
+		xxlistview.setRefreshTime(Tools.getHourAndMin());
+
+	}
+
+	private void getData() {
+		Config.GetAgentList(getActivity(), agentsId, page, rows,
+				new HttpCallback<Page<AgentManager>>(getActivity()) {
+
+					@Override
+					public void onSuccess(Page<AgentManager> data) {
+						if (isrefersh) {
+							page = a;
+							rows = Config.ROWS;
+							isrefersh = false;
+						}
+						if (dataadagent.size() != 0
+								&& data.getList().size() == 0) {
+							Toast.makeText(getActivity(), "没有更多数据!", 1000)
+									.show();
+						} else {
+							dataadagent.addAll(data.getList());
+						}
+						myHandler.sendEmptyMessage(0);
+					}
+
+					@Override
+					public TypeToken<Page<AgentManager>> getTypeToken() {
+						return new TypeToken<Page<AgentManager>>() {
+						};
+					}
+				});
+
+	}
+
+	private void init() {
+		eva_nodata = (LinearLayout) view.findViewById(R.id.eva_nodata);
+		btn_creat_agent = (Button) view.findViewById(R.id.btn_creat_agent);
+		btn_reset = (Button) view.findViewById(R.id.btn_reset);
+		tv_default = (TextView) view.findViewById(R.id.tv_default);
+		dataadagent = new ArrayList<AgentManager>();
+		agentadapter = new AgentManagerAdapter(dataadagent, getActivity()
+				.getBaseContext());
+		xxlistview = (XListView) view.findViewById(R.id.list);
+		xxlistview.setPullLoadEnable(true);
+		xxlistview.setXListViewListener(this);
+		xxlistview.setDivider(null);
+		btn_reset.setOnClickListener(this);
+		btn_creat_agent.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_reset:
+
+			openDialog();
+			break;
+		case R.id.btn_creat_agent:
+			startActivity(new Intent(getActivity(), CreatAgent.class));
+			break;
+		case R.id.btn_save:
+			boolean result = et_profit.getText().toString().matches("[0-9]+");
+			if (!result) {
+				CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字");
+				return;
+			}
+			/*
+			 * if(!(Integer.parseInt(et_profit.getText().toString())<100&&Integer
+			 * .parseInt(et_profit.getText().toString())>0)){
+			 * CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字"); return; }
+			 */
+
+			resetProfit();
+			break;
+		default:
+			break;
 		}
 
-		
-	};
-}
-protected void onLode() {
-	xxlistview.stopRefresh();
-	xxlistview.stopLoadMore();
-	xxlistview.setRefreshTime(Tools.getHourAndMin());
-	
-}
-private void getData() {
-	Config.GetAgentList(getActivity(), agentsId, page, rows, 
-			new HttpCallback<Page<AgentManager>>(getActivity()) {
+	}
 
-				@Override
-				public void onSuccess(Page<AgentManager> data) {
-					if(isrefersh){
-						page=a;
-						rows=Config.ROWS;
-						isrefersh=false;
-					}
-					if(dataadagent.size()!=0&&data.getList().size()==0){
-						Toast.makeText(getActivity(), "没有更多数据!", 1000).show();
-					}
-					else{
-						dataadagent.addAll(data.getList());
-					}
-					myHandler.sendEmptyMessage(0);
-				}
+	private void resetProfit() {
+		Config.resetprofit(getActivity(),
+				Integer.parseInt(et_profit.getText().toString()), agentsId,
+				new HttpCallback(getActivity()) {
 
-				@Override
-				public TypeToken<Page<AgentManager>> getTypeToken() {
-					// TODO Auto-generated method stub
-					return new TypeToken<Page<AgentManager>>() {
-					};
-				}
-			});
-	
-}
-private void init() {
-	eva_nodata=(LinearLayout) view.findViewById(R.id.eva_nodata);
-	btn_creat_agent=(Button) view.findViewById(R.id.btn_creat_agent);
-	btn_reset=(Button) view.findViewById(R.id.btn_reset);
-	tv_default=(TextView) view.findViewById(R.id.tv_default);
-	dataadagent=new ArrayList<AgentManager>();
-	agentadapter=new AgentManagerAdapter(dataadagent, getActivity().getBaseContext());
-	xxlistview=(XListView) view.findViewById(R.id.list);
-	xxlistview.setPullLoadEnable(true);
-	xxlistview.setXListViewListener(this);
-	xxlistview.setDivider(null);
-	btn_reset.setOnClickListener(this);
-	btn_creat_agent.setOnClickListener(this);
-}
-@Override
-public void onClick(View v) {
-	switch (v.getId()) {
-	case R.id.btn_reset:
-		
-		openDialog();
-		break;
-	case R.id.btn_creat_agent:
-		startActivity(new Intent(getActivity(),CreatAgent.class));
-		break;
-	case R.id.btn_save:
-		boolean result=et_profit.getText().toString().matches("[0-9]+");
-		if(!result){
-			CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字");
+					@Override
+					public void onSuccess(Object data) {
+						CommonUtil.toastShort(getActivity(), "设置成功");
+						dialog.dismiss();
+						getDefaultProfit();
+						// tv_default.setText(et_profit.getText().toString());
+					}
+
+					@Override
+					public void onFailure(String message) {
+						super.onFailure(message);
+					}
+
+					@Override
+					public TypeToken getTypeToken() {
+						return null;
+					}
+				});
+
+	}
+
+	private void openDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		LayoutInflater factory = LayoutInflater.from(getActivity());
+		final View textEntryView = factory.inflate(R.layout.reset, null);
+		// builder.setTitle("自定义输入框");
+		builder.setView(textEntryView);
+		btn_save = (Button) textEntryView.findViewById(R.id.btn_save);
+		et_profit = (EditText) textEntryView.findViewById(R.id.et_profit);
+		btn_save.setOnClickListener(this);
+		dialog = builder.create();
+		dialog.show();
+		// builder.create().show();
+
+	}
+
+	@Override
+	public void onRefresh() {
+		if (!Tools.isConnect(getActivity())) {
+			CommonUtil.toastShort(getActivity(), "网络异常");
 			return;
 		}
-		/*if(!(Integer.parseInt(et_profit.getText().toString())<100&&Integer.parseInt(et_profit.getText().toString())>0)){
-			CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字");
+		isrefersh = true;
+		a = page;
+		rows = a * rows;
+		page = 1;
+		dataadagent.clear();
+		getData();
+
+	}
+
+	@Override
+	public void onLoadMore() {
+		if (!Tools.isConnect(getActivity())) {
+			CommonUtil.toastShort(getActivity(), "网络异常");
 			return;
-		}*/
-		
-		resetProfit();
-		break;
-	default:
-		break;
-	}
-	
-}
-private void resetProfit() {
-	Config.resetprofit(getActivity(), 
-			Integer.parseInt(et_profit.getText().toString()), 
-			agentsId, new HttpCallback(getActivity()) {
+		}
+		page += 1;
+		getData();
 
-				@Override
-				public void onSuccess(Object data) {
-					// TODO Auto-generated method stub
-					CommonUtil.toastShort(getActivity(), "设置成功");
-					dialog.dismiss();
-					getDefaultProfit();
-					//tv_default.setText(et_profit.getText().toString());
-				}
-@Override
-public void onFailure(String message) {
-	// TODO Auto-generated method stub
-	super.onFailure(message);
-}
-				@Override
-				public TypeToken getTypeToken() {
-					// TODO Auto-generated method stub
-					return null;
-				}
-	});
-	
-}
-private void openDialog() {
-	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	LayoutInflater factory = LayoutInflater.from(getActivity());
-	final View textEntryView = factory.inflate(R.layout.reset, null);
-	// builder.setTitle("自定义输入框");
-     builder.setView(textEntryView);
-     btn_save=(Button) textEntryView.findViewById(R.id.btn_save);
-     et_profit=(EditText) textEntryView.findViewById(R.id.et_profit);
-     btn_save.setOnClickListener(this);
-     dialog = builder.create();
-     dialog.show();
-     //builder.create().show();
-	
-}
-@Override
-public void onRefresh() {
-	if(!Tools.isConnect(getActivity())){
-		CommonUtil.toastShort(getActivity(), "网络异常");
-		return;
 	}
-	isrefersh=true;
-	a=page;
-	rows=a*rows;
-	page=1;
-	dataadagent.clear();
-	getData();
-	
 }
-@Override
-public void onLoadMore() {
-	if(!Tools.isConnect(getActivity())){
-		CommonUtil.toastShort(getActivity(), "网络异常");
-		return;
-	}
-	page+=1;
-	getData();
-	
-}
-}
-
