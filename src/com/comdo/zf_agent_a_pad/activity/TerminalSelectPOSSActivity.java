@@ -26,7 +26,7 @@ public class TerminalSelectPOSSActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_simple_list);
+		setContentView(R.layout.activity_simple_list_normal);
 
 		String title = getIntent().getStringExtra(CHOOSE_TITLE);
 		List<Pos> posItems = (List<Pos>) getIntent()

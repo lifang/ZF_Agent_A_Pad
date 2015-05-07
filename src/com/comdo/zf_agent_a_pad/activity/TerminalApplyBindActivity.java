@@ -211,7 +211,7 @@ public class TerminalApplyBindActivity extends Activity implements
 		case R.id.terminal_submit:
 
 			Config.bindingTerminal(this, mTerminalNumber.getText().toString(),
-					mChannelId,
+					mChannelId,MyApplication.NewUser.getAgentId(),
 					new HttpCallback(TerminalApplyBindActivity.this) {
 						@Override
 						public void onSuccess(Object data) {

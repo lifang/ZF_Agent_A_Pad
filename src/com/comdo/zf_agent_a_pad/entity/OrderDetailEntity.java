@@ -4,11 +4,27 @@ import java.util.List;
 
 
 public class OrderDetailEntity {
+	public String getShipped_quantity() {
+		return shipped_quantity;
+	}
+
+	public void setShipped_quantity(String shipped_quantity) {
+		this.shipped_quantity = shipped_quantity;
+	}
+	private int shengyu_price;
+	public int getShengyu_price() {
+		return shengyu_price;
+	}
+
+	public void setShengyu_price(int shengyu_price) {
+		this.shengyu_price = shengyu_price;
+	}
 	private String total_dingjin;
 	private String pay_status; 
 	private String guishu_user;
 	private String total_quantity;
 	private String order_totalPrice;
+	private String shipped_quantity;
 	public String getOrder_totalPrice() {
 		return order_totalPrice;
 	}

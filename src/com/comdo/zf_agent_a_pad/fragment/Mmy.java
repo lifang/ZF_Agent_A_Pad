@@ -90,7 +90,7 @@ try {
 //    init();
 
 } catch (InflateException e) {
-    
+    type=1;
 }
 return view;
 }
@@ -99,7 +99,7 @@ public void onStart() {
 	// TODO Auto-generated method stub
 	super.onStart();
 	Log.e("tag", type+"");
-	
+
 }
 @Override
 public void onResume() {

@@ -310,13 +310,14 @@ public class PosListActivity extends Activity implements OnClickListener,
 				isDown = false;
 				img3.setBackgroundDrawable(getResources().getDrawable(
 						R.drawable.ti_down));
+				tv_3.setText("价格降序");
 			} else {
 				orderType = 3;
 				isDown = true;
 				img3.setBackgroundDrawable(getResources().getDrawable(
 						R.drawable.ti_up));
+				tv_3.setText("价格升序");
 			}
-
 			tv_mr.setTextColor(getResources().getColor(R.color.bg_575D5F));
 			tv_2.setTextColor(getResources().getColor(R.color.bg_575D5F));
 			tv_3.setTextColor(getResources().getColor(R.color.bgtitle));

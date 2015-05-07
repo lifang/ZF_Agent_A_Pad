@@ -1,3 +1,4 @@
+
 package com.comdo.zf_agent_a_pad.util;
 
 import java.io.File;
@@ -33,6 +34,8 @@ public class Config {
 	public static final String VIDEO_SERVER_IP = "121.40.84.2";
 	public static final int VIDEO_SERVER_PORT = 8906;
 
+	public static final String URL_NOTICE_VIDEO = "http://121.40.84.2:8180/zfmanager/notice/video";
+
 	// 商户PID
 	public static final String PARTNER = "2088811347108355";
 	// 商户收款账号
@@ -42,14 +45,19 @@ public class Config {
 	// 支付宝公钥
 	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
 	// 异步通知接口
-	public static final String NOTIFT_URL = "http://121.40.84.2:8080/ZFMerchant/app_notify_url.jsp";
+	public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
 	// 支付成功跳转页面
-	public static final String RETURN_URL = "http://121.40.84.2:8080/ZFMerchant/return_url.jsp";
+	public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
+	// 异步通知接口
+	public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+	// 支付成功跳转页面
+	public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+	/* public final static String PATHS =
+	 "http://114.215.149.242:28080/ZFAgent/api/";*/
 
-	// public final static String PATHS =
-	// "http://114.215.149.242:28080/ZFAgent/api/";
 
-	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+	public final static String PATHS = "http://121.40.64.167:9090/api/";
+
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -221,6 +229,8 @@ public class Config {
 			+ "stock/terminallist";
 	// 代购订单信息
 	public static final String SHOP_PAYORDER = PATHS + "shop/payOrder";
+	// 批购订单信息
+	public static final String ORDER_PAYORDER = PATHS + "order/payOrder";
 	// get code
 	public static final String GETCODE4PHONE = PATHS
 			+ "user/sendPhoneVerificationCodeReg";
@@ -303,7 +313,7 @@ public class Config {
 	// apply submit
 	public static final String APPLY_SUBMIT = PATHS + "apply/addOpeningApply";
 
-	
+
 	// get terminal list
 	public static final String GET_TERMINAL_LIST = PATHS
 			+ "preparegood/getterminalslist";
@@ -367,7 +377,7 @@ public class Config {
 			+ "preparegood/getgoodlist";
 	// synchronous
 
-		public static final String SYNCHRONOUS = PATHS + "terminal/synchronous";
+	public static final String SYNCHRONOUS = PATHS + "terminal/synchronous";
 
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
@@ -604,7 +614,7 @@ public class Config {
 			int rows, HttpCallback callback) {
 
 		//RequestParams params = new RequestParams();
-		 Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("page", page);
 		params.put("rows", rows);
@@ -839,20 +849,22 @@ public class Config {
 
 	public static void GetInfo(Context context, int customerId,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_INFO, params);
 	}
 
 	public static void GetAdressLis(Context context, int customerId,
 
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_ADDRESS_LIST, params);
 		Log.e("customerId", customerId + "");
 		Log.e("GET_ADDRESS_LIST", GET_ADDRESS_LIST);
@@ -962,7 +974,7 @@ public class Config {
 		new HttpRequest(context, callback).post(RESET_PROFIT, params);
 	}
 
-;
+	;
 
 	public static void changeAdres(Context context, int id, String cityId,
 			String receiver, String moblephone, String zipCode, String address,
@@ -1158,14 +1170,6 @@ public class Config {
 		new HttpRequest(context, callback).post(APPLY_SUBMIT, params);
 	}
 
-	public static void getMerchants(Context context, int agentId, int page,
-			int rows, HttpCallback callback) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("agentId", agentId);
-		params.put("page", page);
-		params.put("rows", rows);
-		new HttpRequest(context, callback).post(TERMINAL_MERCHANTS, params);
-	}
 
 	public static void getMerchants(Context context, int terminalId, int page,
 			int rows, String title, HttpCallback callback) {
@@ -1178,10 +1182,11 @@ public class Config {
 	}
 
 	public static void bindingTerminal(Context context, String terminalsNum,
-			int userId, HttpCallback callback) {
+			int userId,int agentId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("terminalsNum", terminalsNum);
 		params.put("userId", userId);
+		params.put("agentId", agentId);
 		new HttpRequest(context, callback).post(TERMINAL_BIND, params);
 	}
 
@@ -1430,17 +1435,24 @@ public class Config {
 
 
 	public static void shopPayOrder(Context context, int id,
-
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		new HttpRequest(context, callback).post(SHOP_PAYORDER, params);
 	}
-
+	public static void orderPayOrder(Context context, int id,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		new HttpRequest(context, callback).post(ORDER_PAYORDER, params);
+	}
+	
 	public static void synchronous(Context context, String terminalid,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("terminalid", terminalid);
 		new HttpRequest(context, callback).post(SYNCHRONOUS, params);
 	}
+	
 }
+

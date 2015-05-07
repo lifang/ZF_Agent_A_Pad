@@ -112,11 +112,11 @@ public void onPause() {
 	// TODO Auto-generated method stub
 	super.onPause();
 	type=0;
-	if(view!=null){
+	/*if(view!=null){
 		ViewGroup parent = (ViewGroup) view.getParent();
 	    if (parent != null)
 	        parent.removeView(view);
-	}
+	}*/
 }
 @Override
 public void onResume() {
@@ -177,11 +177,11 @@ public void onClick(View v) {
 @Override
 public void onDestroyView() {
 	try {
-		if (view != null) {
+		/*if (view != null) {
 		    ViewGroup parent = (ViewGroup) view.getParent();
 		    if (parent != null)
 		        parent.removeAllViewsInLayout();
-		}
+		}*/
 		mRecordType=0;
 		FragmentTransaction transaction = getActivity()
 				.getSupportFragmentManager().beginTransaction();

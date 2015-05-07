@@ -79,6 +79,7 @@ public class Distribute extends Fragment implements OnClickListener,IXListViewLi
 	 private int id=MyApplication.NewUser.getId();
 	 private AlertDialog dialog;
 	 private Button close;
+	 private boolean isLoadMore=false;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -248,6 +249,9 @@ private void init() {
 				onLoad();
 				xxlistview.setAdapter(distributeAdapter);
 				break;
+			case 3:
+				quary();
+				break;
 			default:
 				break;
 			}
@@ -349,7 +353,7 @@ private void distribute() {
 				@Override
 				public void onSuccess(Object data) {
 					CommonUtil.toastShort(getActivity(), "配货成功");
-					
+					myHandler.sendEmptyMessage(3);
 				}
 
 				@Override
@@ -360,6 +364,12 @@ private void distribute() {
 	
 }
 private void quary() {
+	if(sonAgentId==null){
+		return;
+	}
+	if(!isLoadMore){
+		datadistribut.clear();
+	}
 	Config.getDistributeList(getActivity(),
 			agentId, 
 			sonAgentId[cc], 
@@ -371,6 +381,7 @@ private void quary() {
 		@Override
 		public void onSuccess(Page<DistributeEntity> data) {
 			DistributeDetail.isDri=false;
+			isLoadMore=false;
 			if(isrefersh){
 				page=a;
 				rows=Config.ROWS;
@@ -453,6 +464,7 @@ public void onLoadMore() {
 		CommonUtil.toastShort(getActivity(), "网络异常");
 		return;
 	}
+	isLoadMore=true;
 	page+=1;
 	quary();
 	

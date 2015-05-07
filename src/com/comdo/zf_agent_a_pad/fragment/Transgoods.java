@@ -29,6 +29,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -77,6 +78,7 @@ public class Transgoods extends Fragment implements OnClickListener,IXListViewLi
 	 private int id=MyApplication.NewUser.getId();
 	 private AlertDialog dialog;
 	 private Button close;
+	 private boolean isLoadMore=false;
 @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -151,6 +153,9 @@ public void onStart() {
 				onLoad();
 				xxlistview.setAdapter(transAdapter);
 				
+				break;
+			case 3:
+				quary();
 				break;
 			default:
 				break;
@@ -318,7 +323,7 @@ private void trans() {
 		@Override
 		public void onSuccess(Object data) {
 			CommonUtil.toastShort(getActivity(), "调货成功");
-			
+			myHandler.sendEmptyMessage(3);
 		}
 
 		@Override
@@ -330,11 +335,18 @@ private void trans() {
 	
 }
 private void quary() {
+	if(sonAgentId==null){
+		return;
+	}
+	if(!isLoadMore){
+		datatrans.clear();
+	}
 	Config.getTranslist(getActivity(), agent, sonAgentId[cc], left_time, right_time, page, rows, new HttpCallback<Page<TransgoodsEntity>>(getActivity()) {
 
 		@Override
 		public void onSuccess(Page<TransgoodsEntity> data) {
 			TransgoodsDetail.isTra=false;
+			isLoadMore=false;
 			/*if(isrefersh){
 				page=a;
 				rows=Config.ROWS;
@@ -477,6 +489,7 @@ public void onLoadMore() {
 		CommonUtil.toastShort(getActivity(), "网络异常");
 		return;
 	}
+	isLoadMore=true;
 	page+=1;
 	quary();
 	

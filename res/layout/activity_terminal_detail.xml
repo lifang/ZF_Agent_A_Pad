@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/white" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="510dp"
+                    android:layout_width="410dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
@@ -53,8 +54,8 @@
 
                     <Button
                         android:id="@+id/terminal_button_left_top"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
@@ -64,8 +65,8 @@
 
                     <Button
                         android:id="@+id/terminal_button_left_bottom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
@@ -75,8 +76,8 @@
 
                     <Button
                         android:id="@+id/terminal_button_right_top"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
@@ -86,8 +87,8 @@
 
                     <Button
                         android:id="@+id/terminal_button_right_bottom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
                         android:textColor="@color/bgtitle"
@@ -107,6 +108,16 @@
                 android:layout_marginTop="30dp"
                 android:orientation="vertical" >
 
+                <TextView
+                    style="@style/TextDetail.Title"
+                    android:text="@string/terminal_category_apply" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/bgtitle" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -120,17 +131,27 @@
                         android:orientation="vertical" >
                     </LinearLayout>
 
-                    <TableLayout
+                    <LinearLayout
                         android:id="@+id/terminal_rates"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_gravity="center_horizontal|top"
                         android:layout_margin="1dp"
                         android:layout_weight="1"
-                        android:background="#c9c9c9" >
-
-                    </TableLayout>
+                        android:orientation="vertical" >
+                    </LinearLayout>
                 </LinearLayout>
+
+                <TextView
+                    style="@style/TextDetail.Title"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/terminal_category_open" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/bgtitle" />
             </LinearLayout>
 
             <LinearLayout

@@ -1,12 +1,19 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,12 +53,15 @@ import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.popwindow.FactoryPopWindow;
+import com.comdo.zf_agent_a_pad.trade.API;
+import com.comdo.zf_agent_a_pad.trade.common.HttpRequest;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithGView;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
+
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -59,6 +69,8 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private Button setting_btn_clear;
@@ -106,7 +118,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				adapter.notifyDataSetChanged();
 				tv_title.setText(gfe.getTitle());
 				content1.setText(gfe.getSecond_title());
-				tv_pp.setText(gfe.getGood_brand());
+				tv_pp.setText(gfe.getGood_brand()+gfe.getModel_number());
 				//tv_price.setText("￥" + ((double) (gfe.getPurchase_price())+opening_cost) / 100);
 				tv_lx.setText(gfe.getCategory());
 				tv_sjhttp.setText(factoryEntity.getWebsite_url());
@@ -349,13 +361,26 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	}
 
 	private void getdata() {
-		RequestParams params = new RequestParams();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
 		params.put("goodId", id);
 		params.put("agentId", MyApplication.NewUser.getAgentId());
 		params.put("type", PosListActivity.shoptype);
-
-		params.setUseJsonStreamer(true);
-		new AsyncHttpClient().post(Config.GOODDETAIL, params,
+		JSONObject jsonParams = new JSONObject(params);
+		HttpEntity entity;
+		try {
+			entity = new StringEntity(jsonParams.toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			
+		
+			return;
+		}
+		
+		//(Context context, String url, Header[] headers, RequestParams params, String contentType,
+          //      ResponseHandlerInterface responseHandler) 
+		//client.post(context, url, null, entity, "application/json", responseHandler);
+		new AsyncHttpClient().post(getApplicationContext(),Config.GOODDETAIL, null,entity,"application/json",
 				new AsyncHttpResponseHandler() {
 					private Dialog loadingDialog;									
 					@Override
@@ -377,11 +402,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							byte[] responseBody) {
-						try {
-
-						} catch (Exception e) {
-
-						}
+			
 						String userMsg = new String(responseBody).toString();
 						innitView();
 						Log.i("ljp", userMsg);
@@ -393,10 +414,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 							jsonobject = new JSONObject(userMsg);
 							code = jsonobject.getInt("code");
 							if (code == -2) {
-								/*
-								 * Intent i = new Intent(getApplication(),
-								 * LoginActivity.class); startActivity(i);
-								 */
+								
+								  Intent i = new Intent(getApplication(),
+								  LoginActivity.class); startActivity(i);
+								 
 							} else if (code == 1) {
 
 								String res = jsonobject.getString("result");
@@ -430,11 +451,11 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 										buttonAdapter.notifyDataSetChanged();
 									}
 								});
-								/*
-								 * Config.myList = gson.fromJson( jsonobject
-								 * .getString("relativeShopList"), new
-								 * TypeToken<List<PosEntity>>() { }.getType());
-								 */
+								
+								 Config.myList = gson.fromJson( jsonobject
+								 .getString("relativeShopList"), new
+								TypeToken<List<PosEntity>>() { }.getType());
+								 
 								gfe = gson.fromJson(
 										jsonobject.getString("goodinfo"),
 										new TypeToken<GoodinfoEntity>() {
@@ -542,9 +563,204 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							byte[] responseBody, Throwable error) {
-
+						Toast.makeText(getApplicationContext(), statusCode+"", 1000).show();
 					}
 				});
+		/*RequestParams params = new RequestParams();
+		
+		params.put("goodId", id);
+		params.put("agentId", MyApplication.NewUser.getAgentId());
+		params.put("type", PosListActivity.shoptype);
+		params.setUseJsonStreamer(true);
+		AsyncHttpClient a=new AsyncHttpClient();
+		//(Context context, String url, Header[] headers, RequestParams params, String contentType,
+          //      ResponseHandlerInterface responseHandler) 
+		new AsyncHttpClient().post(Config.GOODDETAIL, params,
+				new AsyncHttpResponseHandler() {
+					private Dialog loadingDialog;									
+					@Override
+					public void onStart() {
+
+						super.onStart();
+						loadingDialog = DialogUtil
+								.getLoadingDialg(GoodDeatail.this);
+						loadingDialog.show();
+					}
+
+					@Override
+					public void onFinish() {
+
+						super.onFinish();
+						loadingDialog.dismiss();
+					}
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							byte[] responseBody) {
+			
+						String userMsg = new String(responseBody).toString();
+						innitView();
+						Log.i("ljp", userMsg);
+						Gson gson = new Gson();
+						// EventEntity
+						JSONObject jsonobject = null;
+						int code = 0;
+						try {
+							jsonobject = new JSONObject(userMsg);
+							code = jsonobject.getInt("code");
+							if (code == -2) {
+								
+								  Intent i = new Intent(getApplication(),
+								  LoginActivity.class); startActivity(i);
+								 
+							} else if (code == 1) {
+
+								String res = jsonobject.getString("result");
+								jsonobject = new JSONObject(res);
+
+								piclist = gson.fromJson(
+										jsonobject.getString("goodPics"),
+										new TypeToken<List<String>>() {
+										}.getType());
+								
+								User_button = gson.fromJson(
+										jsonobject.getString("payChannelList"),
+										new TypeToken<List<GriviewEntity>>() {
+										}.getType());
+								if(User_button==null)
+									User_button = new ArrayList<GriviewEntity>();
+								buttonAdapter = new ButtonGridviewAdapter(
+										GoodDeatail.this, User_button, 0);
+
+								gview1.setAdapter(buttonAdapter);
+								gview1.setOnItemClickListener(new OnItemClickListener() {
+
+									@Override
+									public void onItemClick(
+											AdapterView<?> arg0, View arg1,
+											int arg2, long arg3) {
+
+										buttonAdapter.setIndex(arg2);
+										getdataByChanel(User_button.get(arg2)
+												.getId());
+										buttonAdapter.notifyDataSetChanged();
+									}
+								});
+								
+								 Config.myList = gson.fromJson( jsonobject
+								 .getString("relativeShopList"), new
+								TypeToken<List<PosEntity>>() { }.getType());
+								 
+								gfe = gson.fromJson(
+										jsonobject.getString("goodinfo"),
+										new TypeToken<GoodinfoEntity>() {
+										}.getType());
+								factoryEntity = gson.fromJson(
+										jsonobject.getString("factory"),
+										new TypeToken<FactoryEntity>() {
+										}.getType());
+								ImageCacheUtil.IMAGE_CACHE.get(
+										factoryEntity.getLogo_file_path(),
+										fac_img);
+
+								commentsCount = jsonobject
+										.getInt("commentsCount");
+								Config.gfe = gfe;
+							
+								String res2 = jsonobject
+										.getString("paychannelinfo");
+								jsonobject = new JSONObject(res2);
+						
+								paychannelId = jsonobject.getInt("id");
+								Config.celist = gson.fromJson(
+										jsonobject.getString("standard_rates"),
+										new TypeToken<List<ChanelEntitiy>>() {
+										}.getType());
+								Config.tDates = gson.fromJson(
+										jsonobject.getString("tDates"),
+										new TypeToken<List<tDates>>() {
+										}.getType());
+								Config.other_rate = gson.fromJson(
+										jsonobject.getString("other_rate"),
+										new TypeToken<List<other_rate>>() {
+										}.getType());
+								Config.pub = gson.fromJson(jsonobject
+										.getString("requireMaterial_pub"),
+										new TypeToken<List<ApplyneedEntity>>() {
+										}.getType());
+								;
+								Config.single = gson.fromJson(jsonobject
+										.getString("requireMaterial_pra"),
+										new TypeToken<List<ApplyneedEntity>>() {
+										}.getType());
+
+								System.out.println("``celist`" + celist.size());
+								lvAdapter = new HuilvAdapter(GoodDeatail.this,
+										celist);
+								// pos_lv1.setAdapter(lvAdapter);
+
+								for (int i = 0; i < piclist.size(); i++) {
+									ma.add(piclist.get(i));
+								}
+								// User_button=gson.fromJson(jsonobject.getString("payChannelList"),
+								// new TypeToken<List<GriviewEntity>>()
+								// {
+								// }.getType());
+								// buttonAdapter=new
+								// ButtonGridviewAdapter(GoodDeatail.this,
+								// User_button,0);
+								// gview1.setAdapter(buttonAdapter);
+								if (jsonobject.getBoolean("support_type")) {
+									arelist = gson.fromJson(
+											jsonobject.getString("supportArea"),
+											new TypeToken<List<String>>() {
+											}.getType());
+									String a = "";
+									for (int i = 0; i < arelist.size(); i++) {
+										a = a + arelist.get(i);
+									}
+
+									Config.suportare = a;
+								} else {
+									Config.suportare = "不支持";
+
+								}
+								if (jsonobject
+										.getBoolean("support_cancel_flag")) {
+									Config.suportcl = "支持";
+
+								} else {
+									Config.suportcl = "不支持";
+								}
+								opening_cost = jsonobject.getInt("opening_cost");
+								celist2 = gson.fromJson(
+										jsonobject.getString("tDates"),
+										new TypeToken<List<ChanelEntitiy>>() {
+										}.getType());
+								Config.celist2 = celist2;
+								Config.tv_sqkt = jsonobject
+										.getString("opening_requirement");
+								ll_Factory = (LinearLayout) findViewById(R.id.mer_detail);
+								ll_Factory.setOnClickListener(GoodDeatail.this);
+								handler.sendEmptyMessage(0);
+							} else {
+								Toast.makeText(getApplicationContext(),
+										jsonobject.getString("message"),
+										Toast.LENGTH_SHORT).show();
+							}
+						} catch (JSONException e) {
+
+							e.printStackTrace();
+						}
+
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							byte[] responseBody, Throwable error) {
+						Toast.makeText(getApplicationContext(), statusCode+"", 1000).show();
+					}
+				});*/
 
 	}
 
