@@ -13,27 +13,9 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
-import com.comdo.zf_agent_a_pad.trade.entity.City;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.MyApplication;
-import com.comdo.zf_agent_a_pad.util.RegText;
-import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,7 +30,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.RegText;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
+import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class CreatAgent extends BaseActivity implements OnClickListener {
 	private EditText et_company_type, et_company_name, et_business_license,

@@ -2,97 +2,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-  	android:orientation="vertical"
-  	android:background="@color/F3F2F2" >
-  	<include layout="@layout/title_back" />
-  	<ScrollView  
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
-  <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-  	android:orientation="vertical"
-  	android:layout_marginLeft="70dp"
-  	android:layout_marginTop="40dp"
-  	android:layout_marginRight="70dp" >
- <TextView 
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="配货对象"
-    android:textColor="#39332C"
-    android:textSize="16sp"/>
- <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="#C9DFF4"
-    android:layout_marginTop="5dp"
-    />
- <TextView 
-     android:id="@+id/tv_distribute_object"
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#C5C5C5"
-    android:textSize="16sp"
-    android:layout_marginTop="10dp"/>
- <TextView 
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="配货日期"
-    android:textColor="#39332C"
-    android:textSize="16sp"
-    android:layout_marginTop="40dp"/>
- <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="#C9DFF4"
-    android:layout_marginTop="5dp"
-    />
- <TextView 
-     android:id="@+id/tv_date"
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#C5C5C5"
-    android:textSize="16sp"
-    android:layout_marginTop="10dp"/>
- <TextView 
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="操作员"
-    android:textColor="#39332C"
-    android:textSize="16sp"
-    android:layout_marginTop="40dp"/>
- <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="#C9DFF4"
-    android:layout_marginTop="5dp"
-    />
- <TextView 
-     android:id="@+id/tv_creator"
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="#C5C5C5"
-    android:textSize="16sp"
-    android:layout_marginTop="10dp"/>
- <TextView 
-     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="终端号"
-    android:textColor="#39332C"
-    android:textSize="16sp"
-    android:layout_marginTop="40dp"/>
- <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="#C9DFF4"
-    android:layout_marginTop="5dp"
-    />
- <ListView 
-     android:id="@+id/lv_list"
-     android:layout_width="wrap_content"
-    android:layout_height="100dp"
-    android:layout_marginTop="10dp"/>
- 
-  	</LinearLayout>
-  	</ScrollView>
-  	</LinearLayout>
+    android:background="@color/F3F2F2"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="配货对象"
+                    android:textColor="#39332C"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/total1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="总共0件"
+                    android:textColor="#39332C"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#C9DFF4" />
+
+            <TextView
+                android:id="@+id/tv_distribute_object"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text6c6c6c6"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+                android:text="配货日期"
+                android:textColor="#39332C"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#C9DFF4" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text6c6c6c6"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+                android:text="操作员"
+                android:textColor="#39332C"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#C9DFF4" />
+
+            <TextView
+                android:id="@+id/tv_creator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text6c6c6c6"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="终端号"
+                    android:textColor="#39332C"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/total2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="总共0件"
+                    android:textColor="#39332C"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#C9DFF4" />
+
+            <ListView
+                android:id="@+id/lv_list"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:divider="@null" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

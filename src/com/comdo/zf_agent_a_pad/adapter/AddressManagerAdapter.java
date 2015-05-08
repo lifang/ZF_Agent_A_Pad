@@ -15,50 +15,54 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class AddressManagerAdapter extends BaseAdapter{
+public class AddressManagerAdapter extends BaseAdapter {
 	private List<AddressManager> dataadress;
 	private Context context;
 	private LayoutInflater mInflater;
 	public static int pp;
-	public AddressManagerAdapter(List<AddressManager> dataadress,Context context){
+
+	public AddressManagerAdapter(List<AddressManager> dataadress,
+			Context context) {
 		super();
-		this.dataadress=dataadress;
-		this.context=context;
+		this.dataadress = dataadress;
+		this.context = context;
 	}
+
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return dataadress.size();
 	}
+
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return dataadress.get(position);
 	}
+
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return dataadress.get(position).getId();
 	}
+
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final ViewHoldel holdel;
-		if(convertView == null){
-			mInflater=LayoutInflater.from(context);
-			convertView=mInflater.inflate(R.layout.manageradressitem, null);
-			holdel=new ViewHoldel();
-			holdel.consignee=(TextView) convertView.findViewById(R.id.consignee);
-			holdel.area=(TextView) convertView.findViewById(R.id.area);
-			holdel.detailadress=(TextView) convertView.findViewById(R.id.detailadress);
-			holdel.zipcode=(TextView) convertView.findViewById(R.id.zipcode);
-			holdel.phone=(TextView) convertView.findViewById(R.id.phone); 
-			holdel.defau=(TextView) convertView.findViewById(R.id.defau);
-			holdel.change=(TextView) convertView.findViewById(R.id.change);
-			holdel.delect=(TextView) convertView.findViewById(R.id.delect);
+		if (convertView == null) {
+			mInflater = LayoutInflater.from(context);
+			convertView = mInflater.inflate(R.layout.manageradressitem, null);
+			holdel = new ViewHoldel();
+			holdel.consignee = (TextView) convertView
+					.findViewById(R.id.consignee);
+			holdel.area = (TextView) convertView.findViewById(R.id.area);
+			holdel.detailadress = (TextView) convertView
+					.findViewById(R.id.detailadress);
+			holdel.zipcode = (TextView) convertView.findViewById(R.id.zipcode);
+			holdel.phone = (TextView) convertView.findViewById(R.id.phone);
+			holdel.defau = (TextView) convertView.findViewById(R.id.defau);
+			holdel.change = (TextView) convertView.findViewById(R.id.change);
+//			holdel.delect = (TextView) convertView.findViewById(R.id.delect);
 			convertView.setTag(holdel);
-			}
-		else{
-			holdel=(ViewHoldel) convertView.getTag();
+		} else {
+			holdel = (ViewHoldel) convertView.getTag();
 		}
 		holdel.consignee.setText(dataadress.get(position).getReceiver());
 		holdel.area.setText(dataadress.get(position).getCity());
@@ -67,30 +71,31 @@ public class AddressManagerAdapter extends BaseAdapter{
 		holdel.phone.setText(dataadress.get(position).getMoblephone());
 		holdel.defau.setText(dataadress.get(position).getIsDefault());
 		holdel.change.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				pp=position;
-				Message msg=Mine_adress.myHandler.obtainMessage();
-				msg.what=2;
+				pp = position;
+				Message msg = Mine_adress.myHandler.obtainMessage();
+				msg.what = 2;
 				msg.sendToTarget();
-				
+
 			}
 		});
-		holdel.delect.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				pp=position;
-				Message msg=Mine_adress.myHandler.obtainMessage();
-				msg.what=3;
-				msg.sendToTarget();
-				
-			}
-		});
+//		holdel.delect.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				pp = position;
+//				Message msg = Mine_adress.myHandler.obtainMessage();
+//				msg.what = 3;
+//				msg.sendToTarget();
+//
+//			}
+//		});
 		return convertView;
 	}
-	public static class ViewHoldel{
+
+	public static class ViewHoldel {
 		TextView consignee;
 		TextView area;
 		TextView detailadress;
@@ -98,7 +103,6 @@ public class AddressManagerAdapter extends BaseAdapter{
 		TextView phone;
 		TextView defau;
 		TextView change;
-		TextView delect;
+//		TextView delect;
 	}
 }
-

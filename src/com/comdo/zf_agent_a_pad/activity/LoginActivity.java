@@ -188,6 +188,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.login_linear_deletename:
 			login_edit_name.setText("");
+			login_edit_pass.setText("");
 			break;
 		case R.id.login_linear_deletepass:
 			login_edit_pass.setText("");
