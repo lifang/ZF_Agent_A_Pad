@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,20 +21,22 @@ import com.comdo.zf_agent_a_pad.entity.ShopPayOrderEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.DialogUtil;
 import com.comdo.zf_agent_a_pad.util.DialogUtil.CallBackChange;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
+import com.unionpay.uppayplugin.demo.APKActivity;
 
 public class PayFromCar extends PayActivity implements OnClickListener{
 	private TextView tv_pay;
-	private LinearLayout titleback_linear_back, ll_request;
+	private LinearLayout titleback_linear_back, ll_request,ll_yl;
 	private int orderId;
 	private String outTradeNo;
 	private String subject;
 	private String body;
 	private String price;
-	
+	private String unionprice;
 	private int type;
 	
 	private String pay_status;//定金支付状态
@@ -61,6 +64,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 
 		orderId = getIntent().getIntExtra("orderId", -1);
 		type = getIntent().getIntExtra("type", 5);
+		
 		if (type == 5) {
 			priceEdit = getIntent().getStringExtra("pay");
 		}else {
@@ -75,6 +79,8 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		titleback_linear_back.setOnClickListener(this);
 		ll_request = (LinearLayout) findViewById(R.id.ll_request);
 		ll_request.setOnClickListener(this);
+		ll_yl = (LinearLayout) findViewById(R.id.ll_sh);
+		ll_yl.setOnClickListener(this);
 		
 		if (type == 5) {
 			getOrderPayOrder();//批购
@@ -100,6 +106,18 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 					}
 				}
 			}
+			break;
+		case R.id.ll_sh:
+			Intent intent = new Intent();
+	        intent.setClass(this, APKActivity.class);
+	        intent.putExtra("orderId", orderId);
+	        intent.putExtra("outTradeNo", outTradeNo);
+	        intent.putExtra("type", type);
+	        intent.putExtra("price", unionprice);
+	        startActivity(intent);
+	        if(!MyApplication.getInstance().getHistoryList().contains(this)){
+	        	MyApplication.getInstance().getHistoryList().add(this);	
+	        }
 			break;
 		default:
 			break;
@@ -145,6 +163,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 				}
 				outTradeNo = data.getOrder_number();
 				price = data.getTotal_price();
+				unionprice = price;
 				price = String.format("%.2f", Integer.parseInt(price)/100f);
 				handler.sendEmptyMessage(0);
 			}

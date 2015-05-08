@@ -412,6 +412,11 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
+         <activity
+            android:name="com.unionpay.uppayplugin.demo.APKActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>
