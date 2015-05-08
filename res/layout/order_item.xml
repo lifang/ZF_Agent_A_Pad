@@ -23,7 +23,7 @@
             android:layout_marginLeft="7dp"
             android:text="订单编号:123444444"
             android:textColor="@color/text6c6c6c6"
-            android:textSize="@dimen/textsmall" />
+            android:textSize="@dimen/textmid" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -34,7 +34,7 @@
             android:gravity="left"
             android:text="2015-1-1 12:00：00"
             android:textColor="@color/text6c6c6c6"
-            android:textSize="@dimen/textsmall" />
+            android:textSize="@dimen/textmid" />
 
         <TextView
             android:id="@+id/tv_status"
@@ -44,7 +44,7 @@
             android:layout_marginRight="7dp"
             android:text="已经发货"
             android:textColor="#292929"
-            android:textSize="@dimen/textmid" />
+            android:textSize="@dimen/textbig" />
     </LinearLayout>
 
     <View
@@ -94,7 +94,7 @@
                     android:maxLines="1"
                     android:text="品牌型号"
                     android:textColor="@color/text292929"
-                    android:textSize="@dimen/textmid" />
+                    android:textSize="@dimen/textbig" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
                         android:maxLines="1"
                         android:text="品牌型号"
                         android:textColor="@color/text6c6c6c6"
-                        android:textSize="@dimen/textmid" />
+                        android:textSize="@dimen/textbig" />
 
                     <TextView
                         android:id="@+id/content2"
@@ -124,7 +124,7 @@
                         android:maxLines="1"
                         android:text="contentcontentcontentcontent"
                         android:textColor="@color/text292929"
-                        android:textSize="@dimen/textmid" />
+                        android:textSize="@dimen/textbig" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -142,7 +142,7 @@
                         android:maxLines="1"
                         android:text="支付通道"
                         android:textColor="@color/text6c6c6c6"
-                        android:textSize="@dimen/textmid" />
+                        android:textSize="@dimen/textbig" />
 
                     <TextView
                         android:id="@+id/tv_gtd"
@@ -154,7 +154,7 @@
                         android:maxLines="1"
                         android:text="支付宝"
                         android:textColor="@color/text292929"
-                        android:textSize="@dimen/textmid" />
+                        android:textSize="@dimen/textbig" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -193,7 +193,7 @@
                         android:maxLines="1"
                         android:text="$ 1999"
                         android:textColor="@color/text292929"
-                        android:textSize="@dimen/textbig" />
+                        android:textSize="@dimen/textbig2" />
                 </LinearLayout>
 
                 <TextView

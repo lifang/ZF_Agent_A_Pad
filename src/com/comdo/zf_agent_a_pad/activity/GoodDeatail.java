@@ -115,7 +115,14 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				}
 				indicator_imgs = new ImageView[ma.size()];
 				initIndicator();
+				
 				adapter.notifyDataSetChanged();
+				if(PosListActivity.shoptype != 1){
+					setting_btn_clear.setText("代购");
+					tv_dp.setText("代购价格");
+					tv_j_isshow.setVisibility(View.GONE);
+					tv_yj.setVisibility(View.GONE);
+				}
 				tv_title.setText(gfe.getTitle());
 				content1.setText(gfe.getSecond_title());
 				tv_pp.setText(gfe.getGood_brand()+gfe.getModel_number());
@@ -131,13 +138,25 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				System.out.println("-Xlistview--" +gfe.getPurchase_price());
 				if (islea == false) {
 					//购买
-					all_price = gfe.getRetail_price()+opening_cost;
-					tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()+opening_cost));
+					if(PosListActivity.shoptype != 1){
+						all_price = gfe.getRetail_price()+opening_cost;
+						tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()+opening_cost));
+					}else{
+						all_price = gfe.getRetail_price()+opening_cost;
+						tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getPurchase_price()+opening_cost));
+					}
+					
 				}else {
 					//租赁
 					all_price = gfe.getLease_deposit()+opening_cost;
 					tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getLease_deposit()+opening_cost));
 				}
+				if (PosListActivity.shoptype != 1&&gfe.isHas_lease()) {
+					ll_shoptype = (LinearLayout) findViewById(R.id.ll_shoptype);
+					ll_shoptype.setVisibility(View.VISIBLE);
+					setting_btn_clear.setText("代购");
+				}
+				
 				break;
 			case 1:
 				Toast.makeText(getApplicationContext(), (String) msg.obj,
@@ -153,6 +172,8 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private LinearLayout ll_shoptype;
 	private TextView tv_yj;
 	private int all_price;
+	private TextView tv_dp;
+	private TextView tv_j_isshow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +186,8 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	}
 
 	private void innitView() {
-
+		tv_j_isshow = (TextView)findViewById(R.id.tv_j_isshow);
+		tv_dp = (TextView)findViewById(R.id.tv_dp);
 		tv_yj = (TextView) findViewById(R.id.tv_yj);
 		setting_btn_clear = (Button) findViewById(R.id.btn_buy);
 		setting_btn_clear.setOnClickListener(this);
@@ -214,11 +236,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		tv_zd.setOnClickListener(this);
 		TextView tv_jy = (TextView) findViewById(R.id.tv_jy);
 		tv_jy.setOnClickListener(this);
-		if (PosListActivity.shoptype != 1) {
-			ll_shoptype = (LinearLayout) findViewById(R.id.ll_shoptype);
-			ll_shoptype.setVisibility(View.VISIBLE);
-			setting_btn_clear.setText("代购");
-		}
+	
 	}
 
 	@Override
@@ -237,6 +255,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()+opening_cost));
 			islea = false;
 			setting_btn_clear.setText("代购");
+			tv_dp.setText("代购价格");
 			tv_lea.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.send_out_goods_shape));
 			tv_bug.setBackgroundDrawable(getResources().getDrawable(
@@ -254,6 +273,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getLease_deposit()+opening_cost));
 			islea = true;
 			setting_btn_clear.setText("代租赁");
+			tv_dp.setText("租赁价格");
 			tv_bug.setTextColor(getResources().getColor(R.color.text292929));
 			tv_lea.setTextColor(getResources().getColor(R.color.bgtitle));
 			tv_lea.setBackgroundDrawable(getResources().getDrawable(
@@ -308,9 +328,9 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				if(islea){
 					Intent i21 = new Intent(GoodDeatail.this, LeaseConfirm.class);
 					i21.putExtra("getTitle", gfe.getTitle());
-					i21.putExtra("price", gfe.getPrice());
+					i21.putExtra("price", gfe.getPrice()+opening_cost);
 					i21.putExtra("model", gfe.getModel_number());
-					i21.putExtra("purchase_price", gfe.getPurchase_price());
+					i21.putExtra("purchase_price", gfe.getLease_deposit()+opening_cost);
 					i21.putExtra("brand", gfe.getGood_brand());
 					i21.putExtra("paychannelId", paychannelId);
 					i21.putExtra("goodId", gfe.getId());
@@ -362,8 +382,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 
 	private void getdata() {
 		
-		Map<String, Object> params = new HashMap<String, Object>();
-		
+		Map<String, Object> params = new HashMap<String, Object>();		
 		params.put("goodId", id);
 		params.put("agentId", MyApplication.NewUser.getAgentId());
 		params.put("type", PosListActivity.shoptype);
@@ -371,12 +390,9 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		HttpEntity entity;
 		try {
 			entity = new StringEntity(jsonParams.toString(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			
-		
+		} catch (UnsupportedEncodingException e) {				
 			return;
-		}
-		
+		}		
 		//(Context context, String url, Header[] headers, RequestParams params, String contentType,
           //      ResponseHandlerInterface responseHandler) 
 		//client.post(context, url, null, entity, "application/json", responseHandler);

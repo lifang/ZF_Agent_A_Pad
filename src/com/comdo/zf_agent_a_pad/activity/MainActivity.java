@@ -209,7 +209,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		switch (Config.TABID) {/*
+		switch (Config.TABID) {
 		case 1:
 			changTabBg();
 			im_sy.setBackgroundResource(R.drawable.home);
@@ -244,7 +244,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		default:
 			break;
-		*/}
+		}
 	}
 	@Override
 	protected void onDestroy() {

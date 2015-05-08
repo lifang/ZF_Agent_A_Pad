@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,6 +103,9 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_comfirm1);
+		DecimalFormat df = (DecimalFormat) NumberFormat
+				.getInstance();
+		df.applyPattern("0.00");
 		ue = MyApplication.NewUser;
 		type = getIntent().getIntExtra("type", 1);
 
@@ -124,12 +129,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		title2.setText(getIntent().getStringExtra("getTitle"));
 		pg_price = getIntent().getIntExtra("purchase_price", 1);
 		pirce = getIntent().getIntExtra("price", 0);
-		retail_price.setText("原价:￥" + pirce);
+		retail_price.setText("原价:￥" +  df.format(pirce*1.0f/100));
 		goodId = getIntent().getIntExtra("goodId", 1);
 		paychannelId = getIntent().getIntExtra("paychannelId", 1);
-		tv_pay.setText("实付：￥ " + ((double) pg_price) / 100);
-		tv_totle.setText("实付：￥ " + ((double) pg_price) / 100);
-		tv_price.setText("￥" + ((double) pg_price) / 100);
+		tv_pay.setText("实付：￥ " +   df.format(pg_price*1.0f/100));
+		tv_totle.setText("实付：￥ " +   df.format(pg_price*1.0f/100));
+		tv_price.setText("￥" +   df.format(pg_price *1.0f/100));
 		tv_brand.setText(getIntent().getStringExtra("brand"));
 		String img_url = getIntent().getStringExtra("evevt_img");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url, event_img);
@@ -204,8 +209,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		tv_zc = (TextView) findViewById(R.id.tv_zc);
 		tv_zd = (TextView) findViewById(R.id.tv_zd);
 		if (Config.gfe != null) {
-			tv_zc.setText("最长租赁时间：" + Config.gfe.getLease_time() + "天");
-			tv_zd.setText("最短租赁时间：" + Config.gfe.getReturn_time() + "天");
+			tv_zc.setText("最长租赁时间：" + Config.gfe.getReturn_time()+ "天");
+			tv_zd.setText("最短租赁时间：" + Config.gfe.getLease_time()  + "天");
 		}
 		sclist = (ScrollViewWithListView) findViewById(R.id.pos_lv1);
 		myAdapter = new ChooseAdressAdapter(this, myList);
@@ -269,6 +274,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
 				// showCountText.setText(arg0.toString());
+				if(buyCountEdit.getText().toString().equals("0"))
+					buyCountEdit.setText("");
 				tv_count.setText("共计:   " + arg0 + "件");
 				if (buyCountEdit.getText().toString().equals("")) {
 					quantity = 0;
@@ -317,7 +324,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void getData1() {
-		Config.GetAdressList(LeaseConfirm.this, ue.getAgentUserId(),
+		Config.GetAdressLis(LeaseConfirm.this, ue.getAgentUserId(),
 				new HttpCallback<List<AdressEntity>>(LeaseConfirm.this) {
 
 					@Override
@@ -375,7 +382,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			buyCountEdit.setText(quantity + "");
 			break;
 		case R.id.reduce:
-			if (quantity == 0) {
+			if (quantity <=1) {
 				break;
 			}
 			quantity = Integer.parseInt(buyCountEdit.getText().toString()) - 1;

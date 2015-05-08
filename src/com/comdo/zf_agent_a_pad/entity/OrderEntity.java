@@ -13,7 +13,15 @@ public class OrderEntity {
 	private String zhifu_dingjin;
 	private String shengyu_price;
 	private String shipped_quantity;
-	
+	private String pay_status;
+	public String getPay_status() {
+		return pay_status;
+	}
+
+	public void setPay_status(String pay_status) {
+		this.pay_status = pay_status;
+	}
+
 	public String getShipped_quantity() {
 		return shipped_quantity;
 	}

@@ -182,6 +182,15 @@ public class OrderAdapter extends BaseAdapter{
 			holder.tv_status.setText("未付款");
 			holder.ll_ishow.setVisibility(View.VISIBLE);
 			holder.btn_comment.setVisibility(View.GONE);
+			if(OrderList.type.equals("5")){
+				if(list.get(position).getPay_status().equals("2")){
+					holder.tv_status.setText("已付订金");
+					holder.btn_pay.setText("付款");
+					holder.btn_comment.setVisibility(View.GONE);
+					holder.ll_ishow.setVisibility(View.VISIBLE);
+				}
+			}
+			
 			break;
 		case 2:
 			if(OrderList.type.equals("5")){
@@ -212,14 +221,14 @@ public class OrderAdapter extends BaseAdapter{
 		case 5:
 			holder.tv_status.setText("已取消");
 			holder.ll_ishow.setVisibility(View.GONE);
-			holder.btn_comment.setVisibility(View.VISIBLE);
-			if(OrderList.type.equals("5")){
+			//holder.btn_comment.setVisibility(View.VISIBLE);
+			/*if(OrderList.type.equals("5")){
 				holder.btn_comment.setText("再次批购");
 				
 			}else{
 				holder.btn_comment.setText("再次代购");
 				
-			}
+			}*/
 			
 			break;
 		case 6:

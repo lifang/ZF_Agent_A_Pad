@@ -275,7 +275,7 @@
                                                 android:maxLines="2"
                                                 android:text="2015最新POS机器旗舰版  1.0"
                                                 android:textColor="@color/text292929"
-                                                android:textSize="@dimen/textmid" />
+                                                android:textSize="@dimen/textbig" />
 
                                             <LinearLayout
                                                 android:layout_width="wrap_content"
@@ -299,7 +299,7 @@
                                                         android:maxLines="1"
                                                         android:text="品牌型号"
                                                         android:textColor="@color/text6c6c6c6"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/content2"
@@ -311,7 +311,7 @@
                                                         android:maxLines="1"
                                                         android:text="contentcontentcontentcontent"
                                                         android:textColor="@color/text292929"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
 
                                                 <LinearLayout
@@ -329,7 +329,7 @@
                                                         android:maxLines="1"
                                                         android:text="支付通道"
                                                         android:textColor="@color/text6c6c6c6"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/wayName"
@@ -341,7 +341,7 @@
                                                         android:maxLines="1"
                                                         android:text="支付宝"
                                                         android:textColor="@color/text292929"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
                                             </LinearLayout>
                                         </RelativeLayout>
@@ -373,7 +373,7 @@
                                                         android:maxLines="1"
                                                         android:text="原价：99999999"
                                                         android:textColor="#959494"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/tv_price"
@@ -384,7 +384,7 @@
                                                         android:maxLines="1"
                                                         android:text="$999.00"
                                                         android:textColor="#292929"
-                                                        android:textSize="@dimen/textbig" />
+                                                        android:textSize="@dimen/textbig2" />
                                                 </LinearLayout>
                                             </LinearLayout>
                                         </LinearLayout>
@@ -520,7 +520,8 @@
                                             android:layout_width="fill_parent"
                                             android:layout_height="fill_parent"
                                             android:layout_weight="1"
-                                            android:editable="false"
+                                            android:editable="true"
+                                            android:digits="0123456789"
                                             android:background="@color/ffffff"
                                             android:gravity="center" />
 

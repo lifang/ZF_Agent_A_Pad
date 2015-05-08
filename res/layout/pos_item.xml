@@ -45,7 +45,7 @@
                     android:maxLines="2"
                     android:text="2015最新POS机器旗舰版  1.0"
                     android:textColor="@color/text292929"
-                    android:textSize="@dimen/textmid" />
+                    android:textSize="@dimen/textbig" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                             android:maxLines="1"
                             android:text="品牌型号"
                             android:textColor="@color/text6c6c6c6"
-                            android:textSize="@dimen/textmid" />
+                            android:textSize="@dimen/textbig" />
 
                         <TextView
                             android:id="@+id/content1"
@@ -81,7 +81,7 @@
                             android:maxLines="1"
                             android:text="contentcontentcontentcontent"
                             android:textColor="@color/text292929"
-                            android:textSize="@dimen/textmid" />
+                            android:textSize="@dimen/textbig" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -99,7 +99,7 @@
                             android:maxLines="1"
                             android:text="支付通道"
                             android:textColor="@color/text6c6c6c6"
-                            android:textSize="@dimen/textmid" />
+                            android:textSize="@dimen/textbig" />
 
                         <TextView
                             android:id="@+id/tv_td"
@@ -111,9 +111,19 @@
                             android:maxLines="1"
                             android:text="支付宝"
                             android:textColor="@color/text292929"
-                            android:textSize="@dimen/textmid" />
+                            android:textSize="@dimen/textbig" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/im_zl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/title"
+                    android:layout_marginTop="6dp"
+                    android:src="@drawable/test_zl" />
+
             </RelativeLayout>
 
             <LinearLayout
@@ -136,7 +146,7 @@
                         android:gravity="bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textmid"
+                        android:textSize="@dimen/textbig"
                         android:textColor="#959494"
                         android:text="原价：99999999" />
 
@@ -157,7 +167,7 @@
                         android:gravity="top"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textmid"
+                        android:textSize="@dimen/textbig"
                         android:textColor="#959494"
                         android:text="最小起批量：100件" />
                 </LinearLayout>

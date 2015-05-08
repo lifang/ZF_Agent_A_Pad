@@ -15,7 +15,8 @@
 <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/titleback_height"
-        android:background="@drawable/title"
+        android:background="@drawable/bgtm"
+        
         android:orientation="horizontal" >
 
         <ImageView
@@ -110,7 +111,7 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="我要进货"
                             android:textColor="@color/text5a5a5a"
-                            android:textSize="@dimen/textbig" />
+                            android:textSize="@dimen/textbig2" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -118,7 +119,7 @@
                     android:layout_width="2dp"
                     android:layout_height="fill_parent"
                     android:layout_marginTop="7dp"
-                    android:background="@color/Viewc" />
+                    android:background="#dddcdc" />
 
                 <RelativeLayout
                     android:id="@+id/main_rl_renzhen"
@@ -149,13 +150,13 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="订单管理"
                             android:textColor="@color/text5a5a5a"
-                             android:textSize="@dimen/textbig"/>
+                             android:textSize="@dimen/textbig2"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <View
                     android:layout_width="2dp"
                     android:layout_height="fill_parent"
-                    android:background="@color/Viewc" />
+                    android:background="#dddcdc" />
                 <RelativeLayout
                     android:id="@+id/main_rl_zdgl"
                     android:layout_width="fill_parent"
@@ -187,13 +188,13 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="终端管理"
                             android:textColor="@color/text5a5a5a"
-                             android:textSize="@dimen/textbig" />
+                             android:textSize="@dimen/textbig2" />
                     </LinearLayout>
                 </RelativeLayout>
                 <View
                     android:layout_width="2dp"
                     android:layout_height="fill_parent"
-                    android:background="@color/Viewc" />
+                    android:background="#dddcdc" />
                 <RelativeLayout
                     android:id="@+id/main_rl_jyls"
                     android:layout_width="fill_parent"
@@ -223,7 +224,7 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="交易流水"
                             android:textColor="@color/text5a5a5a"
-                            android:textSize="@dimen/textbig"/>
+                            android:textSize="@dimen/textbig2"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -233,7 +234,7 @@
                 android:layout_height="2dp"
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="7dp"
-                android:background="@color/Viewc" />
+                android:background="#dddcdc" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -272,13 +273,13 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="库存管理"
                             android:textColor="@color/text5a5a5a"
-                             android:textSize="@dimen/textbig" />
+                             android:textSize="@dimen/textbig2" />
                     </LinearLayout>
                 </RelativeLayout>
                 <View
                     android:layout_width="2dp"
                     android:layout_height="fill_parent"
-                    android:background="@color/Viewc" />
+                    android:background="#dddcdc" />
                   <RelativeLayout
                     android:id="@+id/main_rl_wylc"
                     android:layout_width="fill_parent"
@@ -310,7 +311,7 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="用户管理"
                             android:textColor="@color/text5a5a5a"
-                             android:textSize="@dimen/textbig" />
+                             android:textSize="@dimen/textbig2" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -318,7 +319,7 @@
                     android:layout_width="2dp"
                     android:layout_height="fill_parent"
                     android:layout_marginBottom="7dp"
-                    android:background="@color/Viewc" />
+                    android:background="#dddcdc" />
 
                 <RelativeLayout
                     android:id="@+id/main_rl_xtgg"
@@ -349,7 +350,7 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="售后记录"
                             android:textColor="@color/text5a5a5a"
-                             android:textSize="@dimen/textbig" />
+                             android:textSize="@dimen/textbig2" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -357,7 +358,7 @@
                     android:layout_width="2dp"
                     android:layout_height="fill_parent"
                     android:layout_marginBottom="7dp"
-                    android:background="@color/Viewc" />
+                    android:background="#dddcdc" />
 
                 <RelativeLayout
                     android:id="@+id/main_rl_lxwm"
@@ -388,7 +389,7 @@
                             android:layout_marginTop="@dimen/iconma"
                             android:text="开通认证"
                             android:textColor="@color/text5a5a5a"
-                             android:textSize="@dimen/textbig" />
+                             android:textSize="@dimen/textbig2" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>

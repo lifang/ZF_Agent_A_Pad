@@ -278,6 +278,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 		bt_confirm = (Button) findViewById(R.id.bt_confirm);
 		bt_confirm.setOnClickListener(this);
 		listView = (ExpandableListView) findViewById(R.id.list);
+		listView.setGroupIndicator(null);
 		myadapter = new PosPortAdapter(this, portlist, glist);
 		myadapter.setListView(listView);
 		listView.setAdapter(myadapter);

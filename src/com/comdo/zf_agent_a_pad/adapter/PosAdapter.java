@@ -66,6 +66,7 @@ public class PosAdapter extends BaseAdapter {
 					.findViewById(R.id.content1);
 			holder.tv_td = (TextView) convertView.findViewById(R.id.tv_td);
 			holder.im=(ImageView)convertView.findViewById(R.id.evevt_img);
+			holder.im_zl=(ImageView)convertView.findViewById(R.id.im_zl);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -85,7 +86,11 @@ public class PosAdapter extends BaseAdapter {
 		}else{
 			holder.ys.setText("" + list.get(position).getVolume_number());
 		}
-		
+		if(list.get(position).getHas_lease()&&PosListActivity.shoptype!=1){
+			holder.im_zl.setVisibility(View.VISIBLE);
+		}else{
+			holder.im_zl.setVisibility(View.GONE);
+		}
 		String string=" 原价:￥"+((double)list.get(position).getPurchase_price()/100)+" ";
 		SpannableString sp = new SpannableString(string);
 		sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -97,7 +102,7 @@ public class PosAdapter extends BaseAdapter {
 	public final class ViewHolder {
 		public TextView title, ys, tv_price, content1, tv_td,tv_least,tv_yj;
 		public CheckBox item_cb;
-		public ImageView im;
+		public ImageView im,im_zl;
 
 	}
 }

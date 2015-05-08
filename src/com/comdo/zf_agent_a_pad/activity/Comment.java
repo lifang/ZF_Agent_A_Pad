@@ -1,9 +1,14 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,19 +73,26 @@ public class Comment extends BaseActivity{
  			as.add(aaa);
 			System.out.println(goodlist.get(i).getScore()+"---submit---"+goodlist.get(i).getContent()+"id-"+goodlist.get(i).getGood_id());
 		}
+		Map<String, Object> params = new HashMap<String, Object>();	
 		String url = Config.Comment;
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
 		Gson gson = new Gson();
 		try {
 			params.put("json", new JSONArray(gson.toJson(as)));
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}
-	  
-		params.setUseJsonStreamer(true);
+		JSONObject jsonParams = new JSONObject(params);
+		HttpEntity entity;
+		try {
+			entity = new StringEntity(jsonParams.toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+					
+			return;
+		}
 		System.out.println("---"+params.toString());
 		MyApplication.getInstance().getClient()
-				.post(url, params, new AsyncHttpResponseHandler() {
+				.post(getApplicationContext(),url, null,entity,"application/json", new AsyncHttpResponseHandler() {
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,

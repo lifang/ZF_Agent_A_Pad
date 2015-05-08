@@ -111,8 +111,7 @@ public class OrderList extends Activity implements IXListViewListener,
 		all_good = (ImageView) findViewById(R.id.AllGood);
 		all_good.setOnClickListener(this);
 		sp = (Spinner) findViewById(R.id.spinner);
-		final String arr[] = new String[] { "全部", "未付款", "已付款", "已发货", "已评价",
-				"已取消", "交易关闭" };
+		final String arr[] = new String[] { "全部", "未付款", "已付订金", "已完成", "已取消"};
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, arr);
@@ -126,6 +125,7 @@ public class OrderList extends Activity implements IXListViewListener,
 				q = position == 0 ? "" : position + "";
 				page = 1;
 				myList.clear();
+
 				getData();
 			}
 
@@ -238,7 +238,7 @@ public class OrderList extends Activity implements IXListViewListener,
 
 			dg.setTextColor(getResources().getColor(R.color.text292929));
 			pg.setTextColor(getResources().getColor(R.color.bgtitle));
-			type = "5";
+			type = "3";
 			myList.clear();
 			page = 1;
 			getData();

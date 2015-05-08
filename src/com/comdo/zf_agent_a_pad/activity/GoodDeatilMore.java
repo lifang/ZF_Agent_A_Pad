@@ -38,8 +38,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.goodmoremain);
-	
+		setContentView(R.layout.goodmoremain);	
 		type = getIntent().getIntExtra("type", 0);
 		comments = getIntent().getIntExtra("commets", 0);
 		
@@ -50,35 +49,35 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 				detail = new F_good_detail();
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, detail).commit();
-			tv_ms.setTextColor(getResources().getColor(R.color.o));
+			tv_ms.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case 1:
 			if (apply == null)
 				apply = new Good_detail_apply();
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, apply).commit();
-			tv_kt.setTextColor(getResources().getColor(R.color.o));
+			tv_kt.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case 2:
 			if (commet == null)
 				commet = new Good_detail_commet();
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, commet).commit();
-			tv_pl.setTextColor(getResources().getColor(R.color.o));
+			tv_pl.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case 3:
 			if (zd == null)
 				zd = new Good_detail_zd();
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, zd).commit();
-			tv_zd.setTextColor(getResources().getColor(R.color.o));
+			tv_zd.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case 4:
 			if (jy == null)
 				jy = new Good_detail_trade();
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, jy).commit();
-			tv_jy.setTextColor(getResources().getColor(R.color.o));
+			tv_jy.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		default:
 			break;
@@ -126,7 +125,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, zd).commit();
 			changColor();
-			tv_zd.setTextColor(getResources().getColor(R.color.o));
+			tv_zd.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case R.id.tv_ms:
 			if (detail == null)
@@ -134,7 +133,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, detail).commit();
 			changColor();
-			tv_ms.setTextColor(getResources().getColor(R.color.o));
+			tv_ms.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case R.id.tv_kt:
 			if (apply == null)
@@ -142,7 +141,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, apply).commit();
 			changColor();
-			tv_kt.setTextColor(getResources().getColor(R.color.o));
+			tv_kt.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case R.id.tv_pl:
 			//Config.goodId = gfe.getId();
@@ -152,7 +151,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, commet).commit();
 			changColor();
-			tv_pl.setTextColor(getResources().getColor(R.color.o));
+			tv_pl.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case R.id.tv_jy:
 			//Config.goodId = gfe.getId();
@@ -162,7 +161,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_good_detail, jy).commit();
 			changColor();
-			tv_pl.setTextColor(getResources().getColor(R.color.o));
+			tv_jy.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		default:
 			break;

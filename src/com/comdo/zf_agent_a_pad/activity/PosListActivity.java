@@ -238,8 +238,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			public void onClick(View arg0) {
 				if (list_port == 1) {
 					listState = Xlistview.onSaveInstanceState();
-					port2.setBackgroundResource(R.drawable.pos_px1);
-					port1.setBackgroundResource(R.drawable.pos_pxf);
+					port1.setBackgroundResource(R.drawable.pos_px);
+					port2.setBackgroundResource(R.drawable.pos_pxf1);
 					Xlistview.setAdapter(myAdapter);
 					Xlistview.onRestoreInstanceState(listState);
 				}
@@ -254,10 +254,10 @@ public class PosListActivity extends Activity implements OnClickListener,
 			public void onClick(View arg0) {
 				if (list_port == 0) {
 					listState = Xlistview.onSaveInstanceState();
-					port2.setBackground(getResources().getDrawable(
-							R.drawable.pos_px));
 					port1.setBackground(getResources().getDrawable(
-							R.drawable.pos_pxf1));
+							R.drawable.pos_px1));
+					port2.setBackground(getResources().getDrawable(
+							R.drawable.pos_pxf));
 					myAdapter1 = new PosAdapter1(PosListActivity.this, myList);
 					Xlistview.setAdapter(myAdapter1);
 					Xlistview.onRestoreInstanceState(listState);

@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center_vertical"
-        android:paddingRight="50dp"
-        android:paddingLeft="@dimen/zc_rl_w" >
+        android:paddingLeft="@dimen/zc_rl_w"
+        android:paddingRight="50dp" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/zc_margin"  />
+                android:layout_marginLeft="@dimen/zc_margin" />
 
             <TextView
                 android:id="@+id/text1"
@@ -31,13 +31,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="@dimen/alertll"
+                android:singleLine="true"
                 android:text="全部"
-                
                 android:textColor="@color/text6c6c6c6"
-                android:textSize="@dimen/textmids" />
+                android:textSize="@dimen/textbig" />
         </LinearLayout>
 
-           <LinearLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -49,19 +49,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/zc_margin"  />
+                android:layout_marginLeft="@dimen/zc_margin" />
 
             <TextView
                 android:id="@+id/text2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
+                android:singleLine="true"
                 android:text="全部"
                 android:textColor="@color/text6c6c6c6"
-                android:textSize="@dimen/textmids" />
+                android:textSize="@dimen/textbig" />
         </LinearLayout>
 
-           <LinearLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -73,19 +74,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/zc_margin"  />
+                android:layout_marginLeft="@dimen/zc_margin" />
 
             <TextView
                 android:id="@+id/text3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
+                android:singleLine="true"
                 android:text="全部"
                 android:textColor="@color/text6c6c6c6"
-                android:textSize="@dimen/textmids" />
+                android:textSize="@dimen/textbig" />
         </LinearLayout>
 
-            <LinearLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -97,17 +99,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/zc_margin"  />
+                android:layout_marginLeft="@dimen/zc_margin" />
 
             <TextView
                 android:id="@+id/text4"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
-
+                android:singleLine="true"
                 android:text="全部"
                 android:textColor="@color/text6c6c6c6"
-                android:textSize="@dimen/textmids" />
+                android:textSize="@dimen/textbig" />
         </LinearLayout>
     </LinearLayout>
 

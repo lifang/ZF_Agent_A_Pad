@@ -56,7 +56,7 @@ public class Config {
 	 "http://114.215.149.242:28080/ZFAgent/api/";*/
 
 	//public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
-	public final static String PATHS = "http://agent.ebank007.com/api/";
+	public final static String PATHS = "http://121.40.64.167:9090/api/";
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -535,9 +535,9 @@ public class Config {
 		params.put("quantity", quantity);
 		params.put("addressId", addressId);
 		params.put("comment", comment);
-		params.put("is_need_invoice", is_need_invoice);
-		params.put("invoice_type", invoice_type);
-		params.put("invoice_info", invoice_info);
+		params.put("isNeedInvoice", is_need_invoice);
+		params.put("invoiceType", invoice_type);
+		params.put("invoiceInfo", invoice_info);
 		System.out.println("参数--" + params.toString());
 		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
 		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
