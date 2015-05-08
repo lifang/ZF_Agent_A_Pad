@@ -56,7 +56,7 @@ public class Config {
 	 "http://114.215.149.242:28080/ZFAgent/api/";*/
 
 
-	public final static String PATHS = "http://121.40.64.167:9090/api/";
+	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
 
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
