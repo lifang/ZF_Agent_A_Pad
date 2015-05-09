@@ -3,279 +3,348 @@
     android:id="@+id/sLV"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff">
-<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    
-    android:orientation="vertical" >
-  <TableLayout 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="26dp">
-   <TableRow 
-        >
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="代理商类型:"
-    android:textColor="#887C6B"
-    android:textSize="20sp"/>
-   <TextView 
-       android:id="@+id/tv_company_type"
-    android:layout_width="wrap_content"
-    android:layout_height="30dp"
-    android:layout_marginLeft="40dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-    <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="公司名称"
-    android:textColor="#887C6B"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView 
-       android:id="@+id/tv_company_name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:background="#ffffff" >
 
-    android:layout_marginLeft="40dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="公司营业执照登记号"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView 
-       android:id="@+id/tv_yingyezhizhao"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    
-    android:layout_marginLeft="40dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="公司税务登记证号"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView
-       android:id="@+id/tv_company_shuiwudengji" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="40dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   </TableLayout
-       > 
-   <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:layout_marginTop="100dp"
-    android:background="#DAD8D9"/>
-   <TableLayout 
-       android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="26dp">
-     <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="负责人姓名"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView
-       android:id="@+id/tv_fuzeren_name" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="80dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-     <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="负责人身份证号"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView
-       android:id="@+id/tv_fuzeren_no" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="80dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="手机"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView
-       android:id="@+id/tv_phone" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="80dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="邮箱"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView
-       android:id="@+id/tv_email" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="80dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="所在地"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView
-       android:id="@+id/tv_adress" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="80dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="详细地址"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <TextView
-       android:id="@+id/tv_adressdetail" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="80dp"
-    android:gravity="center_vertical|left"/>    
-   </TableRow> 
-   </TableLayout> 
-   <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:layout_marginTop="100dp"
-    android:background="#DAD8D9"/>
-   <TableLayout 
-       android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="26dp">
-   <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="身份证照片"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <ImageView
-       android:id="@+id/iv_shenfenzheng" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/check_it"
-    android:layout_marginLeft="80dp"/>    
-   </TableRow> 
-    <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="营业执照照片"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <ImageView
-       android:id="@+id/iv_yingyezhizhao" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/check_it"
-    android:layout_marginLeft="80dp"/>    
-   </TableRow> 
-    <TableRow android:layout_marginTop="40dp">
-   <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="税务登记证照片"
-    android:textColor="#777777"
-    android:layout_gravity="center_vertical"
-    android:textSize="20sp"/>
-   <ImageView
-       android:id="@+id/iv_shuiwu" 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/check_it"
-    android:layout_marginLeft="80dp"/>    
-   </TableRow> 
-</TableLayout> 
- <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:layout_marginTop="100dp"
-    android:background="#DAD8D9"/>
- <LinearLayout 
-      android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="26dp"
-    android:orientation="horizontal">
- <TextView 
-     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="登陆ID"
-    android:textColor="#777777"
-    android:textSize="20sp"
-    android:layout_marginLeft="213dp"/> 
-      <TextView 
-          android:id="@+id/tv_id_detail"
-     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="动感科技"
-    android:textSize="20sp"
-    android:layout_marginLeft="20dp"/>  
- </LinearLayout>
- <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:layout_marginTop="100dp"
-    android:background="#DAD8D9"/>
- <Button 
-     android:id="@+id/btn_exit"
-     android:layout_width="120dp"
-    android:layout_height="30dp"
-    android:layout_marginTop="100dp"
-    android:background="#006FD5"
-    android:text="退出"
-    android:textColor="#E0EbF7"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginBottom="100dp"/>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="40dp" >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="代理商类型:"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_company_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:text="11111"
+                    android:textSize="20sp" />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="40dp" >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="公司名称"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="公司营业执照登记号"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_yingyezhizhao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="公司税务登记证号"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_company_shuiwudengji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="#DAD8D9" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="40dp" >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="负责人姓名"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_fuzeren_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="负责人身份证号"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_fuzeren_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="手机"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="邮箱"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="所在地"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_adress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="详细地址"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_adressdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="#DAD8D9" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="40dp" >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="身份证照片"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_shenfenzheng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/check_it" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="营业执照照片"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_yingyezhizhao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/check_it" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="40dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="税务登记证照片"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_shuiwu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/check_it" />
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="#DAD8D9" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="40dp" >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:text="登录ID"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_id_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:text="动感科技"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="100dp"
+            android:layout_marginTop="40dp"
+            android:background="#006FD5"
+            android:text="退出"
+            android:textColor="#E0EbF7" />
+    </LinearLayout>
 
 </ScrollView>

@@ -14,10 +14,17 @@ public class RegText {
 		Pattern p = Pattern
 				.compile("^1[0-9]{10}$");
 		Matcher m = p.matcher(mobiles);
-
+		
 		return m.matches();
 	}
 
+	public static boolean isYouBian(String youbian) {
+		Pattern p = Pattern
+				.compile("[1-9]\\d{5}(?!\\d)");
+		Matcher m = p.matcher(youbian);
+
+		return m.matches();
+	}
 	public static boolean isEmail(String email) {
 		String str = "^([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\.][A-Za-z]{2,3}([\\.][A-Za-z]{2})?$";
 		Pattern p = Pattern.compile(str);

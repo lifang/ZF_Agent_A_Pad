@@ -6,11 +6,10 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CH
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BILLING;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_CHANNEL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TITLE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ARRAY;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TOTAL;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
@@ -55,18 +55,15 @@ import com.google.gson.reflect.TypeToken;
 
  */
 public class TerminalApplySelectActivity extends Activity implements
-		View.OnClickListener,
-		XListView.IXListViewListener {
+		View.OnClickListener, XListView.IXListViewListener {
 
-	private View mChooseChannel;
 	private TextView selectedpos, selectedchannel;
 	private int mChannelId, minPrice = 0, maxPrice = 0;
 
-	private String posName;
 	private int posID, checked = 0;
 	private EditText zdh, lower, higher;
-	private Boolean allCheck = false;
-	private String zdhString;
+	// private Boolean allCheck = false;
+	private String posName, zdhString, searchKey;
 	private ImageView search;
 	private CheckBox checkboxAll;
 	private LinearLayout channelselect, posselect, searchLinear;
@@ -75,6 +72,7 @@ public class TerminalApplySelectActivity extends Activity implements
 	private LayoutInflater mInflater;
 	private XListView mTerminalList;
 	private List<TerminalPriceEntity> mTerminalItems;
+	private List<TerminalPriceEntity> count;
 	private TerminalListAdapter mAdapter;
 	final List<String> list = new ArrayList<String>();
 	private ApplyChannel mChosenChannel;
@@ -82,10 +80,12 @@ public class TerminalApplySelectActivity extends Activity implements
 	public static final int REQUEST_CHOOSE_POS = 1000;
 	private static final int REQUEST_SEARCH = 1001;
 
+	private boolean isSelectAll = false;
 	private Boolean isLoadMore = true;
 	private int page = 0;
 	private int total = 0;
 	private final int rows = 10;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,6 +96,7 @@ public class TerminalApplySelectActivity extends Activity implements
 		mInflater = LayoutInflater.from(this);
 		mTerminalList = (XListView) findViewById(R.id.apply_list);
 		mTerminalItems = new ArrayList<TerminalPriceEntity>();
+		count = new ArrayList<TerminalPriceEntity>();
 		mAdapter = new TerminalListAdapter();
 		// init the XListView
 		mTerminalList.initHeaderAndFooter();
@@ -125,25 +126,47 @@ public class TerminalApplySelectActivity extends Activity implements
 		search = (ImageView) findViewById(R.id.search);
 		search.setOnClickListener(this);
 		checkboxAll = (CheckBox) findViewById(R.id.checkboxAll);
-		checkboxAll.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		checkboxAll.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-
-				if (isChecked) {
-					allCheck = true;
-
+			public void onClick(View v) {
+				if (isSelectAll == false) {
+					isSelectAll = true;
+					checkboxAll.setChecked(true);
 				} else {
-
-					allCheck = false;
+					isSelectAll = false;
+					checkboxAll.setChecked(false);
 				}
+				for (int index = 0; index < mTerminalItems.size(); index++) {
+					mTerminalItems.get(index).setIsCheck(isSelectAll);
+				}
+
 				mAdapter.notifyDataSetChanged();
-
-				terminalNum.setText(checked + "");
+				myHandler.sendEmptyMessage(0);
 			}
-
 		});
+		// checkboxAll.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		// {
+		//
+		// @Override
+		// public void onCheckedChanged(CompoundButton buttonView,
+		// boolean isChecked) {
+		//
+		// if (isChecked) {
+		// allCheck = true;
+		//
+		// } else {
+		// allCheck = false;
+		// }
+		// for (int i = 0; i < mTerminalItems.size(); i++) {
+		//
+		// mTerminalItems.get(i).setIsCheck(allCheck);
+		// }
+		// mAdapter.notifyDataSetChanged();
+		// myHandler.sendEmptyMessage(0);
+		// }
+		//
+		// });
 	}
 
 	private final TextWatcher mTextWatcher = new TextWatcherAdapter() {
@@ -191,7 +214,7 @@ public class TerminalApplySelectActivity extends Activity implements
 
 		@Override
 		public View getView(int i, View convertView, ViewGroup viewGroup) {
-			ViewHolder holder;
+			final ViewHolder holder;
 			if (convertView == null) {
 				convertView = mInflater.inflate(
 						R.layout.terminal_select_listitem, null);
@@ -208,7 +231,8 @@ public class TerminalApplySelectActivity extends Activity implements
 			final TerminalPriceEntity item = getItem(i);
 			holder.terminal_num.setText(item.getSerial_num());
 			holder.price.setText("￥" + item.getRetail_price());
-			holder.checkbox.setChecked(allCheck);
+
+			holder.checkbox.setChecked(item.getIsCheck());
 			holder.checkbox
 					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -219,16 +243,43 @@ public class TerminalApplySelectActivity extends Activity implements
 							if (isChecked) {
 								checked++;
 							} else {
-								checked--;
+								if (checked != 0)
+									checked--;
+								isSelectAll = false;
 							}
-							terminalNum.setText(checked + "");
+							if (checked == 0) {
+								checkboxAll.setChecked(false);
+							} else if (checked == list.size()) {
+								checkboxAll.setChecked(true);
+							}
 							item.setIsCheck(isChecked);
+							for (int i = 0; i < mTerminalItems.size(); i++) {
+
+								if (!mTerminalItems.get(i).getIsCheck()) {
+									checkboxAll.setChecked(false);
+								}
+							}
+							// if (isChecked) {
+							// checked++;
+							// } else {
+							// checked--;
+							// allCheck = false;
+							// }
+							// if (!allCheck) {
+							//
+							// if (checked == count.size())
+							// checkboxAll.setChecked(true);
+							// else
+							// checkboxAll.setChecked(false);
+							// }
+							// holder.checkbox.setChecked(isChecked);
+							myHandler.sendEmptyMessage(0);
+							// item.setIsCheck(isChecked);
 						}
 					});
 
 			return convertView;
 		}
-
 	}
 
 	static class ViewHolder {
@@ -314,15 +365,14 @@ public class TerminalApplySelectActivity extends Activity implements
 		case R.id.searchLinear:
 			Intent iIntent = new Intent(TerminalApplySelectActivity.this,
 					GenerateSearch.class);
-			iIntent.putExtra(TERMINAL_TYPE, 3);
-			iIntent.putExtra(TERMINAL_STATUS, -1);
+			iIntent.putExtra(SELECTED_TERMINAL, 3);
 			startActivityForResult(iIntent, REQUEST_SEARCH);
 			break;
 		}
 	}
 
 	private void loadData() {
-		
+
 		if (zdhString != null && !"".equals(zdhString)) {
 
 			String[] str = new String[] {};
@@ -335,15 +385,24 @@ public class TerminalApplySelectActivity extends Activity implements
 						@Override
 						public void onSuccess(List<TerminalPriceEntity> data) {
 
-							if (data.size()<rows) {
-								isLoadMore=false;
-							}else {
-								isLoadMore=true;
+							if (data.size() < rows) {
+								isLoadMore = false;
+							} else {
+								isLoadMore = true;
 							}
 							mTerminalItems.addAll(data);
+							if (isSelectAll)
+								for (int index = 0; index < mTerminalItems
+										.size(); index++) {
+									mTerminalItems.get(index).setIsCheck(
+											isSelectAll);
+								}
+
+							count.addAll(data);
 							page++;
 							mAdapter.notifyDataSetChanged();
 							loadFinished();
+							myHandler.sendEmptyMessage(0);
 
 						}
 
@@ -361,30 +420,36 @@ public class TerminalApplySelectActivity extends Activity implements
 
 		} else if (maxPrice < minPrice) {
 
-			CommonUtil
-					.toastShort(
-							TerminalApplySelectActivity.this,
-							getResources().getString(
-									R.string.terminal_price_error));
+			CommonUtil.toastShort(TerminalApplySelectActivity.this,
+					getResources().getString(R.string.terminal_price_error));
 
 		} else {
 
 			Config.screeningTerminalNum(TerminalApplySelectActivity.this,
 					posName, mChannelId, minPrice, maxPrice,
-					MyApplication.NewUser.getAgentId(),page+1,rows,
+					MyApplication.NewUser.getAgentId(), page + 1, rows,
+					searchKey,
 					new HttpCallback<List<TerminalPriceEntity>>(this) {
 						@Override
 						public void onSuccess(List<TerminalPriceEntity> data) {
 
-							if (data.size()<rows) {
-								isLoadMore=false;
+							if (data.size() < rows) {
+								isLoadMore = false;
 							} else {
-								isLoadMore=true;
+								isLoadMore = true;
 							}
 							mTerminalItems.addAll(data);
+							if (isSelectAll)
+								for (int index = 0; index < mTerminalItems
+										.size(); index++) {
+									mTerminalItems.get(index).setIsCheck(
+											isSelectAll);
+								}
+							count.addAll(data);
 							page++;
 							mAdapter.notifyDataSetChanged();
 							loadFinished();
+							myHandler.sendEmptyMessage(0);
 						}
 
 						@Override
@@ -402,6 +467,18 @@ public class TerminalApplySelectActivity extends Activity implements
 		}
 	}
 
+	Handler myHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				if (isSelectAll)
+					checked = count.size();
+				terminalNum.setText(checked + "");
+				break;
+			}
+		}
+	};
+
 	@Override
 	protected void onActivityResult(final int requestCode, int resultCode,
 			final Intent data) {
@@ -418,6 +495,12 @@ public class TerminalApplySelectActivity extends Activity implements
 
 		}
 
+		case REQUEST_SEARCH: {
+
+			searchKey = data.getStringExtra(SELECTED_TERMINAL);
+			break;
+		}
+
 		case REQUEST_CHOOSE_CHANNEL: {
 			mChosenChannel = (ApplyChannel) data
 					.getSerializableExtra(SELECTED_CHANNEL);
@@ -425,6 +508,8 @@ public class TerminalApplySelectActivity extends Activity implements
 					.getSerializableExtra(SELECTED_BILLING);
 			mChannelId = mChosenChannel.getId();
 			selectedchannel.setText(mChosenChannel.getName());
+
+			break;
 		}
 		}
 	}
@@ -438,7 +523,11 @@ public class TerminalApplySelectActivity extends Activity implements
 	@Override
 	public void onRefresh() {
 		page = 0;
+		// allCheck = false;
+		checked = 0;
 		mTerminalItems.clear();
+		checkboxAll.setChecked(false);
+		count.clear();
 		mTerminalList.setPullLoadEnable(true);
 		loadData();
 	}
