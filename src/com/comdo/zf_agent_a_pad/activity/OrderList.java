@@ -316,11 +316,6 @@ public class OrderList extends Activity implements IXListViewListener,
 
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-
-	}
 
 	@Override
 	protected void onRestart() {
@@ -329,5 +324,15 @@ public class OrderList extends Activity implements IXListViewListener,
 		myList.clear();
 		page = 1;
 		getData();
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		if(MyApplication.getInstance().isHasOrderPaid()){
+			onRefresh();
+			MyApplication.getInstance().setHasOrderPaid(false);
+		}
+		super.onResume();
 	}
 }

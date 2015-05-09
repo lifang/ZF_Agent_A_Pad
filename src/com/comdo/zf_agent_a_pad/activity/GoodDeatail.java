@@ -117,12 +117,12 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				initIndicator();
 				
 				adapter.notifyDataSetChanged();
-				if(PosListActivity.shoptype != 1){
+		/*		if(PosListActivity.shoptype != 1){
 					setting_btn_clear.setText("代购");
 					tv_dp.setText("代购价格");
 					tv_j_isshow.setVisibility(View.GONE);
 					tv_yj.setVisibility(View.GONE);
-				}
+				}*/
 				tv_title.setText(gfe.getTitle());
 				content1.setText(gfe.getSecond_title());
 				tv_pp.setText(gfe.getGood_brand()+gfe.getModel_number());
@@ -236,7 +236,12 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		tv_zd.setOnClickListener(this);
 		TextView tv_jy = (TextView) findViewById(R.id.tv_jy);
 		tv_jy.setOnClickListener(this);
-	
+		if(PosListActivity.shoptype != 1){
+			setting_btn_clear.setText("代购");
+			tv_dp.setText("代购价格");
+			tv_j_isshow.setVisibility(View.GONE);
+			tv_yj.setVisibility(View.GONE);
+		}
 	}
 
 	@Override

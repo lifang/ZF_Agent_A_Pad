@@ -9,6 +9,14 @@ public class OrderPayOrderEntity {
 	private String zhifu_dingjin;
 	private String order_number;
 	private String shengyu_price;
+	private String body;
+	
+	public String getBody() {
+		return body;
+	}
+	public void setBody(String body) {
+		this.body = body;
+	}
 	public String getOrder_id() {
 		return order_id;
 	}

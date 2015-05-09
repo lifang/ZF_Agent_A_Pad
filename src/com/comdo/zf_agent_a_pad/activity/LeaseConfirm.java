@@ -20,6 +20,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView.OnItemClickListener;
@@ -29,6 +30,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -98,7 +100,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private TextView tv_zl;
 	private int comments;
 	private Intent i;
-
+	private BaseAdapter maAdapter;
+	private LayoutInflater mInflater;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -157,7 +160,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 							listString.add(userInfo.getName());
 							items.add(item);
 						}
-						adapter_user.notifyDataSetChanged();
+						maAdapter.notifyDataSetChanged();
 					}
 
 					@Override
@@ -174,6 +177,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		mInflater = LayoutInflater.from(this);
 		tv_zl = (TextView) findViewById(R.id.tv_zl);
 		tv_zl.setOnClickListener(this);
 		bt_addadress = (Button) findViewById(R.id.bt_addadress);
@@ -183,11 +187,37 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		bt_add = (Button) findViewById(R.id.bt_add);
 		bt_add.setOnClickListener(this);
 		spinner_user = (Spinner) findViewById(R.id.spinner_user);
+		maAdapter = new BaseAdapter() {
 
-		adapter_user = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listString);
+			@Override
+			public int getCount() {
+				return listString.size();
+			}
+
+			@Override
+			public Object getItem(int arg0) {
+				return listString.get(arg0);
+			}
+
+			@Override
+			public long getItemId(int arg0) {
+				return 0;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				LinearLayout layout = (LinearLayout) mInflater.inflate(
+						R.layout.drop_down_item, null);
+				TextView tv = (TextView) layout.findViewById(R.id.text);
+				tv.setText((String) getItem(position));
+				return layout;
+			}
+
+		};
+		//adapter_user = new ArrayAdapter<String>(this,
+		//		android.R.layout.simple_spinner_item, listString);
 		// adapter.setDropDownViewResource(R.layout.drop_down_item);
-		spinner_user.setAdapter(adapter_user);
+		spinner_user.setAdapter(maAdapter);
 
 		spinner_user
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

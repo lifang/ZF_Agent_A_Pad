@@ -273,6 +273,7 @@
                                                 android:layout_alignParentTop="true"
                                                 android:ellipsize="end"
                                                 android:maxLines="2"
+                                                android:singleLine="true"
                                                 android:text="2015最新POS机器旗舰版  1.0"
                                                 android:textColor="@color/text292929"
                                                 android:textSize="@dimen/textbig" />
@@ -309,6 +310,7 @@
                                                         android:ellipsize="end"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
+                                                        android:singleLine="true"
                                                         android:text="contentcontentcontentcontent"
                                                         android:textColor="@color/text292929"
                                                         android:textSize="@dimen/textbig" />
@@ -339,6 +341,7 @@
                                                         android:ellipsize="end"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
+                                                        android:singleLine="true"
                                                         android:text="支付宝"
                                                         android:textColor="@color/text292929"
                                                         android:textSize="@dimen/textbig" />
