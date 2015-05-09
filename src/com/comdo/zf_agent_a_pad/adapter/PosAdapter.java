@@ -12,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.activity.PosListActivity;
@@ -25,10 +27,13 @@ public class PosAdapter extends BaseAdapter {
 	private List<PosEntity> list;
 	private LayoutInflater inflater;
 	private ViewHolder holder = null;
+	private DecimalFormat df;
 	int type=0;
 	public PosAdapter(Context context, List<PosEntity> list) {
 		this.context = context;
 		this.list = list;
+		df = (DecimalFormat) NumberFormat.getInstance();
+		df.applyPattern("0.00");
 	}
 
 	@Override
@@ -77,7 +82,7 @@ public class PosAdapter extends BaseAdapter {
 		ImageCacheUtil.IMAGE_CACHE.get(list.get(position).getUrl_path(),
  				holder.im);
 		holder.title.setText(list.get(position).getTitle());
-		holder.tv_price.setText("￥" + list.get(position).getRetail_price() / 100
+		holder.tv_price.setText("￥" + df.format((double)list.get(position).getRetail_price() / 100)
 				+ "");
 		holder.content1.setText(list.get(position).getGood_brand()+list.get(position).getModel_number());
 		holder.tv_td.setText(list.get(position).getPay_channe());
@@ -91,7 +96,7 @@ public class PosAdapter extends BaseAdapter {
 		}else{
 			holder.im_zl.setVisibility(View.GONE);
 		}
-		String string=" 原价:￥"+((double)list.get(position).getPurchase_price()/100)+" ";
+		String string=" 原价:￥"+df.format(((double)list.get(position).getPurchase_price()/100))+" ";
 		SpannableString sp = new SpannableString(string);
 		sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		holder.tv_yj.setText(sp);

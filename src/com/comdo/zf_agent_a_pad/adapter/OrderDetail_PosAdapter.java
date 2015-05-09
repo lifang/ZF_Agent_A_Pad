@@ -88,8 +88,7 @@ public class OrderDetail_PosAdapter extends BaseAdapter {
 					+ df.format(( list.get(position).getGood_actualprice())*1.0f / 100));
 		}else{
 			holder.tv_price.setText("￥ "
-					+ ((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100);
-			
+					+ df.format(((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100));			
 		}
 		holder.tv_x.setText("X"+list.get(position).getGood_num() + "");
 		holder.btn_ishow.setVisibility(state == 3 ? View.GONE : View.GONE);

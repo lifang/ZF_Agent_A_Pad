@@ -1,6 +1,8 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,6 +91,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private ArrayList<String> arelist = new ArrayList<String>();
 	private int commentsCount = 0;
 	FactoryEntity factoryEntity;
+	FactoryEntity factoryEntity1;
 	private TextView tv_bug, tv_lea, tv_title, content1, tv_pp, tv_xh, tv_ys,
 			tv_price, tv_lx, tv_sjhttp, tv_spxx, fac_detai, ppxx, wkxx, dcxx,
 			tv_qgd, tv_jm;
@@ -131,7 +134,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				tv_sjhttp.setText(factoryEntity.getWebsite_url());
 				fac_detai.setText(factoryEntity.getDescription());
 				tv_pl.setText("评论" + "(" + commentsCount + ")");
-				String string=" ￥" + ((double) (gfe.getPrice()+opening_cost)) / 100+" ";
+				String string=" ￥" + df.format((double)(gfe.getPrice()+opening_cost) / 100)+" ";
 				SpannableString sp = new SpannableString(string);
 				sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 				tv_yj.setText(sp);
@@ -174,6 +177,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private int all_price;
 	private TextView tv_dp;
 	private TextView tv_j_isshow;
+	private DecimalFormat df;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +186,9 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		setContentView(R.layout.good_detail);
 		id = getIntent().getIntExtra("id", 0);
 		getdata();
+		df = (DecimalFormat) NumberFormat
+				.getInstance();
+		df.applyPattern("0.00");
 		System.out.println("-Xlistview--" + id);
 	}
 
@@ -443,7 +450,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 
 								String res = jsonobject.getString("result");
 								jsonobject = new JSONObject(res);
-
+							
 								piclist = gson.fromJson(
 										jsonobject.getString("goodPics"),
 										new TypeToken<List<String>>() {
@@ -496,7 +503,11 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 								String res2 = jsonobject
 										.getString("paychannelinfo");
 								jsonobject = new JSONObject(res2);
-						
+				
+							/*	factoryEntity1=gson.fromJson(
+										jsonobject.getString("pcfactory"),
+										new TypeToken<FactoryEntity>() {
+										}.getType());*/
 								paychannelId = jsonobject.getInt("id");
 								Config.celist = gson.fromJson(
 										jsonobject.getString("standard_rates"),
@@ -587,201 +598,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 						Toast.makeText(getApplicationContext(), statusCode+"", 1000).show();
 					}
 				});
-		/*RequestParams params = new RequestParams();
-		
-		params.put("goodId", id);
-		params.put("agentId", MyApplication.NewUser.getAgentId());
-		params.put("type", PosListActivity.shoptype);
-		params.setUseJsonStreamer(true);
-		AsyncHttpClient a=new AsyncHttpClient();
-		//(Context context, String url, Header[] headers, RequestParams params, String contentType,
-          //      ResponseHandlerInterface responseHandler) 
-		new AsyncHttpClient().post(Config.GOODDETAIL, params,
-				new AsyncHttpResponseHandler() {
-					private Dialog loadingDialog;									
-					@Override
-					public void onStart() {
-
-						super.onStart();
-						loadingDialog = DialogUtil
-								.getLoadingDialg(GoodDeatail.this);
-						loadingDialog.show();
-					}
-
-					@Override
-					public void onFinish() {
-
-						super.onFinish();
-						loadingDialog.dismiss();
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							byte[] responseBody) {
-			
-						String userMsg = new String(responseBody).toString();
-						innitView();
-						Log.i("ljp", userMsg);
-						Gson gson = new Gson();
-						// EventEntity
-						JSONObject jsonobject = null;
-						int code = 0;
-						try {
-							jsonobject = new JSONObject(userMsg);
-							code = jsonobject.getInt("code");
-							if (code == -2) {
-								
-								  Intent i = new Intent(getApplication(),
-								  LoginActivity.class); startActivity(i);
-								 
-							} else if (code == 1) {
-
-								String res = jsonobject.getString("result");
-								jsonobject = new JSONObject(res);
-
-								piclist = gson.fromJson(
-										jsonobject.getString("goodPics"),
-										new TypeToken<List<String>>() {
-										}.getType());
-								
-								User_button = gson.fromJson(
-										jsonobject.getString("payChannelList"),
-										new TypeToken<List<GriviewEntity>>() {
-										}.getType());
-								if(User_button==null)
-									User_button = new ArrayList<GriviewEntity>();
-								buttonAdapter = new ButtonGridviewAdapter(
-										GoodDeatail.this, User_button, 0);
-
-								gview1.setAdapter(buttonAdapter);
-								gview1.setOnItemClickListener(new OnItemClickListener() {
-
-									@Override
-									public void onItemClick(
-											AdapterView<?> arg0, View arg1,
-											int arg2, long arg3) {
-
-										buttonAdapter.setIndex(arg2);
-										getdataByChanel(User_button.get(arg2)
-												.getId());
-										buttonAdapter.notifyDataSetChanged();
-									}
-								});
-								
-								 Config.myList = gson.fromJson( jsonobject
-								 .getString("relativeShopList"), new
-								TypeToken<List<PosEntity>>() { }.getType());
-								 
-								gfe = gson.fromJson(
-										jsonobject.getString("goodinfo"),
-										new TypeToken<GoodinfoEntity>() {
-										}.getType());
-								factoryEntity = gson.fromJson(
-										jsonobject.getString("factory"),
-										new TypeToken<FactoryEntity>() {
-										}.getType());
-								ImageCacheUtil.IMAGE_CACHE.get(
-										factoryEntity.getLogo_file_path(),
-										fac_img);
-
-								commentsCount = jsonobject
-										.getInt("commentsCount");
-								Config.gfe = gfe;
-							
-								String res2 = jsonobject
-										.getString("paychannelinfo");
-								jsonobject = new JSONObject(res2);
-						
-								paychannelId = jsonobject.getInt("id");
-								Config.celist = gson.fromJson(
-										jsonobject.getString("standard_rates"),
-										new TypeToken<List<ChanelEntitiy>>() {
-										}.getType());
-								Config.tDates = gson.fromJson(
-										jsonobject.getString("tDates"),
-										new TypeToken<List<tDates>>() {
-										}.getType());
-								Config.other_rate = gson.fromJson(
-										jsonobject.getString("other_rate"),
-										new TypeToken<List<other_rate>>() {
-										}.getType());
-								Config.pub = gson.fromJson(jsonobject
-										.getString("requireMaterial_pub"),
-										new TypeToken<List<ApplyneedEntity>>() {
-										}.getType());
-								;
-								Config.single = gson.fromJson(jsonobject
-										.getString("requireMaterial_pra"),
-										new TypeToken<List<ApplyneedEntity>>() {
-										}.getType());
-
-								System.out.println("``celist`" + celist.size());
-								lvAdapter = new HuilvAdapter(GoodDeatail.this,
-										celist);
-								// pos_lv1.setAdapter(lvAdapter);
-
-								for (int i = 0; i < piclist.size(); i++) {
-									ma.add(piclist.get(i));
-								}
-								// User_button=gson.fromJson(jsonobject.getString("payChannelList"),
-								// new TypeToken<List<GriviewEntity>>()
-								// {
-								// }.getType());
-								// buttonAdapter=new
-								// ButtonGridviewAdapter(GoodDeatail.this,
-								// User_button,0);
-								// gview1.setAdapter(buttonAdapter);
-								if (jsonobject.getBoolean("support_type")) {
-									arelist = gson.fromJson(
-											jsonobject.getString("supportArea"),
-											new TypeToken<List<String>>() {
-											}.getType());
-									String a = "";
-									for (int i = 0; i < arelist.size(); i++) {
-										a = a + arelist.get(i);
-									}
-
-									Config.suportare = a;
-								} else {
-									Config.suportare = "不支持";
-
-								}
-								if (jsonobject
-										.getBoolean("support_cancel_flag")) {
-									Config.suportcl = "支持";
-
-								} else {
-									Config.suportcl = "不支持";
-								}
-								opening_cost = jsonobject.getInt("opening_cost");
-								celist2 = gson.fromJson(
-										jsonobject.getString("tDates"),
-										new TypeToken<List<ChanelEntitiy>>() {
-										}.getType());
-								Config.celist2 = celist2;
-								Config.tv_sqkt = jsonobject
-										.getString("opening_requirement");
-								ll_Factory = (LinearLayout) findViewById(R.id.mer_detail);
-								ll_Factory.setOnClickListener(GoodDeatail.this);
-								handler.sendEmptyMessage(0);
-							} else {
-								Toast.makeText(getApplicationContext(),
-										jsonobject.getString("message"),
-										Toast.LENGTH_SHORT).show();
-							}
-						} catch (JSONException e) {
-
-							e.printStackTrace();
-						}
-
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							byte[] responseBody, Throwable error) {
-						Toast.makeText(getApplicationContext(), statusCode+"", 1000).show();
-					}
-				});*/
+	
 
 	}
 
@@ -935,25 +752,25 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 
 										Config.tv_sqkt = jsonobject
 												.getString("opening_requirement");
-										// ImageCacheUtil.IMAGE_CACHE.get(
-										// factoryEntity.getLogo_file_path(),
-										// fac_img); 鍥剧墖璺緞寰呭畾
-										//
+										 ImageCacheUtil.IMAGE_CACHE.get(
+										 factoryEntity.getLogo_file_path(),
+										fac_img); 
+										
 										Config.celist = gson.fromJson(
 												jsonobject
 														.getString("standard_rates"),
 												new TypeToken<List<ChanelEntitiy>>() {
 												}.getType());
-										/*
-										 * Config.tDates = gson.fromJson(
-										 * jsonobject.getString("tDates"), new
-										 * TypeToken<List<tDates>>() {
-										 * }.getType()); Config.other_rate =
-										 * gson.fromJson( jsonobject
-										 * .getString("other_rate"), new
-										 * TypeToken<List<other_rate>>() {
-										 * }.getType());
-										 */
+										
+										  Config.tDates = gson.fromJson(
+										  jsonobject.getString("tDates"), new
+										  TypeToken<List<tDates>>() {
+										 }.getType()); Config.other_rate =
+										 gson.fromJson( jsonobject
+										  .getString("other_rate"), new
+										  TypeToken<List<other_rate>>() {
+										  }.getType());
+										 
 										Config.pub = gson.fromJson(
 												jsonobject
 														.getString("requireMaterial_pub"),
@@ -1004,10 +821,26 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 										} else {
 											Config.suportcl = "不支持";
 										}
-										if (islea == false) {
+									/*	if (islea == false) {
 											//购买
 											all_price = gfe.getRetail_price()+opening_cost;
 											tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()+opening_cost));
+										}else {
+											//租赁
+											all_price = gfe.getLease_deposit()+opening_cost;
+											tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getLease_deposit()+opening_cost));
+										}*/
+										opening_cost=jsonobject.getInt("opening_cost");
+										if (islea == false) {
+											//购买
+											if(PosListActivity.shoptype != 1){
+												all_price = gfe.getRetail_price()+opening_cost;
+												tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()+opening_cost));
+											}else{
+												all_price = gfe.getRetail_price()+opening_cost;
+												tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getPurchase_price()+opening_cost));
+											}
+											
 										}else {
 											//租赁
 											all_price = gfe.getLease_deposit()+opening_cost;

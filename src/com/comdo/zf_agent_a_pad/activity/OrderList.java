@@ -82,6 +82,8 @@ public class OrderList extends Activity implements IXListViewListener,
 	private Spinner sp;
 	private EditText et;
 	private LinearLayout ll_back;
+	private String arrs[];
+	private ArrayAdapter<String> arrayAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,10 +113,9 @@ public class OrderList extends Activity implements IXListViewListener,
 		all_good = (ImageView) findViewById(R.id.AllGood);
 		all_good.setOnClickListener(this);
 		sp = (Spinner) findViewById(R.id.spinner);
-		final String arr[] = new String[] { "全部", "未付款", "已付订金", "已完成", "已取消"};
-
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, arr);
+		arrs = new String[] { "全部", "未付款", "已付订金", "已完成", "已取消"};
+		arrayAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, arrs);
 		sp.setAdapter(arrayAdapter);
 		sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -252,6 +253,10 @@ public class OrderList extends Activity implements IXListViewListener,
 			getData();
 			break;
 		case R.id.tv_pg:
+			arrs=new String[] { "全部", "未付款", "已付款", "已完成", "已取消","交易关闭"};
+			arrayAdapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_spinner_item, arrs);
+			sp.setAdapter(arrayAdapter);
 			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1) {
 
 				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);
@@ -271,6 +276,11 @@ public class OrderList extends Activity implements IXListViewListener,
 			}
 			break;
 		case R.id.tv_dg:
+			arrs=new String[] { "全部", "未付款", "已付款", "已完成", "已取消","交易关闭"};
+			arrayAdapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_spinner_item, arrs);
+			sp.setAdapter(arrayAdapter);
+			
 			if (!CheckRights.IS_YIJI && !CheckRights.RIGHT_2) {
 
 				CommonUtil.toastShort(OrderList.this, R.string.right_not_match);

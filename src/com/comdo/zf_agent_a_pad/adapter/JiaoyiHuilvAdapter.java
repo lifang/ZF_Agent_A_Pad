@@ -3,6 +3,7 @@ package com.comdo.zf_agent_a_pad.adapter;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.entity.ChanelEntitiy;
+import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.example.zf_agent_a_pad.R;
 
 import android.content.Context;
@@ -21,11 +22,11 @@ import android.widget.Toast;
 
 public class JiaoyiHuilvAdapter extends BaseAdapter {
 	private Context context;
-	private List<ChanelEntitiy> list;
+	private List<tDates> list;
 	private LayoutInflater inflater;
 	private ViewHolder holder = null;
 
-	public JiaoyiHuilvAdapter(Context context, List<ChanelEntitiy> list) {
+	public JiaoyiHuilvAdapter(Context context, List<tDates> list) {
 		this.context = context;
 		this.list = list;
 	}

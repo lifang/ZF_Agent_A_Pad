@@ -82,12 +82,13 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private ImageView event_img;
 	private Button bt_addadress;
 	private UserEntity ue;
+	private DecimalFormat df;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_comfirm);
-		DecimalFormat df = (DecimalFormat) NumberFormat
+		df = (DecimalFormat) NumberFormat
 				.getInstance();
 		df.applyPattern("0.00");
 		new TitleMenuUtil(GoodConfirm.this, "批购订单确认").show();
@@ -193,8 +194,8 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 							.toString());
 				}
 
-				tv_totle.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
-				tv_pay.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
+				tv_totle.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
+				tv_pay.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
 			}
 
 			@Override

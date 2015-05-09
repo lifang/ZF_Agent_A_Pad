@@ -102,11 +102,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private Intent i;
 	private BaseAdapter maAdapter;
 	private LayoutInflater mInflater;
+	private DecimalFormat df;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_comfirm1);
-		DecimalFormat df = (DecimalFormat) NumberFormat
+		df = (DecimalFormat) NumberFormat
 				.getInstance();
 		df.applyPattern("0.00");
 		ue = MyApplication.NewUser;
@@ -314,8 +315,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 							.toString());
 				}
 
-				tv_totle.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
-				tv_pay.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
+				tv_totle.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
+				tv_pay.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
 			}
 
 			@Override
