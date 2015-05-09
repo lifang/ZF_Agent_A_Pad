@@ -1,160 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical" >
-    <LinearLayout 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginLeft="50dp"
-    android:layout_marginTop="35dp" >
-    <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="选择代理商"
-    android:textColor="#4C4C4C"
-    android:textSize="18sp"/>
-    <Spinner 
-        android:id="@+id/mySpinner" 
-    android:layout_width="300dp"
-    android:layout_height="45dp"
-    android:textSize="18sp"
-    android:textColor="#868788"
-    android:layout_marginLeft="20dp"
-    android:gravity="left|center_vertical"
-    android:paddingLeft="10dp"
-    android:background="@drawable/ed_adress"/>
-</LinearLayout>
-<LinearLayout 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginLeft="50dp"
-    android:layout_marginTop="35dp" >
-    <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="调  货 日 期"
-    android:textColor="#4C4C4C"
-    android:textSize="18sp"/>
-    <TextView 
-        android:id="@+id/tv_time_left"
-    android:layout_width="200dp"
-    android:layout_height="45dp"
-    android:text="开始日期"
-    android:textSize="18sp"
-    android:textColor="#868788"
-    android:layout_marginLeft="20dp"
-    android:gravity="left|center_vertical"
-    android:paddingLeft="10dp"
-    android:background="@drawable/ed_adress"/>
-    <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="-"
-    android:textSize="18sp"
-    android:textColor="#868788"
-    android:layout_marginLeft="20dp"/>
-    <TextView 
-        android:id="@+id/tv_time_right"
-    android:layout_width="200dp"
-    android:layout_height="45dp"
-    android:text="结束日期"
-    android:textSize="18sp"
-    android:textColor="#868788"
-    android:layout_marginLeft="20dp"
-    android:gravity="left|center_vertical"
-    android:paddingLeft="10dp"
-    android:background="@drawable/ed_adress"/>
-</LinearLayout>
-<LinearLayout 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginLeft="50dp"
-    android:layout_marginTop="15dp" >
-    <Button 
-        android:id="@+id/btn_quary"
-    android:layout_width="120dp"
-    android:layout_height="35dp"
 
-    android:text="开始查询"
-    android:textSize="18sp"
-    android:textColor="#CEE1F4"
-    android:layout_marginLeft="115dp"
-    android:gravity="center"
-    android:background="#006FD5"/>
-    <Button 
-        android:id="@+id/btn_transferobject"
-    android:layout_width="120dp"
-    android:layout_height="35dp"
-    android:text="调货"
-    android:textSize="18sp"
-    android:textColor="#CEE1F4"
-    android:layout_marginLeft="350dp"
-    android:background="#006FD5"/>
-</LinearLayout>
-<View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="#EAEAEA"
-    android:layout_marginTop="20dp"/>
-<TextView 
-    android:layout_width="200dp"
-    android:layout_height="45dp"
-    android:text="调货记录:"
-    android:textSize="18sp"
-    android:textColor="#4C4C4C"
-    android:layout_marginLeft="50dp"
-    android:gravity="left|center_vertical"/>
-<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:layout_marginLeft="50dp"
-    android:layout_marginRight="50dp"
-    android:orientation="horizontal"
-    android:background="#E9E8E8" >
-    <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:layout_marginLeft="96dp"
-    android:orientation="horizontal"
-    android:background="#E9E8E8" >
-    <TextView 
-        android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="调货对象"
-    android:textColor="#636363"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"/>
-    <TextView 
-        android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="日期"
-    android:textColor="#636363"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"/>
-    <TextView 
-        android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="数量"
-    android:textColor="#636363"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择代理商"
+            android:textColor="#4C4C4C"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/mySpinner"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ed_adress"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="#868788"
+            android:textSize="18sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="调  货 日 期"
+            android:textColor="#4C4C4C"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_time_left"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ed_adress"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="开始日期"
+            android:textColor="#868788"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="-"
+            android:textColor="#868788"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_time_right"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ed_adress"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="结束日期"
+            android:textColor="#868788"
+            android:textSize="18sp" />
     </LinearLayout>
-    <com.comdo.zf_agent_a_pad.util.XListView 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_quary"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="115dp"
+            android:background="#006FD5"
+            android:gravity="center"
+            android:text="开始查询"
+            android:textColor="#CEE1F4"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_transferobject"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="350dp"
+            android:background="#006FD5"
+            android:text="调货"
+            android:textColor="#CEE1F4"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="#EAEAEA" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="50dp"
+        android:gravity="left|center_vertical"
+        android:text="调货记录:"
+        android:textColor="#4C4C4C"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="#E9E8E8"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#E9E8E8"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="调货对象"
+                android:textColor="#636363"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="日期"
+                android:textColor="#636363"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="数量"
+                android:textColor="#636363"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.comdo.zf_agent_a_pad.util.XListView
         android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:fadingEdge="none"
-            android:scrollbars="none" >   
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none" >
     </com.comdo.zf_agent_a_pad.util.XListView>
->>>>>>> origin/master
+
 </LinearLayout>

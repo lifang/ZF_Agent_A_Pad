@@ -55,7 +55,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 	private int a = 1;
 	private EditText et_profit;
 	private int id = MyApplication.NewUser.getAgentId();
-	private String str = "";
+	private float str = 0.0f;
 	private AlertDialog dialog;
 	private int agentsId = MyApplication.NewUser.getAgentId();
 	private LinearLayout eva_nodata;
@@ -92,7 +92,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 			@Override
 			public void onSuccess(Object data) {
-				str = String.valueOf(data);
+				str = Float.parseFloat(String.valueOf(data));
 				myHandler.sendEmptyMessage(2);
 
 			}
@@ -138,7 +138,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 					startActivity(intent);
 					break;
 				case 2:
-					tv_default.setText(str+"%");
+					tv_default.setText(str*1.0f + "%");
 					break;
 				default:
 					break;

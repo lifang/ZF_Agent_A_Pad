@@ -4,96 +4,115 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical" >
-    <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
-    android:layout_marginLeft="26dp"
-    android:orientation="horizontal" >
-    <TextView 
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="默认分润比例:"
-    android:textColor="#2B2A2A"
-    android:textSize="18sp"/>
-    <TextView 
-        android:id="@+id/tv_default"
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="1%"
-    android:textColor="#2B2A2A"
-    android:textSize="18sp"/>
-    <Button 
-        android:id="@+id/btn_reset"
-        android:layout_width="120dp"
-    android:layout_height="40dp"
-    android:text="重置"
-    android:textColor="#C7DEF3"
-    android:gravity="center"
-    android:layout_marginLeft="30dp"
-    android:background="#006FD5"/>
-    <Button 
-        android:id="@+id/btn_creat_agent"
-        android:layout_width="150dp"
-    android:layout_height="40dp"
-    android:text="创建下级代理商"
-    android:textColor="#C7DEF3"
-    android:gravity="center"
-    android:layout_marginLeft="300dp"
-    android:background="#006FD5"/>
-    </LinearLayout>
-    <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:layout_marginTop="40dp"
-    android:layout_marginLeft="26dp"
-    android:layout_marginRight="26dp"
-    android:orientation="horizontal"
-    android:background="#E9E8E8" >
-    <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:orientation="horizontal"
-    android:background="#E9E8E8"
-    android:layout_marginLeft="96dp" >
-    <TextView 
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="代理商类型"
-    android:textColor="#636363"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"
-    />
-    <TextView 
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="代理商名称"
-    android:textColor="#636363"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"/>
-    <TextView 
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="加入时间"
-    android:textColor="#636363"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"/>
-    </LinearLayout>
-    </LinearLayout>
-    <FrameLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <com.comdo.zf_agent_a_pad.util.XListView 
-        android:id="@+id/list"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="默认分润比例:"
+            android:textColor="#2B2A2A"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1%"
+            android:textColor="#2B2A2A"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:background="#006FD5"
+            android:gravity="center"
+            android:text="重置"
+            android:textColor="#C7DEF3" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_creat_agent"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="26dp"
+            android:background="#006FD5"
+            android:gravity="center"
+            android:text="创建下级代理商"
+            android:textColor="#C7DEF3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="40dp"
+        android:background="#E9E8E8"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#E9E8E8"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="代理商类型"
+                android:textColor="#636363"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="代理商名称"
+                android:textColor="#636363"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="加入时间"
+                android:textColor="#636363"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.comdo.zf_agent_a_pad.util.XListView
+            android:id="@+id/list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:fadingEdge="none"
-            android:scrollbars="none" >   
-    </com.comdo.zf_agent_a_pad.util.XListView>
-      <LinearLayout
+            android:scrollbars="none" >
+        </com.comdo.zf_agent_a_pad.util.XListView>
+
+        <LinearLayout
             android:id="@+id/eva_nodata"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -107,6 +126,6 @@
 
             <include layout="@layout/include_norecord" />
         </LinearLayout>
-    
     </FrameLayout>
-    </LinearLayout>
+
+</LinearLayout>

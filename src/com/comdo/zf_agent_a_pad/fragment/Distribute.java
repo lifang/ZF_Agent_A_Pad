@@ -193,9 +193,7 @@ public class Distribute extends Fragment implements OnClickListener,
 		 * tv_agent.setText(adapter.getItem(position)); }
 		 * 
 		 * @Override public void onNothingSelected(AdapterView<?> parent) {
-		 * 
 		 * }
-		 * 
 		 * });
 		 */
 		myHandler = new Handler() {

@@ -111,8 +111,8 @@
                     android:layout_width="230dp"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:gravity="left|top"
                     android:digits="1234567890qwertyuiopasdfghjklzxcvbnm\n"
+                    android:gravity="left|top"
                     android:inputType="textMultiLine|textImeMultiLine"
                     android:paddingRight="30dp"
                     android:textColor="@color/text6c6c6c6"
@@ -131,7 +131,8 @@
                 android:layout_gravity="center_vertical"
                 android:text="价格"
                 android:textColor="#292929"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="80dp"
@@ -139,7 +140,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/shape"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="invisible" >
 
                 <EditText
                     android:id="@+id/lower"
@@ -162,7 +164,8 @@
                 android:gravity="center"
                 android:text="-"
                 android:textColor="#292929"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="80dp"
@@ -170,7 +173,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/shape"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="invisible" >
 
                 <EditText
                     android:id="@+id/higher"

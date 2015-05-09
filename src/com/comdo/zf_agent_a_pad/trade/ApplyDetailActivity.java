@@ -263,8 +263,13 @@ public class ApplyDetailActivity extends FragmentActivity {
 				params.put("bankName", getItemValue(mBankKeys[0]));
 				params.put("bankCode", getItemValue(mBankKeys[1]));
 				params.put("bankNum", getItemValue(mBankKeys[2]));
-				params.put("registeredNo", getItemValue(mBankKeys[3]));
-				params.put("organizationNo", getItemValue(mBankKeys[4]));
+				if (mApplyType == APPLY_PUBLIC) {
+					params.put("registeredNo", getItemValue(mBankKeys[3]));
+					params.put("organizationNo", getItemValue(mBankKeys[4]));
+				} else {
+					params.put("registeredNo", "");
+					params.put("organizationNo", "");
+				}
 				if (null != mChosenChannel)
 					params.put("channel", mChosenChannel.getId());
 				if (null != mChosenBilling)
@@ -376,6 +381,11 @@ public class ApplyDetailActivity extends FragmentActivity {
 												mMerchantId, mTerminalId);
 									}
 								});
+
+						myApplyMaterials1 = new ArrayList<MyApplyMaterial>();
+
+						myApplyMaterials2 = new ArrayList<MyApplyMaterial>();
+
 						// set the customer details
 						setCustomerDetail(materials, customerDetails);
 
@@ -431,8 +441,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 		setItemValue(mBankKeys[0], openingInfos.getAccount_bank_name());
 		setItemValue(mBankKeys[1], openingInfos.getAccount_bank_num());
 		setItemValue(mBankKeys[2], openingInfos.getAccount_bank_code());
-		setItemValue(mBankKeys[3], openingInfos.getTax_registered_no());
-		setItemValue(mBankKeys[4], openingInfos.getOrganization_code_no());
+		if (mApplyType == APPLY_PUBLIC) {
+			setItemValue(mBankKeys[3], openingInfos.getTax_registered_no());
+			setItemValue(mBankKeys[4], openingInfos.getOrganization_code_no());
+		}
 		setItemValue(mBankKeys[5],
 				StringUtil.formatNull(openingInfos.getChannelname())
 						+ StringUtil.formatNull(openingInfos.getBillingname()));
@@ -616,22 +628,39 @@ public class ApplyDetailActivity extends FragmentActivity {
 	}
 
 	private void updateUIWithValidation() {
-		final boolean enabled = !TextUtils
-				.isEmpty(getItemValue(mMerchantKeys[1]))
-				&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[2]))
-				&& (mMerchantGender == 0 || mMerchantGender == 1)
-				&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[4]))
-				&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[5]))
-				&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[6]))
-				&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[7]))
-				&& null != mMerchantCity
-				&& !TextUtils.isEmpty(getItemValue(mBankKeys[0]))
-				&& !TextUtils.isEmpty(getItemValue(mBankKeys[1]))
-				&& !TextUtils.isEmpty(getItemValue(mBankKeys[2]))
-				&& !TextUtils.isEmpty(getItemValue(mBankKeys[3]))
-				&& !TextUtils.isEmpty(getItemValue(mBankKeys[4]))
-				&& (null != mChosenChannel && null != mChosenBilling);
-		mApplySubmit.setEnabled(enabled);
+		if (mApplyType == APPLY_PUBLIC) {
+			final boolean enabled = !TextUtils
+					.isEmpty(getItemValue(mMerchantKeys[1]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[2]))
+					&& (mMerchantGender == 0 || mMerchantGender == 1)
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[4]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[5]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[6]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[7]))
+					&& null != mMerchantCity
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[0]))
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[1]))
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[2]))
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[3]))
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[4]))
+					&& (null != mChosenChannel && null != mChosenBilling);
+			mApplySubmit.setEnabled(enabled);
+		} else {
+			final boolean enabled = !TextUtils
+					.isEmpty(getItemValue(mMerchantKeys[1]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[2]))
+					&& (mMerchantGender == 0 || mMerchantGender == 1)
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[4]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[5]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[6]))
+					&& !TextUtils.isEmpty(getItemValue(mMerchantKeys[7]))
+					&& null != mMerchantCity
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[0]))
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[1]))
+					&& !TextUtils.isEmpty(getItemValue(mBankKeys[2]))
+					&& (null != mChosenChannel && null != mChosenBilling);
+			mApplySubmit.setEnabled(enabled);
+		}
 	}
 
 	public String getRealPathFromURI(Uri contentUri) {
