@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<color name="bggray">#E9E8E8</color>
+    <color name="bggray">#E9E8E8</color>
     <color name="bgtitle">#006FD5</color>
     <color name="text535252">#535252</color>
-<color name="textc9c9c9">#c9c9c9</color>
+    <color name="textc9c9c9">#c9c9c9</color>
     <color name="Viewc">#e1e0e0</color>
     <color name="Viewc2">#c9c9c9</color>
     <color name="text5a5a5a">#5a5a5a</color>
     <color name="bantouming">#e0000000</color>
     <color name="touming">#00000000</color>
-     <color name="text6c6c6c6">#6c6c6c</color>
-      <color name="text292929">#292929</color>
+    <color name="text6c6c6c6">#6c6c6c</color>
+    <color name="text292929">#292929</color>
     <color name="bg_item">#FE783E</color>
     <color name="F3F2F2">#F3F2F2</color>
     <color name="transparent">#9000</color>
     <color name="bg">#E9E8E8</color>
-    
- <!-- 透明白色 -->
+
+    <!-- 透明白色 -->
     <color name="toumingbai">#f6f0f0f0</color>
- <!-- 底部透明白色 -->
+    <!-- 底部透明白色 -->
     <color name="touming7f">#7f000000</color>
- <!-- 透明黑色 -->
+    <!-- 透明黑色 -->
     <color name="toumingf6">#f6ffffff</color>
- <!-- 透明白色 -->
+    <!-- 透明白色 -->
     <color name="toumingf6f4">#f6f4f4f4</color>
- <!-- 透明白色 -->
+    <!-- 透明白色 -->
     <color name="toumingf6f1">#f6f1f1f1</color>
- <!-- 透明白色 -->
+    <!-- 透明白色 -->
     <color name="fffefe">#fffefe</color>
- <!-- 头部白色的字体颜色 -->
+    <!-- 头部白色的字体颜色 -->
     <color name="t000000">#000000</color>
- <!-- 黑色 -->
+    <!-- 黑色 -->
     <color name="tmffffff">#FFFFFFFF</color>
     <color name="ffffff">#ffffff</color>
     <color name="f4f4f4">#f4f4f4</color>
@@ -66,13 +66,14 @@
     <color name="t699f4c">#699f4c</color>
     <color name="B4B4B4">#B4B4B4</color>
     <color name="E8E8E7">#E8E8E7</color>
-     <color name="e9e8e8">#e9e8e8</color>
+    <color name="e9e8e8">#e9e8e8</color>
     <color name="F3F3F3">#F3F3F3</color>
     <color name="F6F9FA">#F6F9FA</color>
     <color name="seekbar_bg">#e5e5e5</color>
     <color name="progress_bg">#FF9900</color>
+    <color name="paychannel_bg">#F5F4F4</color>
     <!-- new  FF1F1F color -->
-	<color name="mybutton">#006FD5</color>
+    <color name="mybutton">#006FD5</color>
     <color name="bg_1FB8FE">#1FB8FE</color>
     <color name="bg_0AB2FF">#0AB2FF</color>
     <color name="bg_575D5F">#575D5F</color>
@@ -83,41 +84,38 @@
     <color name="c838383">#838383</color>
     <color name="white">#ffffffff</color>
     <color name="o">#FF6624</color>
-    
- <!-- 白色 -->
+
+    <!-- 白色 -->
     <color name="top_bg_color">#1FB8FE</color>
- <!-- 页面上方 蓝色块 -->
+    <!-- 页面上方 蓝色块 -->
 
     <color name="text_read">#021F35</color>
     <color name="black">#000000</color>
     <color name="oederdetails_bg">#F5F5F5</color>
- <!-- 订单详情浅灰色背景 -->
+    <!-- 订单详情浅灰色背景 -->
     <color name="line_color">#E1E1E1</color>
- <!-- 1dp 线条的颜色 -->
+    <!-- 1dp 线条的颜色 -->
     <color name="button_bg_hui_color">#838383</color>
- <!-- 深灰色 -->
+    <!-- 深灰色 -->
     <color name="oederdetail_item_red">#FF3B3D</color>
     <color name="edithinit">#333333</color>
- <!-- 订单详情 item 红色 -->
+    <!-- 订单详情 item 红色 -->
+
 
     <!-- 按钮颜色 -->
     <color name="normal_button_enabled">#006fd5</color>
     <color name="normal_button_disabled">#aacae9</color>
     <color name="normal_button_pressed">#025caf</color>
-
     <color name="trade_statistic_bg">#212029</color>
     <color name="background_dark">#9f000000</color>
-
-	<color name="background_pressed">#dedede</color>
-	<color name="background_tab">#EFEBEF</color>
-<color name="bg0etitle">#0eFF6624</color>
-<color name="NoRead">#C1C1C1</color>
-
+    <color name="background_pressed">#dedede</color>
+    <color name="background_tab">#EFEBEF</color>
+    <color name="bg0etitle">#0eFF6624</color>
+    <color name="NoRead">#C1C1C1</color>
     <color name="trans_white">#20ffffff</color>
     <color name="trans">#00000000</color>
     <color name="blue">#cc33b5e5</color>
-    
     <color name="guide_btn_nomal">#ffffff</color>
     <color name="guide_btn_press">#cccccc</color>
-    
+
 </resources>

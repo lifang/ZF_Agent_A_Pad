@@ -58,10 +58,12 @@ public class TerminalApplySelectActivity extends Activity implements
 		View.OnClickListener, XListView.IXListViewListener {
 
 	private TextView selectedpos, selectedchannel;
-	private int mChannelId, minPrice = 0, maxPrice = 0;
+	private int mChannelId;
+	// private int minPrice = 0, maxPrice = 0;
 
 	private int posID, checked = 0;
-	private EditText zdh, lower, higher;
+	private EditText zdh;
+	// private EditText lower, higher;
 	// private Boolean allCheck = false;
 	private String posName, zdhString, searchKey;
 	private ImageView search;
@@ -115,11 +117,11 @@ public class TerminalApplySelectActivity extends Activity implements
 		terminal_comfirm = (Button) findViewById(R.id.terminal_comfirm);
 		terminal_comfirm.setOnClickListener(this);
 		zdh = (EditText) findViewById(R.id.zdh);
-		lower = (EditText) findViewById(R.id.lower);
-		higher = (EditText) findViewById(R.id.higher);
+		// lower = (EditText) findViewById(R.id.lower);
+		// higher = (EditText) findViewById(R.id.higher);
 		zdh.addTextChangedListener(mTextWatcher);
-		lower.addTextChangedListener(mTextWatcher);
-		higher.addTextChangedListener(mTextWatcher);
+		// lower.addTextChangedListener(mTextWatcher);
+		// higher.addTextChangedListener(mTextWatcher);
 		terminalNum = (TextView) findViewById(R.id.terminalNum);
 		searchLinear = (LinearLayout) findViewById(R.id.searchLinear);
 		searchLinear.setOnClickListener(this);
@@ -175,12 +177,12 @@ public class TerminalApplySelectActivity extends Activity implements
 
 			if (zdh.getText().toString() != null)
 				zdhString = zdh.getText().toString();
-			if (higher.getText().toString() != null
-					&& !"".equals(higher.getText().toString()))
-				maxPrice = Integer.parseInt(higher.getText().toString());
-			if (lower.getText().toString() != null
-					&& !"".equals(lower.getText().toString()))
-				minPrice = Integer.parseInt(lower.getText().toString());
+			// if (higher.getText().toString() != null
+			// && !"".equals(higher.getText().toString()))
+			// maxPrice = Integer.parseInt(higher.getText().toString());
+			// if (lower.getText().toString() != null
+			// && !"".equals(lower.getText().toString()))
+			// minPrice = Integer.parseInt(lower.getText().toString());
 
 		}
 	};
@@ -418,15 +420,17 @@ public class TerminalApplySelectActivity extends Activity implements
 						}
 					});
 
-		} else if (maxPrice < minPrice) {
-
-			CommonUtil.toastShort(TerminalApplySelectActivity.this,
-					getResources().getString(R.string.terminal_price_error));
-
-		} else {
+		}
+		// else if (maxPrice < minPrice) {
+		//
+		// CommonUtil.toastShort(TerminalApplySelectActivity.this,
+		// getResources().getString(R.string.terminal_price_error));
+		//
+		// }
+		else {
 
 			Config.screeningTerminalNum(TerminalApplySelectActivity.this,
-					posName, mChannelId, minPrice, maxPrice,
+					posName, mChannelId, 0, 0,
 					MyApplication.NewUser.getAgentId(), page + 1, rows,
 					searchKey,
 					new HttpCallback<List<TerminalPriceEntity>>(this) {

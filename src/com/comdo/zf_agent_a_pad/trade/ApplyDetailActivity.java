@@ -103,6 +103,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 	private int mTerminalId;
 	private int mTerminalStatus;
+	private int supportRequirementType;
 
 	private MerchantForApply mMerchant = new MerchantForApply();
 
@@ -224,17 +225,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mCustomerContainer_1 = (LinearLayout) findViewById(R.id.mCustomerContainer_1);
 		mCustomerContainer_2 = (LinearLayout) findViewById(R.id.mCustomerContainer_2);
 
-		// mMaterialContainer_1_1 = (LinearLayout)
-		// findViewById(R.id.apply_detail_material_container_1_1);
-		// mMaterialContainer_1_2 = (LinearLayout)
-		// findViewById(R.id.apply_detail_material_container_1_2);
-		// mMaterialContainer_1_3 = (LinearLayout)
-		// findViewById(R.id.apply_detail_material_container_1_3);
-		// mMaterialContainer_2_1 = (LinearLayout)
-		// findViewById(R.id.apply_detail_material_container_2_1);
-		// mMaterialContainer_2_2 = (LinearLayout)
-		// findViewById(R.id.apply_detail_material_container_2_2);
-
 		mApplySubmit = (Button) findViewById(R.id.apply_submit);
 
 		mApplySubmit.setOnClickListener(new View.OnClickListener() {
@@ -333,19 +323,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mMerchantContainer_0.removeAllViews();
 		mMerchantContainer_1.removeAllViews();
 		mMerchantContainer_2.removeAllViews();
-		// mMerchantContainer.removeAllViews();
 		mCustomerContainer_1.removeAllViews();
 		mCustomerContainer_2.removeAllViews();
-		// mCustomerContainer.removeAllViews();
-		// mMaterialContainer_1_1.removeAllViews();
-		// mMaterialContainer_1_2.removeAllViews();
-		// mMaterialContainer_1_3.removeAllViews();
-		// mMaterialContainer_2_1.removeAllViews();
-		// mMaterialContainer_2_2.removeAllViews();
 
-		initMerchantDetailKeys();
-
-		Config.getApplyDetail(this, mTerminalId, applyType,
+		Config.getApplyDetail(this, mTerminalId, 0,
 				new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
@@ -364,7 +345,20 @@ public class ApplyDetailActivity extends FragmentActivity {
 							mPosBrand.setText(terminalDetail.getBrandName());
 							mPosModel.setText(terminalDetail.getModelNumber());
 							mSerialNum.setText(terminalDetail.getSerialNumber());
+							supportRequirementType = terminalDetail
+									.getSupportRequirementType();
+							if (supportRequirementType == 1) {
+								toPrivate.setVisibility(View.GONE);
+							} else if (supportRequirementType == 2) {
+
+								mApplyType = APPLY_PRIVATE;
+								toPublic.setVisibility(View.GONE);
+								toPrivate.setBackgroundDrawable(getResources()
+										.getDrawable(R.drawable.tab_bg));
+							}
 						}
+
+						initMerchantDetailKeys();
 						// set the choosing merchant listener
 						// View merchantChoose = mMerchantContainer
 						// .findViewWithTag(mMerchantKeys[0]);

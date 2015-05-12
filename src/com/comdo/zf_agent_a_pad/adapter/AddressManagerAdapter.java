@@ -3,6 +3,7 @@ package com.comdo.zf_agent_a_pad.adapter;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.entity.AddressManager;
+import com.comdo.zf_agent_a_pad.fragment.MineMyinfo;
 import com.comdo.zf_agent_a_pad.fragment.Mine_adress;
 import com.example.zf_agent_a_pad.R;
 
@@ -75,7 +76,7 @@ public class AddressManagerAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				pp = position;
-				Message msg = Mine_adress.myHandler.obtainMessage();
+				Message msg = MineMyinfo.myHandler.obtainMessage();
 				msg.what = 2;
 				msg.sendToTarget();
 
@@ -86,7 +87,7 @@ public class AddressManagerAdapter extends BaseAdapter {
 //			@Override
 //			public void onClick(View arg0) {
 //				pp = position;
-//				Message msg = Mine_adress.myHandler.obtainMessage();
+//				Message msg = MineMyinfo.myHandler.obtainMessage();
 //				msg.what = 3;
 //				msg.sendToTarget();
 //

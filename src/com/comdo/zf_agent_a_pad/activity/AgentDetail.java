@@ -8,18 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.adapter.AgentManagerAdapter;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.AgentDetailEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class AgentDetail extends BaseActivity implements OnClickListener {
-	private int sonAgentsId;
+	private int sonAgentsId, isProfit;
 	private TextView tv_company_type, tv_company_name, tv_yingyezhizhao,
 			tv_company_shuiwudengji, tv_fuzeren_name, tv_fuzeren_no, tv_phone,
 			tv_email, tv_adress, tv_adressdetail, tv_jointime, tv_has_amount,
@@ -32,11 +37,19 @@ public class AgentDetail extends BaseActivity implements OnClickListener {
 	private int tag = 0;
 	private String[] imgPath = new String[3];
 
+	private LinearLayout titleback_linear_back;
+	private TextView titleback_text_title, next_sure;
+	private ImageView titleback_image_back;
+	private String type;
+	private TableRow row_company_name, row_yingyezhizhao,
+			row_company_shuiwudengji, row_yingyezhizhao_photo,
+			row_shuiwu_photo;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.agentdetail);
-		new TitleMenuUtil(AgentDetail.this, "下级代理商详情").show();
+		// new TitleMenuUtil(AgentDetail.this, "下级代理商详情").show();
 		init();
 
 	}
@@ -49,10 +62,32 @@ public class AgentDetail extends BaseActivity implements OnClickListener {
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 				case 0:
-					if (isprofit.equals("1")) {
+					if (isprofit.equals("2")) {
 						iv_fenrun.setBackgroundResource(R.drawable.agent_on);
+						next_sure.setVisibility(View.VISIBLE);
+						isProfit = 2;
 					} else {
 						iv_fenrun.setBackgroundResource(R.drawable.agent_off);
+						next_sure.setVisibility(View.GONE);
+						isProfit = 1;
+					}
+
+					if ("1".equals(type)) {
+
+						row_company_name.setVisibility(View.VISIBLE);
+						row_yingyezhizhao.setVisibility(View.VISIBLE);
+						row_company_shuiwudengji.setVisibility(View.VISIBLE);
+						row_yingyezhizhao_photo.setVisibility(View.VISIBLE);
+						row_shuiwu_photo.setVisibility(View.VISIBLE);
+
+					} else if ("2".equals(type)) {
+
+						row_company_name.setVisibility(View.GONE);
+						row_yingyezhizhao.setVisibility(View.GONE);
+						row_company_shuiwudengji.setVisibility(View.GONE);
+						row_yingyezhizhao_photo.setVisibility(View.GONE);
+						row_shuiwu_photo.setVisibility(View.GONE);
+
 					}
 					break;
 
@@ -81,10 +116,50 @@ public class AgentDetail extends BaseActivity implements OnClickListener {
 			imgPath[2] = taxPath;
 			openimg(tag);
 			break;
+		case R.id.next_sure:
+			Intent intent = new Intent(AgentDetail.this, SelectPayChannel.class);
+			intent.putExtra("id", sonAgentsId);
+			startActivity(intent);
+			break;
+		case R.id.iv_fenrun:
+			changeFenRun();
+			break;
 		default:
 			break;
 		}
 
+	}
+
+	private void changeFenRun() {
+		if (isProfit == 1) {
+			isProfit = 2;
+		} else if (isProfit == 2) {
+			isProfit = 1;
+		}
+		Config.setDefaultProfit(AgentDetail.this,
+				MyApplication.NewUser.getAgentId(), sonAgentsId, isProfit,
+				new HttpCallback(AgentDetail.this) {
+
+					@Override
+					public void onSuccess(Object data) {
+						CommonUtil.toastShort(AgentDetail.this, "修改成功");
+						if (isProfit == 2) {
+							iv_fenrun
+									.setBackgroundResource(R.drawable.agent_on);
+							next_sure.setVisibility(View.VISIBLE);
+						} else if (isProfit == 1) {
+
+							iv_fenrun
+									.setBackgroundResource(R.drawable.agent_off);
+							next_sure.setVisibility(View.GONE);
+						}
+					}
+
+					@Override
+					public TypeToken getTypeToken() {
+						return null;
+					}
+				});
 	}
 
 	private void openimg(int tag) {
@@ -110,10 +185,12 @@ public class AgentDetail extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void onSuccess(AgentDetailEntity data) {
+						type = data.getTypes();
 						if (data.getTypes().equals("1")) {
 							tv_company_type.setText("公司");
 						} else if (data.getTypes().equals("2")) {
 							tv_company_type.setText("个人");
+
 						} else {
 							tv_company_type.setText(data.getTypes());
 						}
@@ -159,6 +236,10 @@ public class AgentDetail extends BaseActivity implements OnClickListener {
 	private void init() {
 		Intent intent = getIntent();
 		sonAgentsId = intent.getIntExtra("id", 0);
+		titleback_linear_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
+		titleback_text_title = (TextView) findViewById(R.id.titleback_text_title);
+		next_sure = (TextView) findViewById(R.id.next_sure);
+		titleback_image_back = (ImageView) findViewById(R.id.titleback_image_back);
 		tv_company_type = (TextView) findViewById(R.id.tv_company_type);
 		tv_company_name = (TextView) findViewById(R.id.tv_company_name);
 		tv_yingyezhizhao = (TextView) findViewById(R.id.tv_yingyezhizhao);
@@ -178,8 +259,30 @@ public class AgentDetail extends BaseActivity implements OnClickListener {
 		iv_yingyezhizhao = (ImageView) findViewById(R.id.iv_yingyezhizhao);
 		iv_shuiwu = (ImageView) findViewById(R.id.iv_shuiwu);
 		iv_fenrun = (ImageView) findViewById(R.id.iv_fenrun);
+		row_company_name = (TableRow) findViewById(R.id.row_company_name);
+		row_yingyezhizhao = (TableRow) findViewById(R.id.row_yingyezhizhao);
+		row_company_shuiwudengji = (TableRow) findViewById(R.id.row_company_shuiwudengji);
+		row_yingyezhizhao_photo = (TableRow) findViewById(R.id.row_yingyezhizhao_photo);
+		row_shuiwu_photo = (TableRow) findViewById(R.id.row_shuiwu_photo);
+		titleback_linear_back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AgentDetail.this.finish();
+			}
+		});
+
+		titleback_image_back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AgentDetail.this.finish();
+			}
+		});
+
+		titleback_text_title.setText("下级代理商详情");
+		next_sure.setOnClickListener(this);
 		iv_shenfenzheng.setOnClickListener(this);
 		iv_yingyezhizhao.setOnClickListener(this);
 		iv_shuiwu.setOnClickListener(this);
+		iv_fenrun.setOnClickListener(this);
 	}
 }

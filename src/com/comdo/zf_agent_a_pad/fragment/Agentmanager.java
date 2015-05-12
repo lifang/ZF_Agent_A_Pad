@@ -47,7 +47,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 	private BaseAdapter agentadapter;
 	private XListView xxlistview;
 	private TextView tv_default;
-	private Button btn_reset, btn_creat_agent, btn_save;
+	private Button btn_reset, btn_creat_agent, btn_save, close;
 	private int page = 1;
 	public static Handler myHandler;
 	private boolean isrefersh = false;
@@ -138,7 +138,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 					startActivity(intent);
 					break;
 				case 2:
-					tv_default.setText(str*1.0f + "%");
+					tv_default.setText(str * 1.0f + "%");
 					break;
 				default:
 					break;
@@ -225,6 +225,9 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 			resetProfit();
 			break;
+		case R.id.close:
+			dialog.dismiss();
+			break;
 		default:
 			break;
 		}
@@ -265,7 +268,9 @@ public class Agentmanager extends Fragment implements OnClickListener,
 		builder.setView(textEntryView);
 		btn_save = (Button) textEntryView.findViewById(R.id.btn_save);
 		et_profit = (EditText) textEntryView.findViewById(R.id.et_profit);
+		close = (Button) textEntryView.findViewById(R.id.close);
 		btn_save.setOnClickListener(this);
+		close.setOnClickListener(this);
 		dialog = builder.create();
 		dialog.show();
 		// builder.create().show();
