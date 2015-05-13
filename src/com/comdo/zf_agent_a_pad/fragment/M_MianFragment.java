@@ -1,5 +1,6 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -322,7 +323,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 				}
 				((ViewGroup) v).addView(indicator_imgs[i]);
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 
 		}
@@ -355,7 +355,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		 */
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return mList.size();
 		}
 
@@ -366,14 +365,12 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		 */
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
-			// TODO Auto-generated method stub
 			container.removeView(mList.get(position));
 
 		}
 
 		@Override
 		public boolean isViewFromObject(View arg0, Object arg1) {
-			// TODO Auto-generated method stub
 			return arg0 == arg1;
 		}
 
@@ -406,7 +403,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			//
 			// @Override
 			// public void onClick(View v) {
-			// // TODO Auto-generated method stub
 			// // Toast.makeText(getApplicationContext(), index_ima+"----",
 			// 1000).show();
 			// Intent i=new Intent(AroundDetail.this,VPImage.class);
@@ -429,7 +425,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 		@Override
 		public void onPageScrollStateChanged(int state) {
-			// TODO Auto-generated method stub
 			if (state == 0) {
 				// new MyAdapter(null).notifyDataSetChanged();
 			}
@@ -437,7 +432,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
-			// TODO Auto-generated method stub
 
 		}
 
@@ -458,6 +452,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		}
 
 	}
+	
 
 	@Override
 	public void onResume() {

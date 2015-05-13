@@ -102,6 +102,21 @@ public class Distribute extends Fragment implements OnClickListener,
 	}
 
 	@Override
+	public void onPause() {
+		super.onPause();
+
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("left_time", left_time);
+		outState.putString("right_time", right_time);
+		tv_time_left.setText(left_time);
+		tv_time_right.setText(right_time);
+	}
+
+	@Override
 	public void onStart() {
 		super.onStart();
 
@@ -192,8 +207,7 @@ public class Distribute extends Fragment implements OnClickListener,
 		 * view, int position, long id) {
 		 * tv_agent.setText(adapter.getItem(position)); }
 		 * 
-		 * @Override public void onNothingSelected(AdapterView<?> parent) {
-		 * }
+		 * @Override public void onNothingSelected(AdapterView<?> parent) { }
 		 * });
 		 */
 		myHandler = new Handler() {

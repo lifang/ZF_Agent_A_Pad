@@ -48,11 +48,11 @@ public class Mine_adress extends Fragment implements OnClickListener {
 	private ListView list;
 	private Button btn_add;
 	public static boolean isclickitem = false;
-	public static LinearLayout ll_address;
+//	public static LinearLayout ll_address;
 	public static Handler myHandler;
 	private int id = MyApplication.NewUser.getId();
 	public static int[] idd;
-	public static int type = 0;
+//	public static int type = 0;
 	private EditText login_edit_name, mobile_phone, zip_code, detail_address;
 	private TextView area, tv_title;
 	private Button btn_save;
@@ -190,7 +190,7 @@ public class Mine_adress extends Fragment implements OnClickListener {
 	}
 
 	private void init() {
-		ll_address = (LinearLayout) view.findViewById(R.id.ll_address);
+//		ll_address = (LinearLayout) view.findViewById(R.id.ll_address);
 		dataadress = new ArrayList<AddressManager>();
 		addressadapter = new AddressManagerAdapter(dataadress, getActivity()
 				.getBaseContext());

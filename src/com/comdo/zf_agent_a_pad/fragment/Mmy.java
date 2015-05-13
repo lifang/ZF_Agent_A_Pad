@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
+import java.lang.reflect.Field;
+
 import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
@@ -16,12 +18,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Mmy extends Fragment implements OnClickListener {
 	private View view;
 	private TextView tv_myinfo, tv_manager_shopper, tv_distribute,
 			tv_transgoods, tv_staffmanagr, tv_exit;
+	private RelativeLayout ll_dd, ll_shjl, ll_myinfo, ll_mysh, ll_plan,
+			ll_exit;
 	private MineMyinfo f_info;
 	private Agentmanager f_agentmanager;
 	private Distribute f_distribute;
@@ -58,16 +64,20 @@ public class Mmy extends Fragment implements OnClickListener {
 				if (!CheckRights.RIGHT_5) {
 					setback();
 					im3.setVisibility(View.VISIBLE);
-					tv_distribute.setTextColor(getResources().getColor(R.color.bgtitle));
+					tv_distribute.setTextColor(getResources().getColor(
+							R.color.bgtitle));
 					f_distribute = new Distribute();
+					// getChildFragmentManager().beginTransaction()
 					getActivity().getSupportFragmentManager()
 							.beginTransaction()
 							.replace(R.id.f_mine, f_distribute).commit();
 				} else {
 					setback();
 					im2.setVisibility(View.VISIBLE);
-					tv_manager_shopper.setTextColor(getResources().getColor(R.color.bgtitle));
+					tv_manager_shopper.setTextColor(getResources().getColor(
+							R.color.bgtitle));
 					f_agentmanager = new Agentmanager();
+					// getChildFragmentManager().beginTransaction()
 					getActivity().getSupportFragmentManager()
 							.beginTransaction()
 							.replace(R.id.f_mine, f_agentmanager).commit();
@@ -77,9 +87,11 @@ public class Mmy extends Fragment implements OnClickListener {
 
 				setback();
 				im1.setVisibility(View.VISIBLE);
-				tv_myinfo.setTextColor(getResources().getColor(R.color.bgtitle));
+				tv_myinfo
+						.setTextColor(getResources().getColor(R.color.bgtitle));
 				f_info = new MineMyinfo();
 
+				// getChildFragmentManager().beginTransaction()
 				getActivity().getSupportFragmentManager().beginTransaction()
 						.replace(R.id.f_mine, f_info).commit();
 			}
@@ -102,7 +114,21 @@ public class Mmy extends Fragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 		Log.e("tag", type + "");
+		if (type == 1) {
+			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
+					&& !CheckRights.RIGHT_8) {
 
+				if (!CheckRights.RIGHT_5) {
+					type = 3;
+				} else {
+					type = 2;
+				}
+
+			} else {
+
+				type = 1;
+			}
+		}
 	}
 
 	@Override
@@ -117,21 +143,24 @@ public class Mmy extends Fragment implements OnClickListener {
 			setback();
 			im1.setVisibility(View.VISIBLE);
 			tv_myinfo.setTextColor(getResources().getColor(R.color.bgtitle));
-			if (f_info == null)
-				f_info = new MineMyinfo();
+			// if (f_info == null)
+			f_info = new MineMyinfo();
 			/*
 			 * else{ Fragment p = f_info.getParentFragment(); if(p!=null){
 			 * p.getFragmentManager().getFragments().remove(R.id.f_mine); } }
 			 */
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_info).commit();
 			break;
 		case 2:
 			setback();
 			im2.setVisibility(View.VISIBLE);
-			tv_manager_shopper.setTextColor(getResources().getColor(R.color.bgtitle));
-			if (f_agentmanager == null)
-				f_agentmanager = new Agentmanager();
+			tv_manager_shopper.setTextColor(getResources().getColor(
+					R.color.bgtitle));
+			// if (f_agentmanager == null)
+			f_agentmanager = new Agentmanager();
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_agentmanager).commit();
 
@@ -139,27 +168,33 @@ public class Mmy extends Fragment implements OnClickListener {
 		case 3:
 			setback();
 			im3.setVisibility(View.VISIBLE);
-			tv_distribute.setTextColor(getResources().getColor(R.color.bgtitle));
-			if (f_distribute == null)
-				f_distribute = new Distribute();
+			tv_distribute
+					.setTextColor(getResources().getColor(R.color.bgtitle));
+			// if (f_distribute == null)
+			f_distribute = new Distribute();
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_distribute).commit();
 			break;
 		case 4:
 			setback();
 			im4.setVisibility(View.VISIBLE);
-			tv_transgoods.setTextColor(getResources().getColor(R.color.bgtitle));
-			if (f_transgood == null)
-				f_transgood = new Transgoods();
+			tv_transgoods
+					.setTextColor(getResources().getColor(R.color.bgtitle));
+			// if (f_transgood == null)
+			f_transgood = new Transgoods();
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_transgood).commit();
 			break;
 		case 5:
 			setback();
 			im5.setVisibility(View.VISIBLE);
-			tv_staffmanagr.setTextColor(getResources().getColor(R.color.bgtitle));
-			if (f_staffmanagr == null)
-				f_staffmanagr = new Staffmanagr();
+			tv_staffmanagr.setTextColor(getResources()
+					.getColor(R.color.bgtitle));
+			// if (f_staffmanagr == null)
+			f_staffmanagr = new Staffmanagr();
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_staffmanagr).commit();
 			break;
@@ -169,6 +204,7 @@ public class Mmy extends Fragment implements OnClickListener {
 			tv_exit.setTextColor(getResources().getColor(R.color.bgtitle));
 			if (f_staffmanagr == null)
 				f_staffmanagr = new Staffmanagr();
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_staffmanagr).commit();
 			break;
@@ -192,18 +228,33 @@ public class Mmy extends Fragment implements OnClickListener {
 		tv_transgoods = (TextView) view.findViewById(R.id.tv_transgoods);
 		tv_staffmanagr = (TextView) view.findViewById(R.id.tv_staffmanagr);
 		tv_exit = (TextView) view.findViewById(R.id.tv_exit);
+
+		ll_dd = (RelativeLayout) view.findViewById(R.id.ll_dd);
+		ll_shjl = (RelativeLayout) view.findViewById(R.id.ll_shjl);
+		ll_myinfo = (RelativeLayout) view.findViewById(R.id.ll_myinfo);
+		ll_mysh = (RelativeLayout) view.findViewById(R.id.ll_mysh);
+		ll_plan = (RelativeLayout) view.findViewById(R.id.ll_plan);
+		ll_exit = (RelativeLayout) view.findViewById(R.id.ll_exit);
+
 		tv_myinfo.setOnClickListener(this);
 		tv_manager_shopper.setOnClickListener(this);
 		tv_distribute.setOnClickListener(this);
 		tv_transgoods.setOnClickListener(this);
 		tv_staffmanagr.setOnClickListener(this);
 		tv_exit.setOnClickListener(this);
+		ll_dd.setOnClickListener(this);
+		ll_shjl.setOnClickListener(this);
+		ll_myinfo.setOnClickListener(this);
+		ll_mysh.setOnClickListener(this);
+		ll_plan.setOnClickListener(this);
+		ll_exit.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_myinfo:
+		case R.id.ll_dd:
 			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
 					&& !CheckRights.RIGHT_8) {
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
@@ -211,14 +262,18 @@ public class Mmy extends Fragment implements OnClickListener {
 				type = 1;
 				setback();
 				im1.setVisibility(View.VISIBLE);
-				tv_myinfo.setTextColor(getResources().getColor(R.color.bgtitle));
-				if (f_info == null)
-					f_info = new MineMyinfo();
+				tv_myinfo
+						.setTextColor(getResources().getColor(R.color.bgtitle));
+				// if (f_info == null)
+				f_info = new MineMyinfo();
+
+				// getChildFragmentManager().beginTransaction()
 				getActivity().getSupportFragmentManager().beginTransaction()
 						.replace(R.id.f_mine, f_info).commit();
 			}
 			break;
 		case R.id.tv_manager_shopper:
+		case R.id.ll_shjl:
 			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
 					&& !CheckRights.RIGHT_5) {
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
@@ -226,49 +281,61 @@ public class Mmy extends Fragment implements OnClickListener {
 				type = 2;
 				setback();
 				im2.setVisibility(View.VISIBLE);
-				tv_manager_shopper.setTextColor(getResources().getColor(R.color.bgtitle));
-				if (f_agentmanager == null)
-					f_agentmanager = new Agentmanager();
+				tv_manager_shopper.setTextColor(getResources().getColor(
+						R.color.bgtitle));
+				// if (f_agentmanager == null)
+				f_agentmanager = new Agentmanager();
+				// getChildFragmentManager().beginTransaction()
 				getActivity().getSupportFragmentManager().beginTransaction()
 						.replace(R.id.f_mine, f_agentmanager).commit();
 			}
 			break;
 		case R.id.tv_distribute:
+		case R.id.ll_myinfo:
 			type = 3;
 			setback();
 			im3.setVisibility(View.VISIBLE);
-			tv_distribute.setTextColor(getResources().getColor(R.color.bgtitle));
-			if (f_distribute == null)
-				f_distribute = new Distribute();
+			tv_distribute
+					.setTextColor(getResources().getColor(R.color.bgtitle));
+			// if (f_distribute == null)
+			f_distribute = new Distribute();
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_distribute).commit();
 			break;
 		case R.id.tv_transgoods:
+		case R.id.ll_mysh:
 			type = 4;
 			setback();
 			im4.setVisibility(View.VISIBLE);
-			tv_transgoods.setTextColor(getResources().getColor(R.color.bgtitle));
-			if (f_transgood == null)
-				f_transgood = new Transgoods();
+			tv_transgoods
+					.setTextColor(getResources().getColor(R.color.bgtitle));
+			// if (f_transgood == null)
+			f_transgood = new Transgoods();
+			// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()
 					.replace(R.id.f_mine, f_transgood).commit();
 			break;
 		case R.id.tv_staffmanagr:
+		case R.id.ll_plan:
 			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
 					&& !CheckRights.RIGHT_8) {
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			} else {
 				type = 5;
 				setback();
-				tv_staffmanagr.setTextColor(getResources().getColor(R.color.bgtitle));
+				tv_staffmanagr.setTextColor(getResources().getColor(
+						R.color.bgtitle));
 				im5.setVisibility(View.VISIBLE);
-				if (f_staffmanagr == null)
-					f_staffmanagr = new Staffmanagr();
+				// if (f_staffmanagr == null)
+				f_staffmanagr = new Staffmanagr();
+				// getChildFragmentManager().beginTransaction()
 				getActivity().getSupportFragmentManager().beginTransaction()
 						.replace(R.id.f_mine, f_staffmanagr).commit();
 			}
 			break;
 		case R.id.tv_exit:
+		case R.id.ll_exit:
 			type = 6;
 			setback();
 			im6.setVisibility(View.VISIBLE);
@@ -302,7 +369,9 @@ public class Mmy extends Fragment implements OnClickListener {
 	public void onDestroyView() {
 		try {
 			FragmentTransaction transaction = getActivity()
-					.getSupportFragmentManager().beginTransaction();
+					.getSupportFragmentManager().beginTransaction()
+
+			// getChildFragmentManager().beginTransaction();
 			;
 			if (f_info != null)
 				transaction.remove(f_info);
@@ -314,6 +383,7 @@ public class Mmy extends Fragment implements OnClickListener {
 				transaction.remove(f_transgood);
 			if (f_staffmanagr != null)
 				transaction.remove(f_staffmanagr);
+
 			transaction.commit();
 		} catch (Exception e) {
 		}
@@ -321,4 +391,18 @@ public class Mmy extends Fragment implements OnClickListener {
 		super.onDestroyView();
 	}
 
+	// @Override
+	// public void onDetach() {
+	// super.onDetach();
+	// try {
+	// Field childFragmentManager = Fragment.class
+	// .getDeclaredField("mChildFragmentManager");
+	// childFragmentManager.setAccessible(true);
+	// childFragmentManager.set(this, null);
+	// } catch (NoSuchFieldException e) {
+	// throw new RuntimeException(e);
+	// } catch (IllegalAccessException e) {
+	// throw new RuntimeException(e);
+	// }
+	// }
 }

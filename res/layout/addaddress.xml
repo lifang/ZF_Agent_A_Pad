@@ -221,6 +221,22 @@
                         android:layout_marginLeft="7dp"
                         android:text="设为默认地址"
                         android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/deleteadress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:gravity="right"
+                        android:text="删除地址"
+                        android:textColor="@color/bgtitle"
+                        android:visibility="gone"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <Button

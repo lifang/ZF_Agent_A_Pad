@@ -9,19 +9,20 @@
         android:layout_width="160dp"
         android:layout_height="fill_parent"
         android:background="#64666A"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingTop="@dimen/leftfristtop" >
 
         <RelativeLayout
             android:id="@+id/ll_dd"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/leftfristtop"
-            android:layout_marginTop="@dimen/leftfristtop" >
+            android:layout_height="@dimen/leftitemheight" >
 
             <TextView
                 android:id="@+id/tv_myinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:text="我的信息"
                 android:textColor="@color/o"
                 android:textSize="@dimen/textbig" />
@@ -31,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="3dp"
                 android:src="@drawable/sanjiao" />
         </RelativeLayout>
@@ -161,6 +163,7 @@
             android:background="#817f7f" />
 
         <RelativeLayout
+            android:id="@+id/ll_exit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/leftitemheight"
             android:orientation="horizontal" >
