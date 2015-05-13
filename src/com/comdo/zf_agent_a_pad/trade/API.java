@@ -18,8 +18,8 @@ public class API {
 
 	public static final String SCHEMA = "http://";
 	// public static final String HOST = "114.215.149.242:28080";
-	public static final String HOST = "121.40.84.2:28080";
-
+	//public static final String HOST = "121.40.84.2:28080";
+	public static final String HOST = "121.40.84.2:28080/ZFAgent/api/";
 	// public static final String HOST = "192.168.1.101:8080";
 	public static String GET_USERINFO = SCHEMA + HOST
 			+ "/ZFMerchant/api/customers/getOne/";
