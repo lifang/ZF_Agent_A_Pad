@@ -283,6 +283,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			startActivityForResult(i, 2);
 			break;
 		case R.id.ll_mr:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			orderType = 0;
 			tv_mr.setTextColor(getResources().getColor(R.color.bgtitle));
 			tv_2.setTextColor(getResources().getColor(R.color.bg_575D5F));
@@ -294,6 +296,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.ll_xxyx:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			orderType = 1;
 			tv_mr.setTextColor(getResources().getColor(R.color.bg_575D5F));
 			tv_2.setTextColor(getResources().getColor(R.color.bgtitle));
@@ -305,6 +309,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.ll_updown:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			if (isDown) {
 				orderType = 2;
 				isDown = false;
@@ -327,6 +333,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.ll_pj:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			orderType = 4;
 			tv_mr.setTextColor(getResources().getColor(R.color.bg_575D5F));
 			tv_2.setTextColor(getResources().getColor(R.color.bg_575D5F));
@@ -513,5 +521,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		Posport.has_purchase = 0;
 		Posport.minPrice = 0;
 		Posport.maxPrice = 0;
+		Config.myson=null;
+		Config.lx=-1;
 	}
 }

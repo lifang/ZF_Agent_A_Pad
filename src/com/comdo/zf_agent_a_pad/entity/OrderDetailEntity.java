@@ -198,7 +198,6 @@ public class OrderDetailEntity {
 	public int getOrder_status() {
 		return order_status;
 	}
-
 	public void setOrder_status(int order_status) {
 		this.order_status = order_status;
 	}

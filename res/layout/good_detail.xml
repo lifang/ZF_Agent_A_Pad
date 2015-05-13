@@ -9,7 +9,8 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fillViewport="true" >
+        android:fillViewport="true" 
+        >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -122,7 +123,7 @@
                             android:maxLines="1"
                             android:text=""
                             android:textColor="@color/text6c6c6c6"
-                            android:textSize="@dimen/textmid" />
+                            android:textSize="@dimen/textbig" />
 
                         <LinearLayout
                             android:layout_width="fill_parent"
@@ -140,7 +141,7 @@
                                 android:maxLines="1"
                                 android:text="品牌型号"
                                 android:textColor="@color/text292929"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
 
                             <TextView
                                 android:id="@+id/tv_PP"
@@ -152,7 +153,7 @@
                                 android:maxLines="1"
                                 android:text=""
                                 android:textColor="@color/text292929"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
 
                             <LinearLayout
                                 android:id="@+id/mer_detail"
@@ -197,7 +198,7 @@
                                 android:maxLines="1"
                                 android:text="终端类型"
                                 android:textColor="@color/text292929"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
 
                             <TextView
                                 android:id="@+id/tv_lx"
@@ -209,7 +210,7 @@
                                 android:maxLines="1"
                                 android:text=""
                                 android:textColor="@color/text292929"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -229,7 +230,7 @@
                                 android:maxLines="1"
                                 android:text="批购价格"
                                 android:textColor="@color/text292929"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
 
                             <TextView
                                 android:id="@+id/tv_price"
@@ -241,7 +242,7 @@
                                 android:maxLines="1"
                                 android:text=""
                                 android:textColor="#EC8118"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
 
                             <TextView
                                 
@@ -254,7 +255,7 @@
                                 android:maxLines="1"
                                 android:text="原价"
                                 android:textColor="@color/text6c6c6c6"
-                                android:textSize="@dimen/textmids" />
+                                android:textSize="@dimen/textbig" />
 
                             <TextView
                                android:id="@+id/tv_yj"
@@ -266,7 +267,7 @@
                                 android:maxLines="1"
                                 android:text=""
                                 android:textColor="@color/text6c6c6c6"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -286,7 +287,7 @@
                                 android:maxLines="1"
                                 android:text="支付通道"
                                 android:textColor="@color/text292929"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
 
                             <LinearLayout
                                 android:layout_width="400dp"
@@ -321,7 +322,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="25dp"
                                 android:text="通道介绍"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
 
                             <LinearLayout
                                 android:layout_width="fill_parent"
@@ -333,7 +334,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/margin_left2"
                                     android:layout_marginRight="@dimen/margin_left2"
-                                    android:orientation="horizontal" >
+                                    android:orientation="horizontal" 
+                                    android:layout_marginBottom="4dp">
 
                                     <ImageView
                                         android:id="@+id/fac_img"
@@ -363,6 +365,7 @@
                                     android:ellipsize="end"
                                     android:maxLines="2"
                                     android:text=""
+                                    android:lineSpacingExtra="4dp"
                                     android:textColor="@color/text6c6c6c6"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -458,7 +461,7 @@
                                     android:background="@color/bgtitle"
                                     android:text="立即批购"
                                     android:textColor="@color/fffefe"
-                                    android:textSize="@dimen/textmid" />
+                                    android:textSize="@dimen/textbig" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>

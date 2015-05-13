@@ -83,6 +83,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private Button bt_addadress;
 	private UserEntity ue;
 	private DecimalFormat df;
+	private TextView tv_chanel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,14 +111,16 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		tv_brand.setText(getIntent().getStringExtra("brand"));
 		tv_least.setText("最小起批量："+floor_purchase_quantity+"件");
 		tv_count.setText("共计："+floor_purchase_quantity+"件");
-		String img_url=getIntent().getStringExtra("evevt_img");
+		String img_url=getIntent().getStringExtra("piclist");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url,
  				event_img);
 		System.out.println("=pg_price==" + pg_price);
+		tv_chanel.setText(getIntent().getStringExtra("chanel"));
 		// getData1();
 	}
 
 	private void initView() {
+		tv_chanel = (TextView)findViewById(R.id.wayName);
 		et_comment = (EditText) findViewById(R.id.ed_comment);
 		bt_addadress = (Button)findViewById(R.id.bt_addadress);
 		bt_addadress.setOnClickListener(this);
@@ -294,7 +297,11 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private void confirmGood() {
 		
 		comment = et_comment.getText().toString();
-		quantity = Integer.parseInt(buyCountEdit.getText().toString());
+		if(!buyCountEdit.getText().toString().trim().equals("")){
+			quantity = Integer.parseInt(buyCountEdit.getText().toString().trim());
+		}else{
+			quantity = 1;
+		}
 		
 		invoice_info = et_titel.getText().toString();
 	

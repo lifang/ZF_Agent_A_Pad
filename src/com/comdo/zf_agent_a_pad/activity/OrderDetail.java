@@ -104,7 +104,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				tv_time.setText("实付金额  ：   ￥"
 						+ df.format(check(entity.getOrder_totalPrice()) / 100));
 				tv_money.setText("订单日期  ：   " + entity.getOrder_createTime());
-				tv_gj.setText("共计  ：   " + entity.getTotal_quantity() + "件商品");
+				tv_gj.setText("共计  ：   " + entity.getOrder_totalNum() + "件商品");
 				if (!OrderList.type.equals("5")) {
 					tv_user.setText(entity.getGuishu_user());
 				} else {

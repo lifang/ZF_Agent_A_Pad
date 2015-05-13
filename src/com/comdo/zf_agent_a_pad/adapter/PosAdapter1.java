@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.activity.GoodDeatail;
@@ -29,11 +31,12 @@ public class PosAdapter1 extends BaseAdapter {
 	private LayoutInflater inflater;
 	private ViewHolder holder = null;
 	private int listSize;
-
+	private DecimalFormat df;
 	public PosAdapter1(Context context, List<PosEntity> list) {
 		this.context = context;
 		this.list = list;
-
+		df = (DecimalFormat) NumberFormat.getInstance();
+		df.applyPattern("0.00");
 	}
 
 	@Override
@@ -169,9 +172,17 @@ public class PosAdapter1 extends BaseAdapter {
 
 			case 1:
 				holder.title.setText(list.get(position * 4).getTitle());
-				holder.tv_price.setText("￥"
-						+ ((double) list.get(position * 4).getPurchase_price())
-						/ 100 + "");
+				if(PosListActivity.shoptype==1){
+					holder.tv_price.setText("￥"
+							+ df.format(((double) list.get(position * 4).getPurchase_price())
+							/ 100 )+ "");
+				}else{
+					holder.tv_price.setText("￥"
+							+ df.format(((double) list.get(position * 4).getRetail_price())
+							/ 100) + "");
+			
+				}
+				
 				holder.tv_td.setText(list.get(position * 4).getPay_channe());
 				holder.ys.setText("已售"
 						+ list.get(position * 4).getPurchase_number());
@@ -183,9 +194,22 @@ public class PosAdapter1 extends BaseAdapter {
 				break;
 			case 2:
 				holder.title.setText(list.get(position * 4).getTitle());
-				holder.tv_price.setText("￥"
-						+ ((double) list.get(position * 4).getPurchase_price())
-						/ 100 + "");
+				if(PosListActivity.shoptype==1){
+					holder.tv_price.setText("￥"
+							+  df.format(((double) list.get(position * 4).getPurchase_price())
+							/ 100) + "");
+					holder.tv_price2.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 1)
+									.getPurchase_price()) / 100) + "");
+				}else{
+					holder.tv_price.setText("￥"
+							+ df.format(((double) list.get(position * 4).getRetail_price())
+							/ 100) + "");
+					holder.tv_price2.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 1)
+									.getRetail_price()) / 100) + "");
+				}
+			
 				holder.tv_td.setText(list.get(position * 4).getPay_channe());
 				holder.ys.setText("已售"
 						+ list.get(position * 4).getPurchase_number());
@@ -193,9 +217,7 @@ public class PosAdapter1 extends BaseAdapter {
 						.getUrl_path(), holder.im1);
 
 				holder.title2.setText(list.get(position * 4 + 1).getTitle());
-				holder.tv_price2.setText("￥"
-						+ ((double) list.get(position * 4 + 1)
-								.getPurchase_price()) / 100 + "");
+				
 				holder.tv_td2.setText(list.get(position * 4 + 1)
 						.getPay_channe());
 				holder.ys2.setText("已售"
@@ -207,9 +229,28 @@ public class PosAdapter1 extends BaseAdapter {
 				break;
 			case 3:
 				holder.title.setText(list.get(position * 4).getTitle());
-				holder.tv_price.setText("￥"
-						+ ((double) list.get(position * 4).getPurchase_price())
-						/ 100 + "");
+				if(PosListActivity.shoptype==1){
+					holder.tv_price.setText("￥"
+							+ df.format(((double) list.get(position * 4).getPurchase_price())
+							/ 100) + "");
+					holder.tv_price2.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 1)
+									.getPurchase_price()) / 100) + "");
+					holder.tv_price3.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 2)
+									.getPurchase_price()) / 100) + "");
+				}else{
+					holder.tv_price.setText("￥"
+							+ df.format(((double) list.get(position * 4).getRetail_price())
+							/ 100 )+ "");
+					holder.tv_price2.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 1)
+									.getRetail_price()) / 100) + "");
+					holder.tv_price3.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 2)
+									.getRetail_price()) / 100) + "");
+				}
+				
 				holder.tv_td.setText(list.get(position * 4).getPay_channe());
 				holder.ys.setText("已售"
 						+ list.get(position * 4).getPurchase_number());
@@ -217,9 +258,7 @@ public class PosAdapter1 extends BaseAdapter {
 						.getUrl_path(), holder.im1);
 
 				holder.title2.setText(list.get(position * 4 + 1).getTitle());
-				holder.tv_price2.setText("￥"
-						+ ((double) list.get(position * 4 + 1)
-								.getPurchase_price()) / 100 + "");
+		
 				holder.tv_td2.setText(list.get(position * 4 + 1)
 						.getPay_channe());
 				holder.ys2.setText("已售"
@@ -228,9 +267,7 @@ public class PosAdapter1 extends BaseAdapter {
 						.getUrl_path(), holder.im2);
 
 				holder.title3.setText(list.get(position * 4 + 2).getTitle());
-				holder.tv_price3.setText("￥"
-						+ ((double) list.get(position * 4 + 2)
-								.getPurchase_price()) / 100 + "");
+				
 				holder.tv_td3.setText(list.get(position * 4 + 2)
 						.getPay_channe());
 				holder.ys3.setText("已售"
@@ -240,20 +277,45 @@ public class PosAdapter1 extends BaseAdapter {
 				holder.ll_m4.setVisibility(View.INVISIBLE);
 				break;
 			case 4:
+				if(PosListActivity.shoptype==1){
+					holder.tv_price.setText("￥"
+							+ df.format(((double) list.get(position * 4).getPurchase_price())
+							/ 100 )+ "");
+					holder.tv_price2.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 1)
+									.getPurchase_price()) / 100 )+ "");
+					holder.tv_price3.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 2)
+									.getPurchase_price()) / 100 )+ "");
+					holder.tv_price4.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 3)
+									.getPurchase_price()) / 100) + "");
+				}else{
+					
+					holder.tv_price.setText("￥"
+							+ df.format(((double) list.get(position * 4).getRetail_price())
+							/ 100) + "");
+					holder.tv_price2.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 1)
+									.getRetail_price()) / 100) + "");
+					holder.tv_price3.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 2)
+									.getRetail_price()) / 100) + "");
+					holder.tv_price4.setText("￥"
+							+ df.format(((double) list.get(position * 4 + 3)
+									.getRetail_price()) / 100) + "");
+				}
 				holder.title.setText(list.get(position * 4).getTitle());
-				holder.tv_price.setText("￥"
-						+ ((double) list.get(position * 4).getPurchase_price())
-						/ 100 + "");
+				
 				holder.tv_td.setText(list.get(position * 4).getPay_channe());
+			
 				holder.ys.setText("已售"
 						+ list.get(position * 4).getPurchase_number());
 				ImageCacheUtil.IMAGE_CACHE.get(list.get(position * 4)
 						.getUrl_path(), holder.im1);
 
 				holder.title2.setText(list.get(position * 4 + 1).getTitle());
-				holder.tv_price2.setText("￥"
-						+ ((double) list.get(position * 4 + 1)
-								.getPurchase_price()) / 100 + "");
+
 				holder.tv_td2.setText(list.get(position * 4 + 1)
 						.getPay_channe());
 				holder.ys2.setText("已售"
@@ -262,9 +324,6 @@ public class PosAdapter1 extends BaseAdapter {
 						.getUrl_path(), holder.im2);
 
 				holder.title3.setText(list.get(position * 4 + 2).getTitle());
-				holder.tv_price3.setText("￥"
-						+ ((double) list.get(position * 4 + 2)
-								.getPurchase_price()) / 100 + "");
 				holder.tv_td3.setText(list.get(position * 4 + 2)
 						.getPay_channe());
 				holder.ys3.setText("已售"
@@ -273,9 +332,6 @@ public class PosAdapter1 extends BaseAdapter {
 						.getUrl_path(), holder.im3);
 
 				holder.title4.setText(list.get(position * 4 + 3).getTitle());
-				holder.tv_price4.setText("￥"
-						+ ((double) list.get(position * 4 + 3)
-								.getPurchase_price()) / 100 + "");
 				holder.tv_td4.setText(list.get(position * 4 + 3)
 						.getPay_channe());
 				holder.ys4.setText("已售"
@@ -289,9 +345,34 @@ public class PosAdapter1 extends BaseAdapter {
 		} else {
 
 			holder.title.setText(list.get(position * 4).getTitle());
-			holder.tv_price.setText("￥"
-					+ ((double) list.get(position * 4).getPurchase_price()) / 100
-					+ "");
+			if(PosListActivity.shoptype==1){
+				holder.tv_price.setText("￥"
+						+ df.format(((double) list.get(position * 4).getPurchase_price()) / 100)
+						+ "");
+				holder.tv_price2.setText("￥"
+						+ df.format(((double) list.get(position * 4 + 1).getPurchase_price())
+						/ 100 )+ "");
+				holder.tv_price3.setText("￥"
+						+ df.format(((double) list.get(position * 4 + 2).getPurchase_price())
+						/ 100) + "");
+				holder.tv_price4.setText("￥"
+						+ df.format(((double) list.get(position * 4 + 3).getPurchase_price())
+						/ 100) + "");
+			}else{
+				holder.tv_price.setText("￥"
+						+ df.format(((double) list.get(position * 4).getRetail_price()) / 100)
+						+ "");
+				holder.tv_price2.setText("￥"
+						+ df.format(((double) list.get(position * 4 + 1).getRetail_price())
+						/ 100) + "");
+				holder.tv_price3.setText("￥"
+						+ df.format(((double) list.get(position * 4 + 2).getRetail_price())
+						/ 100) + "");
+				holder.tv_price4.setText("￥"
+						+ df.format(((double) list.get(position * 4 + 3).getRetail_price())
+						/ 100) + "");
+			}
+
 			holder.tv_td.setText(list.get(position * 4).getPay_channe());
 			holder.ys.setText("已售"
 					+ list.get(position * 4).getPurchase_number());
@@ -299,9 +380,7 @@ public class PosAdapter1 extends BaseAdapter {
 					list.get(position * 4).getUrl_path(), holder.im1);
 			// Log.i("list",list.get(position*4).getUrl_path());
 			holder.title2.setText(list.get(position * 4 + 1).getTitle());
-			holder.tv_price2.setText("￥"
-					+ ((double) list.get(position * 4 + 1).getPurchase_price())
-					/ 100 + "");
+			
 			holder.tv_td2.setText(list.get(position * 4 + 1).getPay_channe());
 			holder.ys2.setText("已售"
 					+ list.get(position * 4 + 1).getPurchase_number());
@@ -309,9 +388,7 @@ public class PosAdapter1 extends BaseAdapter {
 					.getUrl_path(), holder.im2);
 
 			holder.title3.setText(list.get(position * 4 + 2).getTitle());
-			holder.tv_price3.setText("￥"
-					+ ((double) list.get(position * 4 + 2).getPurchase_price())
-					/ 100 + "");
+		
 			holder.tv_td3.setText(list.get(position * 4 + 2).getPay_channe());
 			holder.ys3.setText("已售"
 					+ list.get(position * 4 + 2).getPurchase_number());
@@ -319,9 +396,7 @@ public class PosAdapter1 extends BaseAdapter {
 					.getUrl_path(), holder.im3);
 
 			holder.title4.setText(list.get(position * 4 + 3).getTitle());
-			holder.tv_price4.setText("￥"
-					+ ((double) list.get(position * 4 + 3).getPurchase_price())
-					/ 100 + "");
+	
 			holder.tv_td4.setText(list.get(position * 4 + 3).getPay_channe());
 			holder.ys4.setText("已售"
 					+ list.get(position * 4 + 3).getPurchase_number());

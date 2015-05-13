@@ -417,6 +417,11 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
         </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.PostSonList"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

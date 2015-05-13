@@ -12,12 +12,12 @@ public class PosSelectEntity {
 	/**
 	 * pos 类型
 	 */
-	private List<category> category;
-	public List<category> getCategory() {
+	private List<PosItem> category;
+	public List<PosItem> getCategory() {
 		return category;
 	}
 
-	public void setCategory(List<category> category) {
+	public void setCategory(List<PosItem> category) {
 		this.category = category;
 	}
 

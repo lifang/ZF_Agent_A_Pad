@@ -103,6 +103,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private BaseAdapter maAdapter;
 	private LayoutInflater mInflater;
 	private DecimalFormat df;
+	private TextView tv_chanel;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -140,9 +141,10 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		tv_totle.setText("实付：￥ " +   df.format(pg_price*1.0f/100));
 		tv_price.setText("￥" +   df.format(pg_price *1.0f/100));
 		tv_brand.setText(getIntent().getStringExtra("brand"));
-		String img_url = getIntent().getStringExtra("evevt_img");
+		String img_url = getIntent().getStringExtra("piclist");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url, event_img);
 		System.out.println("=paychannelId==" + paychannelId);
+		tv_chanel.setText(getIntent().getStringExtra("chanel"));
 		GetUser();
 
 	}
@@ -178,6 +180,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		tv_chanel = (TextView)findViewById(R.id.wayName);
 		mInflater = LayoutInflater.from(this);
 		tv_zl = (TextView) findViewById(R.id.tv_zl);
 		tv_zl.setOnClickListener(this);
@@ -431,7 +434,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private void confirmGood() {
 		et_comment = (EditText) findViewById(R.id.ed_comment);
 		comment = et_comment.getText().toString();
-		quantity = Integer.parseInt(buyCountEdit.getText().toString());
+		if(!buyCountEdit.getText().toString().trim().equals("")){
+			quantity = Integer.parseInt(buyCountEdit.getText().toString().trim());
+		}else{
+			quantity = 1;
+		}
+
 
 		invoice_info = et_titel.getText().toString();
 

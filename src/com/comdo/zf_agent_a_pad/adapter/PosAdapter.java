@@ -96,10 +96,15 @@ public class PosAdapter extends BaseAdapter {
 		}else{
 			holder.im_zl.setVisibility(View.GONE);
 		}
-		String string=" 原价:￥"+df.format(((double)list.get(position).getPurchase_price()/100))+" ";
-		SpannableString sp = new SpannableString(string);
-		sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		holder.tv_yj.setText(sp);
+	
+		if(PosListActivity.shoptype==1){
+			String string=" 原价:￥"+df.format(((double)list.get(position).getPurchase_price()/100))+" ";
+			SpannableString sp = new SpannableString(string);
+			sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			holder.tv_yj.setText(sp);				
+		}else{
+			holder.tv_yj.setVisibility(View.GONE);
+		}
 		holder.tv_least.setText("最小起批量:"+list.get(position).getFloor_purchase_quantity());
 		return convertView;
 	}

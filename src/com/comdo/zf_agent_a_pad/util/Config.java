@@ -22,6 +22,7 @@ import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
+import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
@@ -107,6 +108,10 @@ public class Config {
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
+	public static int portindex=-1;
+	public static int lx;
+	public static List<PortSon> son=new ArrayList<PortSon>();
+	public static PortSon myson;
 	public static String getmes = PATHS + "message/receiver/getAll";
 
 	// upload register url
@@ -486,10 +491,12 @@ public class Config {
 		params.put("hasLease", Posport.has_purchase);
 		params.put("minPrice", Posport.minPrice);
 		params.put("maxPrice", Posport.maxPrice);
+		if(Config.lx!=-1)
+			params.put("category", Config.lx);
 		try {
 			params.put("brands_id",
 					new JSONArray(gson.toJson(Posport.brands_id)));
-			params.put("category", new JSONArray(gson.toJson(Posport.category)));
+			//params.put("category", new JSONArray(gson.toJson(Posport.category)));
 			params.put("pay_channel_id",
 					new JSONArray(gson.toJson(Posport.pay_channel_id)));
 			params.put("pay_card_id",
