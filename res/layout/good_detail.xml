@@ -6,11 +6,7 @@
     android:background="#F8F8F8"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fillViewport="true" 
-        >
+  
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -53,16 +49,22 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/textbig" />
             </LinearLayout>
-
+  <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:fillViewport="true" 
+        >
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                   android:layout_weight="1"
                     android:orientation="horizontal" >
 
                     <LinearLayout
@@ -96,7 +98,7 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical" >
 
@@ -109,6 +111,7 @@
                             android:layout_marginTop="18dp"
                             android:ellipsize="end"
                             android:text=""
+                            android:textStyle="bold"
                             android:textColor="#292929"
                             android:textSize="@dimen/textbig" />
 
@@ -162,6 +165,7 @@
                                 android:layout_marginLeft="@dimen/margin_left2"
                                 android:layout_marginRight="@dimen/margin_left2"
                                 android:gravity="center"
+                                android:visibility="gone"
                                 android:orientation="horizontal" >
 
                                 <TextView
@@ -301,9 +305,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentTop="true"
                                     android:layout_marginLeft="7dp"
-                                    android:layout_marginRight="@dimen/margin_left2"
+                                    android:layout_marginRight="@dimen/ddrl_width"
                                     android:horizontalSpacing="10dip"
-                                    android:numColumns="3"
+                                    android:numColumns="2"
                                     android:stretchMode="columnWidth"
                                     android:verticalSpacing="5dip" >
                                 </com.comdo.zf_agent_a_pad.util.ScrollViewWithGView>
@@ -314,6 +318,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="20dp"
+                            android:visibility="gone"
                             android:orientation="horizontal" >
 
                             <TextView
@@ -410,7 +415,7 @@
                                         android:layout_weight="1"
                                         android:background="@drawable/bg_shape"
                                         android:gravity="center"
-                                        android:text="代购买"
+                                        android:text="采购"
                                         android:textColor="@color/bgtitle" />
 
                                     <TextView
@@ -422,7 +427,7 @@
                                         android:layout_weight="1"
                                         android:background="@drawable/send_out_goods_shape"
                                         android:gravity="center"
-                                        android:text="代租赁"
+                                        android:text="租赁"
                                         android:textColor="@color/text292929" />
 
                                     <TextView
@@ -467,18 +472,19 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentBottom="true" />
-
-                <View
+            </RelativeLayout>
+ </ScrollView>
+ <LinearLayout 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical">
+     <View 
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:layout_alignTop="@+id/ll_buttom"
-                    android:background="#E3E2E2" />
+                  
+                    android:background="#E3E2E2"/>
 
-                <LinearLayout
+       <LinearLayout
                     android:id="@+id/ll_buttom"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/titilepad"
@@ -558,13 +564,8 @@
                         android:textColor="#292929"
                         android:textSize="@dimen/textmid" />
                 </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </RelativeLayout>
+                 </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+   
 
 </LinearLayout>

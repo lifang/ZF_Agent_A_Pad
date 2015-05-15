@@ -124,7 +124,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.poslist_activity);
-		shoptype = 1;
+		shoptype = 2;
 		initView();
 		Search();
 	}
