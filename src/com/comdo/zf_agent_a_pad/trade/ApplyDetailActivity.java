@@ -114,6 +114,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private TextView mPosBrand;
 	private TextView mPosModel;
 	private TextView mSerialNum;
+	private TextView mChannel;
 
 	private String[] mMerchantKeys;
 	private String[] mBankKeys;
@@ -213,6 +214,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mPosBrand = (TextView) findViewById(R.id.apply_detail_brand);
 		mPosModel = (TextView) findViewById(R.id.apply_detail_model);
 		mSerialNum = (TextView) findViewById(R.id.apply_detail_serial);
+		mChannel = (TextView) findViewById(R.id.apply_detail_channel);
 
 		gridView = (ScrollViewWithGView) findViewById(R.id.gridview);
 		gridView_ = (ScrollViewWithGView) findViewById(R.id.gridview_);
@@ -345,6 +347,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 							mPosBrand.setText(terminalDetail.getBrandName());
 							mPosModel.setText(terminalDetail.getModelNumber());
 							mSerialNum.setText(terminalDetail.getSerialNumber());
+							mChannel.setText(terminalDetail.getChannelName());
 							supportRequirementType = terminalDetail
 									.getSupportRequirementType();
 							if (supportRequirementType == 1) {
@@ -783,8 +786,18 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 		mCustomerContainer_1.addView(getDetailItem(ITEM_EDIT, mBankKeys[0],
 				null));
-		mCustomerContainer_2.addView(getDetailItem(ITEM_EDIT, mBankKeys[1],
-				null));
+		View chooseBank = getDetailItem(ITEM_CHOOSE, mBankKeys[1], null);
+		chooseBank.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(ApplyDetailActivity.this,
+						ApplyBankActivity.class);
+				intent.putExtra(TERMINAL_ID, mTerminalId);
+				intent.putExtra(SELECTED_BANK, mChosenBank);
+				startActivityForResult(intent, REQUEST_CHOOSE_BANK);
+			}
+		});
+		mCustomerContainer_2.addView(chooseBank);
 		mCustomerContainer_1.addView(getDetailItem(ITEM_EDIT, mBankKeys[2],
 				null));
 
@@ -873,8 +886,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 			List<MyApplyCustomerDetail> customerDetails) {
 		if (null == materials || materials.size() <= 0)
 			return;
-		int pic = 0;
-		int txt = 0;
+
 		for (MyApplyMaterial material : materials) {
 			mMaterials.put(material.getId(), material);
 		}
@@ -887,8 +899,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 				}
 			}
 		}
-		pic = 1;
-		txt = 1;
 
 		for (final MyApplyMaterial material : mMaterials.values()) {
 
