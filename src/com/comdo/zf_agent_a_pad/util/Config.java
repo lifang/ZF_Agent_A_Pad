@@ -62,9 +62,9 @@ public class Config {
 
 	// public final static String PATHS =
 	// "http://121.40.84.2:28080/ZFAgent/api/";
-	//public final static String PATHS = "http://121.40.64.167:9090/api/";
+	// public final static String PATHS = "http://121.40.64.167:9090/api/";
 	public final static String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
-	
+
 	/*
 	 * public final static String PATHS =
 	 * "http://114.215.149.242:28080/ZFAgent/api/";
@@ -112,9 +112,9 @@ public class Config {
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
-	public static int portindex=-1;
+	public static int portindex = -1;
 	public static int lx;
-	public static List<PortSon> son=new ArrayList<PortSon>();
+	public static List<PortSon> son = new ArrayList<PortSon>();
 	public static PortSon myson;
 	public static String getmes = PATHS + "message/receiver/getAll";
 
@@ -162,6 +162,9 @@ public class Config {
 	public static final String TERMINAL_MERCHANTS = PATHS
 			+ "terminal/getMerchants";
 
+	// terminal marchants
+	public static final String TERMINAL_CUSTOMER = PATHS
+			+ "terminal/getCustomer";
 	// terminal bind
 	public static final String TERMINAL_BIND = PATHS
 			+ "terminal/bindingTerminals";
@@ -503,12 +506,13 @@ public class Config {
 		params.put("hasLease", Posport.has_purchase);
 		params.put("minPrice", Posport.minPrice);
 		params.put("maxPrice", Posport.maxPrice);
-		if(Config.lx!=-1)
+		if (Config.lx != -1)
 			params.put("category", Config.lx);
 		try {
 			params.put("brands_id",
 					new JSONArray(gson.toJson(Posport.brands_id)));
-			//params.put("category", new JSONArray(gson.toJson(Posport.category)));
+			// params.put("category", new
+			// JSONArray(gson.toJson(Posport.category)));
 			params.put("pay_channel_id",
 					new JSONArray(gson.toJson(Posport.pay_channel_id)));
 			params.put("pay_card_id",
@@ -992,7 +996,7 @@ public class Config {
 		new HttpRequest(context, callback).post(AGENT_DETAIL, params);
 	}
 
-	public static void resetprofit(Context context, int defaultProfit,
+	public static void resetprofit(Context context, float defaultProfit,
 			int agentsId, HttpCallback callback) {
 		RequestParams params = new RequestParams();
 		params.put("defaultProfit", defaultProfit);
@@ -1532,5 +1536,15 @@ public class Config {
 		params.put("sonAgentsId", sonAgentsId);
 		params.put("isProfit", isProfit);
 		new HttpRequest(context, callback).post(SETDEFAULTPROFIT, params);
+	}
+
+	public static void userGetMerchants(Context context, int agentId, int page,
+			int rows, String title, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("agentId", agentId);
+		params.put("page", page);
+		params.put("rows", rows);
+		params.put("title", title);
+		new HttpRequest(context, callback).post(TERMINAL_CUSTOMER, params);
 	}
 }

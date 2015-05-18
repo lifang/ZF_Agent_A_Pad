@@ -1,6 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_USER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_CITY;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_PROVINCE;
 
@@ -28,6 +29,7 @@ import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.CreateUser;
+import com.comdo.zf_agent_a_pad.entity.User_Info;
 import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
@@ -150,9 +152,9 @@ public class TerminalApplyCreateActivity extends Activity implements
 			if (pwd.getText().toString()
 					.equals(confirmpwd.getText().toString())) {
 				Config.addCustomer(this, setCode.getText().toString(), name,
-						StringUtil.Md5(password), mChannelId, MyApplication.NewUser
-								.getAgentId(), checkCode.getText().toString(),
-						new HttpCallback<CreateUser>(
+						StringUtil.Md5(password), mChannelId,
+						MyApplication.NewUser.getAgentId(), checkCode.getText()
+								.toString(), new HttpCallback<CreateUser>(
 								TerminalApplyCreateActivity.this) {
 
 							@Override
@@ -162,6 +164,16 @@ public class TerminalApplyCreateActivity extends Activity implements
 										TerminalApplyCreateActivity.this,
 										getResources().getString(
 												R.string.terminal_new_success));
+
+								User_Info userInfo = new User_Info();
+								if (data != null) {
+
+									userInfo.setId(data.getId());
+									userInfo.setUsername(data.getUsername());
+								}
+								Intent intent = new Intent();
+								intent.putExtra(SELECTED_USER, userInfo);
+								setResult(RESULT_OK, intent);
 								finish();
 							}
 

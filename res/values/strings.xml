@@ -147,6 +147,8 @@
     <string name="parse_data_failed">解析数据失败</string>
     <string name="network_info">无法连接到网络</string>
     <string name="button_submit">提交</string>
+    <string name="apply_user_input">请输入用户名</string>
+    <string name="title_terminal_choose_user">选择用户</string>
     <string name="apply_bank_input">请输入银行名称</string>
     <string name="apply_bank_result">搜索结果</string>
     <string name="title_apply_choose_bank">选择银行</string>

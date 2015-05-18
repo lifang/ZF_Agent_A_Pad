@@ -2,13 +2,30 @@ package com.comdo.zf_agent_a_pad.entity;
 
 public class CreateUser {
 
-	private String id;
+	private int id;
 	private int customerId;
 	private String dentcode;
 	private String username;
 	private String password;
 	private String passwordOld;
 	private int accountType;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	private String name;
 	private int cityId;
 	private int types;
@@ -22,5 +39,5 @@ public class CreateUser {
 	private String phone;
 	private String email;
 	private String code;
-	
+
 }

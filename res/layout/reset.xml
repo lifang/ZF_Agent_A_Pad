@@ -4,13 +4,13 @@
     android:layout_height="fill_parent"
     android:background="#ffffff"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="460dp"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:layout_gravity="center"
+        android:background="#ffffff"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -25,7 +25,7 @@
                 android:layout_height="@dimen/dlimg"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/zc_margin_top"
-                android:background="@drawable/lgclose"/>
+                android:background="@drawable/lgclose" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -50,62 +50,60 @@
             android:paddingLeft="@dimen/zc_land_h"
             android:paddingRight="@dimen/zc_land_h" >
 
-           
-            <TableLayout 
+            <TableLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-                <TableRow 
+                android:layout_height="wrap_content" >
+
+                <TableRow
                     android:layout_marginBottom="@dimen/textbig"
                     android:paddingBottom="4dp"
-                android:paddingTop="10dp">
-                    <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="默认比例" />
+                    android:paddingTop="10dp" >
 
-                <EditText
-                    android:id="@+id/et_profit"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/shape_edittext"
-                    android:maxWidth="@dimen/zc_margin_top"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="6dp"
-                    android:paddingTop="8dp"
-                    android:singleLine="true"
-                    android:textSize="@dimen/textbig" />
-                <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="%"
-                    android:textSize="15sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="默认比例" />
+
+                    <EditText
+                        android:id="@+id/et_profit"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/shape_edittext"
+                        android:digits="0123456789."
+                        android:inputType="number"
+                        android:maxWidth="@dimen/zc_margin_top"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="6dp"
+                        android:paddingTop="8dp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/textbig" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="%"
+                        android:textSize="15sp" />
                 </TableRow>
-               
-               
             </TableLayout>
-            
-            <Button 
+
+            <Button
                 android:id="@+id/btn_save"
                 android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:text="保存"
-                     android:background="@drawable/bg_blue_shape"
-                    android:textColor="@color/fffefe"
-                    android:textSize="16sp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center" />
-            
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_blue_shape"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="@color/fffefe"
+                android:textSize="16sp" />
         </LinearLayout>
-        
-            
     </LinearLayout>
 
-    </LinearLayout>
+</LinearLayout>
