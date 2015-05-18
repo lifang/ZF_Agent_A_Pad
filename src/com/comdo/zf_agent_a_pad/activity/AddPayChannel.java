@@ -195,6 +195,7 @@ public class AddPayChannel extends Activity implements OnClickListener {
 					|| listType.get(i).getPercent() > 100) {
 				return;
 			}
+
 			sb.append(listType.get(i).getPercent() * 1.0f + "_"
 					+ listType.get(i).getId() + "|");
 		}
@@ -209,6 +210,11 @@ public class AddPayChannel extends Activity implements OnClickListener {
 
 						CommonUtil.toastShort(AddPayChannel.this, "添加成功");
 						finish();
+					}
+
+					@Override
+					public void onFailure(String message) {
+						super.onFailure(message);
 					}
 
 					@Override

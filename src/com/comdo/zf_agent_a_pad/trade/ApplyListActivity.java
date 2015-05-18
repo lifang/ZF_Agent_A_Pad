@@ -303,6 +303,12 @@ public class ApplyListActivity extends Activity implements
 
 				}
 			});
+
+			holder.btnVideo.setVisibility(View.VISIBLE);
+			Boolean videoBoolean = 1 == item.getHasVideoVerify();
+			if (!videoBoolean) {
+				holder.btnVideo.setVisibility(View.GONE);
+			}
 			holder.btnVideo.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {

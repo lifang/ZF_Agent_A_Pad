@@ -208,9 +208,13 @@ public class SelectPayChannel extends Activity {
 
 			EditText editText = (EditText) ll_paychannel.findViewWithTag(str
 					.get(i));
-			if (editText != null)
+			if (editText != null && !"".equals(editText.getText().toString())) {
 				sb.append(Float.parseFloat(editText.getText().toString())
 						* 1.0f + "_" + str.get(i) + "|");
+			} else {
+				CommonUtil.toastShort(SelectPayChannel.this, "请输入费率");
+				return;
+			}
 		}
 		profitPercent = sb.toString();
 		Config.saveOrEdit(SelectPayChannel.this, sonAgentsId, payChannelId,
