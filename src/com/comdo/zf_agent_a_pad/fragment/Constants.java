@@ -21,10 +21,10 @@ public class Constants {
 	 */
 	public static class TradeType {
 		public static final int TRANSFER = 1;
-		public static final int CONSUME = 3;
-		public static final int REPAYMENT = 2;
-		public static final int LIFE_PAY = 4;
-		public static final int PHONE_PAY = 5;
+		public static final int CONSUME = 2;
+		public static final int REPAYMENT = 3;
+		public static final int LIFE_PAY = 5;
+		public static final int PHONE_PAY = 4;
 	}
 
 	/**
@@ -96,9 +96,9 @@ public class Constants {
 		public static final String TERMINAL_CLIENT = "terminal_client";
 		public static final String TERMINAL_TOTAL = "terminal_total";
 		public static final String TERMINAL_ARRAY = "terminal_array";
-		
 
 		public static final String TERMINAL_TYPE = "terminal_type";
+		public static final String HAVE_VIDEO = "have_video";
 	}
 
 	/**
@@ -121,6 +121,7 @@ public class Constants {
 		public static final String SELECTED_BILLING = "selected_billing";
 		public static final String SELECTED_BANK = "selected_bank";
 		public static final String SELECTED_TERMINAL = "selected_terminal";
+		public static final String SELECTED_USER = "selected_user";
 	}
 
 }

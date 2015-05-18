@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -105,8 +107,32 @@ public class UserManageListActivity extends Activity implements IXListViewListen
 	private class onClickListener implements UserMLAdapter.OnClickListener {
 
 		@Override
-		public void onDeleteItem(int position) {
-			deleteItem(position);
+		public void onDeleteItem(final int position) {
+
+			final AlertDialog.Builder builder = new AlertDialog.Builder(
+					UserManageListActivity.this);
+			final AlertDialog dialog = builder.create();
+			builder.setTitle("提示");
+			builder.setMessage("确定要删除吗？");
+			builder.setPositiveButton("确认",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							deleteItem(position);
+						}
+					});
+			builder.setNegativeButton("取消",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							dialog.dismiss();
+						}
+
+					});
+
+			builder.create().show();
 		} 
 	}
 	@Override

@@ -71,6 +71,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:gravity="center"
+                android:visibility="gone"
                 android:textColor="@color/text6c6c6c6"
                 android:textSize="14sp" />
         </LinearLayout>

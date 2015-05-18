@@ -71,6 +71,9 @@ public class ApplyBankActivity extends Activity implements
 		mResultContainer = (LinearLayout) findViewById(R.id.apply_bank_result_container);
 		mBankList = (XListView) findViewById(R.id.apply_bank_list);
 		mAdapter = new BankListAdapter();
+		mBankList.initHeaderAndFooter();
+		mBankList.setXListViewListener(this);
+		mBankList.setPullLoadEnable(true);
 		mBankList.setAdapter(mAdapter);
 
 		mBankList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,12 +117,7 @@ public class ApplyBankActivity extends Activity implements
 	public void onClick(View view) {
 		keyword = mBankInput.getText().toString();
 		mBanks.clear();
-		for (ApplyBank bank : mAllBanks) {
-			if (bank.getName().indexOf(keyword) > -1) {
-				mBanks.add(bank);
-			}
-		}
-		mAdapter.notifyDataSetChanged();
+		loadData();
 	}
 
 	private class BankListAdapter extends BaseAdapter {

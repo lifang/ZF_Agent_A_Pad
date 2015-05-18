@@ -176,29 +176,9 @@ public class SelectPayChannel extends Activity {
 			ed_rate.setHint(details.get(i).getPercent() + "%");
 			ed_rate.setTag(details.get(i).getTradeTypeId());
 			str.add(details.get(i).getTradeTypeId());
-			// ed_rate.addTextChangedListener(new TextWatcher() {
-			// @Override
-			// public void onTextChanged(CharSequence s, int start,
-			// int before, int count) {
-			//
-			// }
-			//
-			// @Override
-			// public void beforeTextChanged(CharSequence s, int start,
-			// int count, int after) {
-			// }
-			//
-			// @Override
-			// public void afterTextChanged(Editable s) {
-			// }
-			// });
-			// percent = details.get(i).getPercent();
-			// tradeTypeId = details.get(i).getTradeTypeId();
-			// sb = new StringBuffer();
-			// sb.append(profitPercent + "_" + tradeTypeId).append("|");
+
 			layout.addView(linearLayout);
 		}
-		// profitPercent = sb.toString();
 		Button button = new Button(SelectPayChannel.this);
 		button.setBackgroundResource(R.color.bgtitle);
 		button.setText("保存");
@@ -384,4 +364,9 @@ public class SelectPayChannel extends Activity {
 			}
 		};
 	};
+
+	@Override
+	protected void onResume() {
+	};
+
 }
