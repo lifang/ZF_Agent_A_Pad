@@ -429,7 +429,7 @@ public class TradeFlowFragment extends Fragment implements
 												"开始时间不能大于结束时间",
 												Toast.LENGTH_SHORT).show();
 										return;
-									} else if (dateStr.compareTo(nowStr) >= 0) {
+									} else if (dateStr.compareTo(nowStr) > 0) {
 										Toast.makeText(getActivity(),
 												"开始时间不能大于当前时间",
 												Toast.LENGTH_SHORT).show();

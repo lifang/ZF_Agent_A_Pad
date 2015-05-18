@@ -5,7 +5,9 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -255,10 +257,34 @@ public class AfterSaleActivity extends Activity implements View.OnClickListener,
 			}
 		}
 
+		//取消申请
 		@Override
-		public void onCancelApply(int position, int mRecordType) {
-			//取消申请
-			cancelApply(position,mRecordType);
+		public void onCancelApply(final int position, final int mRecordType) {
+
+			final AlertDialog.Builder builder = new AlertDialog.Builder(
+					AfterSaleActivity.this);
+			final AlertDialog dialog = builder.create();
+			builder.setTitle("提示");
+			builder.setMessage("确定要删除吗？");
+			builder.setPositiveButton("确认",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							cancelApply(position,mRecordType);
+						}
+					});
+			builder.setNegativeButton("取消",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							dialog.dismiss();
+						}
+
+					});
+
+			builder.create().show();
 		}
 
 	}
