@@ -50,6 +50,7 @@ import com.comdo.zf_agent_a_pad.common.DialogUtil;
 import com.comdo.zf_agent_a_pad.entity.ApplyneedEntity;
 import com.comdo.zf_agent_a_pad.entity.ChanelEntitiy;
 import com.comdo.zf_agent_a_pad.entity.FactoryEntity;
+import com.comdo.zf_agent_a_pad.entity.GoodPic;
 import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
 import com.comdo.zf_agent_a_pad.entity.GriviewEntity;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
@@ -74,6 +75,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.loopj.android.http.TextHttpResponseHandler;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private Button setting_btn_clear;
@@ -211,7 +214,8 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		float density = dm.density;
-		linearParams.height = (int) (Config.ScreenHeight - density*180);
+		//linearParams.height = (int) (Config.ScreenHeight - density*180);
+		linearParams.height = (int) (Config.ScreenWidth / 2);
 		rl_imgs.setLayoutParams(linearParams);
 		view_pager = (ViewPager) findViewById(R.id.view_pager);
 		inflater = LayoutInflater.from(this);
@@ -247,9 +251,11 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		tv_zd.setOnClickListener(this);
 		TextView tv_jy = (TextView) findViewById(R.id.tv_jy);
 		tv_jy.setOnClickListener(this);
+		TextView tv_pic = (TextView) findViewById(R.id.tv_pic);
+		tv_pic.setOnClickListener(this);
 		if(PosListActivity.shoptype != 1){
-			setting_btn_clear.setText("代购");
-			tv_dp.setText("代购价格");
+			setting_btn_clear.setText("采购");
+			tv_dp.setText("采购价格");
 			tv_j_isshow.setVisibility(View.GONE);
 			tv_yj.setVisibility(View.GONE);
 		}
@@ -270,8 +276,8 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			all_price = gfe.getRetail_price()+opening_cost;
 			tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()+opening_cost));
 			islea = false;
-			setting_btn_clear.setText("代购");
-			tv_dp.setText("代购价格");
+			setting_btn_clear.setText("采购");
+			tv_dp.setText("采购价格");
 			tv_lea.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.send_out_goods_shape));
 			tv_bug.setBackgroundDrawable(getResources().getDrawable(
@@ -288,7 +294,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			all_price = gfe.getLease_deposit()+opening_cost;
 			tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getLease_deposit()+opening_cost));
 			islea = true;
-			setting_btn_clear.setText("代租赁");
+			setting_btn_clear.setText("租赁");
 			tv_dp.setText("租赁价格");
 			tv_bug.setTextColor(getResources().getColor(R.color.text292929));
 			tv_lea.setTextColor(getResources().getColor(R.color.bgtitle));
@@ -325,6 +331,12 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		case R.id.tv_jy:
 			i = new Intent(GoodDeatail.this, GoodDeatilMore.class);
 			i.putExtra("type", 4);
+			i.putExtra("commets", commentsCount);
+			startActivity(i);
+			break;
+		case R.id.tv_pic:
+			i = new Intent(GoodDeatail.this, GoodDeatilMore.class);
+			i.putExtra("type", 5);
 			i.putExtra("commets", commentsCount);
 			startActivity(i);
 			break;
@@ -381,7 +393,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				}
 				
 			} else {
-
+				
 				Intent i2 = new Intent(GoodDeatail.this, GoodConfirm.class);
 				i2.putExtra("floor_purchase_quantity", gfe.getFloor_purchase_quantity());
 				i2.putExtra("getTitle", gfe.getTitle());
@@ -461,7 +473,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 
 								String res = jsonobject.getString("result");
 								jsonobject = new JSONObject(res);
-							
+								Config.piclist= gson.fromJson(
+										jsonobject.getString("picList"),
+										new TypeToken<List<GoodPic>>() {
+										}.getType());
 								piclist = gson.fromJson(
 										jsonobject.getString("goodPics"),
 										new TypeToken<List<String>>() {
@@ -580,6 +595,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 								} else {
 									Config.suportcl = "不支持";
 								}
+								Config.apply=jsonobject.getString("opening_datum");
 								opening_cost = jsonobject.getInt("opening_cost");
 								tdname = jsonobject.getString("name");
 								celist2 = gson.fromJson(
@@ -697,7 +713,14 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 
 			View view = mList.get(position);
 			image = ((ImageView) view.findViewById(R.id.image));
-
+		/*	ViewGroup.LayoutParams lp = image.getLayoutParams();
+			lp.width = Config.ScreenWidth/2;
+			lp.height = Config.ScreenWidth/2;			
+			image.setLayoutParams(lp);
+			image.setMaxWidth(Config.ScreenWidth);
+			image.setMaxHeight(Config.ScreenWidth);
+			DisplayImageOptions options = MyApplication.getDisplayOption();
+			ImageLoader.getInstance().displayImage(ma.get(position), image, options);*/
 			ImageCacheUtil.IMAGE_CACHE.get(ma.get(position), image);
 
 			container.removeView(mList.get(position));
@@ -708,12 +731,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				@Override
 				public void onClick(View v) {
 
-					//
-					// Intent i=new Intent(AroundDetail.this,VPImage.class);
-					//
-					// i.putExtra("index", index_ima);
-					// i.putExtra("mal", mal);
-					// startActivityForResult(i, 9);
+					Intent intent = new Intent(GoodDeatail.this,GoodDetailImgs.class);
+					intent.putStringArrayListExtra("ma", (ArrayList<String>) ma);
+					intent.putExtra("position_detail", position);
+					startActivity(intent);
 				}
 			});
 

@@ -24,7 +24,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                         
+                         	android:id="@+id/ll_select_user"
                             android:paddingLeft="@dimen/titilepad1"
                             android:paddingRight="@dimen/titilepad1" >
 
@@ -732,6 +732,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/ll_fp"
+                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/titilepad1"
                         android:gravity="center_vertical" >
 

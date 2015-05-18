@@ -89,9 +89,8 @@ public class OrderList extends Activity implements IXListViewListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlist);
-		type = "5";
-		initView();
-		
+		type = "3";
+		initView();		
 		q = "";
 		// getData();
 	}
