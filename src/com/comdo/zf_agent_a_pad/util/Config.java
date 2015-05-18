@@ -25,6 +25,8 @@ import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
+
+import android.R.integer;
 import android.content.Context;
 import android.util.Log;
 
@@ -613,10 +615,13 @@ public class Config {
 		new HttpRequest(context, callback).post(APPLY_CHANNEL_LIST);
 	}
 
-	public static void getApplyBankList(Context context, String terminalNumber,
-			HttpCallback callback) {
+	public static void getApplyBankList(Context context, int page,
+			String keyword, int pageSize, int terminalId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("serial_num", terminalNumber);
+		params.put("page", page);
+		params.put("keyword", keyword);
+		params.put("pageSize", pageSize);
+		params.put("terminalId", terminalId);
 		new HttpRequest(context, callback).post(APPLY_BANK_LIST, params);
 	}
 
@@ -1023,7 +1028,6 @@ public class Config {
 		try {
 			params.put("img", img);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		new HttpRequest(context, callback).post(UPLOAD_FILE, params);

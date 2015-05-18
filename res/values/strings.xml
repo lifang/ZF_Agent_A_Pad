@@ -77,9 +77,9 @@
         <item>选择所在地</item>
     </string-array>
     <string-array name="my_apply_detail_bank_keys">
-        <item>结算银行名称</item>
-        <item>结算银行卡号</item>
         <item>结算银行账户名</item>
+        <item>结算银行名称</item>
+        <item>结算银行账户</item>
         <item>税务登记证号</item>
         <item>组织机构号</item>
         <item>支付通道</item>
@@ -248,30 +248,32 @@
     <string name="trade_item_commercial_info">商户信息</string>
     <string name="trade_item_bank_info">交易信息</string>
     <string name="toast_end_date_error">结束时间不能小于开始时间</string>
-        <string-array name="trade_item_commercial">
-            <item>编    号</item>
-            <item>代理商ID</item>
-            <item>商 户 ID</item>
-        </string-array>
-        <string-array name="trade_item_bank">
-            <item>终 端 号</item>
-            <item>付款账号</item>
-            <item>收款账号</item>
-            <item>支付通道</item>
-            <item>分润金额</item>
-            <item>交易金额</item>
-            <item>交易时间</item>
-            <item>交易状态</item>
-            <item>交易批次号</item>
-            <item>交易流水号</item>
-        </string-array>
-        <string-array name="trade_flow_tabs">
-            <item>转账</item>
-            <item>消费</item>
-            <item>还款</item>
-            <item>生活充值</item>
-            <item>话费充值</item>
-        </string-array>
-<string name="endCall1">结束视频</string>
 
-</resources>
+    <string-array name="trade_item_commercial">
+        <item>编    号</item>
+        <item>代理商ID</item>
+        <item>商 户 ID</item>
+    </string-array>
+    <string-array name="trade_item_bank">
+        <item>终 端 号</item>
+        <item>付款账号</item>
+        <item>收款账号</item>
+        <item>支付通道</item>
+        <item>分润金额</item>
+        <item>交易金额</item>
+        <item>交易时间</item>
+        <item>交易状态</item>
+        <item>交易批次号</item>
+        <item>交易流水号</item>
+    </string-array>
+    <string-array name="trade_flow_tabs">
+        <item>转账</item>
+        <item>消费</item>
+        <item>还款</item>
+        <item>生活充值</item>
+        <item>话费充值</item>
+    </string-array>
+
+    <string name="endCall1">结束视频</string>
+
+</resources>
