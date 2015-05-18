@@ -31,27 +31,27 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.UserInfo;
+import com.comdo.zf_agent_a_pad.entity.User_Info;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_USER;
 
-/**
-
- */
 public class TerminalApplyBindActivity extends Activity implements
 		View.OnClickListener {
 
-	private int mChannelId;
 	private Spinner spinner;
 	private LinearLayout createUser, getspinnerdata;
 	private int page = 0;
 	private final int rows = 10;
 	private EditText mTerminalNumber;
 	private Button mSubmitBtn;
+	private TextView userselected;
+	private User_Info userInfo = new User_Info();
 
 	public static final int REQUEST_CREATE_USER = 1000;
-	// private ArrayAdapter<String> adapter;
+	public static final int REQUEST_USER = 1009;
 	private Button close;
 	private LayoutInflater mInflater;
 	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
@@ -67,84 +67,10 @@ public class TerminalApplyBindActivity extends Activity implements
 		items = new ArrayList<Map<String, Object>>();
 
 		getspinnerdata = (LinearLayout) findViewById(R.id.getspinnerdata);
-		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), page + 1,
-				rows, new HttpCallback<List<UserInfo>>(this) {
-					@Override
-					public void onSuccess(
-							List<UserInfo> data) {
+		getspinnerdata.setOnClickListener(this);
 
-						for (int i = 0; i < data.size(); i++) {
-							UserInfo userInfo = data.get(i);
-							Map<String, Object> item = new HashMap<String, Object>();
-							item.put("id", userInfo.getId());
-							item.put("name", userInfo.getName());
-							listString.add(userInfo.getName());
-							items.add(item);
-						}
-						myHandler.sendEmptyMessage(1);
-					}
+		userselected = (TextView) findViewById(R.id.user_selected);
 
-					@Override
-					public void onFailure(String message) {
-						super.onFailure(message);
-					}
-
-					@Override
-					public TypeToken<List<UserInfo>> getTypeToken() {
-						return new TypeToken<List<UserInfo>>() {
-						};
-					}
-				});
-
-		spinner = (Spinner) findViewById(R.id.bindspinner);
-
-		// adapter = new ArrayAdapter<String>(TerminalApplyBindActivity.this,
-		// android.R.layout.simple_spinner_item, listString);
-
-		// 自定义适配器
-		maAdapter = new BaseAdapter() {
-
-			@Override
-			public int getCount() {
-				return listString.size();
-			}
-
-			@Override
-			public Object getItem(int arg0) {
-				return listString.get(arg0);
-			}
-
-			@Override
-			public long getItemId(int arg0) {
-				return 0;
-			}
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				LinearLayout layout = (LinearLayout) mInflater.inflate(
-						R.layout.drop_down_item, null);
-				TextView tv = (TextView) layout.findViewById(R.id.text);
-				tv.setText((String) getItem(position));
-				return layout;
-			}
-
-		};
-		spinner.setAdapter(maAdapter);
-
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-
-				mChannelId = Integer.parseInt(items.get(arg2).get("id").toString());
-
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-
-				System.out.println("");
-			}
-
-		});
 		createUser = (LinearLayout) findViewById(R.id.create_user);
 		createUser.setOnClickListener(this);
 
@@ -157,34 +83,6 @@ public class TerminalApplyBindActivity extends Activity implements
 		close = (Button) findViewById(R.id.close);
 		close.setOnClickListener(this);
 	}
-
-	private Handler myHandler = new Handler() {
-
-		public void handleMessage(Message msg) {
-
-			switch (msg.what) {
-			case 1:
-				if (listString.size() <= 0) {
-					spinner.setVisibility(View.GONE);
-					getspinnerdata.setBackgroundResource(R.drawable.ed_adress);
-					getspinnerdata.setClickable(true);
-					getspinnerdata
-							.setOnClickListener(TerminalApplyBindActivity.this);
-				} else {
-
-					getspinnerdata.setBackgroundResource(0);
-					spinner.setVisibility(View.VISIBLE);
-					getspinnerdata.setClickable(false);
-					maAdapter.notifyDataSetChanged();
-				}
-				// adapter.notifyDataSetChanged();
-				break;
-
-			}
-
-		};
-
-	};
 
 	private final TextWatcher mTextWatcher = new TextWatcherAdapter() {
 
@@ -200,7 +98,8 @@ public class TerminalApplyBindActivity extends Activity implements
 	}
 
 	private void updateUIWithValidation() {
-		final boolean enabled = mChannelId > 0 && mTerminalNumber.length() > 0;
+		final boolean enabled = userInfo.getId() > 0
+				&& mTerminalNumber.length() > 0;
 		mSubmitBtn.setEnabled(enabled);
 	}
 
@@ -211,7 +110,7 @@ public class TerminalApplyBindActivity extends Activity implements
 		case R.id.terminal_submit:
 
 			Config.bindingTerminal(this, mTerminalNumber.getText().toString(),
-					mChannelId,MyApplication.NewUser.getAgentId(),
+					userInfo.getId(), MyApplication.NewUser.getAgentId(),
 					new HttpCallback(TerminalApplyBindActivity.this) {
 						@Override
 						public void onSuccess(Object data) {
@@ -234,14 +133,38 @@ public class TerminalApplyBindActivity extends Activity implements
 			this.finish();
 			break;
 		case R.id.create_user:
-
 			startActivityForResult(new Intent(TerminalApplyBindActivity.this,
 					TerminalApplyCreateActivity.class), REQUEST_CREATE_USER);
 			break;
 
 		case R.id.getspinnerdata:
-			CommonUtil.toastShort(TerminalApplyBindActivity.this,
-					getResources().getString(R.string.no_user_find));
+			startActivityForResult(new Intent(TerminalApplyBindActivity.this,
+					TerminalSelectUserActivity.class), REQUEST_USER);
+			break;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+
+		switch (requestCode) {
+		case REQUEST_CREATE_USER: {
+
+			userInfo = (User_Info) data.getSerializableExtra(SELECTED_USER);
+			userselected.setText(userInfo.getUsername());
+			break;
+		}
+
+		case REQUEST_USER: {
+			userInfo = (User_Info) data.getSerializableExtra(SELECTED_USER);
+			userselected.setText(userInfo.getUsername());
+			break;
+		}
+
+		default:
 			break;
 		}
 	}

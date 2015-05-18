@@ -3,25 +3,6 @@ package com.comdo.zf_agent_a_pad.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.comdo.zf_agent_a_pad.activity.AgentDetail;
-import com.comdo.zf_agent_a_pad.activity.CreatAgent;
-import com.comdo.zf_agent_a_pad.adapter.AgentManagerAdapter;
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.common.Page;
-import com.comdo.zf_agent_a_pad.entity.AddressManager;
-import com.comdo.zf_agent_a_pad.entity.AgentManager;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.MyApplication;
-import com.comdo.zf_agent_a_pad.util.Tools;
-import com.comdo.zf_agent_a_pad.util.XListView;
-import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.reflect.TypeToken;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +20,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.activity.AgentDetail;
+import com.comdo.zf_agent_a_pad.activity.CreatAgent;
+import com.comdo.zf_agent_a_pad.adapter.AgentManagerAdapter;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.Page;
+import com.comdo.zf_agent_a_pad.entity.AgentManager;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.Tools;
+import com.comdo.zf_agent_a_pad.util.XListView;
+import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
+import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
 
 public class Agentmanager extends Fragment implements OnClickListener,
 		IXListViewListener {
@@ -212,8 +208,22 @@ public class Agentmanager extends Fragment implements OnClickListener,
 			startActivity(new Intent(getActivity(), CreatAgent.class));
 			break;
 		case R.id.btn_save:
-			boolean result = et_profit.getText().toString().matches("[0-9]+");
-			if (!result) {
+
+			float f = 0;
+			boolean result = et_profit
+					.getText()
+					.toString()
+					.matches(
+							"^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$");
+			if (result) {
+
+				f = Float.parseFloat(et_profit.getText().toString());
+			} else {
+
+				CommonUtil.toastShort(getActivity(), "请输入正确的费率格式");
+				return;
+			}
+			if (!(f > 0 && f < 100)) {
 				CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字");
 				return;
 			}
@@ -236,7 +246,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 	private void resetProfit() {
 		Config.resetprofit(getActivity(),
-				Integer.parseInt(et_profit.getText().toString()), agentsId,
+				Float.parseFloat(et_profit.getText().toString()), agentsId,
 				new HttpCallback(getActivity()) {
 
 					@Override

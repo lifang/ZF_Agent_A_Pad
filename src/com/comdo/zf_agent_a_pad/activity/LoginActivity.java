@@ -219,7 +219,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 				editor.commit();
 				System.out.println(mySharedPreferences.getBoolean("islogin",
 						false) + "---");
+				MyApplication.setNewUser(data);
 				MyApplication.NewUser = data;
+				MyApplication.setAgentId(data.getAgentId());
 
 				CheckRights.setAllFalse();
 				if (MyApplication.NewUser.getParent_id() != 0) {
@@ -227,15 +229,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 					if (MyApplication.NewUser.getTypes() == 2) {
 
 						CheckRights.setErjiTrue();
-					} 
+					}
 				} else {
-					
+
 					if (MyApplication.NewUser.getTypes() == 6) {
 
 						CheckRights.setUserTrue();
-					} else{
-												
-					CheckRights.setYijiTrue();
+					} else {
+
+						CheckRights.setYijiTrue();
 					}
 				}
 				Intent it = new Intent(LoginActivity.this, MainActivity.class);
