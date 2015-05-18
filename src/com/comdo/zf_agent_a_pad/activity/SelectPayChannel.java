@@ -33,6 +33,7 @@ import com.comdo.zf_agent_a_pad.entity.FenRunEntity.FenRun;
 import com.comdo.zf_agent_a_pad.entity.FenRunEntity.FenRun.Detail;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.RegText;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 import com.unionpay.mobile.android.utils.i;
@@ -209,6 +210,16 @@ public class SelectPayChannel extends Activity {
 			EditText editText = (EditText) ll_paychannel.findViewWithTag(str
 					.get(i));
 			if (editText != null && !"".equals(editText.getText().toString())) {
+				if (RegText.isFloat(editText.getText().toString())) {
+					CommonUtil.toastShort(SelectPayChannel.this, "请填写正确的费率格式");
+					return;
+				}
+				if (Float.parseFloat(editText.getText().toString()) < 0
+						|| Float.parseFloat(editText.getText().toString()) > 100) {
+					CommonUtil.toastShort(SelectPayChannel.this,
+							"请填写0-100之间正确的费率");
+					return;
+				}
 				sb.append(Float.parseFloat(editText.getText().toString())
 						* 1.0f + "_" + str.get(i) + "|");
 			} else {

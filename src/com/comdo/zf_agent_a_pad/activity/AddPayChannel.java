@@ -11,6 +11,7 @@ import com.comdo.zf_agent_a_pad.entity.FenRunChannelEntity.FenRunChannel;
 import com.comdo.zf_agent_a_pad.entity.FenRunEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
@@ -191,8 +192,13 @@ public class AddPayChannel extends Activity implements OnClickListener {
 	private void commit() {
 		sb = new StringBuffer();
 		for (int i = 0; i < listType.size(); i++) {
+			// if (RegText.isFloat(listType.get(i).getPercent())) {
+			// CommonUtil.toastShort(AddPayChannel.this, "请填写正确的费率格式");
+			// return;
+			// }
 			if (listType.get(i).getPercent() < 0
 					|| listType.get(i).getPercent() > 100) {
+				CommonUtil.toastShort(AddPayChannel.this, "请填写0-100之间正确的费率");
 				return;
 			}
 
@@ -279,7 +285,11 @@ public class AddPayChannel extends Activity implements OnClickListener {
 				}
 
 				@Override
-				public void afterTextChanged(Editable arg0) {
+				public void afterTextChanged(Editable s) {
+					if (RegText.isFloat(s.toString())) {
+						CommonUtil.toastShort(AddPayChannel.this, "请填写正确的费率格式");
+						return;
+					}
 				}
 			});
 
