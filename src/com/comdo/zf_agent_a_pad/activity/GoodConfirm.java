@@ -84,6 +84,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private UserEntity ue;
 	private DecimalFormat df;
 	private TextView tv_chanel;
+	private LinearLayout ll_fp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		df = (DecimalFormat) NumberFormat
 				.getInstance();
 		df.applyPattern("0.00");
-		new TitleMenuUtil(GoodConfirm.this, "批购订单确认").show();
+		new TitleMenuUtil(GoodConfirm.this, "采购订单确认").show();
 		ue = MyApplication.NewUser;
 		floor_purchase_quantity = getIntent().getIntExtra("floor_purchase_quantity", 0);
 		initView();
@@ -120,6 +121,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		ll_fp = (LinearLayout)findViewById(R.id.ll_fp);
 		tv_chanel = (TextView)findViewById(R.id.wayName);
 		et_comment = (EditText) findViewById(R.id.ed_comment);
 		bt_addadress = (Button)findViewById(R.id.bt_addadress);
@@ -173,11 +175,13 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 				if (arg1) {
 					is_need_invoice = 1;
 					et_titel.setEnabled(true);
-					Toast.makeText(getApplicationContext(), is_need_invoice+"", 1000).show();
+					ll_fp.setVisibility(View.VISIBLE);
+
 				} else {
 					is_need_invoice = 0;
 					et_titel.setEnabled(false);
-					Toast.makeText(getApplicationContext(), is_need_invoice+"", 1000).show();
+					ll_fp.setVisibility(View.GONE);
+
 				}
 			}
 		});
