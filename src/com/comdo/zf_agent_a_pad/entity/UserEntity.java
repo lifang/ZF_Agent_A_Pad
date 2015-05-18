@@ -13,7 +13,7 @@ public class UserEntity {
 	private int cityId;
 	private int accountType;
 	private int types;
-	private Boolean is_have_profit;
+	private int is_have_profit;
 	private List<Machtigingen> machtigingen;
 	private int agentId;
 	private int agentCityId;
@@ -25,10 +25,10 @@ public class UserEntity {
 	private String lastLoginedAt;
 	private String email;
 	private String updatedAt;
-	public Boolean getIs_have_profit() {
+	public int getIs_have_profit() {
 		return is_have_profit;
 	}
-	public void setIs_have_profit(Boolean is_have_profit) {
+	public void setIs_have_profit(int is_have_profit) {
 		this.is_have_profit = is_have_profit;
 	}
 	public List<Machtigingen> getMachtigingen() {

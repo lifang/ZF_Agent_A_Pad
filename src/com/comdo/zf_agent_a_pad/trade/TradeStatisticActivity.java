@@ -53,7 +53,7 @@ public class TradeStatisticActivity extends Activity {
 
 		API.getTradeRecordStatistic(this, MyApplication.NewUser.getAgentId(),
 				tradeAgentId, mTradeType, terminalNumber, mStartDate, mEndDate,
-				MyApplication.NewUser.getIs_have_profit() == false ? 1:2, new HttpCallback<TradeStatistic>(this) {
+				MyApplication.NewUser.getIs_have_profit(), new HttpCallback<TradeStatistic>(this) {
 					@Override
 					public void onSuccess(TradeStatistic data) {
 						DecimalFormat df = (DecimalFormat) NumberFormat

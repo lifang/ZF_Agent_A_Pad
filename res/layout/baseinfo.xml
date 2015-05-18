@@ -171,6 +171,16 @@
                     android:layout_marginLeft="30dp"
                     android:gravity="center_vertical"
                     android:textColor="@color/text6c6c6c6"
+                    android:background="#000000"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tv_phone_xg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/bgtitle"
+                    android:text="修改"
                     android:textSize="20sp" />
             </TableRow>
 
@@ -191,6 +201,15 @@
                     android:layout_marginLeft="30dp"
                     android:gravity="center_vertical"
                     android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+                 <TextView
+                    android:id="@+id/tv_email_xg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/bgtitle"
+                    android:text="修改"
                     android:textSize="20sp" />
             </TableRow>
 

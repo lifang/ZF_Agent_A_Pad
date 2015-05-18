@@ -81,7 +81,8 @@ public class Config {
 	public static int ScreenHeight = 0;
 
 	public static final String INDEXIMG = PATHS + "index/sysshufflingfigure";
-
+	public static final String MSGEDLALL ="message/receiver/batchDelete";
+	public static final String MSGREAD ="message/receiver/batchRead";
 	public static final String POSLIST = PATHS + "good/list";
 	public static final String GOODDETAIL = PATHS + "good/goodinfo";
 	public static final String paychannel_info = PATHS + "paychannel/info";
@@ -96,7 +97,7 @@ public class Config {
 	public static final String ORDERDETAIL = PATHS + "order/getWholesaleById";
 	public static final String ORDERDETAIL1 = PATHS + "order/getProxyById";
 	public static final String Comment = PATHS + "order/batchSaveComment";
-
+	public static final String GOODPICLIST = PATHS + "/good/getGoodImgUrl";
 	public static GoodinfoEntity gfe = null;
 	public static boolean iszd = false;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
@@ -113,14 +114,15 @@ public class Config {
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
+	public static int gid;
 	public static int portindex=-1;
 	public static int lx;
 	public static String  apply;
 	public static List<PortSon> son=new ArrayList<PortSon>();
-	public static List<GoodPic> piclist=new ArrayList<GoodPic>();;
+	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
 	public static PortSon myson;
 	public static String getmes = PATHS + "message/receiver/getAll";
-
+	
 	// upload register url
 	public static final String UPLOAD_REGISTER = PATHS
 			+ "agent/upload/register";
@@ -583,7 +585,14 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
 		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
 	}
-
+	public static void GOODPICLIST(Context context, int goodId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("goodId", goodId);
+		System.out.println("参数--" + params.toString());
+		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
+		new HttpRequest(context, callback).post(Config.GOODPICLIST, params);
+	}
 	public static void getApplyList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1535,5 +1544,12 @@ public class Config {
 		params.put("sonAgentsId", sonAgentsId);
 		params.put("isProfit", isProfit);
 		new HttpRequest(context, callback).post(SETDEFAULTPROFIT, params);
+	}
+	public static void AlterPhoneCode(Context context, int customerId,String phone,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("phone", phone);
+		new HttpRequest(context, callback).post(CANCELS_RESUBMITCANCEL, params);
 	}
 }

@@ -46,7 +46,7 @@ public class TradeDetailActivity extends Activity {
 		int recordId = getIntent().getIntExtra(TRADE_RECORD_ID, 0);
 		API.getTradeRecordDetail(this, recordId,
 				MyApplication.NewUser.getAgentId(),
-				MyApplication.NewUser.getIs_have_profit() == false ? 1:2,
+				MyApplication.NewUser.getIs_have_profit(),
 				new HttpCallback<TradeDetail>(this) {
 					@Override
 					public void onSuccess(TradeDetail data) {

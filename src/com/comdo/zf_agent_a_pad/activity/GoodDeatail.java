@@ -189,6 +189,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_detail);
 		id = getIntent().getIntExtra("id", 0);
+		Config.gid=id;
 		getdata();
 		df = (DecimalFormat) NumberFormat
 				.getInstance();
@@ -322,6 +323,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			startActivity(i);
 			break;
 		case R.id.tv_pl:
+			
 			i = new Intent(GoodDeatail.this, GoodDeatilMore.class);
 			i.putExtra("type", 2);
 			i.putExtra("commets", commentsCount);
