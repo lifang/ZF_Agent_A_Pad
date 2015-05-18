@@ -104,6 +104,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private LayoutInflater mInflater;
 	private DecimalFormat df;
 	private TextView tv_chanel;
+	private LinearLayout ll_pf;
+	private LinearLayout ll_select_user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -113,12 +115,13 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		df.applyPattern("0.00");
 		ue = MyApplication.NewUser;
 		type = getIntent().getIntExtra("type", 1);
-
+		ll_select_user = (LinearLayout)findViewById(R.id.ll_select_user);
 		if (type == 1) {
-			new TitleMenuUtil(LeaseConfirm.this, "代购订单确认").show();
+			new TitleMenuUtil(LeaseConfirm.this, "采购订单确认").show();
 			ordertype = 3;
+			ll_select_user.setVisibility(View.GONE);
 		} else {
-			new TitleMenuUtil(LeaseConfirm.this, "代租赁订单确认").show();
+			new TitleMenuUtil(LeaseConfirm.this, "租赁订单确认").show();
 			ordertype = 4;
 		}
 
@@ -180,6 +183,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+	
+		ll_pf = (LinearLayout)findViewById(R.id.ll_fp);
 		tv_chanel = (TextView)findViewById(R.id.wayName);
 		mInflater = LayoutInflater.from(this);
 		tv_zl = (TextView) findViewById(R.id.tv_zl);
@@ -290,6 +295,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					if (type == 1){
 						is_need_invoice = 1;
 						et_titel.setEnabled(true);
+						ll_pf.setVisibility(View.VISIBLE);
 					}
 						
 				} else {
@@ -297,6 +303,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					if (type == 1){
 						is_need_invoice = 0;
 						et_titel.setEnabled(false);
+						ll_pf.setVisibility(View.GONE);
 					}
 						
 				}

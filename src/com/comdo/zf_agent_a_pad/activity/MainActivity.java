@@ -95,7 +95,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		textwd.setTextColor(getResources().getColor(R.color.white));
 
 	}
-
+@Override
+protected void onSaveInstanceState(Bundle outState) {
+	super.onSaveInstanceState(outState);
+}
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {

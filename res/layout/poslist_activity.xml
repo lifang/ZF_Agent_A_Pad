@@ -182,7 +182,6 @@
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -228,8 +227,8 @@
                         android:ems="10"
                         android:gravity="center"
                         android:hint="搜索商品"
-                        android:textColorHint="#ffffff"
-                        android:textColor="#ffffff" >
+                        android:textColor="#ffffff"
+                        android:textColorHint="#ffffff" >
                     </EditText>
                 </RelativeLayout>
 
@@ -378,8 +377,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:visibility="gone"
-                android:layout_centerVertical="true" >
+                android:layout_centerVertical="true"
+                android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/tv_pg"

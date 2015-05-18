@@ -6,12 +6,14 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINA
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -74,11 +76,11 @@ public class Distribute extends Fragment implements OnClickListener,
 	private AlertDialog dialog;
 	private Button close;
 	private boolean isLoadMore = false;
-
+	private Activity mActivity;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	}
+	} 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -152,10 +154,14 @@ public class Distribute extends Fragment implements OnClickListener,
 		xxlistview.setRefreshTime(Tools.getHourAndMin());
 
 	}
-
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mActivity = activity;
+	}
 	private void getAgentList() {
-		Config.getlowerAgentList(getActivity(), agentId,
-				new HttpCallback<List<AgentEntity>>(getActivity()) {
+		Config.getlowerAgentList(mActivity, agentId,
+				new HttpCallback<List<AgentEntity>>(mActivity) {
 
 					@Override
 					public void onSuccess(List<AgentEntity> data) {
@@ -189,7 +195,7 @@ public class Distribute extends Fragment implements OnClickListener,
 		tv_time_right = (TextView) view.findViewById(R.id.tv_time_right);
 		btn_distrib = (Button) view.findViewById(R.id.btn_distrib);
 		datadistribut = new ArrayList<DistributeEntity>();
-		distributeAdapter = new DistributeAdapter(datadistribut, getActivity()
+		distributeAdapter = new DistributeAdapter(datadistribut, mActivity
 				.getBaseContext());
 		xxlistview = (XListView) view.findViewById(R.id.list);
 		xxlistview.setPullLoadEnable(true);
@@ -214,7 +220,7 @@ public class Distribute extends Fragment implements OnClickListener,
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 				case 0:
-					Intent intent = new Intent(getActivity(),
+					Intent intent = new Intent(mActivity,
 							DistributeDetail.class);
 					intent.putExtra("id",
 							datadistribut.get(DistributeAdapter.pp).getId());
@@ -227,7 +233,7 @@ public class Distribute extends Fragment implements OnClickListener,
 						sonAgentId[i] = datt.get(i).getId();
 					}
 					mySpinner = (Spinner) view.findViewById(R.id.mySpinner);
-					adapter = new ArrayAdapter<String>(getActivity(),
+					adapter = new ArrayAdapter<String>(mActivity,
 							android.R.layout.simple_spinner_item, list);
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					mySpinner.setAdapter(adapter);
@@ -319,13 +325,13 @@ public class Distribute extends Fragment implements OnClickListener,
 		case R.id.btn_quary:
 			if (tv_time_left.getText().equals("开始日期")
 					|| tv_time_right.getText().toString().equals("结束日期")) {
-				CommonUtil.toastShort(getActivity(), "请选择日期");
+				CommonUtil.toastShort(mActivity, "请选择日期");
 				return;
 			}
 			quary();
 			break;
 		case R.id.tv_choose_terminal:
-			Intent intent = new Intent(getActivity(),
+			Intent intent = new Intent(mActivity,
 					TerminalSelectActivity.class);
 
 			intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
@@ -335,11 +341,11 @@ public class Distribute extends Fragment implements OnClickListener,
 		case R.id.btn_confirm:
 
 			if (tv_choose_terminal.getText().toString().equals("")) {
-				CommonUtil.toastShort(getActivity(), "请选择终端号");
+				CommonUtil.toastShort(mActivity, "请选择终端号");
 				return;
 			}
-			dialog.dismiss();
 			distribute();
+			dialog.dismiss();
 
 			break;
 		case R.id.close:
@@ -353,12 +359,12 @@ public class Distribute extends Fragment implements OnClickListener,
 
 	private void distribute() {
 		serialNums = mTerminalArray.split(",");
-		Config.distributeGoods(getActivity(), sonAgentId[cc], id, paychannelId,
-				goodId, serialNums, new HttpCallback(getActivity()) {
+		Config.distributeGoods(mActivity, sonAgentId[cc], id, paychannelId,
+				goodId, serialNums, new HttpCallback(mActivity) {
 
 					@Override
 					public void onSuccess(Object data) {
-						CommonUtil.toastShort(getActivity(), "配货成功");
+						CommonUtil.toastShort(mActivity, "配货成功");
 						myHandler.sendEmptyMessage(3);
 					}
 
@@ -377,9 +383,9 @@ public class Distribute extends Fragment implements OnClickListener,
 		if (!isLoadMore) {
 			datadistribut.clear();
 		}
-		Config.getDistributeList(getActivity(), agentId, sonAgentId[cc],
+		Config.getDistributeList(mActivity, agentId, sonAgentId[cc],
 				left_time, right_time, page, rows,
-				new HttpCallback<Page<DistributeEntity>>(getActivity()) {
+				new HttpCallback<Page<DistributeEntity>>(mActivity) {
 					@Override
 					public void onSuccess(Page<DistributeEntity> data) {
 						DistributeDetail.isDri = false;
@@ -391,7 +397,7 @@ public class Distribute extends Fragment implements OnClickListener,
 						}
 						if (datadistribut.size() != 0
 								&& data.getList().size() == 0) {
-							Toast.makeText(getActivity(), "没有更多数据!", 1000)
+							Toast.makeText(mActivity, "没有更多数据!", 1000)
 									.show();
 						} else {
 							idd = new int[data.getList().size()];
@@ -412,8 +418,8 @@ public class Distribute extends Fragment implements OnClickListener,
 	}
 
 	private void opendialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater factory = LayoutInflater.from(getActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+		LayoutInflater factory = LayoutInflater.from(mActivity);
 		final View textEntryView = factory.inflate(R.layout.distributdialog,
 				null);
 		// builder.setTitle("自定义输入框");
@@ -452,8 +458,8 @@ public class Distribute extends Fragment implements OnClickListener,
 
 	@Override
 	public void onRefresh() {
-		if (!Tools.isConnect(getActivity())) {
-			CommonUtil.toastShort(getActivity(), "网络异常");
+		if (!Tools.isConnect(mActivity)) {
+			CommonUtil.toastShort(mActivity, "网络异常");
 			return;
 		}
 		isrefersh = true;
@@ -467,8 +473,8 @@ public class Distribute extends Fragment implements OnClickListener,
 
 	@Override
 	public void onLoadMore() {
-		if (!Tools.isConnect(getActivity())) {
-			CommonUtil.toastShort(getActivity(), "网络异常");
+		if (!Tools.isConnect(mActivity)) {
+			CommonUtil.toastShort(mActivity, "网络异常");
 			return;
 		}
 		isLoadMore = true;

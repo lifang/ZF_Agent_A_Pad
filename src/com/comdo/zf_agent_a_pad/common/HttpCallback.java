@@ -20,7 +20,6 @@ public abstract class HttpCallback<T> {
         this.context = context;
         loadingDialog = DialogUtil.getLoadingDialg(context);
     }
-
     public void preLoad() {
         loadingDialog.show();
     }

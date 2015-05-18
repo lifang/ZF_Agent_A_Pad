@@ -15,6 +15,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
 import com.comdo.zf_agent_a_pad.entity.ApplyneedEntity;
 import com.comdo.zf_agent_a_pad.entity.ChanelEntitiy;
+import com.comdo.zf_agent_a_pad.entity.GoodPic;
 import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
 import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
@@ -114,7 +115,11 @@ public class Config {
 	public static int goodId;
 	public static int portindex = -1;
 	public static int lx;
+
+	public static String apply;
 	public static List<PortSon> son = new ArrayList<PortSon>();
+	public static List<GoodPic> piclist = new ArrayList<GoodPic>();
+
 	public static PortSon myson;
 	public static String getmes = PATHS + "message/receiver/getAll";
 

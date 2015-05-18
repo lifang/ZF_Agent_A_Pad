@@ -1,7 +1,5 @@
 package com.comdo.zf_agent_a_pad.activity;
 
-import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.CHOOSE_ITEMS;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.CHOOSE_TITLE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CHANNEL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BILLING;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_CHANNEL;
@@ -12,26 +10,52 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINA
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TOTAL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.comdo.zf_agent_a_pad.activity.TerminalApplySelectActivity.TerminalListAdapter;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.view.ViewPager.LayoutParams;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.adapter.SelectStateAdapter;
 import com.comdo.zf_agent_a_pad.adapter.TerminalListagainAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.Page;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.ApplyChannelagain;
-import com.comdo.zf_agent_a_pad.entity.MessageEntity;
 import com.comdo.zf_agent_a_pad.entity.Pos;
-import com.comdo.zf_agent_a_pad.entity.SelectPOS;
 import com.comdo.zf_agent_a_pad.entity.TerminalList;
-import com.comdo.zf_agent_a_pad.entity.TerminalPriceEntity;
 import com.comdo.zf_agent_a_pad.fragment.Transgoods;
-import com.comdo.zf_agent_a_pad.trade.ApplyChannelActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -39,27 +63,8 @@ import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-
 public class TerminalSelectActivity extends BaseActivity implements
-		OnClickListener, IXListViewListener {
+OnClickListener, IXListViewListener {
 	private TextView selectedpos, selectedchannel;
 	public static final int REQUEST_CHOOSE_POS = 12543;
 	private int posID;
@@ -89,13 +94,19 @@ public class TerminalSelectActivity extends BaseActivity implements
 	private ImageView search;
 	private static final int REQUEST_SEARCH = 1001;
 	private LinearLayout searchLinear;
-
+	private ArrayList<Pos> posList = new ArrayList<Pos>();
+	private ArrayList<ApplyChannelagain> channelList = new ArrayList<ApplyChannelagain>();
+	private WindowManager.LayoutParams lp;
+	private PopupWindow popuSelPos,popuSelChannel;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_tt);
 		new TitleMenuUtil(TerminalSelectActivity.this, "选择终端").show();
+		lp = getWindow().getAttributes(); // 设置popupWindow弹出后背景的阴影
 		init();
+		getPosList();
+		getPaylist();
 	}
 
 	@Override
@@ -222,60 +233,11 @@ public class TerminalSelectActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.selectedpos:
-			Config.geTerminalPosList(TerminalSelectActivity.this, agentId,
-					new HttpCallback<List<Pos>>(TerminalSelectActivity.this) {
+			popSelectPos();
 
-						@Override
-						public void onSuccess(List<Pos> data) {
-							final ArrayList<Pos> list = (ArrayList<Pos>) data;
-							for (int i = 0; i < data.size(); i++) {
-								if (data.get(i) == null) {
-									data.remove(i);
-								}
-							}
-							Intent intent = new Intent(
-									TerminalSelectActivity.this,
-									TerminalSelectPOSSActivity.class);
-							intent.putExtra(CHOOSE_TITLE, getResources()
-									.getString(R.string.title_pos_select));
-							intent.putExtra(SELECTED_ID, 0);
-							intent.putExtra(CHOOSE_ITEMS, list);
-							startActivityForResult(intent, REQUEST_CHOOSE_POS);
-						}
-
-						@Override
-						public TypeToken<List<Pos>> getTypeToken() {
-							return new TypeToken<List<Pos>>() {
-							};
-						}
-					});
-			/*
-			 * Config.selectPOS(TerminalSelectActivity.this, agentId, new
-			 * HttpCallback<List<SelectPOS>>( TerminalSelectActivity.this) {
-			 * 
-			 * @Override public void onSuccess(List<SelectPOS> data) {
-			 * 
-			 * final ArrayList<SelectPOS> list = (ArrayList<SelectPOS>) data;
-			 * Intent intent = new Intent( TerminalSelectActivity.this,
-			 * TerminalSelectPOSActivity.class); intent.putExtra(CHOOSE_TITLE,
-			 * getResources() .getString(R.string.title_pos_select));
-			 * intent.putExtra(SELECTED_ID, 0); intent.putExtra(CHOOSE_ITEMS,
-			 * list); startActivityForResult(intent, REQUEST_CHOOSE_POS); }
-			 * 
-			 * @Override public void onFailure(String message) {
-			 * super.onFailure(message); }
-			 * 
-			 * @Override public TypeToken<List<SelectPOS>> getTypeToken() {
-			 * return new TypeToken<List<SelectPOS>>() { }; } });
-			 */
 			break;
 		case R.id.selectedchannel:
-			isfromDisOrTrans = true;
-			Intent intent = new Intent(TerminalSelectActivity.this,
-					ApplyChannelagainActivity.class);
-			intent.putExtra(SELECTED_CHANNEL, mChosenChannel);
-			intent.putExtra(SELECTED_BILLING, mChosenBilling);
-			startActivityForResult(intent, REQUEST_CHOOSE_CHANNEL);
+			popSelectChannel();
 			break;
 		case R.id.terminal_commit:
 			if (mTerminalItems.size() != 0) {
@@ -307,6 +269,43 @@ public class TerminalSelectActivity extends BaseActivity implements
 		}
 
 	}
+	private void getPaylist() {
+		Config.getTerminalPaylist(this,agentId,
+				new HttpCallback<List<ApplyChannelagain>>(this) {
+			@Override
+			public void onSuccess(List<ApplyChannelagain> data) {
+				channelList = (ArrayList<ApplyChannelagain>) data;
+			}
+
+			@Override
+			public TypeToken<List<ApplyChannelagain>> getTypeToken() {
+				return new TypeToken<List<ApplyChannelagain>>() {
+				};
+			}
+		});
+	}
+	private void getPosList() {
+		Config.geTerminalPosList(TerminalSelectActivity.this, agentId,
+				new HttpCallback<List<Pos>>(TerminalSelectActivity.this) {
+
+			@Override
+			public void onSuccess(List<Pos> data) {
+				for (int i = 0; i < data.size(); i++) {
+					if (data.get(i) == null) {
+						data.remove(i);
+					}
+				}
+				posList = (ArrayList<Pos>) data;
+
+			}
+
+			@Override
+			public TypeToken<List<Pos>> getTypeToken() {
+				return new TypeToken<List<Pos>>() {
+				};
+			}
+		});
+	}
 
 	private void confirmUp_trans() {
 		// Log.e("iddddd",
@@ -316,35 +315,35 @@ public class TerminalSelectActivity extends BaseActivity implements
 				new HttpCallback<Page<TerminalList>>(
 						TerminalSelectActivity.this) {
 
-					@Override
-					public void onSuccess(Page<TerminalList> data) {
-						if (isrefersh) {
-							page = a;
-							rows = Config.ROWS;
-							isrefersh = false;
-						}
-						if (mTerminalItems.size() != 0
-								&& data.getList().size() == 0) {
-							Toast.makeText(TerminalSelectActivity.this,
-									"没有更多数据!", 1000).show();
-						} else {
-							mTerminalItems.addAll(data.getList());
-						}
-						myHandler.sendEmptyMessage(1);
+			@Override
+			public void onSuccess(Page<TerminalList> data) {
+				if (isrefersh) {
+					page = a;
+					rows = Config.ROWS;
+					isrefersh = false;
+				}
+				if (mTerminalItems.size() != 0
+						&& data.getList().size() == 0) {
+					Toast.makeText(TerminalSelectActivity.this,
+							"没有更多数据!", 1000).show();
+				} else {
+					mTerminalItems.addAll(data.getList());
+				}
+				myHandler.sendEmptyMessage(1);
 
-					}
+			}
 
-					@Override
-					public void onFailure(String message) {
-						super.onFailure(message);
-					}
+			@Override
+			public void onFailure(String message) {
+				super.onFailure(message);
+			}
 
-					@Override
-					public TypeToken<Page<TerminalList>> getTypeToken() {
-						return new TypeToken<Page<TerminalList>>() {
-						};
-					}
-				});
+			@Override
+			public TypeToken<Page<TerminalList>> getTypeToken() {
+				return new TypeToken<Page<TerminalList>>() {
+				};
+			}
+		});
 
 	}
 
@@ -356,33 +355,116 @@ public class TerminalSelectActivity extends BaseActivity implements
 				new HttpCallback<Page<TerminalList>>(
 						TerminalSelectActivity.this) {
 
-					@Override
-					public void onSuccess(Page<TerminalList> data) {
-						if (isrefersh) {
-							page = a;
-							rows = Config.ROWS;
-							isrefersh = false;
-						}
-						if (mTerminalItems.size() != 0
-								&& data.getList().size() == 0) {
-							Toast.makeText(TerminalSelectActivity.this,
-									"没有更多数据!", 1000).show();
-						} else {
-							mTerminalItems.addAll(data.getList());
-						}
-						myHandler.sendEmptyMessage(1);
+			@Override
+			public void onSuccess(Page<TerminalList> data) {
+				if (isrefersh) {
+					page = a;
+					rows = Config.ROWS;
+					isrefersh = false;
+				}
+				if (mTerminalItems.size() != 0
+						&& data.getList().size() == 0) {
+					Toast.makeText(TerminalSelectActivity.this,
+							"没有更多数据!", 1000).show();
+				} else {
+					mTerminalItems.addAll(data.getList());
+				}
+				myHandler.sendEmptyMessage(1);
 
-					}
+			}
 
-					@Override
-					public TypeToken<Page<TerminalList>> getTypeToken() {
-						return new TypeToken<Page<TerminalList>>() {
-						};
-					}
-				});
+			@Override
+			public TypeToken<Page<TerminalList>> getTypeToken() {
+				return new TypeToken<Page<TerminalList>>() {
+				};
+			}
+		});
 
 	}
+	private void popSelectPos() {
 
+		View selectView = LayoutInflater.from(this).inflate(
+				R.layout.pop_selector_state, null);
+		ListView listViewState = (ListView) selectView.findViewById(R.id.list_one);
+		SelectStateAdapter selStateAdapter = new SelectStateAdapter<Pos>(this, posList);
+		listViewState.setAdapter(selStateAdapter);
+
+		listViewState.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				posID = posList.get(position).getId();
+				posName = posList.get(position).getGoodname();
+				selectedpos.setText(posName);
+				popuSelPos.dismiss();
+				if (mTerminalItems.size() != 0) {
+					mTerminalItems.clear();
+				}
+				confirmUp();
+			}
+		});
+
+		popuSelPos = new PopupWindow(selectView);
+		popuSelPos.setWidth(selectedpos.getWidth());
+		popuSelPos.setHeight(LayoutParams.WRAP_CONTENT);
+		popuSelPos.setOutsideTouchable(true);
+		popuSelPos.setFocusable(true);
+		lp.alpha = 0.4f;
+		getWindow().setAttributes(lp);
+		popuSelPos.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				lp.alpha = 1.0f;
+				getWindow().setAttributes(lp);
+			}
+		});
+		popuSelPos.setBackgroundDrawable(new ColorDrawable());
+		popuSelPos.showAsDropDown(selectedpos);
+	}
+	private void popSelectChannel() {
+
+		View selectView = LayoutInflater.from(this).inflate(
+				R.layout.pop_selector_state, null);
+		ListView listViewState = (ListView) selectView.findViewById(R.id.list_one);
+		SelectStateAdapter selStateAdapter = new SelectStateAdapter<ApplyChannelagain>(this, channelList);
+		listViewState.setAdapter(selStateAdapter);
+		listViewState.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mChannelId = channelList.get(position).getId();
+				selectedchannel.setText(channelList.get(position).getPaychannel());
+				popuSelChannel.dismiss();
+				if (mTerminalItems.size() != 0) {
+					mTerminalItems.clear();
+				}
+				confirmUp();
+			}
+		});
+
+		popuSelChannel = new PopupWindow(selectView);
+		popuSelChannel.setWidth(selectedchannel.getWidth());
+		popuSelChannel.setHeight(LayoutParams.WRAP_CONTENT);
+		popuSelChannel.setOutsideTouchable(true);
+		popuSelChannel.setFocusable(true);
+		lp.alpha = 0.4f;
+		getWindow().setAttributes(lp);
+		popuSelChannel.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				lp.alpha = 1.0f;
+				getWindow().setAttributes(lp);
+			}
+		});
+		popuSelChannel.setBackgroundDrawable(new ColorDrawable());
+		popuSelChannel.showAsDropDown(selectedchannel);
+
+
+	}
 	@Override
 	protected void onActivityResult(final int requestCode, int resultCode,
 			final Intent data) {
@@ -411,10 +493,15 @@ public class TerminalSelectActivity extends BaseActivity implements
 			selectedchannel.setText(mChosenChannel.getPaychannel());
 		}
 		case REQUEST_SEARCH:
-			/*
-			 * String str=data.getStringExtra(SELECTED_TERMINAL); Log.e("str",
-			 * data.getStringExtra(SELECTED_TERMINAL));
-			 */
+			if (data != null) {
+				String str=data.getStringExtra(SELECTED_TERMINAL); 
+				for (int i = 0; i < mTerminalItems.size(); i++) {
+					if (!mTerminalItems.get(i).getSerial_num().equals(str)) {
+						mTerminalItems.remove(i);
+					}
+				}
+			}
+
 			break;
 		}
 	}
