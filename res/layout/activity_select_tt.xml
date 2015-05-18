@@ -31,7 +31,6 @@
                 android:layout_width="230dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="10dp"
-                
                 android:background="@drawable/ed_adress"
                 android:clickable="true"
                 android:orientation="horizontal" >
@@ -119,8 +118,8 @@
                     android:digits="1234567890qwertyuiopasdfghjklzxcvbnm\n"
                     android:gravity="left|top"
                     android:inputType="textMultiLine|textImeMultiLine"
-                    android:paddingRight="30dp"
                     android:paddingLeft="5dp"
+                    android:paddingRight="30dp"
                     android:textColor="@color/text6c6c6c6"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -203,16 +202,17 @@
         android:layout_marginRight="64dp"
         android:layout_marginTop="10dp" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp" >
-    </LinearLayout>
+    <TextView
+        android:id="@+id/countTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="64dp"
+        android:text="可配货的机器共0台"
+        android:textColor="@color/text292929"
+        android:textSize="16sp" />
 
-    <View
-        style="@style/Divider"
-        android:layout_marginTop="10dp" />
+    <View style="@style/Divider" />
 
     <LinearLayout
         android:layout_width="match_parent"

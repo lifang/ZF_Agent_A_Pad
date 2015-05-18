@@ -25,6 +25,7 @@
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
+            android:paddingRight="80dp"
             android:background="@drawable/ed_adress"
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"

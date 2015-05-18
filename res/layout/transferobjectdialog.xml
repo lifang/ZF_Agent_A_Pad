@@ -68,6 +68,7 @@
                 android:background="@drawable/ed_adress"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="2dp"
+                android:paddingRight="80dp"
                 android:text="上海大"
                 android:textSize="20sp" />
 
@@ -90,6 +91,7 @@
                 android:background="@drawable/ed_adress"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="2dp"
+                android:paddingRight="80dp"
                 android:text="上海大"
                 android:textSize="20sp" />
 
@@ -112,6 +114,7 @@
                 android:background="@drawable/ed_adress"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="2dp"
+                android:paddingRight="80dp"
                 android:textSize="20sp" />
 
             <Button

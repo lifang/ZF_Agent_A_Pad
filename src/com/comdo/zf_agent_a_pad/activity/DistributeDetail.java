@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.adapter.TerminalAdapter;
@@ -24,6 +26,8 @@ public class DistributeDetail extends BaseActivity {
 	private List<TerminalEntity> datatermin;
 	private BaseAdapter terminalAdapter;
 	private ScrollViewWithListView lv_list;
+	private Button btn_showAll;
+	private String[] Terminal_listString;
 	private int iddd;
 	private TextView tv_distribute_object, tv_date, tv_creator, total1, total2;
 	public static boolean isDri = false;
@@ -72,13 +76,21 @@ public class DistributeDetail extends BaseActivity {
 						tv_date.setText(data.getCreated_at());
 						tv_creator.setText(data.getCreator());
 						total1.setText("总共" + data.getQuantity() + "件");
-						String[] str = data.getTerminal_list().split(",");
-						for (int i = 0; i < str.length; i++) {
-							// datatermin.get(i).setNumber(str[i]);
-							datatermin.add(new TerminalEntity(i, str[i]));
+						Terminal_listString = data.getTerminal_list().split(",");
+						if (Terminal_listString.length <= 5) {
+							for (int i = 0; i < Terminal_listString.length; i++) {
+								// datatermin.get(i).setNumber(str[i]);
+								datatermin.add(new TerminalEntity(i, Terminal_listString[i]));
+							}
+							btn_showAll.setVisibility(View.GONE);
+						}else {
+							for (int i = 0; i < 5; i++) {
+								datatermin.add(new TerminalEntity(i, Terminal_listString[i]));
+							}
+							btn_showAll.setVisibility(View.VISIBLE);
 						}
 
-						total2.setText("总共" + datatermin.size() + "件");
+						total2.setText("总共" + Terminal_listString.length + "件");
 						// datatermin.addAll(data.getTerminal_list());
 						lv_list.setAdapter(terminalAdapter);
 					}
@@ -98,6 +110,19 @@ public class DistributeDetail extends BaseActivity {
 	}
 
 	private void init() {
+		btn_showAll = (Button) findViewById(R.id.btn_showAll);
+		btn_showAll.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				datatermin.clear();
+				for (int i = 0; i < Terminal_listString.length; i++) {
+					datatermin.add(new TerminalEntity(i, Terminal_listString[i]));
+				}
+				btn_showAll.setVisibility(View.GONE);
+				lv_list.setAdapter(terminalAdapter);
+			}
+		});
 		tv_distribute_object = (TextView) findViewById(R.id.tv_distribute_object);
 		tv_date = (TextView) findViewById(R.id.tv_date);
 		tv_creator = (TextView) findViewById(R.id.tv_creator);

@@ -8,8 +8,9 @@
     <include layout="@layout/title_back" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="配货对象"
-                    android:textColor="@color/text292929"
+                    android:textColor="#39332C"
                     android:textSize="18sp" />
 
                 <TextView
@@ -43,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="总共0件"
-                    android:textColor="@color/text292929"
+                    android:textColor="#39332C"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -68,7 +69,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
                 android:text="配货日期"
-                android:textColor="@color/text292929"
+                android:textColor="#39332C"
                 android:textSize="18sp" />
 
             <View
@@ -92,7 +93,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
                 android:text="操作员"
-                android:textColor="@color/text292929"
+                android:textColor="#39332C"
                 android:textSize="18sp" />
 
             <View
@@ -120,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="终端号"
-                    android:textColor="@color/text292929"
+                    android:textColor="#39332C"
                     android:textSize="18sp" />
 
                 <TextView
@@ -134,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="总共0件"
-                    android:textColor="@color/text292929"
+                    android:textColor="#39332C"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -144,13 +145,31 @@
                 android:layout_marginTop="5dp"
                 android:background="#C9DFF4" />
 
-            <com.examlpe.zf_android.util.ScrollViewWithListView
+            <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
                 android:id="@+id/lv_list"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:divider="@null" />
+                android:divider="@null" >
+            </com.comdo.zf_agent_a_pad.util.ScrollViewWithListView>
+
+            <Button
+                android:id="@+id/btn_showAll"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:background="#006FD5"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                 android:layout_marginTop="40dp"
+                android:text="查看全部终端号"
+                android:textColor="#CEE1F4"
+                android:textSize="18sp" />
+            <View 
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
         </LinearLayout>
     </ScrollView>
 
