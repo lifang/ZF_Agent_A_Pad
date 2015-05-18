@@ -150,7 +150,7 @@ public class Config {
 	public static final String APPLY_CHANNEL_LIST = PATHS + "apply/getChannels";
 
 	// Get the Bank List
-	public static final String APPLY_BANK_LIST = PATHS + "apply/ChooseBank";
+	public static final String APPLY_BANK_LIST = PATHS + "apply/chooseBank";
 
 	// find pos password
 	public static final String TERMINAL_FIND_POS = PATHS
@@ -625,7 +625,7 @@ public class Config {
 	}
 
 	public static void getApplyBankList(Context context, int page,
-			String keyword, int pageSize, int terminalId, HttpCallback callback) {
+			String keyword, int pageSize, String terminalId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("page", page);
 		params.put("keyword", keyword);

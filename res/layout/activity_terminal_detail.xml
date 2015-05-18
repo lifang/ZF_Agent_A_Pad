@@ -39,8 +39,8 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_weight="1" />
 
                     <TextView
@@ -56,12 +56,13 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" >
+                    android:layout_weight="1.5"
+                    android:orientation="horizontal" >
 
                     <Button
                         android:id="@+id/terminal_button_left_top"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
@@ -72,7 +73,7 @@
                     <Button
                         android:id="@+id/terminal_button_left_bottom"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
@@ -83,7 +84,7 @@
                     <Button
                         android:id="@+id/terminal_button_right_top"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
@@ -94,7 +95,7 @@
                     <Button
                         android:id="@+id/terminal_button_right_bottom"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/shape_o"
                         android:textColor="@color/bgtitle"

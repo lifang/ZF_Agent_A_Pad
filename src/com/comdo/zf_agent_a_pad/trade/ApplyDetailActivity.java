@@ -328,7 +328,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mCustomerContainer_1.removeAllViews();
 		mCustomerContainer_2.removeAllViews();
 
-		Config.getApplyDetail(this, mTerminalId, 0,
+		Config.getApplyDetail(this, mTerminalId, mTerminalStatus,
 				new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
@@ -399,8 +399,18 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 					@Override
 					public void onFailure(String message) {
-
-						super.onFailure(message);
+						try {
+							JSONObject jsonobject = new JSONObject(message);
+							if (jsonobject.getInt("code") == -1) {
+								CommonUtil.toastShort(ApplyDetailActivity.this,
+										jsonobject.getString("message"));
+							}
+						} catch (JSONException e) {
+							// TODO:
+							CommonUtil.toastShort(ApplyDetailActivity.this,
+									"终端尚未绑定不能开通！");
+						}
+						finish();
 					}
 
 					@Override
