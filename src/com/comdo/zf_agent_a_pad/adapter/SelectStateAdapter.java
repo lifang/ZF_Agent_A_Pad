@@ -10,8 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.comdo.zf_agent_a_pad.entity.StockAgentEntity;
-import com.comdo.zf_agent_a_pad.util.StringUtil;
+import com.comdo.zf_agent_a_pad.entity.ApplyChannelagain;
+import com.comdo.zf_agent_a_pad.entity.Pos;
 import com.example.zf_agent_a_pad.R;
 
 public class SelectStateAdapter<T> extends BaseAdapter {
@@ -73,7 +73,14 @@ public class SelectStateAdapter<T> extends BaseAdapter {
 		if (dictIndustries.get(0) instanceof String) {
 			viewHolder.nameTextView.setText(((String) dictIndustries
 					.get(position)));
+		}else if (dictIndustries.get(0) instanceof Pos) {
+			viewHolder.nameTextView.setText(((Pos) dictIndustries
+					.get(position)).getGoodname());
+		}else if (dictIndustries.get(0) instanceof ApplyChannelagain) {
+			viewHolder.nameTextView.setText(((ApplyChannelagain) dictIndustries
+					.get(position)).getPaychannel());
 		}
+		
 		return convertView;
 	}
 

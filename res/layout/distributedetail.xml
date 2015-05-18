@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="配货对象"
-                    android:textColor="#39332C"
+                    android:textColor="@color/text292929"
                     android:textSize="18sp" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="总共0件"
-                    android:textColor="#39332C"
+                    android:textColor="@color/text292929"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -68,7 +68,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
                 android:text="配货日期"
-                android:textColor="#39332C"
+                android:textColor="@color/text292929"
                 android:textSize="18sp" />
 
             <View
@@ -92,7 +92,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
                 android:text="操作员"
-                android:textColor="#39332C"
+                android:textColor="@color/text292929"
                 android:textSize="18sp" />
 
             <View
@@ -120,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="终端号"
-                    android:textColor="#39332C"
+                    android:textColor="@color/text292929"
                     android:textSize="18sp" />
 
                 <TextView
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="总共0件"
-                    android:textColor="#39332C"
+                    android:textColor="@color/text292929"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -144,7 +144,7 @@
                 android:layout_marginTop="5dp"
                 android:background="#C9DFF4" />
 
-            <ListView
+            <com.examlpe.zf_android.util.ScrollViewWithListView
                 android:id="@+id/lv_list"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"

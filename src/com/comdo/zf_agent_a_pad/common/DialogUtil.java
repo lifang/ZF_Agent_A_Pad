@@ -2,6 +2,7 @@ package com.comdo.zf_agent_a_pad.common;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;

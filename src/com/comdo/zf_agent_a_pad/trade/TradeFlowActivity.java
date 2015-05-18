@@ -1,21 +1,20 @@
 package com.comdo.zf_agent_a_pad.trade;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_TYPE;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.CLIENT_NUMBER;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.END_DATE;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_CLIENT;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.START_DATE;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_RECORD_ID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_TYPE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.CONSUME;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.LIFE_PAY;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.PHONE_PAY;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.REPAYMENT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.TRANSFER;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -36,14 +35,54 @@ public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnP
 
 	private List<TradeFlowFragment> mFragments;
 
-
+	private int isPrompt;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_trade_flow);
 		new TitleMenuUtil(this, "交易流水").show();
+		
+		SharedPreferences share=getSharedPreferences("isPrompt", Context.MODE_PRIVATE);
+		isPrompt = share.getInt("isPrompt",0);
+		
 		initViews();
+		if (isPrompt == 0) {
+			showTagDialog();
+		}
+	}
+
+	private void showTagDialog() {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				TradeFlowActivity.this);
+		final AlertDialog dialog = builder.create();
+		builder.setTitle("提示");
+		builder.setCancelable(false);
+		builder.setMessage("pad端交易流水查询仅供单台终端查询，完整查询功能请登陆PC端合作伙伴平台");
+		builder.setPositiveButton("确认",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						SharedPreferences sharedPreferences = getSharedPreferences("isPrompt", Context.MODE_PRIVATE); //私有数据
+						Editor editor = sharedPreferences.edit();//获取编辑器
+						editor.putInt("isPrompt", 1);
+						editor.commit();//提交修改
+					}
+				});
+		builder.setNegativeButton("取消",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						dialog.dismiss();
+						finish();
+					}
+
+				});
+
+		builder.create().show();
+	
 	}
 
 	private void initViews() {

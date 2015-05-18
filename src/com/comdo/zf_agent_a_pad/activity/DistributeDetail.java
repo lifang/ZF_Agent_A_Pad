@@ -15,6 +15,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.DistributeDetailEntity;
 import com.comdo.zf_agent_a_pad.entity.TerminalEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +23,7 @@ import com.google.gson.reflect.TypeToken;
 public class DistributeDetail extends BaseActivity {
 	private List<TerminalEntity> datatermin;
 	private BaseAdapter terminalAdapter;
-	private ListView lv_list;
+	private ScrollViewWithListView lv_list;
 	private int iddd;
 	private TextView tv_distribute_object, tv_date, tv_creator, total1, total2;
 	public static boolean isDri = false;
@@ -107,6 +108,6 @@ public class DistributeDetail extends BaseActivity {
 		datatermin = new ArrayList<TerminalEntity>();
 		terminalAdapter = new TerminalAdapter(datatermin,
 				getApplicationContext());
-		lv_list = (ListView) findViewById(R.id.lv_list);
+		lv_list = (ScrollViewWithListView) findViewById(R.id.lv_list);
 	}
 }

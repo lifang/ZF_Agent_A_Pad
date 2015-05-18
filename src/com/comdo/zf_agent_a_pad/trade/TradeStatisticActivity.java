@@ -36,6 +36,7 @@ public class TradeStatisticActivity extends Activity {
 	private TextView statisticTime;
 	private TextView statisticClient;
 	private TextView statisticChannel;
+	private TextView tradeType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class TradeStatisticActivity extends Activity {
 
 		API.getTradeRecordStatistic(this, MyApplication.NewUser.getAgentId(),
 				tradeAgentId, mTradeType, terminalNumber, mStartDate, mEndDate,
-				MyApplication.NewUser.getIs_have_profit() == false ? 1:2, new HttpCallback<TradeStatistic>(this) {
+				MyApplication.NewUser.getIs_have_profit(), new HttpCallback<TradeStatistic>(this) {
 					@Override
 					public void onSuccess(TradeStatistic data) {
 						DecimalFormat df = (DecimalFormat) NumberFormat
@@ -70,6 +71,25 @@ public class TradeStatisticActivity extends Activity {
 						
 						statisticClient.setText(data.getTerminalNumber());
 						statisticChannel.setText(data.getPayChannelName());
+						switch (data.getTradeTypeId()) {
+						case 1:
+							tradeType.setText("消费");
+							break;
+						case 2:
+							tradeType.setText("转账");
+							break;
+						case 3:
+							tradeType.setText("还款");
+							break;
+						case 4:
+							tradeType.setText("话费充值");
+							break;
+						case 5:
+							tradeType.setText("生活充值");
+							break;
+						default:
+							break;
+						}
 					}
 
 					@Override
@@ -89,5 +109,6 @@ public class TradeStatisticActivity extends Activity {
 		statisticTime = (TextView) findViewById(R.id.trade_statistic_time);
 		statisticClient = (TextView) findViewById(R.id.trade_statistic_client);
 		statisticChannel = (TextView) findViewById(R.id.trade_statistic_channel);
+		tradeType = (TextView) findViewById(R.id.tradeType);
 	}
 }

@@ -162,9 +162,9 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		case R.id.titleback_linear_back:
 			name = searchEditText.getText().toString();
 
-			Intent intent = new Intent();
-			intent.putExtra(SELECTED_TERMINAL, name);
-			GenerateSearch.this.setResult(RESULT_OK, intent);
+//			Intent intent = new Intent();
+//			intent.putExtra(SELECTED_TERMINAL, name);
+//			GenerateSearch.this.setResult(RESULT_OK, intent);
 			finish();
 			break;
 		case R.id.linear_deletename:
@@ -173,9 +173,9 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		case R.id.next_cancel:
 			name = searchEditText.getText().toString();
 
-			Intent it = new Intent();
-			it.putExtra(SELECTED_TERMINAL, name);
-			GenerateSearch.this.setResult(RESULT_OK, it);
+//			Intent it = new Intent();
+//			it.putExtra(SELECTED_TERMINAL, name);
+//			GenerateSearch.this.setResult(RESULT_OK, it);
 			finish();
 			break;
 		default:
@@ -279,7 +279,7 @@ public class GenerateSearch extends Activity implements OnClickListener,
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-		name = searchEditText.getText().toString();
+		name = searchEditText.getText().toString().trim();
 		 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 			 addData(name);
 				Intent intent = new Intent();
