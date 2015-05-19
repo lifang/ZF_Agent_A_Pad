@@ -6,6 +6,7 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINA
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,7 +77,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 	private AlertDialog dialog;
 	private Button close;
 	private boolean isLoadMore = false;
-
+	private Activity mActivity;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,11 +111,11 @@ public class Transgoods extends Fragment implements OnClickListener,
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 				case 0:
-					Intent intent = new Intent(getActivity(),
+					Intent intent = new Intent(mActivity,
 							TransgoodsDetail.class);
 					intent.putExtra("id", datatrans.get(TransgoodsAdapter.pp)
 							.getId());
-					startActivity(intent);
+					mActivity.startActivity(intent);
 					break;
 				case 1:
 					for (int i = 0; i < datt.size(); i++) {
@@ -126,7 +127,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 
 					}
 					mySpinner = (Spinner) view.findViewById(R.id.mySpinner);
-					adapter = new ArrayAdapter<String>(getActivity(),
+					adapter = new ArrayAdapter<String>(mActivity,
 							android.R.layout.simple_spinner_item, list);
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					mySpinner.setAdapter(adapter);
@@ -185,7 +186,11 @@ public class Transgoods extends Fragment implements OnClickListener,
 		xxlistview.setRefreshTime(Tools.getHourAndMin());
 
 	}
-
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mActivity = activity;
+	}
 	private void getAgentList() {
 		if (datt.size() != 0) {
 			datt.clear();
@@ -193,8 +198,8 @@ public class Transgoods extends Fragment implements OnClickListener,
 		if (list.size() != 0) {
 			list.clear();
 		}
-		Config.getlowerAgentList(getActivity(), agent,
-				new HttpCallback<List<AgentEntity>>(getActivity()) {
+		Config.getlowerAgentList(mActivity, agent,
+				new HttpCallback<List<AgentEntity>>(mActivity) {
 
 					@Override
 					public void onSuccess(List<AgentEntity> data) {
@@ -250,7 +255,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 				.findViewById(R.id.btn_transferobject);
 
 		datatrans = new ArrayList<TransgoodsEntity>();
-		transAdapter = new TransgoodsAdapter(datatrans, getActivity()
+		transAdapter = new TransgoodsAdapter(datatrans, mActivity
 				.getBaseContext());
 		xxlistview = (XListView) view.findViewById(R.id.list);
 		xxlistview.setPullLoadEnable(true);
@@ -294,7 +299,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 		case R.id.btn_quary:
 			if (tv_time_left.getText().equals("开始日期")
 					|| tv_time_right.getText().toString().equals("结束日期")) {
-				CommonUtil.toastShort(getActivity(), "请选择日期");
+				CommonUtil.toastShort(mActivity, "请选择日期");
 				return;
 			}
 			if (datatrans.size() != 0) {
@@ -305,11 +310,13 @@ public class Transgoods extends Fragment implements OnClickListener,
 			break;
 		case R.id.tv_choose_terminal:
 			TerminalSelectActivity.isFromTrans = true;
-			Intent intent = new Intent(getActivity(),
+			Intent intent = new Intent(mActivity,
 					TerminalSelectActivity.class);
+			intent.putExtra("flag", "Transgoods");
+			intent.putExtra("sonAgentId", sonAgentId[from]);
 			intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
 			intent.putExtra(TERMINAL_ARRAY, mTerminalArray);
-			startActivityForResult(intent, REQUEST_SELECT_CLIENT);
+			mActivity.startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 			break;
 		case R.id.btn_confirm:
 			dialog.dismiss();
@@ -329,12 +336,12 @@ public class Transgoods extends Fragment implements OnClickListener,
 
 	private void trans() {
 		serialNums = mTerminalArray.split(",");
-		Config.transGoods(getActivity(), sonAgentId[to], sonAgentId[from], id,
-				serialNums, new HttpCallback(getActivity()) {
+		Config.transGoods(mActivity, sonAgentId[to], sonAgentId[from], id,
+				serialNums, new HttpCallback(mActivity) {
 
 					@Override
 					public void onSuccess(Object data) {
-						CommonUtil.toastShort(getActivity(), "调货成功");
+						CommonUtil.toastShort(mActivity, "调货成功");
 						myHandler.sendEmptyMessage(3);
 					}
 
@@ -353,9 +360,9 @@ public class Transgoods extends Fragment implements OnClickListener,
 		if (!isLoadMore) {
 			datatrans.clear();
 		}
-		Config.getTranslist(getActivity(), agent, sonAgentId[cc], left_time,
+		Config.getTranslist(mActivity, agent, sonAgentId[cc], left_time,
 				right_time, page, rows,
-				new HttpCallback<Page<TransgoodsEntity>>(getActivity()) {
+				new HttpCallback<Page<TransgoodsEntity>>(mActivity) {
 
 					@Override
 					public void onSuccess(Page<TransgoodsEntity> data) {
@@ -366,7 +373,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 						 * isrefersh=false; }
 						 */
 						if (datatrans.size() != 0 && data.getList().size() == 0) {
-							Toast.makeText(getActivity(), "没有更多数据!", 1000)
+							Toast.makeText(mActivity, "没有更多数据!", 1000)
 									.show();
 							xxlistview.setPullLoadEnable(false);
 						} else {
@@ -388,14 +395,14 @@ public class Transgoods extends Fragment implements OnClickListener,
 					}
 				});
 		/*
-		 * Config.getDistributeList(getActivity(), 1, sonAgentId[cc], left_time,
+		 * Config.getDistributeList(mActivity, 1, sonAgentId[cc], left_time,
 		 * right_time, page, rows, new
-		 * HttpCallback<Page<DistributeEntity>>(getActivity()) {
+		 * HttpCallback<Page<DistributeEntity>>(mActivity) {
 		 * 
 		 * @Override public void onSuccess(Page<DistributeEntity> data) {
 		 * if(isrefersh){ page=a; rows=Config.ROWS; isrefersh=false; }
 		 * if(datatrans.size()!=0&&data.getList().size()==0){
-		 * Toast.makeText(getActivity(), "没有更多数据!", 1000).show(); } else{
+		 * Toast.makeText(mActivity, "没有更多数据!", 1000).show(); } else{
 		 * idd=new int[data.getList().size()]; datatrans.addAll(data.getList());
 		 * }
 		 * myHandler.sendEmptyMessage(2);
@@ -405,8 +412,8 @@ public class Transgoods extends Fragment implements OnClickListener,
 		 */}
 
 	private void opendialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater factory = LayoutInflater.from(getActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+		LayoutInflater factory = LayoutInflater.from(mActivity);
 		final View textEntryView = factory.inflate(
 				R.layout.transferobjectdialog, null);
 		// builder.setTitle("自定义输入框");
@@ -417,7 +424,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 				.findViewById(R.id.sp_chooseagent_from);
 		my_diaSpinner_to = (Spinner) textEntryView
 				.findViewById(R.id.sp_chooseagent_to);
-		adapter = new ArrayAdapter<String>(getActivity(),
+		adapter = new ArrayAdapter<String>(mActivity,
 				android.R.layout.simple_spinner_item, list);
 		tv_choose_terminal = (TextView) textEntryView
 				.findViewById(R.id.tv_choose_terminal);
@@ -468,12 +475,12 @@ public class Transgoods extends Fragment implements OnClickListener,
 
 	@Override
 	public void onRefresh() {
-		if (!Tools.isConnect(getActivity())) {
-			CommonUtil.toastShort(getActivity(), "网络异常");
+		if (!Tools.isConnect(mActivity)) {
+			CommonUtil.toastShort(mActivity, "网络异常");
 			return;
 		}
 		if (isrefersh) {
-			CommonUtil.toastShort(getActivity(), "请勿重复刷新");
+			CommonUtil.toastShort(mActivity, "请勿重复刷新");
 			return;
 		}
 		/*
@@ -487,8 +494,8 @@ public class Transgoods extends Fragment implements OnClickListener,
 
 	@Override
 	public void onLoadMore() {
-		if (!Tools.isConnect(getActivity())) {
-			CommonUtil.toastShort(getActivity(), "网络异常");
+		if (!Tools.isConnect(mActivity)) {
+			CommonUtil.toastShort(mActivity, "网络异常");
 			return;
 		}
 		isLoadMore = true;

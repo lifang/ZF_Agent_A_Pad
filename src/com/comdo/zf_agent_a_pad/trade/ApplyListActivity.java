@@ -271,7 +271,13 @@ public class ApplyListActivity extends Activity implements
 
 			if (item.getOpenState() == UNOPENED) {
 				holder.btnOpen.setEnabled(true);
-				holder.btnOpen.setText(getString(R.string.apply_button_open));
+				if (!"".equals(item.getAppid())) {
+					holder.btnOpen
+							.setText(getString(R.string.apply_button_reopen));
+				} else {
+					holder.btnOpen
+							.setText(getString(R.string.apply_button_open));
+				}
 			} else if (item.getOpenState() == PART_OPENED) {
 				holder.btnOpen.setEnabled(true);
 				holder.btnOpen.setText(getString(R.string.apply_button_reopen));
@@ -281,7 +287,8 @@ public class ApplyListActivity extends Activity implements
 			holder.btnOpen.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					if (item.getOpenState() == UNOPENED) {
+					if (item.getOpenState() == UNOPENED
+							&& "".equals(item.getAppid())) {
 
 						openDialog(item);
 
@@ -296,6 +303,12 @@ public class ApplyListActivity extends Activity implements
 
 				}
 			});
+
+			holder.btnVideo.setVisibility(View.VISIBLE);
+			Boolean videoBoolean = 1 == item.getHasVideoVerify();
+			if (!videoBoolean) {
+				holder.btnVideo.setVisibility(View.GONE);
+			}
 			holder.btnVideo.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {

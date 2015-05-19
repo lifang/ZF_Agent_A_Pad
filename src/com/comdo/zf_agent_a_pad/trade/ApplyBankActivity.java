@@ -88,12 +88,13 @@ public class ApplyBankActivity extends Activity implements
 			}
 		});
 
-		loadData();
+		 loadData();
 	}
 
 	private void loadData() {
 
-		Config.getApplyBankList(this, page + 1, keyword, pageSize, mTerminalId,
+		// TODO:
+		Config.getApplyBankList(this, page + 1, keyword, pageSize, String.valueOf(mTerminalId),
 				new HttpCallback<List<ApplyBank>>(this) {
 					@Override
 					public void onSuccess(List<ApplyBank> data) {

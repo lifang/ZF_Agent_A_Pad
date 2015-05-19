@@ -5,29 +5,78 @@ package com.comdo.zf_agent_a_pad.trade.entity;
  */
 public class TradeDetail {
 
-    private String tradedTimeStr;
-    private int agentId;
-    private String terminalNumber;
-    private int amount;
-    private int payChannelId;
-    private String tradeNumber;
-    private int profitPrice;
-    private int poundage;
-    private String batchNumber;
-    private String payIntoAccount;
-    private String merchantNumber;
-    private int tradedStatus;
-    private String merchantName;
-    private String payFromAccount;
-    private String payChannelName;
-    private String trade_number;
-    private String account_number;
-    private String account_name;
-    private String phone;
-    private String agentName;
+	private String tradedTimeStr;
+	private int agent_id;
+	private String terminalNumber;
+	private int amount;
+	private int pay_channel_id;
+	private String tradeNumber;
+	private int profitPrice;
+	private int poundage;
+	private String batchNumber;
+	private String payIntoAccount;
+	private String merchant_number;
+	private int tradedStatus;
+	private String merchant_name;
+	private String payFromAccount;
+	private String paychannel;
+	private String trade_number;
+	private String account_number;
+	private String account_name;
+	private String phone;
+	private String agentName;
+	private int get;
+	private int pay;
 
-    
-    public String getTrade_number() {
+	public int getGet() {
+		return get;
+	}
+
+	public void setGet(int get) {
+		this.get = get;
+	}
+
+	public int getPay() {
+		return pay;
+	}
+
+	public void setPay(int pay) {
+		this.pay = pay;
+	}
+
+	public int getAgent_id() {
+		return agent_id;
+	}
+
+	public void setAgent_id(int agent_id) {
+		this.agent_id = agent_id;
+	}
+
+	public int getPay_channel_id() {
+		return pay_channel_id;
+	}
+
+	public void setPay_channel_id(int pay_channel_id) {
+		this.pay_channel_id = pay_channel_id;
+	}
+
+	public String getMerchant_number() {
+		return merchant_number;
+	}
+
+	public void setMerchant_number(String merchant_number) {
+		this.merchant_number = merchant_number;
+	}
+
+	public String getMerchant_name() {
+		return merchant_name;
+	}
+
+	public void setMerchant_name(String merchant_name) {
+		this.merchant_name = merchant_name;
+	}
+
+	public String getTrade_number() {
 		return trade_number;
 	}
 
@@ -68,122 +117,95 @@ public class TradeDetail {
 	}
 
 	public String getTradedTimeStr() {
-        return tradedTimeStr;
-    }
+		return tradedTimeStr;
+	}
 
-    public void setTradedTimeStr(String tradedTimeStr) {
-        this.tradedTimeStr = tradedTimeStr;
-    }
+	public void setTradedTimeStr(String tradedTimeStr) {
+		this.tradedTimeStr = tradedTimeStr;
+	}
 
-    public int getAgentId() {
-        return agentId;
-    }
 
-    public void setAgentId(int agentId) {
-        this.agentId = agentId;
-    }
+	public String getTerminalNumber() {
+		return terminalNumber;
+	}
 
-    public String getTerminalNumber() {
-        return terminalNumber;
-    }
+	public void setTerminalNumber(String terminalNumber) {
+		this.terminalNumber = terminalNumber;
+	}
 
-    public void setTerminalNumber(String terminalNumber) {
-        this.terminalNumber = terminalNumber;
-    }
+	public int getAmount() {
+		return amount;
+	}
 
-    public int getAmount() {
-        return amount;
-    }
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
-    public int getPayChannelId() {
-        return payChannelId;
-    }
+	public String getTradeNumber() {
+		return tradeNumber;
+	}
 
-    public void setPayChannelId(int payChannelId) {
-        this.payChannelId = payChannelId;
-    }
+	public void setTradeNumber(String tradeNumber) {
+		this.tradeNumber = tradeNumber;
+	}
 
-    public String getTradeNumber() {
-        return tradeNumber;
-    }
+	public int getProfitPrice() {
+		return profitPrice;
+	}
 
-    public void setTradeNumber(String tradeNumber) {
-        this.tradeNumber = tradeNumber;
-    }
+	public void setProfitPrice(int profitPrice) {
+		this.profitPrice = profitPrice;
+	}
 
-    public int getProfitPrice() {
-        return profitPrice;
-    }
+	public int getPoundage() {
+		return poundage;
+	}
 
-    public void setProfitPrice(int profitPrice) {
-        this.profitPrice = profitPrice;
-    }
+	public void setPoundage(int poundage) {
+		this.poundage = poundage;
+	}
 
-    public int getPoundage() {
-        return poundage;
-    }
+	public String getBatchNumber() {
+		return batchNumber;
+	}
 
-    public void setPoundage(int poundage) {
-        this.poundage = poundage;
-    }
+	public void setBatchNumber(String batchNumber) {
+		this.batchNumber = batchNumber;
+	}
 
-    public String getBatchNumber() {
-        return batchNumber;
-    }
+	public String getPayIntoAccount() {
+		return payIntoAccount;
+	}
 
-    public void setBatchNumber(String batchNumber) {
-        this.batchNumber = batchNumber;
-    }
+	public void setPayIntoAccount(String payIntoAccount) {
+		this.payIntoAccount = payIntoAccount;
+	}
 
-    public String getPayIntoAccount() {
-        return payIntoAccount;
-    }
 
-    public void setPayIntoAccount(String payIntoAccount) {
-        this.payIntoAccount = payIntoAccount;
-    }
+	public int getTradedStatus() {
+		return tradedStatus;
+	}
 
-    public String getMerchantNumber() {
-        return merchantNumber;
-    }
+	public void setTradedStatus(int tradedStatus) {
+		this.tradedStatus = tradedStatus;
+	}
 
-    public void setMerchantNumber(String merchantNumber) {
-        this.merchantNumber = merchantNumber;
-    }
 
-    public int getTradedStatus() {
-        return tradedStatus;
-    }
+	public String getPayFromAccount() {
+		return payFromAccount;
+	}
 
-    public void setTradedStatus(int tradedStatus) {
-        this.tradedStatus = tradedStatus;
-    }
+	public void setPayFromAccount(String payFromAccount) {
+		this.payFromAccount = payFromAccount;
+	}
 
-    public String getMerchantName() {
-        return merchantName;
-    }
+	public String getPaychannel() {
+		return paychannel;
+	}
 
-    public void setMerchantName(String merchantName) {
-        this.merchantName = merchantName;
-    }
+	public void setPaychannel(String paychannel) {
+		this.paychannel = paychannel;
+	}
 
-    public String getPayFromAccount() {
-        return payFromAccount;
-    }
-
-    public void setPayFromAccount(String payFromAccount) {
-        this.payFromAccount = payFromAccount;
-    }
-
-    public String getPayChannelName() {
-        return payChannelName;
-    }
-
-    public void setPayChannelName(String payChannelName) {
-        this.payChannelName = payChannelName;
-    }
 }

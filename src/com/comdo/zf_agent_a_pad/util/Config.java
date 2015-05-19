@@ -153,7 +153,7 @@ public class Config {
 	public static final String APPLY_CHANNEL_LIST = PATHS + "apply/getChannels";
 
 	// Get the Bank List
-	public static final String APPLY_BANK_LIST = PATHS + "apply/ChooseBank";
+	public static final String APPLY_BANK_LIST = PATHS + "apply/chooseBank";
 
 	// find pos password
 	public static final String TERMINAL_FIND_POS = PATHS
@@ -420,11 +420,19 @@ public class Config {
 	// setDefaultProfit
 	public static final String SETDEFAULTPROFIT = PATHS
 			+ "lowerAgent/setDefaultProfit";
+
 	public static final String GET_PHONECODE=PATHS+"agents/getUpdatePhoneDentcode";
 	public static final String GET_EMAILCODE=PATHS+"agents/getUpdateEmailDentcode";
 	
 	public static final String UP_PHONECODE=PATHS+"agents/updatePhone/";
 	public static final String UP_EMAILCODE=PATHS+"agents/updateEmail/";
+
+
+	public static final String SENDPHONEVERCODEREG = PATHS
+			+ "agent/sendPhoneVerificationCodeReg";
+	public static final String GETJOIN = PATHS
+			+ "agent/getJoin";
+
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -638,7 +646,7 @@ public class Config {
 	}
 
 	public static void getApplyBankList(Context context, int page,
-			String keyword, int pageSize, int terminalId, HttpCallback callback) {
+			String keyword, int pageSize, String terminalId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("page", page);
 		params.put("keyword", keyword);
@@ -1572,6 +1580,7 @@ public class Config {
 		params.put("title", title);
 		new HttpRequest(context, callback).post(TERMINAL_CUSTOMER, params);
 	}
+
 	public static void getPhoneCode(
 			Context context,
 			String  phone,
@@ -1616,5 +1625,20 @@ public class Config {
 		params.put("customerId", customerId);
 		params.put("dentcode", dentcode);
 		new HttpRequest(context, callback).post(UP_EMAILCODE, params);
+	}
+	public static void sendPhoneVerCodeReg(Context context,String codeNumber,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+		new HttpRequest(context, callback).post(SENDPHONEVERCODEREG, params);
+	}
+	public static void getRegisterPartners(Context context,String name,String phone,
+			String agentType,String address,HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("name", name);
+		params.put("phone", phone);
+		params.put("agentType", agentType);
+		params.put("address", address);
+		new HttpRequest(context, callback).post(GETJOIN, params);
 	}
 }

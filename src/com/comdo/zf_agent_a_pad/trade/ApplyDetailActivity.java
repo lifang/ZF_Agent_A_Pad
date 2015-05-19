@@ -163,6 +163,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private ApplyListAdapter2 adapter2;
 	private String mUploadUri;
 
+	// private Boolean isBankName = false;
+	// private Boolean isShopName = false;
+	// private String shopName;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -328,7 +332,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mCustomerContainer_1.removeAllViews();
 		mCustomerContainer_2.removeAllViews();
 
-		Config.getApplyDetail(this, mTerminalId, 0,
+		Config.getApplyDetail(this, mTerminalId, mTerminalStatus,
 				new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
@@ -399,8 +403,18 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 					@Override
 					public void onFailure(String message) {
-
-						super.onFailure(message);
+						try {
+							JSONObject jsonobject = new JSONObject(message);
+							if (jsonobject.getInt("code") == -1) {
+								CommonUtil.toastShort(ApplyDetailActivity.this,
+										jsonobject.getString("message"));
+							}
+						} catch (JSONException e) {
+							// TODO:
+							CommonUtil.toastShort(ApplyDetailActivity.this,
+									"终端尚未绑定不能开通！");
+						}
+						finish();
 					}
 
 					@Override
@@ -718,6 +732,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 				mMerchantKeys[0], null));
 		mMerchantContainer_1.addView(getDetailItem(ITEM_EDIT, mMerchantKeys[1],
 				null));
+		// isShopName = true;
 		mMerchantContainer_2.addView(getDetailItem(ITEM_EDIT, mMerchantKeys[2],
 				null));
 
@@ -849,8 +864,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 		setItemValue(mBankKeys[0], merchant.getAccountBankName());
 		setItemValue(mBankKeys[1], merchant.getAccountBankNum());
 		setItemValue(mBankKeys[2], merchant.getBankOpenAccount());
-		setItemValue(mBankKeys[3], merchant.getTaxRegisteredNo());
-		setItemValue(mBankKeys[4], merchant.getOrganizationCodeNo());
+		if (mApplyType == APPLY_PUBLIC) {
+			setItemValue(mBankKeys[3], merchant.getTaxRegisteredNo());
+			setItemValue(mBankKeys[4], merchant.getOrganizationCodeNo());
+		}
 	}
 
 	/**
@@ -971,13 +988,50 @@ public class ApplyDetailActivity extends FragmentActivity {
 					.findViewById(R.id.apply_detail_value);
 			etValue.addTextChangedListener(new TextWatcherAdapter() {
 				public void afterTextChanged(final Editable gitDirEditText) {
+
 					updateUIWithValidation();
 				}
 			});
+
+			// if (isBankName) {
+			// isBankName = false;
+			// etValue.setFocusable(false);
+			// etValue.setEnabled(false);
+			//
+			// }
+			// if (isShopName) {
+			// shopName = value;
+			// isShopName = false;
+			// etValue.addTextChangedListener(new TextWatcherAdapter() {
+			// public void afterTextChanged(final Editable gitDirEditText) {
+			//
+			// updateUIWithValidation();
+			//
+			// LinearLayout item = (LinearLayout) mContainer
+			// .findViewWithTag(mBankKeys[1]);
+			// EditText etBankName = (EditText) item
+			// .findViewById(R.id.apply_detail_value);
+			// etBankName.setText(gitDirEditText.toString());
+			//
+			// }
+			// });
+			// } else {
+			// etValue.addTextChangedListener(new TextWatcherAdapter() {
+			// public void afterTextChanged(final Editable gitDirEditText) {
+			//
+			// updateUIWithValidation();
+			// }
+			// });
+			// }
 			if (!TextUtils.isEmpty(key))
 				tvKey.setText(key);
 			if (!TextUtils.isEmpty(value))
 				etValue.setText(value);
+			// if (isBankName) {
+			// etValue.setText(shopName);
+			// } else {
+			// etValue.setText(value);
+			// }
 			break;
 		}
 		case ITEM_CHOOSE: {

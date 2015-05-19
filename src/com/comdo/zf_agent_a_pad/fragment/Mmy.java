@@ -297,7 +297,7 @@ public class Mmy extends Fragment implements OnClickListener {
 			im3.setVisibility(View.VISIBLE);
 			tv_distribute
 					.setTextColor(getResources().getColor(R.color.bgtitle));
-		if (f_distribute == null)
+		//if (f_distribute == null)
 			f_distribute = new Distribute();
 		// getChildFragmentManager().beginTransaction()
 			getActivity().getSupportFragmentManager().beginTransaction()

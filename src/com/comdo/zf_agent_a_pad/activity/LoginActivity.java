@@ -38,7 +38,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private TextView login_text_forget, login_info;
 	private EditText login_edit_name, login_edit_pass;
 	private LinearLayout login_linear_deletename, login_linear_deletepass,
-			zhuche_ll, login_linear_login, msg;
+	zhuche_ll, login_linear_login, msg;
 	private String pass1, usename, passsword;
 	public static SharedPreferences mySharedPreferences;
 	private Editor editor;
@@ -184,7 +184,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.zhuche_ll:
 			// 注册
-			startActivity(new Intent(LoginActivity.this, Register.class));
+			//startActivity(new Intent(LoginActivity.this, Register.class));
+			startActivity(new Intent(LoginActivity.this, RegisterPartners.class));
 			break;
 		case R.id.login_linear_deletename:
 			login_edit_name.setText("");
@@ -206,7 +207,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		System.out.println("passsword`` `" + passsword);
 		Config.login(LoginActivity.this, usename, passsword,
 
-		new HttpCallback<UserEntity>(LoginActivity.this) {
+				new HttpCallback<UserEntity>(LoginActivity.this) {
 
 			@Override
 			public void onSuccess(UserEntity data) {

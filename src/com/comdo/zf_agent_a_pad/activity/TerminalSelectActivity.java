@@ -65,7 +65,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class TerminalSelectActivity extends BaseActivity implements
 OnClickListener, IXListViewListener {
-	private TextView selectedpos, selectedchannel;
+	private TextView selectedpos, selectedchannel,countTextView;
 	public static final int REQUEST_CHOOSE_POS = 12543;
 	private int posID;
 	public static int checked = 0;
@@ -104,6 +104,13 @@ OnClickListener, IXListViewListener {
 		setContentView(R.layout.activity_select_tt);
 		new TitleMenuUtil(TerminalSelectActivity.this, "选择终端").show();
 		lp = getWindow().getAttributes(); // 设置popupWindow弹出后背景的阴影
+		
+		String mflag = getIntent().getExtras().getString("flag");
+		if (mflag.equals("Distribute")) {
+			agentId = MyApplication.NewUser.getAgentId();
+		}else {
+			agentId = getIntent().getIntExtra("sonAgentId", 0);
+		}
 		init();
 		getPosList();
 		getPaylist();
@@ -119,6 +126,7 @@ OnClickListener, IXListViewListener {
 					terminalNum.setText(checked + "");
 					break;
 				case 1:
+					countTextView.setText("可配货的机器共"+mTerminalItems.size()+"台");
 					onLoad();
 					mTerminalList.setAdapter(terminaladapter);
 					break;
@@ -155,6 +163,7 @@ OnClickListener, IXListViewListener {
 	}
 
 	private void init() {
+		countTextView = (TextView) findViewById(R.id.countTextView);
 		searchLinear = (LinearLayout) findViewById(R.id.searchLinear);
 		search = (ImageView) findViewById(R.id.search);
 		terminal_comfirm = (Button) findViewById(R.id.terminal_comfirm);

@@ -9,22 +9,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegText {
+	public static boolean isFloat(String num) {
+		Pattern p = Pattern
+				.compile("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$");
+		Matcher m = p.matcher(num);
+
+		return m.matches();
+	}
 
 	public static boolean isMobileNO(String mobiles) {
-		Pattern p = Pattern
-				.compile("^1[0-9]{10}$");
+		Pattern p = Pattern.compile("^1[0-9]{10}$");
 		Matcher m = p.matcher(mobiles);
-		
+
 		return m.matches();
 	}
 
 	public static boolean isYouBian(String youbian) {
-		Pattern p = Pattern
-				.compile("[1-9]\\d{5}(?!\\d)");
+		Pattern p = Pattern.compile("[1-9]\\d{5}(?!\\d)");
 		Matcher m = p.matcher(youbian);
 
 		return m.matches();
 	}
+
 	public static boolean isEmail(String email) {
 		String str = "^([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\.][A-Za-z]{2,3}([\\.][A-Za-z]{2})?$";
 		Pattern p = Pattern.compile(str);
@@ -33,8 +39,7 @@ public class RegText {
 		return m.matches();
 	}
 
-	public static boolean isIdentityCard(String IDStr)
-			{
+	public static boolean isIdentityCard(String IDStr) {
 		String errorInfo = "";// 记录错误信息
 		String[] ValCodeArr = { "1", "0", "x", "9", "8", "7", "6", "5", "4",
 				"3", "2" };
@@ -148,7 +153,7 @@ public class RegText {
 						+ "(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|"
 						+ "(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
 		Matcher m = pattern.matcher(strDate);
-		
+
 		return m.matches();
 
 	}

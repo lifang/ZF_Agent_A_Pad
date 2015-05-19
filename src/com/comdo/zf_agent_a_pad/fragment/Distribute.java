@@ -45,7 +45,7 @@ import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class Distribute extends Fragment implements OnClickListener,
-		IXListViewListener {
+IXListViewListener {
 	private View view;
 	private List<DistributeEntity> datadistribut;
 	private BaseAdapter distributeAdapter;
@@ -163,25 +163,25 @@ public class Distribute extends Fragment implements OnClickListener,
 		Config.getlowerAgentList(mActivity, agentId,
 				new HttpCallback<List<AgentEntity>>(mActivity) {
 
-					@Override
-					public void onSuccess(List<AgentEntity> data) {
+			@Override
+			public void onSuccess(List<AgentEntity> data) {
 
-						datt.addAll(data);
+				datt.addAll(data);
 
-						myHandler.sendEmptyMessage(1);
-					}
+				myHandler.sendEmptyMessage(1);
+			}
 
-					@Override
-					public void onFailure(String message) {
-						super.onFailure(message);
-					}
+			@Override
+			public void onFailure(String message) {
+				super.onFailure(message);
+			}
 
-					@Override
-					public TypeToken<List<AgentEntity>> getTypeToken() {
-						return new TypeToken<List<AgentEntity>>() {
-						};
-					}
-				});
+			@Override
+			public TypeToken<List<AgentEntity>> getTypeToken() {
+				return new TypeToken<List<AgentEntity>>() {
+				};
+			}
+		});
 
 	}
 
@@ -224,7 +224,7 @@ public class Distribute extends Fragment implements OnClickListener,
 							DistributeDetail.class);
 					intent.putExtra("id",
 							datadistribut.get(DistributeAdapter.pp).getId());
-					startActivity(intent);
+					mActivity.startActivity(intent);
 					break;
 				case 1:
 					sonAgentId = new int[datt.size()];
@@ -238,24 +238,24 @@ public class Distribute extends Fragment implements OnClickListener,
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					mySpinner.setAdapter(adapter);
 					mySpinner
-							.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+					.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
-								@Override
-								public void onItemSelected(
-										AdapterView<?> parent, View view,
-										int position, long id) {
-									// tv_agent.setText(adapter.getItem(position));
-									mySpinner.setSelection(position);
-									cc = position;
-								}
+						@Override
+						public void onItemSelected(
+								AdapterView<?> parent, View view,
+								int position, long id) {
+							// tv_agent.setText(adapter.getItem(position));
+							mySpinner.setSelection(position);
+							cc = position;
+						}
 
-								@Override
-								public void onNothingSelected(
-										AdapterView<?> parent) {
+						@Override
+						public void onNothingSelected(
+								AdapterView<?> parent) {
 
-								}
+						}
 
-							});
+					});
 					break;
 				case 2:
 					onLoad();
@@ -304,23 +304,23 @@ public class Distribute extends Fragment implements OnClickListener,
 
 			CommonUtil.showDatePicker(getActivity(), mMerchantBirthday,
 					new CommonUtil.OnDateSetListener() {
-						@Override
-						public void onDateSet(String date) {
-							tv_time_left.setText(date);
-							left_time = date;
-						}
-					});
+				@Override
+				public void onDateSet(String date) {
+					tv_time_left.setText(date);
+					left_time = date;
+				}
+			});
 
 			break;
 		case R.id.tv_time_right:
 			CommonUtil.showDatePicker(getActivity(), mMerchantBirthday,
 					new CommonUtil.OnDateSetListener() {
-						@Override
-						public void onDateSet(String date) {
-							tv_time_right.setText(date);
-							right_time = date;
-						}
-					});
+				@Override
+				public void onDateSet(String date) {
+					tv_time_right.setText(date);
+					right_time = date;
+				}
+			});
 			break;
 		case R.id.btn_quary:
 			if (tv_time_left.getText().equals("开始日期")
@@ -333,10 +333,10 @@ public class Distribute extends Fragment implements OnClickListener,
 		case R.id.tv_choose_terminal:
 			Intent intent = new Intent(mActivity,
 					TerminalSelectActivity.class);
-
+			intent.putExtra("flag", "Distribute");
 			intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
 			intent.putExtra(TERMINAL_ARRAY, mTerminalArray);
-			startActivityForResult(intent, REQUEST_SELECT_CLIENT);
+			mActivity.startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 			break;
 		case R.id.btn_confirm:
 
@@ -362,17 +362,17 @@ public class Distribute extends Fragment implements OnClickListener,
 		Config.distributeGoods(mActivity, sonAgentId[cc], id, paychannelId,
 				goodId, serialNums, new HttpCallback(mActivity) {
 
-					@Override
-					public void onSuccess(Object data) {
-						CommonUtil.toastShort(mActivity, "配货成功");
-						myHandler.sendEmptyMessage(3);
-					}
+			@Override
+			public void onSuccess(Object data) {
+				CommonUtil.toastShort(mActivity, "配货成功");
+				myHandler.sendEmptyMessage(3);
+			}
 
-					@Override
-					public TypeToken getTypeToken() {
-						return null;
-					}
-				});
+			@Override
+			public TypeToken getTypeToken() {
+				return null;
+			}
+		});
 
 	}
 
@@ -386,34 +386,34 @@ public class Distribute extends Fragment implements OnClickListener,
 		Config.getDistributeList(mActivity, agentId, sonAgentId[cc],
 				left_time, right_time, page, rows,
 				new HttpCallback<Page<DistributeEntity>>(mActivity) {
-					@Override
-					public void onSuccess(Page<DistributeEntity> data) {
-						DistributeDetail.isDri = false;
-						isLoadMore = false;
-						if (isrefersh) {
-							page = a;
-							rows = Config.ROWS;
-							isrefersh = false;
-						}
-						if (datadistribut.size() != 0
-								&& data.getList().size() == 0) {
-							Toast.makeText(mActivity, "没有更多数据!", 1000)
-									.show();
-						} else {
-							idd = new int[data.getList().size()];
-							datadistribut.addAll(data.getList());
-						}
+			@Override
+			public void onSuccess(Page<DistributeEntity> data) {
+				DistributeDetail.isDri = false;
+				isLoadMore = false;
+				if (isrefersh) {
+					page = a;
+					rows = Config.ROWS;
+					isrefersh = false;
+				}
+				if (datadistribut.size() != 0
+						&& data.getList().size() == 0) {
+					Toast.makeText(mActivity, "没有更多数据!", 1000)
+					.show();
+				} else {
+					idd = new int[data.getList().size()];
+					datadistribut.addAll(data.getList());
+				}
 
-						myHandler.sendEmptyMessage(2);
+				myHandler.sendEmptyMessage(2);
 
-					}
+			}
 
-					@Override
-					public TypeToken<Page<DistributeEntity>> getTypeToken() {
-						return new TypeToken<Page<DistributeEntity>>() {
-						};
-					}
-				});
+			@Override
+			public TypeToken<Page<DistributeEntity>> getTypeToken() {
+				return new TypeToken<Page<DistributeEntity>>() {
+				};
+			}
+		});
 
 	}
 
@@ -436,22 +436,22 @@ public class Distribute extends Fragment implements OnClickListener,
 		btn_confirm.setOnClickListener(this);
 		my_diaSpinner.setAdapter(adapter);
 		my_diaSpinner
-				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+		.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
-					@Override
-					public void onItemSelected(AdapterView<?> parent,
-							View view, int position, long id) {
-						// tv_agent.setText(adapter.getItem(position));
-						my_diaSpinner.setSelection(position);
-						// cc=position;
-					}
+			@Override
+			public void onItemSelected(AdapterView<?> parent,
+					View view, int position, long id) {
+				// tv_agent.setText(adapter.getItem(position));
+				my_diaSpinner.setSelection(position);
+				// cc=position;
+			}
 
-					@Override
-					public void onNothingSelected(AdapterView<?> parent) {
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
 
-					}
+			}
 
-				});
+		});
 		dialog = builder.create();
 		dialog.show();
 	}
