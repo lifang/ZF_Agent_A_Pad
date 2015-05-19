@@ -432,7 +432,7 @@
             android:name="com.comdo.zf_agent_a_pad.activity.AddPayChannel"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
-        </activity>        
+        </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectUserActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -445,6 +445,21 @@
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.AlterPhone"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterEmali"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterNPhone"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterNEmali"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
         </activity>

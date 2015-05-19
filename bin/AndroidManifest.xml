@@ -433,7 +433,11 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
         </activity>
-<<<<<<< HEAD
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectUserActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.GoodDetailImgs"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -444,8 +448,21 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
         </activity>
-=======
->>>>>>> origin/master
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterEmali"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterNPhone"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterNEmali"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

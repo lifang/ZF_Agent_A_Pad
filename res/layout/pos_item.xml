@@ -169,6 +169,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textbig"
                         android:textColor="#959494"
+                        android:visibility="gone"
                         android:text="最小起批量：100件" />
                 </LinearLayout>
 

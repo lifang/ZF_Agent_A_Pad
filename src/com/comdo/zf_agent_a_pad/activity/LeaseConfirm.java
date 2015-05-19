@@ -107,6 +107,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private LinearLayout ll_pf;
 	private LinearLayout ll_select_user;
 	private int userid;
+	private TextView tv1;
+	private TextView tv2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -156,7 +158,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 	private void GetUser() {
 		items = new ArrayList<Map<String, Object>>();
-		Toast.makeText(getApplicationContext(), MyApplication.NewUser.getAgentUserId()+"", 1000).show();
+
 		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), 0, rows,
 				new HttpCallback<List<UserInfo>>(this) {
 					@Override
@@ -186,7 +188,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
-	
+		tv1 = (TextView)findViewById(R.id.tv1);
+		tv2 = (TextView)findViewById(R.id.tv2);
+		if(type==1){
+			tv1.setText("价格");
+			tv2.setText("购买数量");
+		}
 		ll_pf = (LinearLayout)findViewById(R.id.ll_fp);
 		tv_chanel = (TextView)findViewById(R.id.wayName);
 		mInflater = LayoutInflater.from(this);

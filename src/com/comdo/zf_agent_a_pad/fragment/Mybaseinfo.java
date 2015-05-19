@@ -108,7 +108,7 @@ public class Mybaseinfo extends Fragment implements OnClickListener {
 				switch (msg.what) {
 				case 0:
 					try {
-						tv_fuzeren_name.setText(js.getString("username"));
+						tv_fuzeren_name.setText(js.getString("name"));
 						tv_phone.setText(js.getString("phone"));
 						tv_email.setText("email");
 						tv_company_name.setText(js.getString("company_name"));
@@ -148,7 +148,7 @@ public class Mybaseinfo extends Fragment implements OnClickListener {
 						tv_yingyezhizhao.setText(data.getBusiness_license());
 						tv_company_shuiwudengji.setText(data
 								.getTax_registered_no());
-						tv_fuzeren_name.setText(data.getUsername());
+						tv_fuzeren_name.setText(data.getName());
 						tv_fuzeren_no.setText(data.getCard_id());
 						tv_phone.setText(data.getPhone());
 						tv_email.setText(data.getEmail());

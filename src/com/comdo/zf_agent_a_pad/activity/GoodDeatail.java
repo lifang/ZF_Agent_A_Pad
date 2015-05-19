@@ -162,7 +162,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				if (PosListActivity.shoptype != 1&&gfe.isHas_lease()) {
 					ll_shoptype = (LinearLayout) findViewById(R.id.ll_shoptype);
 					ll_shoptype.setVisibility(View.VISIBLE);
-					setting_btn_clear.setText("代购");
+					setting_btn_clear.setText("采购");
 				}
 				
 				break;
@@ -279,7 +279,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			islea = false;
 			setting_btn_clear.setText("采购");
 			tv_dp.setText("采购价格");
-			tv_lea.setBackgroundDrawable(getResources().getDrawable(
+			/*tv_lea.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.send_out_goods_shape));
 			tv_bug.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.bg_shape));
@@ -288,7 +288,12 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			tv_lea.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.send_out_goods_shape));
 			tv_bug.setBackgroundDrawable(getResources().getDrawable(
-					R.drawable.bg_shape));
+					R.drawable.bg_shape));*/
+			tv_lea.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.send_out_goods_shape));
+			tv_bug.setBackgroundColor(getResources().getColor(R.color.bgtitle));			
+			tv_bug.setTextColor(getResources().getColor(R.color.white));
+			tv_lea.setTextColor(getResources().getColor(R.color.text292929));
 			break;
 		case R.id.tv_lea:
 			// tv_bug
@@ -297,12 +302,18 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			islea = true;
 			setting_btn_clear.setText("租赁");
 			tv_dp.setText("租赁价格");
+			tv_lea.setBackgroundColor(getResources().getColor(R.color.bgtitle));
+			//tv_bug.setBackgroundColor(getResources().getColor(R.color.bgtitle));	
+			tv_bug.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.send_out_goods_shape));
 			tv_bug.setTextColor(getResources().getColor(R.color.text292929));
+			tv_lea.setTextColor(getResources().getColor(R.color.white));
+			/*tv_bug.setTextColor(getResources().getColor(R.color.text292929));
 			tv_lea.setTextColor(getResources().getColor(R.color.bgtitle));
 			tv_lea.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.bg_shape));
 			tv_bug.setBackgroundDrawable(getResources().getDrawable(
-					R.drawable.send_out_goods_shape));
+					R.drawable.send_out_goods_shape));*/
 			break;
 		case R.id.tv_zd:
 			i = new Intent(GoodDeatail.this, GoodDeatilMore.class);

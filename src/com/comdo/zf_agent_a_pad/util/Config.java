@@ -420,7 +420,11 @@ public class Config {
 	// setDefaultProfit
 	public static final String SETDEFAULTPROFIT = PATHS
 			+ "lowerAgent/setDefaultProfit";
-
+	public static final String GET_PHONECODE=PATHS+"agents/getUpdatePhoneDentcode";
+	public static final String GET_EMAILCODE=PATHS+"agents/getUpdateEmailDentcode";
+	
+	public static final String UP_PHONECODE=PATHS+"agents/updatePhone/";
+	public static final String UP_EMAILCODE=PATHS+"agents/updateEmail/";
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -532,7 +536,6 @@ public class Config {
 			params.put("tDate", new JSONArray(gson.toJson(Posport.tDate)));
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		new HttpRequest(context, callback).post(Config.POSLIST, params);
@@ -579,7 +582,7 @@ public class Config {
 		params.put("quantity", quantity);
 		params.put("addressId", addressId);
 		params.put("comment", comment);
-
+		
 		params.put("isNeedInvoice", is_need_invoice);
 		params.put("invoiceType", invoice_type);
 		params.put("invoiceInfo", invoice_info);
@@ -1568,6 +1571,50 @@ public class Config {
 		params.put("rows", rows);
 		params.put("title", title);
 		new HttpRequest(context, callback).post(TERMINAL_CUSTOMER, params);
-
+	}
+	public static void getPhoneCode(
+			Context context,
+			String  phone,
+			int customerId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("phone", phone);
+		params.put("customerId", customerId);
+		new HttpRequest(context, callback).post(GET_PHONECODE, params);
+	}
+	public static void getEmailCode(
+			Context context,
+			String  phone,
+			int customerId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("email", phone);
+		params.put("customerId", customerId);
+		new HttpRequest(context, callback).post(GET_EMAILCODE, params);
+	}
+	public static void getPhoneNCode(
+			Context context,
+			String  phone,
+			int customerId,
+			String  dentcode,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("phone", phone);
+		params.put("customerId", customerId);
+		params.put("dentcode", dentcode);
+		
+		new HttpRequest(context, callback).post(UP_PHONECODE, params);
+	}
+	public static void getEmailNCode(
+			Context context,
+			String  phone,
+			int customerId,
+			String  dentcode,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("email", phone);
+		params.put("customerId", customerId);
+		params.put("dentcode", dentcode);
+		new HttpRequest(context, callback).post(UP_EMAILCODE, params);
 	}
 }

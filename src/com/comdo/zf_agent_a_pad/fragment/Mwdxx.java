@@ -285,7 +285,7 @@ public class Mwdxx extends Fragment implements OnClickListener,
 		if (type == 0) {
 			Url = Config.getmes;
 			params.put("page", page);
-			//params.put("pageSize", rows);
+			params.put("pageSize", 20);
 		} else if (type == 1) {
 			Url = Config.DELECT_MORE;
 			try {
@@ -386,7 +386,6 @@ public class Mwdxx extends Fragment implements OnClickListener,
 	}
 	@Override
 	public void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		if(!isFrist){
 			page = 1;
