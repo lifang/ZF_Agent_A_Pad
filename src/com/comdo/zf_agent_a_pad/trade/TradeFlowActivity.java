@@ -95,9 +95,9 @@ public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnP
 		for (int i = 0; i < tabs.length; i++) {
 			TradeFlowFragment fragment = null;
 			if (i == 0) {
-				fragment = TradeFlowFragment.newInstance(CONSUME);
-			}else if (i == 1) {
 				fragment = TradeFlowFragment.newInstance(TRANSFER);
+			}else if (i == 1) {
+				fragment = TradeFlowFragment.newInstance(CONSUME);
 			}else if (i == 2) {
 				fragment = TradeFlowFragment.newInstance(REPAYMENT);
 			}else if (i == 3) {
