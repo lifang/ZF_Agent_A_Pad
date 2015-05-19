@@ -115,7 +115,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 							TransgoodsDetail.class);
 					intent.putExtra("id", datatrans.get(TransgoodsAdapter.pp)
 							.getId());
-					startActivity(intent);
+					mActivity.startActivity(intent);
 					break;
 				case 1:
 					for (int i = 0; i < datt.size(); i++) {
@@ -312,9 +312,11 @@ public class Transgoods extends Fragment implements OnClickListener,
 			TerminalSelectActivity.isFromTrans = true;
 			Intent intent = new Intent(mActivity,
 					TerminalSelectActivity.class);
+			intent.putExtra("flag", "Transgoods");
+			intent.putExtra("sonAgentId", sonAgentId[from]);
 			intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
 			intent.putExtra(TERMINAL_ARRAY, mTerminalArray);
-			startActivityForResult(intent, REQUEST_SELECT_CLIENT);
+			mActivity.startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 			break;
 		case R.id.btn_confirm:
 			dialog.dismiss();

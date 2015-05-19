@@ -132,12 +132,12 @@ public class StockInfoListActivity extends Activity implements OnClickListener,I
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-2));
-
-				Intent intent = new Intent(StockInfoListActivity.this,StockTerminaListActivity.class);
-				intent.putExtra("goodId", stockEntity.getGood_id());
-				intent.putExtra("paychannelId", stockEntity.getPaychannel_id());
-				startActivity(intent);
+//				StockTerminaListActivity.setStockAgentEntity(mEntities.get(position-2));
+//
+//				Intent intent = new Intent(StockInfoListActivity.this,StockTerminaListActivity.class);
+//				intent.putExtra("goodId", stockEntity.getGood_id());
+//				intent.putExtra("paychannelId", stockEntity.getPaychannel_id());
+//				startActivity(intent);
 			}
 		});
 	}

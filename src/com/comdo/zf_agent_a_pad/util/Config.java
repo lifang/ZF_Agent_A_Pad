@@ -418,6 +418,11 @@ public class Config {
 	public static final String SETDEFAULTPROFIT = PATHS
 			+ "lowerAgent/setDefaultProfit";
 
+	public static final String SENDPHONEVERCODEREG = PATHS
+			+ "agent/sendPhoneVerificationCodeReg";
+	public static final String GETJOIN = PATHS
+			+ "agent/getJoin";
+	
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1551,5 +1556,20 @@ public class Config {
 		params.put("rows", rows);
 		params.put("title", title);
 		new HttpRequest(context, callback).post(TERMINAL_CUSTOMER, params);
+	}
+	public static void sendPhoneVerCodeReg(Context context,String codeNumber,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+		new HttpRequest(context, callback).post(SENDPHONEVERCODEREG, params);
+	}
+	public static void getRegisterPartners(Context context,String name,String phone,
+			String agentType,String address,HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("name", name);
+		params.put("phone", phone);
+		params.put("agentType", agentType);
+		params.put("address", address);
+		new HttpRequest(context, callback).post(GETJOIN, params);
 	}
 }

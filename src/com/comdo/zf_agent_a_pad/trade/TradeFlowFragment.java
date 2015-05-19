@@ -52,6 +52,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.TradeRecord;
 import com.comdo.zf_agent_a_pad.trade.widget.XListView;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -519,22 +520,22 @@ public class TradeFlowFragment extends Fragment implements
 			case CONSUME:
 				// holder.tvAccountKey.setText(getString(R.string.trade_pay_account));
 				// holder.tvReceiveAccountKey.setText(getString(R.string.trade_receive_account));
-
-				holder.tvAccount.setText(record.getPayFromAccount());
-				holder.tvReceiveAccount.setText(record.getPayIntoAccount());
+				
+				holder.tvAccount.setText(StringUtil.replaceNum(record.getPayFromAccount()));
+				holder.tvReceiveAccount.setText(StringUtil.replaceNum(record.getPayIntoAccount()));
 				break;
 			case LIFE_PAY:
 				// holder.tvAccountKey.setText(getString(R.string.trade_account_name));
 				// holder.tvReceiveAccountKey.setText(getString(R.string.trade_account_number));
-
-				holder.tvAccount.setText(record.getAccountName());
-				holder.tvReceiveAccount.setText(record.getAccountNumber());
+				
+				holder.tvAccount.setText(StringUtil.replaceName(record.getAccountName()));
+				holder.tvReceiveAccount.setText(StringUtil.replaceNum(record.getAccountNumber()));
 				break;
 			case PHONE_PAY:
 				// holder.tvAccountKey.setVisibility(View.INVISIBLE);
 				// holder.tvReceiveAccountKey.setText(getString(R.string.trade_phone_number));
 				holder.tvAccount.setVisibility(View.GONE);
-				holder.tvReceiveAccount.setText(record.getPhone());
+				holder.tvReceiveAccount.setText(StringUtil.replaceNum(record.getPhone()));
 				break;
 			}
 

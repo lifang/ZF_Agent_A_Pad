@@ -104,6 +104,13 @@ OnClickListener, IXListViewListener {
 		setContentView(R.layout.activity_select_tt);
 		new TitleMenuUtil(TerminalSelectActivity.this, "选择终端").show();
 		lp = getWindow().getAttributes(); // 设置popupWindow弹出后背景的阴影
+		
+		String mflag = getIntent().getExtras().getString("flag");
+		if (mflag.equals("Distribute")) {
+			agentId = MyApplication.NewUser.getAgentId();
+		}else {
+			agentId = getIntent().getIntExtra("sonAgentId", 0);
+		}
 		init();
 		getPosList();
 		getPaylist();
