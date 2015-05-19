@@ -20,8 +20,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center_vertical"
                 android:layout_marginBottom="@dimen/dlimg"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -37,18 +37,33 @@
                     android:id="@+id/trade_client"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:background="@drawable/ed_adress"
+                    android:background="@drawable/bg_edit_trade"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="6dp" >
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:id="@+id/trade_client_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:hint="点击选择终端号"
                         android:gravity="center"
-                        android:paddingRight="@dimen/dlpad"
-                         />
+                        android:minWidth="50dp" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#a8a8a8" />
+
+                    <ImageView
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/arrow_down" />
                 </LinearLayout>
 
                 <TextView
@@ -60,54 +75,86 @@
                     android:textColor="#6c6c6c"
                     android:textSize="@dimen/textbig" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/trade_start"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/ed_adress"
-                    android:paddingLeft="6dp" >
+                    android:background="@drawable/bg_edit_trade"
+                    android:gravity="center_vertical" >
 
                     <TextView
-                         android:id="@+id/trade_start_date"
+                        android:id="@+id/trade_start_date"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
                         android:gravity="center"
-                        android:paddingRight="@dimen/dlpad"
-                        />
-                </RelativeLayout>
+                        android:hint="点击选择起始日"
+                        android:minWidth="50dp" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#a8a8a8" />
+
+                    <ImageView
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/arrow_down" />
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    
-                    android:text="-"
                     android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="-"
                     android:textColor="#6c6c6c"
                     android:textSize="21sp" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/trade_end"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/ed_adress"
-                    android:paddingLeft="6dp" >
+                    android:background="@drawable/bg_edit_trade"
+                    android:gravity="center_vertical" >
 
                     <TextView
-                         android:id="@+id/trade_end_date"
+                        android:id="@+id/trade_end_date"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
                         android:gravity="center"
-                        android:paddingRight="@dimen/dlpad"
-                         />
-                </RelativeLayout>
+                        android:hint="点击选择终止日"
+                        android:minWidth="50dp" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#a8a8a8" />
+
+                    <ImageView
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/arrow_down" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="42dp"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -121,38 +168,53 @@
                     android:id="@+id/trade_agent"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:background="@drawable/ed_adress"
+                    android:background="@drawable/bg_edit_trade"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="6dp" >
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:id="@+id/trade_agent_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
                         android:gravity="center"
-                        android:paddingRight="@dimen/dlpad"
-                         />
+                        android:hint="点击选择代理商"
+                        android:minWidth="50dp" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#a8a8a8" />
+
+                    <ImageView
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/arrow_down" />
                 </LinearLayout>
-                
+
                 <Button
                     android:id="@+id/trade_search"
                     android:layout_width="118dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="60dp"
                     android:layout_marginLeft="18dp"
-                    android:text="开始查询"
+                    android:layout_marginRight="60dp"
+                    android:background="@drawable/normal_button_selector"
                     android:enabled="false"
-                     android:background="@drawable/normal_button_selector"
+                    android:text="开始查询"
                     android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/trade_statistic"
                     android:layout_width="118dp"
                     android:layout_height="match_parent"
-                     android:background="@drawable/normal_button_selector"
-                    android:text="开始统计"
+                    android:background="@drawable/normal_button_selector"
                     android:enabled="false"
+                    android:text="开始统计"
                     android:textColor="#ffffff" />
             </LinearLayout>
 
@@ -193,7 +255,6 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="交易时间"
-                    
                     android:textColor="#292929"
                     android:textSize="15sp" />
 
@@ -218,17 +279,6 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/terminalNoTxt"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="终端号"
-                    android:textColor="#292929"
-                    android:textSize="15sp" />
-                
-
-                <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -236,6 +286,7 @@
                     android:text="交易金额"
                     android:textColor="#292929"
                     android:textSize="15sp" />
+
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -244,11 +295,16 @@
                     android:text="交易状态"
                     android:textColor="#292929"
                     android:textSize="15sp" />
-                
-                
-                
-                
-                
+
+                <TextView
+                    android:id="@+id/terminalNoTxt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="终端号"
+                    android:textColor="#292929"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout

@@ -1,6 +1,13 @@
 package com.comdo.zf_agent_a_pad.entity;
 
 public class AgentDetailEntity {
+	public int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	private String types;
 	private String is_have_profit;
 	private String company_name;

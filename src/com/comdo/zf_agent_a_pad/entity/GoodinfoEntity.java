@@ -4,7 +4,7 @@ public class GoodinfoEntity {
 //	 "lease_agreement": "1",
 	private String lease_agreement;
 	private int floor_purchase_quantity;
-	
+
 public int getFloor_purchase_quantity() {
 		return floor_purchase_quantity;
 	}

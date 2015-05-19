@@ -25,6 +25,15 @@ public class OrderDetailEntity {
 	private String total_quantity;
 	private String order_totalPrice;
 	private String shipped_quantity;
+	private String zhifu_dingjin;
+	public String getZhifu_dingjin() {
+		return zhifu_dingjin;
+	}
+
+	public void setZhifu_dingjin(String zhifu_dingjin) {
+		this.zhifu_dingjin = zhifu_dingjin;
+	}
+
 	public String getOrder_totalPrice() {
 		return order_totalPrice;
 	}
@@ -189,7 +198,6 @@ public class OrderDetailEntity {
 	public int getOrder_status() {
 		return order_status;
 	}
-
 	public void setOrder_status(int order_status) {
 		this.order_status = order_status;
 	}

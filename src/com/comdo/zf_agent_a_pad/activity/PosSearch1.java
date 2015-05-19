@@ -82,10 +82,10 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 	private TextView clear;
 	private GridView gr_hot;
 	private SearchAdapter hotAdapter;
+	private LinearLayout ll_back;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pos_search1);
 		mySharedPreferences = getSharedPreferences("pos_search", MODE_PRIVATE);
@@ -132,6 +132,15 @@ public class PosSearch1 extends Activity implements OnEditorActionListener {
 			}
 		});
 		getData();
+		ll_back = (LinearLayout)findViewById(R.id.titleback_linear_back);
+		ll_back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				PosSearch1.this.finish();
+				
+			}
+		});
 	}
 
 	private void init() {

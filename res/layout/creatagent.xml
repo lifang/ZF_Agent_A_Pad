@@ -1,15 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/F3F2F2"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <include layout="@layout/title_back" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@color/white" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -18,11 +20,12 @@
 
             <TableLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
 
                 <TableRow
                     android:layout_marginLeft="100dp"
-                    android:layout_marginTop="54dp" >
+                    android:layout_marginTop="30dp" >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -34,14 +37,14 @@
                         android:textColor="#6D6D6D"
                         android:textSize="18sp" />
 
-                    <EditText
-                        android:id="@+id/et_company_type"
+                    <Spinner
+                        android:id="@+id/spinner"
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/sc_edit"
-                        android:singleLine="true" />
+                        android:background="@drawable/ed_adress"
+                        android:entries="@array/agent_type" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -60,7 +63,9 @@
                         android:background="@drawable/agent_on" />
                 </TableRow>
 
-                <TableRow android:layout_marginLeft="100dp" >
+                <TableRow
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp" >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -76,7 +81,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:singleLine="true" />
 
                     <TextView
@@ -102,7 +107,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:gravity="right"
-                        android:text="公司营业执照登记表"
+                        android:text="公司营业执照登记号"
                         android:textColor="#6D6D6D"
                         android:textSize="18sp" />
 
@@ -111,7 +116,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:singleLine="true" />
 
                     <TextView
@@ -146,7 +151,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:singleLine="true" />
 
                     <TextView
@@ -167,14 +172,14 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:background="#EAEAEA" />
 
             <TableLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
-                android:layout_marginTop="70dp" >
+                android:layout_marginTop="30dp" >
 
                 <TableRow android:layout_marginLeft="100dp" >
 
@@ -192,7 +197,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:singleLine="true" />
 
                     <TextView
@@ -227,7 +232,9 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
+                        android:digits="1234567890Xx"
+                        android:maxLength="18"
                         android:singleLine="true" />
 
                     <TextView
@@ -262,7 +269,9 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
+                        android:digits="1234567890"
+                        android:maxLength="11"
                         android:singleLine="true" />
 
                     <TextView
@@ -297,7 +306,8 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
+                        android:inputType="textEmailAddress"
                         android:singleLine="true" />
 
                     <TextView
@@ -332,7 +342,8 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/selection_state" />
+                        android:background="@drawable/selection_state"
+                        android:gravity="center_vertical" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -366,7 +377,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:singleLine="true" />
 
                     <TextView
@@ -387,14 +398,14 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:background="#EAEAEA" />
 
             <TableLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
-                android:layout_marginTop="70dp" >
+                android:layout_marginTop="30dp" >
 
                 <TableRow
                     android:layout_marginLeft="100dp"
@@ -469,14 +480,14 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:background="#EAEAEA" />
 
             <TableLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="85dp"
-                android:layout_marginTop="70dp" >
+                android:layout_marginTop="30dp" >
 
                 <TableRow
                     android:layout_marginLeft="100dp"
@@ -487,7 +498,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:gravity="right"
-                        android:text="登陆ID"
+                        android:text="登录ID"
                         android:textColor="#6D6D6D"
                         android:textSize="18sp" />
 
@@ -496,7 +507,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -509,7 +520,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:gravity="right"
-                        android:text="登陆密码"
+                        android:text="登录密码"
                         android:textColor="#6D6D6D"
                         android:textSize="18sp" />
 
@@ -518,7 +529,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:inputType="textPassword"
                         android:singleLine="true" />
                 </TableRow>
@@ -541,7 +552,7 @@
                         android:layout_width="240dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/sc_edit"
+                        android:background="@drawable/tv_bg"
                         android:inputType="textPassword"
                         android:singleLine="true" />
                 </TableRow>
@@ -550,7 +561,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:background="#EAEAEA" />
 
             <Button
@@ -559,7 +570,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="70dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:background="#006FD5"
                 android:gravity="center"
                 android:text="保存"

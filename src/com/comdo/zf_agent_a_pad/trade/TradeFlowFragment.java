@@ -1,58 +1,12 @@
 package com.comdo.zf_agent_a_pad.trade;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.trade.common.DialogUtil;
-import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.trade.common.Page;
-import com.comdo.zf_agent_a_pad.trade.entity.TradeRecord;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.MyApplication;
-import com.comdo.zf_agent_a_pad.trade.widget.XListView;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Text;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_TYPE;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.CLIENT_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.AGENT_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.AGENT_NAME;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.CLIENT_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.END_DATE;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.SONAGEHNTID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_CLIENT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_AGENT;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.REQUEST_TRADE_CLIENT;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.SONAGEHNTID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.START_DATE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_RECORD_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeIntent.TRADE_TYPE;
@@ -61,6 +15,45 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.LIFE_PAY;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.PHONE_PAY;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.REPAYMENT;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TradeType.TRANSFER;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.trade.common.Page;
+import com.comdo.zf_agent_a_pad.trade.entity.TradeRecord;
+import com.comdo.zf_agent_a_pad.trade.widget.XListView;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
 
 public class TradeFlowFragment extends Fragment implements
 		View.OnClickListener, XListView.IXListViewListener {
@@ -230,6 +223,7 @@ public class TradeFlowFragment extends Fragment implements
 						Intent intent = new Intent(getActivity(),
 								TradeDetailActivity.class);
 						intent.putExtra(TRADE_RECORD_ID, record.getId());
+						intent.putExtra(TRADE_TYPE, mTradeType);
 						startActivity(intent);
 					}
 				});
@@ -429,7 +423,7 @@ public class TradeFlowFragment extends Fragment implements
 												"开始时间不能大于结束时间",
 												Toast.LENGTH_SHORT).show();
 										return;
-									} else if (dateStr.compareTo(nowStr) >= 0) {
+									} else if (dateStr.compareTo(nowStr) > 0) {
 										Toast.makeText(getActivity(),
 												"开始时间不能大于当前时间",
 												Toast.LENGTH_SHORT).show();

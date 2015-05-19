@@ -264,8 +264,7 @@
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.OrderList"
             android:label="@string/app_name"
-            android:screenOrientation="landscape"
-             >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.AgentDetail"
@@ -397,23 +396,50 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind" >
-        </activity> 
+        </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.WelcomeActivity"
             android:screenOrientation="landscape" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> 
+        </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectPOSSActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
-         <activity
+        <activity
             android:name="com.unionpay.uppayplugin.demo.APKActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.PostSonList"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.SelectPayChannel"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AddPayChannel"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>        
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectUserActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.GoodDetailImgs"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
         </activity>

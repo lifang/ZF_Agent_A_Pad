@@ -73,6 +73,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.pos_port1);
 		new TitleMenuUtil(this, "筛选").show();
 		   loadingDialog = DialogUtil.getLoadingDialg(this); 
+		   Config.myson=null;
 		initView();
 		getData();
 	}
@@ -84,13 +85,11 @@ public class PosPortActivity extends Activity implements OnClickListener {
 				.post(Config.POSPORT, params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onStart() {
-						// TODO Auto-generated method stub
 						super.onStart();
 						  loadingDialog.show();
 					}
 					@Override
 					public void onFinish() {
-						// TODO Auto-generated method stub
 						super.onFinish();
 						loadingDialog.dismiss();
 					}
@@ -117,7 +116,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 										new TypeToken<PosSelectEntity>() {
 										}.getType());
 								isload = true;
-								inittype();
+								//inittype();
 								initData();
 								
 							} else {
@@ -144,7 +143,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 	void inittype() {
 		types = new ArrayList<PosItem>();
 		types2 = new ArrayList<PosItem>();
-		for (category c : pse.getCategory()) {
+		/*for (category c : pse.getCategory()) {
 
 			for (category ch : c.getClist()) {
 				PosItem p = new PosItem();
@@ -164,7 +163,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 				types2.add(p);
 			}
 	
-		}
+		}*/
 
 	}
 
@@ -180,7 +179,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 		pe1 = new PostPortEntity();
 		pe1.setTitle("Pos类型");
 
-		pe1.setChildlist(types);
+		pe1.setChildlist(pse.getCategory());
 
 		portlist.add(pe1);
 
@@ -216,7 +215,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 
 		pe7 = new PostPortEntity();
 		pe7.setTitle("Pos类型");
-		pe7.setChildlist(types2);
+		pe7.setChildlist(pse1.getCategory());
 		// Toast.makeText(getApplicationContext(),
 		// pe1.getChildlist().get(0).getValue()+"ccc", 1000).show();
 		glist.add(pe7);
@@ -278,6 +277,7 @@ public class PosPortActivity extends Activity implements OnClickListener {
 		bt_confirm = (Button) findViewById(R.id.bt_confirm);
 		bt_confirm.setOnClickListener(this);
 		listView = (ExpandableListView) findViewById(R.id.list);
+		listView.setGroupIndicator(null);
 		myadapter = new PosPortAdapter(this, portlist, glist);
 		myadapter.setListView(listView);
 		listView.setAdapter(myadapter);
@@ -295,6 +295,11 @@ public class PosPortActivity extends Activity implements OnClickListener {
 			if(isClick){
 				//isClick=false;
 			initport();
+			if(Config.myson==null){
+				Config.lx=-1;
+			}else{
+				Config.lx=Config.myson.getId();
+			}
 			if (isload) {
 				// posƷ��
 				List<PosItem> tem=new ArrayList<PosItem>();
@@ -468,5 +473,21 @@ public class PosPortActivity extends Activity implements OnClickListener {
 			
 			return false;// ����׳��쳣������False
 		}
+	}
+	@Override
+	protected void onResume() {
+		//Toast.makeText(getApplicationContext(), Config.portindex+"", 1000).show();
+		super.onResume();
+		if(Config.portindex!=-1&&Config.myson!=null){
+			//pe1.getChildlist().get(Config.portindex).setValue(Config.myson.getValue());
+			if(Config.portindex>3){
+				pe1.getChildlist().get(Config.portindex-4).setValue(Config.myson.getValue());
+			}else{
+				pe7.getChildlist().get(Config.portindex).setValue(Config.myson.getValue());
+			}
+			
+		}		
+			myadapter.notifyDataSetChanged();
+
 	}
 }

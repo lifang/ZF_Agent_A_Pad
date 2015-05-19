@@ -1,6 +1,8 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,22 +57,32 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private LinearLayout ll_ishow;
 	private Button btn_ishow;
 	private OrderDetailEntity ode;
-	 private Dialog loadingDialog;
+	private Dialog loadingDialog;
 	private TextView tv_status, tv_sjps, tv_psf, tv_reperson, tv_tel,
 			tv_adress, tv_ly, tv_fplx, fptt, tv_ddbh, tv_pay, tv_time, tv_gj,
 			tv_money;
 	private int status, id;
 	private OrderDetailEntity entity;
 	private Handler handler = new Handler() {
-		
 
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
 				entity = ode;
-				tv_sjps.setText("实际配送金额(含配送费) ：￥ "
-						+ check(entity.getOrder_totalPrice()) / 100);
-				//tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
+				if (OrderList.type.equals("5")) {
+					tv_yfdj.setVisibility(View.VISIBLE);
+					tv_sjps.setText("实付金额  ：￥ "
+							+ df.format(check(entity.getOrder_totalPrice()) / 100));
+					tv_psf.setText("订金总额 ：￥ "
+							+ df.format(check(entity.getTotal_dingjin()) / 100));
+					tv_yfdj.setText("已付定金：￥ "
+							+ df.format(check(entity.getZhifu_dingjin()) / 100));
+				} else {
+					tv_sjps.setText("实付金额 ：￥ "
+							+ df.format(check(entity.getOrder_totalPrice()) / 100));
+				}
+
+				// tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
 				tv_reperson.setText("收件人  ：   " + entity.getOrder_receiver());
 				tv_tel.setText(entity.getOrder_receiver_phone());
 				tv_adress.setText("收货地址  ：   " + entity.getOrder_address());
@@ -79,16 +91,29 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 						: "发票类型 : 公司");
 				fptt.setText("发票抬头  ：   " + entity.getOrder_invoce_info());
 				tv_ddbh.setText("订单编号  ：   " + entity.getOrder_number());
-				tv_pay.setText("支付方式  ：   " + entity.getOrder_payment_type());
+				if (entity.getOrder_payment_type().equals("1")) {
+					tv_pay.setText("支付方式  ：   支付宝");
+				} else if (entity.getOrder_payment_type().equals("2")) {
+					tv_pay.setText("支付方式  ：   银联");
+				} else if (entity.getOrder_payment_type().equals("3")) {
+					tv_pay.setText("支付方式  ：   现金");
+				} else {
+					tv_pay.setText("支付方式  ：   ");
+				}
+
 				tv_time.setText("实付金额  ：   ￥"
-						+ check(entity.getOrder_totalPrice()) / 100);
+						+ df.format(check(entity.getOrder_totalPrice()) / 100));
 				tv_money.setText("订单日期  ：   " + entity.getOrder_createTime());
-				tv_gj.setText("共计  ：   " + entity.getTotal_quantity() + "件商品");
+				tv_gj.setText("共计  ：   " + entity.getOrder_totalNum() + "件商品");
 				if (!OrderList.type.equals("5")) {
 					tv_user.setText(entity.getGuishu_user());
-				}else{
-					tv_yf.setText("已发货数量："+entity.getShipped_quantity());
-					tv_sy.setText("剩余货品总数："+(Integer.parseInt(entity.getTotal_quantity())-Integer.parseInt(entity.getShipped_quantity())));
+				} else {
+					tv_yf.setText("已发货数量：" + entity.getShipped_quantity());
+					if (entity.getShipped_quantity() != null
+							&& entity.getTotal_quantity() != null)
+						tv_sy.setText("剩余货品总数："
+								+ (Integer.parseInt(entity.getTotal_quantity()) - Integer
+										.parseInt(entity.getShipped_quantity())));
 				}
 				break;
 			case 1:
@@ -125,17 +150,22 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private TextView tv_sy;
 	private PayAlertDialog ad;
 	private Intent i;
+	private DecimalFormat df;
+	private TextView tv_yfdj;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_detail);
-		//status = getIntent().getIntExtra("status", 0);
+		// status = getIntent().getIntExtra("status", 0);
 		id = getIntent().getIntExtra("id", 0);
-		type = getIntent().getIntExtra("type",5);
-		//goodid = getIntent().getIntExtra("goodid", -1);
+		type = getIntent().getIntExtra("type", 5);
+		df = (DecimalFormat) NumberFormat.getInstance();
+		df.applyPattern("0.00");
+		// goodid = getIntent().getIntExtra("goodid", -1);
 		if (type == 5) {
 			new TitleMenuUtil(OrderDetail.this, "批购订单详情").show();
+
 		} else {
 			new TitleMenuUtil(OrderDetail.this, "代购订单详情").show();
 		}
@@ -152,109 +182,120 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		try {
 			entity = new StringEntity(jsonParams.toString(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			
-		
+
 			return;
 		}
 
-		if (type==5) {
+		if (type == 5) {
 			url = Config.ORDERDETAIL;
 		} else {
 			url = Config.ORDERDETAIL1;
 		}
-		Log.i("url",url);
-		MyApplication.getInstance().getClient()
-				.post(getApplicationContext(),url, null,entity,"application/json", new AsyncHttpResponseHandler() {
-					@Override
-					public void onStart() {
+		Log.i("url", url);
+		MyApplication
+				.getInstance()
+				.getClient()
+				.post(getApplicationContext(), url, null, entity,
+						"application/json", new AsyncHttpResponseHandler() {
+							@Override
+							public void onStart() {
 
-						super.onStart();
-						 loadingDialog = DialogUtil.getLoadingDialg(OrderDetail.this);
-						 loadingDialog.show();
-					}
-
-					@Override
-					public void onFinish() {
-
-						super.onFinish();
-						loadingDialog.dismiss();
-					}
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							byte[] responseBody) {
-						String responseMsg = new String(responseBody)
-								.toString();
-						Log.e("print", responseMsg);
-						Gson gson = new Gson();
-
-						JSONObject jsonobject = null;
-						String code = null;
-						try {
-							jsonobject = new JSONObject(responseMsg);
-							code = jsonobject.getString("code");
-							int a = jsonobject.getInt("code");
-							if (a == Config.CODE) {
-								
-								String res = jsonobject.getString("result");
-								// jsonobject = new JSONObject(res);
-								System.out.println("````" + res);
-								ode = gson.fromJson(res,
-										new TypeToken<OrderDetailEntity>() {
-										}.getType());
-								status=ode.getOrder_status();
-								initView();
-								// jsonobject = new JSONObject(res);
-								goodlist = ode.getOrder_goodsList();
-								relist = ode.getComments().getContent();
-
-								posAdapter = new OrderDetail_PosAdapter(
-										OrderDetail.this, goodlist, status);
-								pos_lv.setAdapter(posAdapter);
-								if (relist == null) {
-									tv_comment.setVisibility(View.GONE);
-								} else {
-									reAdapter = new RecordAdapter(
-											OrderDetail.this, relist);
-									his_lv.setAdapter(reAdapter);
-								}
-
-								handler.sendEmptyMessage(0);
-
-							} else {
-								code = jsonobject.getString("message");
-								Toast.makeText(getApplicationContext(), code,
-										1000).show();
+								super.onStart();
+								loadingDialog = DialogUtil
+										.getLoadingDialg(OrderDetail.this);
+								loadingDialog.show();
 							}
-						} catch (JSONException e) {
 
-							e.printStackTrace();
-						}
-					}
+							@Override
+							public void onFinish() {
 
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							byte[] responseBody, Throwable error) {
+								super.onFinish();
+								loadingDialog.dismiss();
+							}
 
-						System.out.println("-onFailure---");
-						Log.e("print", "-onFailure---" + error);
-					}
-				});
+							@Override
+							public void onSuccess(int statusCode,
+									Header[] headers, byte[] responseBody) {
+								String responseMsg = new String(responseBody)
+										.toString();
+								Log.e("print", responseMsg);
+								Gson gson = new Gson();
+
+								JSONObject jsonobject = null;
+								String code = null;
+								try {
+									jsonobject = new JSONObject(responseMsg);
+									code = jsonobject.getString("code");
+									int a = jsonobject.getInt("code");
+									if (a == Config.CODE) {
+
+										String res = jsonobject
+												.getString("result");
+										// jsonobject = new JSONObject(res);
+										System.out.println("````" + res);
+										ode = gson
+												.fromJson(
+														res,
+														new TypeToken<OrderDetailEntity>() {
+														}.getType());
+										status = ode.getOrder_status();
+										initView();
+										// jsonobject = new JSONObject(res);
+										goodlist = ode.getOrder_goodsList();
+										relist = ode.getComments().getContent();
+
+										posAdapter = new OrderDetail_PosAdapter(
+												OrderDetail.this, goodlist,
+												status);
+										pos_lv.setAdapter(posAdapter);
+										if (relist == null) {
+											tv_comment.setVisibility(View.GONE);
+										} else {
+											reAdapter = new RecordAdapter(
+													OrderDetail.this, relist);
+											his_lv.setAdapter(reAdapter);
+										}
+
+										handler.sendEmptyMessage(0);
+
+									} else {
+										code = jsonobject.getString("message");
+										Toast.makeText(getApplicationContext(),
+												code, 1000).show();
+									}
+								} catch (JSONException e) {
+
+									e.printStackTrace();
+								}
+							}
+
+							@Override
+							public void onFailure(int statusCode,
+									Header[] headers, byte[] responseBody,
+									Throwable error) {
+
+								System.out.println("-onFailure---");
+								Log.e("print", "-onFailure---" + error);
+							}
+						});
 	}
 
 	private void initView() {
-		line = (View)findViewById(R.id.line);
+		line = (View) findViewById(R.id.line);
 		tv_user = (TextView) findViewById(R.id.tv_user);
 		ll_user = (LinearLayout) findViewById(R.id.ll_user);
+		tv_yfdj = (TextView) findViewById(R.id.tv_yfdj);
 		if (!OrderList.type.equals("5")) {
 			ll_user.setVisibility(View.VISIBLE);
 			line.setVisibility(View.VISIBLE);
-		}else{
-			ll_pg = (LinearLayout)findViewById(R.id.ll_pg);
+
+		} else {
+			ll_pg = (LinearLayout) findViewById(R.id.ll_pg);
 			ll_pg.setVisibility(View.VISIBLE);
-			tv_yf = (TextView)findViewById(R.id.tv_yf);
-			tv_sy = (TextView)findViewById(R.id.tv_sy);
+			tv_yf = (TextView) findViewById(R.id.tv_yf);
+			tv_sy = (TextView) findViewById(R.id.tv_sy);
 		}
+
 		bt_pay = (Button) findViewById(R.id.bt_pay);
 		bt_pay.setOnClickListener(this);
 		bt_cancel = (Button) findViewById(R.id.bt_cancel);
@@ -288,19 +329,24 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 
 		switch (status) {
 		case 1:
+
 			tv_status.setText("未付款");
-			bt_pay.setText("支付订金");
+			if (PosListActivity.shoptype != 1) {
+				bt_pay.setText("付款");
+			} else {
+				bt_pay.setText("支付订金");
+			}
+
 			break;
 		case 2:
-			if (type==5) {
-				
+			if (type == 5) {
+
 				ll_ishow.setVisibility(View.VISIBLE);
 				bt_pay.setText("付款");
 				tv_status.setText("已付订金");
 				btn_ishow.setVisibility(View.VISIBLE);
 			} else {
-				
-				
+
 				tv_status.setText("已付款");
 				btn_ishow.setVisibility(View.VISIBLE);
 			}
@@ -324,14 +370,14 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			break;
 		case 5:
 			tv_status.setText("已取消");
-			bt_pj.setVisibility(View.VISIBLE);
-			if (OrderList.type.equals("5")) {
-				bt_pj.setText("再次批购");
-
-			} else {
-				bt_pj.setText("再次代购");
-
-			}
+			/*
+			 * bt_pj.setVisibility(View.VISIBLE); if
+			 * (OrderList.type.equals("5")) { bt_pj.setText("再次批购");
+			 * 
+			 * } else { bt_pj.setText("再次代购");
+			 * 
+			 * }
+			 */
 			break;
 		case 6:
 
@@ -347,24 +393,28 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.btn_pj:
 			if (status == 5) {
-				
-					Intent i = new Intent(OrderDetail.this, GoodDeatail.class);
-					if(entity!=null){
-						if(!StringUtil.isNull(entity.getOrder_goodsList().get(0).getGood_id()))
-						i.putExtra("id", Integer.parseInt(entity.getOrder_goodsList().get(0).getGood_id()));
-						startActivity(i);
-					
+
+				Intent i = new Intent(OrderDetail.this, GoodDeatail.class);
+				if (entity != null) {
+					if (!StringUtil.isNull(entity.getOrder_goodsList().get(0)
+							.getGood_id()))
+						i.putExtra(
+								"id",
+								Integer.parseInt(entity.getOrder_goodsList()
+										.get(0).getGood_id()));
+					startActivity(i);
+
 				}
 
 			} else if (status == 3) {
 				Config.list = ode.getOrder_goodsList();
 				if (Config.list.size() != 0) {
-				
+
 					startActivity(new Intent(OrderDetail.this, Comment.class));
 				}
 
 			}
-		
+
 			break;
 		case R.id.btn_ishow:
 			amd = new AlertMessDialog(OrderDetail.this);
@@ -380,58 +430,58 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			});
 			break;
 		case R.id.bt_pay:
-			i = new Intent(OrderDetail.this,
-					PayFromCar.class);
-			if(type==5){
-				if(status==2){
-					ad = new PayAlertDialog(OrderDetail.this);   
-					ad.setTitle("付款");				
-					ad.setPositiveButton("取消", new OnClickListener() {				
+			i = new Intent(OrderDetail.this, PayFromCar.class);
+			if (type == 5) {
+				if (status == 2) {
+					ad = new PayAlertDialog(OrderDetail.this);
+					ad.setTitle("付款");
+					ad.setPositiveButton("取消", new OnClickListener() {
 						@Override
 						public void onClick(View arg0) {
-							ad.dismiss();				
+							ad.dismiss();
 						}
 					});
 					ad.setNegativeButton("确定", new OnClickListener() {
-						
+
 						@Override
 						public void onClick(View arg0) {
-							String pay=ad.getPay();
-							
+							String pay = ad.getPay();
+
 							ad.dismiss();
 							try {
-								i.putExtra("orderId",id );
-								i.putExtra("type",type);
-								i.putExtra("pay",pay);
+								i.putExtra("orderId", id);
+								i.putExtra("type", type);
+								i.putExtra("pay", pay);
 								OrderDetail.this.finish();
 								OrderDetail.this.startActivity(i);
-								
-							/*	if(Float.parseFloat(pay)<(float)entity.getShengyu_price()){
-									OrderDetail.this.finish();
-									OrderDetail.this.startActivity(i);	
-								}else{
-									Toast.makeText(OrderDetail.this, "金额不能大于剩余金额！", 1000).show();	
-								}*/
+
+								/*
+								 * if(Float.parseFloat(pay)<(float)entity.
+								 * getShengyu_price()){
+								 * OrderDetail.this.finish();
+								 * OrderDetail.this.startActivity(i); }else{
+								 * Toast.makeText(OrderDetail.this,
+								 * "金额不能大于剩余金额！", 1000).show(); }
+								 */
 							} catch (Exception e) {
-								
-							}								
-												
+
+							}
+
 						}
-					});	
-				}else{
-					i.putExtra("orderId",id );
-					i.putExtra("type",type);
+					});
+				} else {
+					i.putExtra("orderId", id);
+					i.putExtra("type", type);
 					OrderDetail.this.finish();
 					startActivity(i);
 				}
-				
-				
-			}else{
-				i.putExtra("orderId",id );
-				i.putExtra("type",type);
+
+			} else {
+				i.putExtra("orderId", id);
+				i.putExtra("type", type);
 				startActivity(i);
 			}
-			
+
 			break;
 		case R.id.bt_cancel:
 			final AlertDialog ad = new AlertDialog(OrderDetail.this);

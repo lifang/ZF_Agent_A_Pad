@@ -65,7 +65,7 @@ public class F_good_detail extends Fragment implements OnClickListener{
 		pos_lv1.setAdapter(lvAdapter1);
 		pos_lv2.setAdapter(lvAdapter2);
 		pos_lv3.setAdapter(lvAdapter3);
-		ppxx.setText(Config.gfe.getModel_number() );
+		ppxx.setText(Config.gfe.getGood_brand()+Config.gfe.getModel_number());
 		wkxx.setText(Config.gfe.getShell_material() );
 		dcxx.setText(Config.gfe.getBattery_info());
 		tv_qgd.setText(Config.gfe.getSign_order_way());

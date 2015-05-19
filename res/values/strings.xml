@@ -77,8 +77,8 @@
         <item>选择所在地</item>
     </string-array>
     <string-array name="my_apply_detail_bank_keys">
+        <item>结算银行账户名</item>
         <item>结算银行名称</item>
-        <item>结算银行代码</item>
         <item>结算银行账户</item>
         <item>税务登记证号</item>
         <item>组织机构号</item>
@@ -147,6 +147,8 @@
     <string name="parse_data_failed">解析数据失败</string>
     <string name="network_info">无法连接到网络</string>
     <string name="button_submit">提交</string>
+    <string name="apply_user_input">请输入用户名</string>
+    <string name="title_terminal_choose_user">选择用户</string>
     <string name="apply_bank_input">请输入银行名称</string>
     <string name="apply_bank_result">搜索结果</string>
     <string name="title_apply_choose_bank">选择银行</string>
@@ -274,4 +276,51 @@
         </string-array>
 <string name="endCall1">结束视频</string>
 
-</resources>
+    <!-- 转账 。还款 -->
+    <string-array name="trade_item_bank_transfer">
+        <item>终 端 号</item>
+        <item>付款账号</item>
+        <item>转入账号</item>
+        <item>支付通道</item>
+        <item>交易金额</item>
+        <item>交易时间</item>
+        <item>交易状态</item>
+        <item>交易批次号</item>
+        <item>交易流水号</item>
+    </string-array>
+    <!-- 消费 -->
+    <string-array name="trade_item_bank_consume">
+        <item>终 端 号</item>
+        <item>手续费</item>
+        <item>支付通道</item>
+        <item>交易金额</item>
+        <item>交易时间</item>
+        <item>交易状态</item>
+        <item>交易批次号</item>
+        <item>交易流水号</item>
+    </string-array>
+    <!-- 话费充值 -->
+    <string-array name="trade_item_bank_phone_pay">
+        <item>终 端 号</item>
+        <item>手机号码</item>
+        <item>支付通道</item>
+        <item>交易金额</item>
+        <item>交易时间</item>
+        <item>交易状态</item>
+        <item>交易批次号</item>
+        <item>交易流水号</item>
+    </string-array>
+    <!-- 生活充值 -->
+    <string-array name="trade_item_bank_life_pay">
+        <item>终 端 号</item>
+        <item>账户名</item>
+        <item>账户号码</item>
+        <item>支付通道</item>
+        <item>交易金额</item>
+        <item>交易时间</item>
+        <item>交易状态</item>
+        <item>交易批次号</item>
+        <item>交易流水号</item>
+    </string-array>
+
+</resources>

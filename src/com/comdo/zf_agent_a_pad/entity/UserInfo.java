@@ -1,8 +1,10 @@
 package com.comdo.zf_agent_a_pad.entity;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class UserInfo {
+public class UserInfo implements Serializable {
 	@SerializedName("customersId")
 	private String id;
 	private String name;

@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/F3F2F2"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_back" />
+
+    <View
+        style="@style/Divider"
+        android:layout_marginTop="24dp" />
+
+    <FrameLayout style="@style/FrameItem" >
+
+        <EditText
+            android:id="@+id/apply_user_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginRight="50dp"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/apply_user_input"
+            android:singleLine="true"
+            android:textColor="@color/text6c6c6c6"
+            android:textColorHint="@color/Viewc2"
+            android:textSize="19sp" />
+
+        <ImageButton
+            android:id="@+id/apply_user_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:background="@android:color/transparent"
+            android:enabled="true"
+            android:src="@drawable/ic_search_blue" />
+    </FrameLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:id="@+id/apply_bank_result_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            style="@style/TextItem"
+            android:layout_gravity="left"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/apply_bank_result" />
+
+        <View style="@style/Divider" />
+
+        <com.comdo.zf_agent_a_pad.util.XListView
+            android:id="@+id/terminal_user_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/F3F2F2"
+            android:divider="@color/Viewc2"
+            android:dividerHeight="1px"
+            android:headerDividersEnabled="true"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -3,6 +3,7 @@ package com.comdo.zf_agent_a_pad.trade;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,22 +19,27 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyBank;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
+import com.comdo.zf_agent_a_pad.util.Tools;
+import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BANK;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
 
 /**
  * Created by Leo on 2015/3/16.
  */
-public class ApplyBankActivity extends Activity implements View.OnClickListener {
+public class ApplyBankActivity extends Activity implements
+		View.OnClickListener, XListView.IXListViewListener {
 
-	private String mTerminalNumber;
+	private String mTerminalNumber, keyword = "";
 
 	private EditText mBankInput;
 	private ImageButton mBankSearch;
@@ -41,9 +47,13 @@ public class ApplyBankActivity extends Activity implements View.OnClickListener 
 
 	private List<ApplyBank> mAllBanks = new ArrayList<ApplyBank>();
 	private List<ApplyBank> mBanks = new ArrayList<ApplyBank>();
-	private ListView mBankList;
+	private XListView mBankList;
 	private BankListAdapter mAdapter;
 	private ApplyBank mChosenBank;
+	private int page = 0;
+	private int pageSize = 20;
+	private int mTerminalId;
+	private Boolean isLoadMore = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +61,7 @@ public class ApplyBankActivity extends Activity implements View.OnClickListener 
 		setContentView(R.layout.activity_apply_bank);
 		new TitleMenuUtil(this, getString(R.string.title_apply_choose_bank))
 				.show();
-		mTerminalNumber = getIntent().getStringExtra(TERMINAL_NUMBER);
+		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
 		mChosenBank = (ApplyBank) getIntent().getSerializableExtra(
 				SELECTED_BANK);
 
@@ -59,8 +69,11 @@ public class ApplyBankActivity extends Activity implements View.OnClickListener 
 		mBankSearch = (ImageButton) findViewById(R.id.apply_bank_search);
 		mBankSearch.setOnClickListener(this);
 		mResultContainer = (LinearLayout) findViewById(R.id.apply_bank_result_container);
-		mBankList = (ListView) findViewById(R.id.apply_bank_list);
+		mBankList = (XListView) findViewById(R.id.apply_bank_list);
 		mAdapter = new BankListAdapter();
+		mBankList.initHeaderAndFooter();
+		mBankList.setXListViewListener(this);
+		mBankList.setPullLoadEnable(true);
 		mBankList.setAdapter(mAdapter);
 
 		mBankList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,7 +88,13 @@ public class ApplyBankActivity extends Activity implements View.OnClickListener 
 			}
 		});
 
-		Config.getApplyBankList(this, mTerminalNumber,
+		 loadData();
+	}
+
+	private void loadData() {
+
+		// TODO:
+		Config.getApplyBankList(this, page + 1, keyword, pageSize, String.valueOf(mTerminalId),
 				new HttpCallback<List<ApplyBank>>(this) {
 					@Override
 					public void onSuccess(List<ApplyBank> data) {
@@ -97,14 +116,9 @@ public class ApplyBankActivity extends Activity implements View.OnClickListener 
 
 	@Override
 	public void onClick(View view) {
-		String keyword = mBankInput.getText().toString();
+		keyword = mBankInput.getText().toString();
 		mBanks.clear();
-		for (ApplyBank bank : mAllBanks) {
-			if (bank.getName().indexOf(keyword) > -1) {
-				mBanks.add(bank);
-			}
-		}
-		mAdapter.notifyDataSetChanged();
+		loadData();
 	}
 
 	private class BankListAdapter extends BaseAdapter {
@@ -168,4 +182,29 @@ public class ApplyBankActivity extends Activity implements View.OnClickListener 
 		TextView id;
 	}
 
+	private void loadFinished() {
+		mBankList.stopRefresh();
+		mBankList.stopLoadMore();
+		mBankList.setRefreshTime(Tools.getHourAndMin());
+	}
+
+	@Override
+	public void onRefresh() {
+		page = 0;
+		mBanks.clear();
+		mBankList.setPullLoadEnable(true);
+		loadData();
+	}
+
+	@Override
+	public void onLoadMore() {
+		if (!isLoadMore) {
+			mBankList.setPullLoadEnable(false);
+			mBankList.stopLoadMore();
+			CommonUtil.toastShort(this,
+					getResources().getString(R.string.no_more_data));
+		} else {
+			loadData();
+		}
+	}
 }

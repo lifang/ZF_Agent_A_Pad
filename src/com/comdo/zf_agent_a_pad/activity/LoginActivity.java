@@ -188,6 +188,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.login_linear_deletename:
 			login_edit_name.setText("");
+			login_edit_pass.setText("");
 			break;
 		case R.id.login_linear_deletepass:
 			login_edit_pass.setText("");
@@ -218,7 +219,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 				editor.commit();
 				System.out.println(mySharedPreferences.getBoolean("islogin",
 						false) + "---");
+				MyApplication.setNewUser(data);
 				MyApplication.NewUser = data;
+				MyApplication.setAgentId(data.getAgentId());
 
 				CheckRights.setAllFalse();
 				if (MyApplication.NewUser.getParent_id() != 0) {
@@ -226,15 +229,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 					if (MyApplication.NewUser.getTypes() == 2) {
 
 						CheckRights.setErjiTrue();
-					} 
+					}
 				} else {
-					
+
 					if (MyApplication.NewUser.getTypes() == 6) {
 
 						CheckRights.setUserTrue();
-					} else{
-												
-					CheckRights.setYijiTrue();
+					} else {
+
+						CheckRights.setYijiTrue();
 					}
 				}
 				Intent it = new Intent(LoginActivity.this, MainActivity.class);

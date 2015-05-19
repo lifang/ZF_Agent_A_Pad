@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
@@ -46,6 +47,7 @@ public class GenerateSearch extends Activity implements OnClickListener,
 	private LinearLayout eva_nodata;
 	private TerminalAdapter myAdapter;
 
+	private int a = 0;
 	private SharedPreferences mySharedPreferences = null;
 	private Editor editor;
 	private String terminalStr = "", name,lastSearch;// 搜索记录
@@ -77,30 +79,48 @@ public class GenerateSearch extends Activity implements OnClickListener,
 				MODE_PRIVATE);
 		editor = mySharedPreferences.edit();
 		terminalStr = mySharedPreferences.getString("terminalStr", "");
+		
+		myAdapter = new TerminalAdapter();
+		
 		if (terminalStr == "" || terminalStr == null) {
-
-			mListView.setVisibility(View.GONE);
-			eva_nodata.setVisibility(View.VISIBLE);
+			data.add("没有搜索记录");
+//			mListView.setVisibility(View.GONE);
+//			eva_nodata.setVisibility(View.VISIBLE);
 
 		} else {
-
-			mListView.setVisibility(View.VISIBLE);
-			eva_nodata.setVisibility(View.GONE);
-
+//			mListView.setVisibility(View.VISIBLE);
+//			eva_nodata.setVisibility(View.GONE);
 			if (terminalStr.contains(",")) {
 				String[] serach = terminalStr.split(",");
 				for (int i = (serach.length - 1); i >= 0; i--) {
 
+					if (a == 7) {
+						break;// 历史记录显示7条
+					}
 					data.add(serach[i]);
+					a++;
 				}
+				data.add("清除搜索记录");
 
 			} else {
 				data.add(terminalStr);
-
+				data.add("清除搜索记录");
 			}
-			data.add(getResources().getString(R.string.clear_history));
+			myAdapter.notifyDataSetChanged();
+//			if (terminalStr.contains(",")) {
+//				String[] serach = terminalStr.split(",");
+//				for (int i = (serach.length - 1); i >= 0; i--) {
+//
+//					data.add(serach[i]);
+//				}
+//
+//			} else {
+//				data.add(terminalStr);
+//
+//			}
+//			data.add(getResources().getString(R.string.clear_history));
 		}
-		myAdapter = new TerminalAdapter();
+	
 
 		mListView.initHeaderAndFooter();
 		mListView.setPullLoadEnable(true);
@@ -117,17 +137,33 @@ public class GenerateSearch extends Activity implements OnClickListener,
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				if (data.get(position-2).endsWith("没有搜索记录")) {
 
-				if (position == data.size() - 1) {
+					// Toast.makeText(EditTextSearch.this, "请在输入框输入正确条件",
 
-					DeletaData();
+				} else if(data.get(position-2).endsWith("清除搜索记录")){
+					 DeletaData();
 				} else {
-
+					// 判断历史记录是否 需要添加
+					searchEditText.setText(data.get(position-2));
 					Intent intent = new Intent();
-					intent.putExtra(SELECTED_TERMINAL, data.get(position - 1));
+					intent.putExtra(SELECTED_TERMINAL, data.get(position-2));
 					setResult(RESULT_OK, intent);
 					finish();
+
 				}
+				
+				
+//				if (position == data.size() - 1) {
+//
+//					DeletaData();
+//				} else {
+//
+//					Intent intent = new Intent();
+//					intent.putExtra(SELECTED_TERMINAL, data.get(position - 1));
+//					setResult(RESULT_OK, intent);
+//					finish();
+//				}
 			}
 		});
 
@@ -162,20 +198,26 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		case R.id.titleback_linear_back:
 			name = searchEditText.getText().toString();
 
-			Intent intent = new Intent();
-			intent.putExtra(SELECTED_TERMINAL, name);
-			GenerateSearch.this.setResult(RESULT_OK, intent);
+//			Intent intent = new Intent();
+//			intent.putExtra(SELECTED_TERMINAL, name);
+//			GenerateSearch.this.setResult(RESULT_OK, intent);
 			finish();
 			break;
 		case R.id.linear_deletename:
 			searchEditText.setText("");
 			break;
 		case R.id.next_cancel:
-			name = searchEditText.getText().toString();
-
-			Intent it = new Intent();
-			it.putExtra(SELECTED_TERMINAL, name);
-			GenerateSearch.this.setResult(RESULT_OK, it);
+			if (StringUtil.isNull(searchEditText.getText().toString())) {
+				Intent intent2 = new Intent();
+				intent2.putExtra(SELECTED_TERMINAL, "");
+				setResult(RESULT_OK, intent2);
+				finish();
+			}else {
+				finish();
+			}
+//			Intent it = new Intent();
+//			it.putExtra(SELECTED_TERMINAL, name);
+//			GenerateSearch.this.setResult(RESULT_OK, it);
 			finish();
 			break;
 		default:
@@ -233,27 +275,38 @@ public class GenerateSearch extends Activity implements OnClickListener,
 
 	// add
 	public void addData(String name) {
-		String[] serach = terminalStr.split(",");
-		data.clear();
-		for (int i = (serach.length - 1); i >= 0; i--) {
-			data.add(serach[i]);
-		}
-		for (int i = 0; i < data.size(); i++) {
-			if (data.get(i).equals(name)) {
-				data.remove(i);
-			}
-		}
-		data.add(name);
-		terminalStr = "";
-		for (String str : data) {
-			if (terminalStr != null && !terminalStr.equals("")) {
-				terminalStr += "," + str;
-			} else {
-				terminalStr += str;
-			}
-			editor.putString("terminalStr", terminalStr);
-			editor.commit();
-		}
+
+		 if (!terminalStr.contains(name)) {
+			 if (terminalStr != null && !terminalStr.equals("")) {
+				 terminalStr += "," + name;
+			 } else {
+				 terminalStr += name;
+			 }
+			 editor.putString("terminalStr", terminalStr);
+			 editor.commit();
+			 }  
+	
+//		String[] serach = terminalStr.split(",");
+//		data.clear();
+//		for (int i = (serach.length - 1); i >= 0; i--) {
+//			data.add(serach[i]);
+//		}
+//		for (int i = 0; i < data.size(); i++) {
+//			if (data.get(i).equals(name)) {
+//				data.remove(i);
+//			}
+//		}
+//		data.add(name);
+//		terminalStr = "";
+//		for (String str : data) {
+//			if (terminalStr != null && !terminalStr.equals("")) {
+//				terminalStr += "," + str;
+//			} else {
+//				terminalStr += str;
+//			}
+//			editor.putString("terminalStr", terminalStr);
+//			editor.commit();
+//		}
 
 	}
 
@@ -263,8 +316,8 @@ public class GenerateSearch extends Activity implements OnClickListener,
 		editor.putString("terminalStr", "");
 		editor.commit();// 提交
 		data.clear();
-
 		terminalStr = "";
+		data.add("没有搜索记录");
 		myAdapter.notifyDataSetChanged();
 	}
 
@@ -279,7 +332,7 @@ public class GenerateSearch extends Activity implements OnClickListener,
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-		name = searchEditText.getText().toString();
+		name = searchEditText.getText().toString().trim();
 		 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 			 addData(name);
 				Intent intent = new Intent();

@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class TerminalManagerEntity {
 
-
 	private int id;
-	
+
 	@SerializedName("serial_num")
 	private String posPortID;// 终端号
 
@@ -15,12 +14,58 @@ public class TerminalManagerEntity {
 
 	@SerializedName("model_number")
 	private String posname;// POS机
-	
+
 	@SerializedName("channelName")
 	private String payChannel;// 支付通道
 
 	@SerializedName("status")
 	private int openState;// 开通状态
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getAppid() {
+		return appid;
+	}
+
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
+
+	public String getOpeningProtocol() {
+		return openingProtocol;
+	}
+
+	public void setOpeningProtocol(String openingProtocol) {
+		this.openingProtocol = openingProtocol;
+	}
+
+	public int getHasVideoVerify() {
+		return hasVideoVerify;
+	}
+
+	public void setHasVideoVerify(int hasVideoVerify) {
+		this.hasVideoVerify = hasVideoVerify;
+	}
+
+	public String getOpenstatus() {
+		return openstatus;
+	}
+
+	public void setOpenstatus(String openstatus) {
+		this.openstatus = openstatus;
+	}
+
+	private String type;
+	private String appid;
+	private String openingProtocol;
+	private int hasVideoVerify;
+	private String openstatus;
 
 	public int getId() {
 		return id;

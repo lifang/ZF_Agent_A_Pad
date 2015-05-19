@@ -273,9 +273,10 @@
                                                 android:layout_alignParentTop="true"
                                                 android:ellipsize="end"
                                                 android:maxLines="2"
+                                                android:singleLine="true"
                                                 android:text="2015最新POS机器旗舰版  1.0"
                                                 android:textColor="@color/text292929"
-                                                android:textSize="@dimen/textmid" />
+                                                android:textSize="@dimen/textbig" />
 
                                             <LinearLayout
                                                 android:layout_width="wrap_content"
@@ -299,7 +300,7 @@
                                                         android:maxLines="1"
                                                         android:text="品牌型号"
                                                         android:textColor="@color/text6c6c6c6"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/content2"
@@ -309,9 +310,10 @@
                                                         android:ellipsize="end"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
+                                                        android:singleLine="true"
                                                         android:text="contentcontentcontentcontent"
                                                         android:textColor="@color/text292929"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
 
                                                 <LinearLayout
@@ -329,7 +331,7 @@
                                                         android:maxLines="1"
                                                         android:text="支付通道"
                                                         android:textColor="@color/text6c6c6c6"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/wayName"
@@ -339,9 +341,10 @@
                                                         android:ellipsize="end"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
+                                                        android:singleLine="true"
                                                         android:text="支付宝"
                                                         android:textColor="@color/text292929"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
                                             </LinearLayout>
                                         </RelativeLayout>
@@ -373,7 +376,7 @@
                                                         android:maxLines="1"
                                                         android:text="原价：99999999"
                                                         android:textColor="#959494"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/tv_price"
@@ -384,7 +387,7 @@
                                                         android:maxLines="1"
                                                         android:text="$999.00"
                                                         android:textColor="#292929"
-                                                        android:textSize="@dimen/textbig" />
+                                                        android:textSize="@dimen/textbig2" />
                                                 </LinearLayout>
                                             </LinearLayout>
                                         </LinearLayout>
@@ -520,7 +523,8 @@
                                             android:layout_width="fill_parent"
                                             android:layout_height="fill_parent"
                                             android:layout_weight="1"
-                                            android:editable="false"
+                                            android:editable="true"
+                                            android:digits="0123456789"
                                             android:background="@color/ffffff"
                                             android:gravity="center" />
 
@@ -625,7 +629,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="14dp"
-                            android:checked="true" />
+                            android:checked="false" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -639,6 +643,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/ll_fp"
+                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/titilepad1"
                         android:gravity="center_vertical" >
 

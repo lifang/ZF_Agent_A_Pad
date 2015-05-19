@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView.OnItemClickListener;
@@ -27,6 +30,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -96,19 +100,28 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private TextView tv_zl;
 	private int comments;
 	private Intent i;
-
+	private BaseAdapter maAdapter;
+	private LayoutInflater mInflater;
+	private DecimalFormat df;
+	private TextView tv_chanel;
+	private LinearLayout ll_pf;
+	private LinearLayout ll_select_user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_comfirm1);
+		df = (DecimalFormat) NumberFormat
+				.getInstance();
+		df.applyPattern("0.00");
 		ue = MyApplication.NewUser;
 		type = getIntent().getIntExtra("type", 1);
-
+		ll_select_user = (LinearLayout)findViewById(R.id.ll_select_user);
 		if (type == 1) {
-			new TitleMenuUtil(LeaseConfirm.this, "代购订单确认").show();
+			new TitleMenuUtil(LeaseConfirm.this, "采购订单确认").show();
 			ordertype = 3;
+			ll_select_user.setVisibility(View.GONE);
 		} else {
-			new TitleMenuUtil(LeaseConfirm.this, "代租赁订单确认").show();
+			new TitleMenuUtil(LeaseConfirm.this, "租赁订单确认").show();
 			ordertype = 4;
 		}
 
@@ -124,16 +137,17 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		title2.setText(getIntent().getStringExtra("getTitle"));
 		pg_price = getIntent().getIntExtra("purchase_price", 1);
 		pirce = getIntent().getIntExtra("price", 0);
-		retail_price.setText("原价:￥" + pirce);
+		retail_price.setText("原价:￥" +  df.format(pirce*1.0f/100));
 		goodId = getIntent().getIntExtra("goodId", 1);
 		paychannelId = getIntent().getIntExtra("paychannelId", 1);
-		tv_pay.setText("实付：￥ " + ((double) pg_price) / 100);
-		tv_totle.setText("实付：￥ " + ((double) pg_price) / 100);
-		tv_price.setText("￥" + ((double) pg_price) / 100);
+		tv_pay.setText("实付：￥ " +   df.format(pg_price*1.0f/100));
+		tv_totle.setText("实付：￥ " +   df.format(pg_price*1.0f/100));
+		tv_price.setText("￥" +   df.format(pg_price *1.0f/100));
 		tv_brand.setText(getIntent().getStringExtra("brand"));
-		String img_url = getIntent().getStringExtra("evevt_img");
+		String img_url = getIntent().getStringExtra("piclist");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url, event_img);
 		System.out.println("=paychannelId==" + paychannelId);
+		tv_chanel.setText(getIntent().getStringExtra("chanel"));
 		GetUser();
 
 	}
@@ -152,7 +166,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 							listString.add(userInfo.getName());
 							items.add(item);
 						}
-						adapter_user.notifyDataSetChanged();
+						maAdapter.notifyDataSetChanged();
 					}
 
 					@Override
@@ -169,6 +183,10 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+	
+		ll_pf = (LinearLayout)findViewById(R.id.ll_fp);
+		tv_chanel = (TextView)findViewById(R.id.wayName);
+		mInflater = LayoutInflater.from(this);
 		tv_zl = (TextView) findViewById(R.id.tv_zl);
 		tv_zl.setOnClickListener(this);
 		bt_addadress = (Button) findViewById(R.id.bt_addadress);
@@ -178,11 +196,37 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		bt_add = (Button) findViewById(R.id.bt_add);
 		bt_add.setOnClickListener(this);
 		spinner_user = (Spinner) findViewById(R.id.spinner_user);
+		maAdapter = new BaseAdapter() {
 
-		adapter_user = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listString);
+			@Override
+			public int getCount() {
+				return listString.size();
+			}
+
+			@Override
+			public Object getItem(int arg0) {
+				return listString.get(arg0);
+			}
+
+			@Override
+			public long getItemId(int arg0) {
+				return 0;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				LinearLayout layout = (LinearLayout) mInflater.inflate(
+						R.layout.drop_down_item, null);
+				TextView tv = (TextView) layout.findViewById(R.id.text);
+				tv.setText((String) getItem(position));
+				return layout;
+			}
+
+		};
+		//adapter_user = new ArrayAdapter<String>(this,
+		//		android.R.layout.simple_spinner_item, listString);
 		// adapter.setDropDownViewResource(R.layout.drop_down_item);
-		spinner_user.setAdapter(adapter_user);
+		spinner_user.setAdapter(maAdapter);
 
 		spinner_user
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -204,8 +248,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		tv_zc = (TextView) findViewById(R.id.tv_zc);
 		tv_zd = (TextView) findViewById(R.id.tv_zd);
 		if (Config.gfe != null) {
-			tv_zc.setText("最长租赁时间：" + Config.gfe.getLease_time() + "天");
-			tv_zd.setText("最短租赁时间：" + Config.gfe.getReturn_time() + "天");
+			tv_zc.setText("最长租赁时间：" + Config.gfe.getReturn_time()+ "天");
+			tv_zd.setText("最短租赁时间：" + Config.gfe.getLease_time()  + "天");
 		}
 		sclist = (ScrollViewWithListView) findViewById(R.id.pos_lv1);
 		myAdapter = new ChooseAdressAdapter(this, myList);
@@ -251,6 +295,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					if (type == 1){
 						is_need_invoice = 1;
 						et_titel.setEnabled(true);
+						ll_pf.setVisibility(View.VISIBLE);
 					}
 						
 				} else {
@@ -258,6 +303,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					if (type == 1){
 						is_need_invoice = 0;
 						et_titel.setEnabled(false);
+						ll_pf.setVisibility(View.GONE);
 					}
 						
 				}
@@ -269,6 +315,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
 				// showCountText.setText(arg0.toString());
+				if(buyCountEdit.getText().toString().equals("0"))
+					buyCountEdit.setText("");
 				tv_count.setText("共计:   " + arg0 + "件");
 				if (buyCountEdit.getText().toString().equals("")) {
 					quantity = 0;
@@ -277,8 +325,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 							.toString());
 				}
 
-				tv_totle.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
-				tv_pay.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
+				tv_totle.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
+				tv_pay.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
 			}
 
 			@Override
@@ -317,7 +365,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void getData1() {
-		Config.GetAdressList(LeaseConfirm.this, ue.getAgentUserId(),
+		Config.GetAdressLis(LeaseConfirm.this, ue.getAgentUserId(),
 				new HttpCallback<List<AdressEntity>>(LeaseConfirm.this) {
 
 					@Override
@@ -375,7 +423,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			buyCountEdit.setText(quantity + "");
 			break;
 		case R.id.reduce:
-			if (quantity == 0) {
+			if (quantity <=1) {
 				break;
 			}
 			quantity = Integer.parseInt(buyCountEdit.getText().toString()) - 1;
@@ -393,7 +441,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private void confirmGood() {
 		et_comment = (EditText) findViewById(R.id.ed_comment);
 		comment = et_comment.getText().toString();
-		quantity = Integer.parseInt(buyCountEdit.getText().toString());
+		if(!buyCountEdit.getText().toString().trim().equals("")){
+			quantity = Integer.parseInt(buyCountEdit.getText().toString().trim());
+		}else{
+			quantity = 1;
+		}
+
 
 		invoice_info = et_titel.getText().toString();
 

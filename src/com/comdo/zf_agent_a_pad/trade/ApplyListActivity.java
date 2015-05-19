@@ -12,13 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -131,7 +134,8 @@ public class ApplyListActivity extends Activity implements
 		if ((searchKey != null && !"".equals(searchKey))) {
 
 			Config.searchApplyList(ApplyListActivity.this,
-					MyApplication.NewUser.getAgentId(), page+1, rows, searchKey,
+					MyApplication.NewUser.getAgentId(), page + 1, rows,
+					searchKey,
 					new HttpCallback<PageApply<TerminalManagerEntity>>(
 							ApplyListActivity.this) {
 						@Override
@@ -267,7 +271,13 @@ public class ApplyListActivity extends Activity implements
 
 			if (item.getOpenState() == UNOPENED) {
 				holder.btnOpen.setEnabled(true);
-				holder.btnOpen.setText(getString(R.string.apply_button_open));
+				if (!"".equals(item.getAppid())) {
+					holder.btnOpen
+							.setText(getString(R.string.apply_button_reopen));
+				} else {
+					holder.btnOpen
+							.setText(getString(R.string.apply_button_open));
+				}
 			} else if (item.getOpenState() == PART_OPENED) {
 				holder.btnOpen.setEnabled(true);
 				holder.btnOpen.setText(getString(R.string.apply_button_reopen));
@@ -277,27 +287,90 @@ public class ApplyListActivity extends Activity implements
 			holder.btnOpen.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
+					if (item.getOpenState() == UNOPENED
+							&& "".equals(item.getAppid())) {
 
-					Intent intent = new Intent(ApplyListActivity.this,
-							ApplyDetailActivity.class);
-					intent.putExtra(TERMINAL_ID, item.getId());
-					intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-					intent.putExtra(TERMINAL_STATUS, item.getOpenState());
-					startActivityForResult(intent, REQUEST_DETAIL);
+						openDialog(item);
+
+					} else {
+						Intent intent = new Intent(ApplyListActivity.this,
+								ApplyDetailActivity.class);
+						intent.putExtra(TERMINAL_ID, item.getId());
+						intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
+						intent.putExtra(TERMINAL_STATUS, item.getOpenState());
+						startActivityForResult(intent, REQUEST_DETAIL);
+					}
 
 				}
 			});
+
+			holder.btnVideo.setVisibility(View.VISIBLE);
+			Boolean videoBoolean = 1 == item.getHasVideoVerify();
+			if (!videoBoolean) {
+				holder.btnVideo.setVisibility(View.GONE);
+			}
 			holder.btnVideo.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					//添加视频审核
-					Intent intent = new Intent(ApplyListActivity.this, VideoActivity.class);
+					// 添加视频审核
+					Intent intent = new Intent(ApplyListActivity.this,
+							VideoActivity.class);
 					intent.putExtra(TERMINAL_ID, item.getId());
 					startActivity(intent);
 				}
 			});
 			return convertView;
 		}
+	}
+
+	private void openDialog(final TerminalManagerEntity item) {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				ApplyListActivity.this);
+
+		LayoutInflater factory = LayoutInflater.from(this);
+		View view = factory.inflate(R.layout.protocoldialog, null);
+		builder.setView(view);
+
+		final AlertDialog dialog = builder.create();
+		dialog.show();
+		final CheckBox cb = (CheckBox) view.findViewById(R.id.cb);
+
+		Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+
+		Button btn_confirm = (Button) view.findViewById(R.id.btn_confirm);
+
+		btn_cancel.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		btn_confirm.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (!cb.isChecked()) {
+
+					CommonUtil.toastShort(ApplyListActivity.this,
+							"请仔细阅读开通协议，并接受协议");
+
+				} else {
+
+					dialog.dismiss();
+					Intent intent = new Intent(ApplyListActivity.this,
+							ApplyDetailActivity.class);
+					intent.putExtra(TERMINAL_ID, item.getId());
+					intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
+					intent.putExtra(TERMINAL_STATUS, item.getOpenState());
+					startActivityForResult(intent, REQUEST_DETAIL);
+				}
+
+			}
+		});
+		// dialog.show();
+
 	}
 
 	static class ViewHolder {
@@ -322,7 +395,8 @@ public class ApplyListActivity extends Activity implements
 		if (noMoreData) {
 			mApplyList.setPullLoadEnable(false);
 			mApplyList.stopLoadMore();
-			CommonUtil.toastShort(this, getResources().getString(R.string.no_more_data));
+			CommonUtil.toastShort(this,
+					getResources().getString(R.string.no_more_data));
 		} else {
 			isLoadMore = true;
 			loadData();

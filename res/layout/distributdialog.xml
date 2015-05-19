@@ -4,13 +4,13 @@
     android:layout_height="fill_parent"
     android:background="#ffffff"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="460dp"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:layout_gravity="center"
+        android:background="#ffffff"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -25,7 +25,7 @@
                 android:layout_height="@dimen/dlimg"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/zc_margin_top"
-                android:background="@drawable/lgclose"/>
+                android:background="@drawable/lgclose" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -33,8 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="配货"
-                android:textColor="#292929"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <View
@@ -50,66 +49,69 @@
             android:paddingLeft="@dimen/zc_land_h"
             android:paddingRight="@dimen/zc_land_h" >
 
-           
-            
-                    <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="选择从下级代理商"
-                    android:layout_marginTop="20dp"
-                    android:textColor="#5C5C5C" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="选择从下级代理商"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ed_adress" >
 
                 <Spinner
                     android:id="@+id/sp_chooseagent"
-                   android:layout_width="350dp"
-                    android:layout_height="30dp"
-                    android:textSize="18sp"
-                    android:textColor="#868788"
-                    android:layout_marginLeft="20dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@null"
+                    android:paddingRight="80dp"
                     android:gravity="left|center_vertical"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/ed_adress"
-                     android:layout_marginTop="10dp" />
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="选择终端号"
-                    android:layout_marginTop="20dp"
-                    android:textColor="#5C5C5C" />
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/text6c6c6c6"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_choose_terminal"
-                     android:layout_width="350dp"
-                    android:layout_height="30dp"
-                    android:textSize="18sp"
-                    android:textColor="#868788"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/ed_adress"
-                     android:layout_marginTop="10dp" />
-            <Button 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="选择终端号"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_choose_terminal"
+                android:layout_width="350dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="100dp"
+                android:singleLine="true"
+                android:background="@drawable/ed_adress"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="2dp"
+                android:textColor="@color/text6c6c6c6"
+                android:textSize="20sp" />
+
+            <Button
                 android:id="@+id/btn_confirm"
                 android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:text="确认"
-                     android:background="@drawable/bg_blue_shape"
-                    android:textColor="@color/fffefe"
-                    android:textSize="16sp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="50dp" />
-            
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/bg_blue_shape"
+                android:gravity="center"
+                android:text="确认"
+                android:textColor="@color/fffefe"
+                android:textSize="20sp" />
         </LinearLayout>
-        
-            
     </LinearLayout>
 
->>>>>>> origin/master
-    </LinearLayout>
+</LinearLayout>

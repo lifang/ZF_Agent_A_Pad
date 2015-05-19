@@ -5,12 +5,12 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_TYPE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.CANCELED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.STOPPED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.HAVE_VIDEO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +25,13 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -40,7 +42,6 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.PageApply;
 import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.trade.ApplyDetailActivity;
-import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.TerminalManagerEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
@@ -212,67 +213,202 @@ public class TerminalManagerActivity extends Activity implements
 
 			// add buttons according to status
 			holder.llButtons.removeAllViews();
-			switch (item.getOpenState()) {
-			case OPENED:
+
+			if (!"2".equals(item.getType())) {
+
+				Boolean appidBoolean = !"".equals(item.getAppid());
+				Boolean videoBoolean = 1 == item.getHasVideoVerify();
+
+				switch (item.getOpenState()) {
+				case OPENED:
+					holder.llButtonContainer.setVisibility(View.VISIBLE);
+
+					addButton(holder.llButtons);
+					if (appidBoolean) {
+						if (videoBoolean) {
+
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+
+							addButton(holder.llButtons);
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+						}
+
+					} else {
+
+						addButton(holder.llButtons);
+						if (videoBoolean) {
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+
+							addButton(holder.llButtons);
+						}
+					}
+
+					addButton(holder.llButtons, R.string.terminal_button_pos,
+							item, mPosListener);
+					break;
+				case PART_OPENED:
+					holder.llButtonContainer.setVisibility(View.VISIBLE);
+					if (appidBoolean) {
+						if (videoBoolean) {
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+
+							addButton(holder.llButtons);
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+						}
+					} else {
+
+						addButton(holder.llButtons);
+						if (videoBoolean) {
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+
+							addButton(holder.llButtons);
+						}
+					}
+
+					addButton(holder.llButtons,
+							R.string.terminal_button_reopen, item,
+							mOpenListener);
+
+					addButton(holder.llButtons, R.string.terminal_button_pos,
+							item, mPosListener);
+					break;
+				case UNOPENED:
+					holder.llButtonContainer.setVisibility(View.VISIBLE);
+
+					addButton(holder.llButtons);
+					if (appidBoolean) {
+
+						if (videoBoolean) {
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+							addButton(holder.llButtons,
+									R.string.terminal_button_reopen, item,
+									mOpenListener);
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+
+							addButton(holder.llButtons);
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+							addButton(holder.llButtons,
+									R.string.terminal_button_open, item,
+									mOpenListener);
+						}
+					} else {
+
+						addButton(holder.llButtons);
+						if (videoBoolean) {
+							addButton(holder.llButtons,
+									R.string.terminal_button_open, item,
+									mOpenListener);
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+
+							addButton(holder.llButtons);
+							addButton(holder.llButtons,
+									R.string.terminal_button_open, item,
+									mOpenListener);
+						}
+					}
+					break;
+				case CANCELED:
+					holder.llButtonContainer.setVisibility(View.VISIBLE);
+					addButton(holder.llButtons);
+					if (appidBoolean) {
+						if (videoBoolean) {
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+
+							addButton(holder.llButtons);
+							addButton(holder.llButtons,
+									R.string.terminal_button_sync, item,
+									mSyncListener);
+						}
+					} else {
+
+						addButton(holder.llButtons);
+						if (videoBoolean) {
+							addButton(holder.llButtons,
+									R.string.terminal_button_video, item,
+									mVideoListener);
+						} else {
+							addButton(holder.llButtons);
+						}
+					}
+
+					addButton(holder.llButtons,
+							R.string.terminal_button_reopen, item,
+							mOpenListener);
+					break;
+				case STOPPED:
+					holder.llButtonContainer.setVisibility(View.VISIBLE);
+					addButton(holder.llButtons);
+					addButton(holder.llButtons);
+					addButton(holder.llButtons);
+					addButton(holder.llButtons);
+					break;
+				}
+			} else {
+
 				holder.llButtonContainer.setVisibility(View.VISIBLE);
 
 				addButton(holder.llButtons);
 				addButton(holder.llButtons);
-				addButton(holder.llButtons, R.string.terminal_button_video,
-						item, mVideoListener);
-				addButton(holder.llButtons, R.string.terminal_button_pos, item,
-						mPosListener);
-				break;
-			case PART_OPENED:
-				holder.llButtonContainer.setVisibility(View.VISIBLE);
-				addButton(holder.llButtons, R.string.terminal_button_sync,
-						item, mSyncListener);
-				addButton(holder.llButtons, R.string.terminal_button_reopen,
-						item, mOpenListener);
-				addButton(holder.llButtons, R.string.terminal_button_video,
-						item, mVideoListener);
-				addButton(holder.llButtons, R.string.terminal_button_pos, item,
-						mPosListener);
-				break;
-			case UNOPENED:
-				holder.llButtonContainer.setVisibility(View.VISIBLE);
-
-				addButton(holder.llButtons);
-				addButton(holder.llButtons, R.string.terminal_button_sync,
-						item, mSyncListener);
-				addButton(holder.llButtons, R.string.terminal_button_open,
-						item, mOpenListener);
-				addButton(holder.llButtons, R.string.terminal_button_video,
-						item, mVideoListener);
-				break;
-			case CANCELED:
-				holder.llButtonContainer.setVisibility(View.GONE);
 				addButton(holder.llButtons);
 				addButton(holder.llButtons);
-				addButton(holder.llButtons);
-				addButton(holder.llButtons);
-				break;
-			case STOPPED:
-				holder.llButtonContainer.setVisibility(View.VISIBLE);
-				addButton(holder.llButtons);
-				addButton(holder.llButtons);
-				addButton(holder.llButtons);
-				addButton(holder.llButtons, R.string.terminal_button_sync,
-						item, mSyncListener);
-				break;
 			}
 			convertView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					Intent intent = new Intent(TerminalManagerActivity.this,
-							TerminalManagerDetailActivity.class);
 
-					// TODO:
-					intent.putExtra(TERMINAL_ID, item.getId());
-					intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-					intent.putExtra(TERMINAL_STATUS, item.getOpenState());
+					if ("2".equals(item.getType())) {
+						// 通过添加其他终端 进来的终端，是没有详情，也没有操作按钮
+						return;
+					} else {
+						Intent intent = new Intent(
+								TerminalManagerActivity.this,
+								TerminalManagerDetailActivity.class);
 
-					startActivity(intent);
+						intent.putExtra(HAVE_VIDEO, item.getHasVideoVerify());
+						intent.putExtra(TERMINAL_ID, item.getId());
+						intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
+						intent.putExtra(TERMINAL_STATUS, item.getOpenState());
+
+						startActivity(intent);
+					}
 				}
 			});
 			return convertView;
@@ -393,12 +529,30 @@ public class TerminalManagerActivity extends Activity implements
 			public void onClick(View view) {
 				TerminalManagerEntity item = (TerminalManagerEntity) view
 						.getTag();
-				Intent intent = new Intent(TerminalManagerActivity.this,
-						ApplyDetailActivity.class);
-				intent.putExtra(TERMINAL_ID, item.getId());
-				intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-				intent.putExtra(TERMINAL_STATUS, item.getOpenState());
-				startActivity(intent);
+				if (item.getOpenState() == UNOPENED
+						&& "".equals(item.getAppid())) {
+
+					openDialog(item);
+
+				} else {
+					if (item.getOpenstatus() != null) {
+						if (!"".equals(item.getAppid())
+								&& Integer.parseInt(item.getOpenstatus()) == 6) {
+							CommonUtil.toastShort(TerminalManagerActivity.this,
+									"正在第三方审核,请耐心等待...");
+
+						}
+					} else {
+						Intent intent = new Intent(
+								TerminalManagerActivity.this,
+								ApplyDetailActivity.class);
+						intent.putExtra(TERMINAL_ID, item.getId());
+						intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
+						intent.putExtra(TERMINAL_STATUS, item.getOpenState());
+						startActivity(intent);
+					}
+				}
+
 			}
 		};
 		mPosListener = new View.OnClickListener() {
@@ -458,11 +612,18 @@ public class TerminalManagerActivity extends Activity implements
 				// 添加视频审核
 				TerminalManagerEntity item = (TerminalManagerEntity) view
 						.getTag();
+				if (item.getOpenState() == UNOPENED
+						&& "".equals(item.getAppid())) {
 
-				Intent intent = new Intent(TerminalManagerActivity.this,
-						VideoActivity.class);
-				intent.putExtra(TERMINAL_ID, item.getId());
-				startActivity(intent);
+					CommonUtil.toastShort(TerminalManagerActivity.this,
+							"请先申请开通");
+
+				} else {
+					Intent intent = new Intent(TerminalManagerActivity.this,
+							VideoActivity.class);
+					intent.putExtra(TERMINAL_ID, item.getId());
+					startActivity(intent);
+				}
 
 			}
 		};
@@ -542,6 +703,54 @@ public class TerminalManagerActivity extends Activity implements
 						}
 					});
 		}
+	}
+
+	private void openDialog(final TerminalManagerEntity item) {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				TerminalManagerActivity.this);
+
+		LayoutInflater factory = LayoutInflater.from(this);
+		View view = factory.inflate(R.layout.protocoldialog, null);
+		builder.setView(view);
+
+		final AlertDialog dialog = builder.create();
+		dialog.show();
+		final CheckBox cb = (CheckBox) view.findViewById(R.id.cb);
+
+		Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+
+		Button btn_confirm = (Button) view.findViewById(R.id.btn_confirm);
+
+		btn_cancel.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		btn_confirm.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (!cb.isChecked()) {
+
+					CommonUtil.toastShort(TerminalManagerActivity.this,
+							"请仔细阅读开通协议，并接受协议");
+
+				} else {
+
+					dialog.dismiss();
+					Intent intent = new Intent(TerminalManagerActivity.this,
+							ApplyDetailActivity.class);
+					intent.putExtra(TERMINAL_ID, item.getId());
+					intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
+					intent.putExtra(TERMINAL_STATUS, item.getOpenState());
+					startActivity(intent);
+				}
+
+			}
+		});
 	}
 
 	protected void onActivityResult(final int requestCode, int resultCode,

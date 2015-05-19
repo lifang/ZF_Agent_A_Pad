@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:background="#E9E8E8"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:paddingTop="28dp" >
 
@@ -101,7 +102,7 @@
                     android:layout_height="@dimen/titleback_height"
                     android:layout_marginRight="10dp"
                     android:gravity="center"
-                    android:text="代购买"
+                    android:text="采购"
                     android:textColor="@color/bgtitle"
                     android:textSize="@dimen/textmid" />
 
@@ -118,7 +119,7 @@
                     android:layout_height="@dimen/titleback_height"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="代租赁"
+                    android:text="租赁"
                     android:textColor="#292929"
                     android:textSize="@dimen/textmid" />
             </LinearLayout>

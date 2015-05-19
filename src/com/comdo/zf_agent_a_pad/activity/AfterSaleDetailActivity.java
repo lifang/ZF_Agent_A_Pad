@@ -1,7 +1,9 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -125,7 +127,32 @@ public class AfterSaleDetailActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				if (update_operation.getText().toString().equals("取消申请")) {
-					cancelApply();
+
+					final AlertDialog.Builder builder = new AlertDialog.Builder(
+							AfterSaleDetailActivity.this);
+					final AlertDialog dialog = builder.create();
+					builder.setTitle("提示");
+					builder.setMessage("确定要删除吗？");
+					builder.setPositiveButton("确认",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
+									cancelApply();
+								}
+							});
+					builder.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
+									dialog.dismiss();
+								}
+
+							});
+
+					builder.create().show();
+					
 				}else if (update_operation.getText().toString().equals("重新提交注销")) {
 					cancelAgain();
 				}else if (update_operation.getText().toString().equals("提交物流信息")) {

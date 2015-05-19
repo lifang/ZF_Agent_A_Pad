@@ -3,6 +3,7 @@ package com.comdo.zf_agent_a_pad.adapter;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.entity.ChanelEntitiy;
+import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.example.zf_agent_a_pad.R;
 
 import android.content.Context;
@@ -21,11 +22,11 @@ import android.widget.Toast;
 
 public class JiaoyiHuilvAdapter extends BaseAdapter {
 	private Context context;
-	private List<ChanelEntitiy> list;
+	private List<tDates> list;
 	private LayoutInflater inflater;
 	private ViewHolder holder = null;
 
-	public JiaoyiHuilvAdapter(Context context, List<ChanelEntitiy> list) {
+	public JiaoyiHuilvAdapter(Context context, List<tDates> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -64,7 +65,7 @@ public class JiaoyiHuilvAdapter extends BaseAdapter {
 		 
 	 
 		holder.tv_name.setText(list.get(position).getName());
-		holder.tv_price.setText(list.get(position).getService_rate()+"%");
+		holder.tv_price.setText((double)list.get(position).getService_rate()/10+"%");
 		 if(list.get(position).getService_rate()==10000){
 				holder.tv_price.setText("资金服务费（/天）");
 		 }

@@ -3,10 +3,13 @@ package com.comdo.zf_agent_a_pad.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.comdo.zf_agent_a_pad.activity.PostSonList;
 import com.comdo.zf_agent_a_pad.entity.PostPortEntity;
+import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
-
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -165,81 +168,268 @@ public class PosPortAdapter extends BaseExpandableListAdapter {
 			text4.setText(list.get(groupPosition).getChildlist()
 					.get(childPosition * 4 + 3).getValue());
 		}
+		if (groupPosition == 1) {
+			cb1.setOnClickListener(new OnClickListener() {
 
-		cb1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+		
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						list.get(groupPosition).getChildlist().get(childPosition * 4)
+								.setIsCheck(true);
 
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = list.get(groupPosition).getChildlist()
+								.get(childPosition * 4).getSon();
+					Config.portindex=(childPosition+1)*4;
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4).getId());
+							p.setValue(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4).getValue());
+							Config.myson = p;
+						}
+					} else {
+					
+						((CheckBox) v).setChecked(false);
+						list.get(groupPosition).getChildlist().get(childPosition * 4)
+								.setIsCheck(false);
+						Config.myson = null;
+					
+					}
 
-				if (arg1) {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4).setIsCheck(true);
-				} else {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4).setIsCheck(false);
 				}
+			});
+			cb2.setOnClickListener(new OnClickListener() {
 
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+		
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						list.get(groupPosition).getChildlist().get(childPosition * 4+1)
+								.setIsCheck(true);
 
-		cb2.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = list.get(groupPosition).getChildlist()
+								.get(childPosition * 4+1).getSon();
+						Config.portindex=(childPosition+1)*4+1;
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4+1).getId());
+							p.setValue(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4+1).getValue());
+							Config.myson = p;
+						}
+					} else {
+					
+						((CheckBox) v).setChecked(false);
+						list.get(groupPosition).getChildlist().get(childPosition * 4+1)
+								.setIsCheck(false);
+						Config.myson = null;
+					
+					}
 
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (childPosition == childSize - 1) {
-					if (childListSize - childPosition * 4 <= 0)
-						return;
 				}
-				if (arg1) {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4 + 1).setIsCheck(true);
-					// Toast.makeText(context, +childPosition*4+1+"��ѡ",
-					// 1000).show();
-				} else {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4 + 1).setIsCheck(false);
+			});
+			cb3.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+		
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						list.get(groupPosition).getChildlist().get(childPosition * 4+2)
+								.setIsCheck(true);
+
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = list.get(groupPosition).getChildlist()
+								.get(childPosition * 4+2).getSon();
+						Config.portindex=(childPosition+1)*4+2;
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4+2).getId());
+							p.setValue(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4+2).getValue());
+							Config.myson = p;
+						}
+					} else {
+					
+						((CheckBox) v).setChecked(false);
+						list.get(groupPosition).getChildlist().get(childPosition * 4+2)
+								.setIsCheck(false);
+						Config.myson = null;
+					
+					}
+
 				}
-			}
-		});
+			});
+			cb4.setOnClickListener(new OnClickListener() {
 
-		cb3.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (childPosition == childSize - 1) {
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+		
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						list.get(groupPosition).getChildlist().get(childPosition * 4+3)
+								.setIsCheck(true);
 
-					if (childListSize - childPosition * 4 <= 1)
-						return;
-				} else {
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = list.get(groupPosition).getChildlist()
+								.get(childPosition * 4+3).getSon();
+						Config.portindex=(childPosition+1)*4+3;
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4+3).getId());
+							p.setValue(list.get(groupPosition).getChildlist()
+									.get(childPosition * 4+3).getValue());
+							Config.myson = p;
+						}
+					} else {
+					
+						((CheckBox) v).setChecked(false);
+						list.get(groupPosition).getChildlist().get(childPosition * 4+3)
+								.setIsCheck(false);
+						Config.myson = null;
+					
+					}
 
 				}
-				if (arg1) {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4 + 2).setIsCheck(true);
+			});
+		} else{
+			cb1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-				} else {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4 + 2).setIsCheck(false);
-				}
-			}
-		});
-		cb4.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (arg1) {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4).setIsCheck(true);
+					} else {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4).setIsCheck(false);
+					}
 
-				if (childPosition == childSize - 1) {
-					if (childListSize - childPosition * 4 <= 2)
-						return;
 				}
-				if (arg1) {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4 + 3).setIsCheck(true);
-				} else {
-					list.get(groupPosition).getChildlist()
-							.get(childPosition * 4 + 3).setIsCheck(false);
+			});
+
+			cb2.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (childPosition == childSize - 1) {
+						if (childListSize - childPosition * 4 <= 0)
+							return;
+					}
+					if (arg1) {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4 + 1).setIsCheck(true);
+						// Toast.makeText(context, +childPosition*4+1+"��ѡ",
+						// 1000).show();
+					} else {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4 + 1).setIsCheck(false);
+					}
 				}
-			}
-		});
+			});
+
+			cb3.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (childPosition == childSize - 1) {
+
+						if (childListSize - childPosition * 4 <= 1)
+							return;
+					} else {
+
+					}
+					if (arg1) {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4 + 2).setIsCheck(true);
+
+					} else {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4 + 2).setIsCheck(false);
+					}
+				}
+			});
+			cb4.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+
+					if (childPosition == childSize - 1) {
+						if (childListSize - childPosition * 4 <= 2)
+							return;
+					}
+					if (arg1) {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4 + 3).setIsCheck(true);
+					} else {
+						list.get(groupPosition).getChildlist()
+								.get(childPosition * 4 + 3).setIsCheck(false);
+					}
+				}
+			});
+		}
+		
 		// �ж�ѡ���Ƿ�ѡ��
 		/*
 		 * if (list.get(groupPosition).getChildlist().get(childPosition)
@@ -410,66 +600,243 @@ public class PosPortAdapter extends BaseExpandableListAdapter {
 
 			}
 		});
-		cb1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		if (groupPosition == 1) {
+			cb1.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (arg1) {
-					glist.get(groupPosition).getChildlist().get(0)
-							.setIsCheck(true);
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+		
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						glist.get(groupPosition).getChildlist().get(0)
+								.setIsCheck(true);
+						Config.portindex=0;
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = glist.get(groupPosition).getChildlist()
+								.get(0).getSon();
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(glist.get(groupPosition).getChildlist()
+									.get(0).getId());
+							p.setValue(glist.get(groupPosition).getChildlist()
+									.get(0).getValue());
+							Config.myson = p;
+						}
+					} else {
+					
+						((CheckBox) v).setChecked(false);
+						glist.get(groupPosition).getChildlist().get(0)
+								.setIsCheck(false);
+						Config.myson = null;
+					
+					}
 
-				} else {
-					glist.get(groupPosition).getChildlist().get(0)
-							.setIsCheck(false);
 				}
+			});
+			cb2.setOnClickListener(new OnClickListener() {
 
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						glist.get(groupPosition).getChildlist().get(1)
+								.setIsCheck(true);
+						Config.portindex=1;
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = glist.get(groupPosition).getChildlist()
+								.get(1).getSon();
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(glist.get(groupPosition).getChildlist()
+									.get(1).getId());
+							p.setValue(glist.get(groupPosition).getChildlist()
+									.get(1).getValue());
+							Config.myson = p;
+						}
+					} else {
+						((CheckBox) v).setChecked(false);
+						glist.get(groupPosition).getChildlist().get(1)
+								.setIsCheck(false);
+						Config.myson = null;
+					}
 
-		cb2.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (arg1) {
-					glist.get(groupPosition).getChildlist().get(1)
-							.setIsCheck(true);
-				} else {
-					glist.get(groupPosition).getChildlist().get(1)
-							.setIsCheck(false);
 				}
+			});
+			cb3.setOnClickListener(new OnClickListener() {
 
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						glist.get(groupPosition).getChildlist().get(2)
+								.setIsCheck(true);
+						Config.portindex=2;
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = glist.get(groupPosition).getChildlist()
+								.get(2).getSon();
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(glist.get(groupPosition).getChildlist()
+									.get(2).getId());
+							p.setValue(glist.get(groupPosition).getChildlist()
+									.get(2).getValue());
+							Config.myson = p;
+						}
+					} else {
+						((CheckBox) v).setChecked(false);
+						glist.get(groupPosition).getChildlist().get(2)
+								.setIsCheck(false);
+						Config.myson = null;
+					}
 
-		cb3.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (arg1) {
-					glist.get(groupPosition).getChildlist().get(2)
-							.setIsCheck(true);
-				} else {
-					glist.get(groupPosition).getChildlist().get(2)
-							.setIsCheck(false);
 				}
+			});
+			
+			
+			cb4.setOnClickListener(new OnClickListener() {
 
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					if (((CheckBox) v).isChecked()) {
+						((CheckBox) v).setChecked(true);
+						for (int i = 0; i < glist.get(groupPosition)
+								.getChildlist().size(); i++) {
+							glist.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						for (int i = 0; i < list.get(groupPosition)
+								.getChildlist().size(); i++) {
+							list.get(groupPosition).getChildlist().get(i)
+									.setIsCheck(false);
+						}
+						glist.get(groupPosition).getChildlist().get(3)
+								.setIsCheck(true);
+						Config.portindex=3;
+						PosPortAdapter.this.notifyDataSetChanged();
+						Config.son = glist.get(groupPosition).getChildlist()
+								.get(3).getSon();
+						if (Config.son != null) {
+							context.startActivity(new Intent(context,
+									PostSonList.class));
+						} else {
+							PortSon p = new PortSon();
+							p.setId(glist.get(groupPosition).getChildlist()
+									.get(3).getId());
+							p.setValue(glist.get(groupPosition).getChildlist()
+									.get(3).getValue());
+							Config.myson = p;
+						}
+					} else {
+						((CheckBox) v).setChecked(false);
+						glist.get(groupPosition).getChildlist().get(3)
+								.setIsCheck(false);
+						Config.myson = null;
+					}
 
-		cb4.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (arg1) {
-					glist.get(groupPosition).getChildlist().get(3)
-							.setIsCheck(true);
-				} else {
-					glist.get(groupPosition).getChildlist().get(3)
-							.setIsCheck(false);
 				}
+			});
+		} else {
+			cb1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-			}
-		});
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (arg1) {
+						glist.get(groupPosition).getChildlist().get(0)
+								.setIsCheck(true);
+
+					} else {
+						glist.get(groupPosition).getChildlist().get(0)
+								.setIsCheck(false);
+					}
+
+				}
+			});
+
+			cb2.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (arg1) {
+						glist.get(groupPosition).getChildlist().get(1)
+								.setIsCheck(true);
+					} else {
+						glist.get(groupPosition).getChildlist().get(1)
+								.setIsCheck(false);
+					}
+
+				}
+			});
+
+			cb3.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (arg1) {
+						glist.get(groupPosition).getChildlist().get(2)
+								.setIsCheck(true);
+					} else {
+						glist.get(groupPosition).getChildlist().get(2)
+								.setIsCheck(false);
+					}
+
+				}
+			});
+
+			cb4.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (arg1) {
+						glist.get(groupPosition).getChildlist().get(3)
+								.setIsCheck(true);
+					} else {
+						glist.get(groupPosition).getChildlist().get(3)
+								.setIsCheck(false);
+					}
+
+				}
+			});
+		}
+		
 
 		for (int i = 0; i < glist.get(groupPosition).getChildlist().size(); i++) {
 			if (glist.get(groupPosition).getChildlist().get(i).getIsCheck()) {

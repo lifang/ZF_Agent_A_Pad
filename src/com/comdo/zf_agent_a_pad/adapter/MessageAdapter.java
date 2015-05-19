@@ -2,10 +2,6 @@ package com.comdo.zf_agent_a_pad.adapter;
 
 import java.util.List;
 
-import com.comdo.zf_agent_a_pad.entity.MessageEntity;
-import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
-import com.example.zf_agent_a_pad.R;
-
 import android.content.Context;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -17,6 +13,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import com.comdo.zf_agent_a_pad.entity.MessageEntity;
+import com.comdo.zf_agent_a_pad.fragment.Mwdxx;
+import com.example.zf_agent_a_pad.R;
 
 public class MessageAdapter extends BaseAdapter{
 	private List<MessageEntity> datamsg;
@@ -30,19 +30,16 @@ public class MessageAdapter extends BaseAdapter{
 	}
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return datamsg.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return datamsg.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return datamsg.get(position).getId();
 	}
 

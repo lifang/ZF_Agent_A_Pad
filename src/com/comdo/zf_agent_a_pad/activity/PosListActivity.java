@@ -124,7 +124,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.poslist_activity);
-		shoptype = 1;
+		shoptype = 2;
 		initView();
 		Search();
 	}
@@ -238,8 +238,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			public void onClick(View arg0) {
 				if (list_port == 1) {
 					listState = Xlistview.onSaveInstanceState();
-					port2.setBackgroundResource(R.drawable.pos_px1);
-					port1.setBackgroundResource(R.drawable.pos_pxf);
+					port1.setBackgroundResource(R.drawable.pos_px);
+					port2.setBackgroundResource(R.drawable.pos_pxf1);
 					Xlistview.setAdapter(myAdapter);
 					Xlistview.onRestoreInstanceState(listState);
 				}
@@ -254,10 +254,10 @@ public class PosListActivity extends Activity implements OnClickListener,
 			public void onClick(View arg0) {
 				if (list_port == 0) {
 					listState = Xlistview.onSaveInstanceState();
-					port2.setBackground(getResources().getDrawable(
-							R.drawable.pos_px));
 					port1.setBackground(getResources().getDrawable(
-							R.drawable.pos_pxf1));
+							R.drawable.pos_px1));
+					port2.setBackground(getResources().getDrawable(
+							R.drawable.pos_pxf));
 					myAdapter1 = new PosAdapter1(PosListActivity.this, myList);
 					Xlistview.setAdapter(myAdapter1);
 					Xlistview.onRestoreInstanceState(listState);
@@ -283,6 +283,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			startActivityForResult(i, 2);
 			break;
 		case R.id.ll_mr:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			orderType = 0;
 			tv_mr.setTextColor(getResources().getColor(R.color.bgtitle));
 			tv_2.setTextColor(getResources().getColor(R.color.bg_575D5F));
@@ -294,6 +296,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.ll_xxyx:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			orderType = 1;
 			tv_mr.setTextColor(getResources().getColor(R.color.bg_575D5F));
 			tv_2.setTextColor(getResources().getColor(R.color.bgtitle));
@@ -305,6 +309,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.ll_updown:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			if (isDown) {
 				orderType = 2;
 				isDown = false;
@@ -327,6 +333,8 @@ public class PosListActivity extends Activity implements OnClickListener,
 			Xlistview.setSelection(0);
 			break;
 		case R.id.ll_pj:
+			Xlistview.setPullLoadEnable(true);
+			page=1;
 			orderType = 4;
 			tv_mr.setTextColor(getResources().getColor(R.color.bg_575D5F));
 			tv_2.setTextColor(getResources().getColor(R.color.bg_575D5F));
@@ -513,5 +521,7 @@ public class PosListActivity extends Activity implements OnClickListener,
 		Posport.has_purchase = 0;
 		Posport.minPrice = 0;
 		Posport.maxPrice = 0;
+		Config.myson=null;
+		Config.lx=-1;
 	}
 }

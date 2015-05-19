@@ -24,7 +24,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                         
+                         	android:id="@+id/ll_select_user"
                             android:paddingLeft="@dimen/titilepad1"
                             android:paddingRight="@dimen/titilepad1" >
 
@@ -313,9 +313,10 @@
                                                 android:layout_alignParentTop="true"
                                                 android:ellipsize="end"
                                                 android:maxLines="2"
+                                                android:singleLine="true"
                                                 android:text="2015最新POS机器旗舰版  1.0"
                                                 android:textColor="@color/text292929"
-                                                android:textSize="@dimen/textmid" />
+                                                android:textSize="@dimen/textbig" />
 
                                             <LinearLayout
                                                 android:layout_width="wrap_content"
@@ -339,7 +340,7 @@
                                                         android:maxLines="1"
                                                         android:text="品牌型号"
                                                         android:textColor="@color/text6c6c6c6"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/content2"
@@ -351,7 +352,8 @@
                                                         android:maxLines="1"
                                                         android:text="contentcontentcontentcontent"
                                                         android:textColor="@color/text292929"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:singleLine="true"
+                                                        android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
 
                                                 <LinearLayout
@@ -369,7 +371,7 @@
                                                         android:maxLines="1"
                                                         android:text="支付通道"
                                                         android:textColor="@color/text6c6c6c6"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
 
                                                     <TextView
                                                         android:id="@+id/wayName"
@@ -380,8 +382,9 @@
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
                                                         android:text="支付宝"
+                                                        android:singleLine="true"
                                                         android:textColor="@color/text292929"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
                                             </LinearLayout>
                                         </RelativeLayout>
@@ -411,6 +414,7 @@
                                                         android:layout_height="wrap_content"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
+                                                        android:visibility="gone"
                                                         android:text="原价：99999999"
                                                         android:textColor="#959494"
                                                         android:textSize="@dimen/textmid" />
@@ -424,7 +428,7 @@
                                                         android:maxLines="1"
                                                         android:text="$999.00"
                                                         android:textColor="#FF4400"
-                                                        android:textSize="@dimen/textbig" />
+                                                        android:textSize="@dimen/textbig2" />
                                                 </LinearLayout>
                                             </LinearLayout>
                                         </LinearLayout>
@@ -559,7 +563,8 @@
                                             android:layout_height="fill_parent"
                                             android:layout_weight="1"
                                             android:background="@color/ffffff"
-                                         android:editable="false"
+                                         android:editable="true"
+                                         android:digits="0123456789"
                                             android:gravity="center"
                                             android:text="1" />
 
@@ -607,7 +612,7 @@
                                 android:gravity="center|left"
                                 android:text="最长租赁时间:365天"
                                 android:textColor="#292929"
-                                android:textSize="@dimen/textmids" />
+                                android:textSize="@dimen/textmid" />
 
                             <TextView
                                 android:id="@+id/tv_zd"
@@ -617,7 +622,7 @@
                                 android:gravity="left|center_vertical"
                                 android:text="最短租赁时间:365天"
                                 android:textColor="#292929"
-                                android:textSize="@dimen/textmids" />
+                                android:textSize="@dimen/textmid" />
 
                             <TextView
                                 android:layout_width="fill_parent"
@@ -645,7 +650,7 @@
                                 android:gravity="center|left"
                                 android:text="共计:1件商品"
                                 android:textColor="#292929"
-                                android:textSize="@dimen/textmids" />
+                                android:textSize="@dimen/textmid" />
 
                             <TextView
                                 android:id="@+id/textView1"
@@ -655,7 +660,7 @@
                                  android:gravity="left|center_vertical"
                                 android:text="配送费:￥0"
                                 android:textColor="#292929"
-                                android:textSize="@dimen/textmids" />
+                                android:textSize="@dimen/textmid" />
 
                             <TextView
                                 android:id="@+id/tv_totle"
@@ -665,7 +670,7 @@
                                 android:gravity="center|right"
                                 android:text="合计"
                                 android:textColor="#292929"
-                                android:textSize="@dimen/textmids" />
+                                android:textSize="@dimen/textmid" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -727,6 +732,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/ll_fp"
+                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/titilepad1"
                         android:gravity="center_vertical" >
 

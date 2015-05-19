@@ -13,72 +13,72 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class TransgoodsAdapter extends BaseAdapter{
+public class TransgoodsAdapter extends BaseAdapter {
 
 	private List<TransgoodsEntity> datatrans;
 	private Context context;
 	private LayoutInflater mInflater;
 	public static int pp;
-	public TransgoodsAdapter(List<TransgoodsEntity> datatrans,Context context){
+
+	public TransgoodsAdapter(List<TransgoodsEntity> datatrans, Context context) {
 		super();
-		this.datatrans=datatrans;
-		this.context=context;
+		this.datatrans = datatrans;
+		this.context = context;
 	}
+
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return datatrans.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return datatrans.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return datatrans.get(position).getId();
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHoldel holdel;
-		if(convertView == null){
-			mInflater=LayoutInflater.from(context);
-			convertView=mInflater.inflate(R.layout.distriitem, null);
-			holdel=new ViewHoldel();
-			holdel.tv_transferobject=(TextView) convertView.findViewById(R.id.tv_with);
-			holdel.tv_time=(TextView) convertView.findViewById(R.id.tv_time);
-			holdel.tv_amount=(TextView) convertView.findViewById(R.id.tv_amount);
+		if (convertView == null) {
+			mInflater = LayoutInflater.from(context);
+			convertView = mInflater.inflate(R.layout.distriitem, null);
+			holdel = new ViewHoldel();
+			holdel.tv_transferobject = (TextView) convertView
+					.findViewById(R.id.tv_with);
+			holdel.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+			holdel.tv_amount = (TextView) convertView
+					.findViewById(R.id.tv_amount);
 			convertView.setTag(holdel);
-			}
-		else{
-			holdel=(ViewHoldel) convertView.getTag();
+		} else {
+			holdel = (ViewHoldel) convertView.getTag();
 		}
 		holdel.tv_transferobject.setText(datatrans.get(position).getToname());
 		holdel.tv_time.setText(datatrans.get(position).getCreated_at());
 		holdel.tv_amount.setText(datatrans.get(position).getQuantity());
 		convertView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				pp=position;
-				Message msg=Transgoods.myHandler.obtainMessage();
-				msg.what=0;
+				pp = position;
+				Message msg = Transgoods.myHandler.obtainMessage();
+				msg.what = 0;
 				msg.sendToTarget();
-				
+
 			}
 		});
 		return convertView;
 	}
-	public static class ViewHoldel{
+
+	public static class ViewHoldel {
 		TextView tv_transferobject;
 		TextView tv_time;
 		TextView tv_amount;
-		
+
 	}
 
 }
-

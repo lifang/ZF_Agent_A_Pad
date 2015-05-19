@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,38 +82,47 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private ImageView event_img;
 	private Button bt_addadress;
 	private UserEntity ue;
+	private DecimalFormat df;
+	private TextView tv_chanel;
+	private LinearLayout ll_fp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_comfirm);
-		new TitleMenuUtil(GoodConfirm.this, "批购订单确认").show();
+		df = (DecimalFormat) NumberFormat
+				.getInstance();
+		df.applyPattern("0.00");
+		new TitleMenuUtil(GoodConfirm.this, "采购订单确认").show();
 		ue = MyApplication.NewUser;
 		floor_purchase_quantity = getIntent().getIntExtra("floor_purchase_quantity", 0);
 		initView();
 		title2.setText(getIntent().getStringExtra("getTitle"));
 		pg_price = getIntent().getIntExtra("purchase_price", 1);
 		pirce = getIntent().getIntExtra("price", 0);
-		String string=" 原价:￥"+((double) pirce) / 100+" ";
+		String string=" 原价:￥"+ df.format(pirce * 1.0f / 100)+" ";
 		SpannableString sp = new SpannableString(string);
 		sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		retail_price.setText(sp);
 		goodId = getIntent().getIntExtra("goodId", 1);
 		paychannelId = getIntent().getIntExtra("paychannelId", 1);
-		tv_pay.setText("实付：￥ " + ((double) pg_price) / 100);
-		tv_totle.setText("实付：￥ " + ((double) pg_price) / 100);
-		tv_price.setText("￥" + ((double) pg_price) / 100);
+		tv_pay.setText("实付：￥ " + df.format( pg_price* 1.0f / 100*floor_purchase_quantity));
+		tv_totle.setText("实付：￥ " +  df.format(pg_price * 1.0f / 100*floor_purchase_quantity));
+		tv_price.setText("￥" +  df.format(pg_price * 1.0f / 100));
 		tv_brand.setText(getIntent().getStringExtra("brand"));
 		tv_least.setText("最小起批量："+floor_purchase_quantity+"件");
 		tv_count.setText("共计："+floor_purchase_quantity+"件");
-		String img_url=getIntent().getStringExtra("evevt_img");
+		String img_url=getIntent().getStringExtra("piclist");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url,
  				event_img);
 		System.out.println("=pg_price==" + pg_price);
+		tv_chanel.setText(getIntent().getStringExtra("chanel"));
 		// getData1();
 	}
 
 	private void initView() {
+		ll_fp = (LinearLayout)findViewById(R.id.ll_fp);
+		tv_chanel = (TextView)findViewById(R.id.wayName);
 		et_comment = (EditText) findViewById(R.id.ed_comment);
 		bt_addadress = (Button)findViewById(R.id.bt_addadress);
 		bt_addadress.setOnClickListener(this);
@@ -164,9 +175,13 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 				if (arg1) {
 					is_need_invoice = 1;
 					et_titel.setEnabled(true);
+					ll_fp.setVisibility(View.VISIBLE);
+
 				} else {
 					is_need_invoice = 0;
 					et_titel.setEnabled(false);
+					ll_fp.setVisibility(View.GONE);
+
 				}
 			}
 		});
@@ -176,6 +191,8 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
 				// showCountText.setText(arg0.toString());
+				if(buyCountEdit.getText().toString().equals("0"))
+					buyCountEdit.setText("");
 				tv_count.setText("共计:   " + arg0 + "件");
 				if (buyCountEdit.getText().toString().equals("")) {
 					quantity = 0;
@@ -184,8 +201,8 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 							.toString());
 				}
 
-				tv_totle.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
-				tv_pay.setText("实付：￥ " + ((double) pirce) / 100 * quantity);
+				tv_totle.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
+				tv_pay.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
 			}
 
 			@Override
@@ -223,7 +240,8 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void getData1() {
-		Config.GetAdressList(GoodConfirm.this, ue.getAgentUserId(),
+		
+		Config.GetAdressLis(GoodConfirm.this, ue.getAgentUserId(),
 				new HttpCallback<List<AdressEntity>>(GoodConfirm.this) {
 
 					@Override
@@ -265,6 +283,9 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 			if (quantity <= floor_purchase_quantity) {
 				break;
 			}
+			if (quantity <= 0) {
+				break;
+			}
 			quantity = Integer.parseInt(buyCountEdit.getText().toString()) - 1;
 			buyCountEdit.setText(quantity + "");
 			break;
@@ -280,7 +301,11 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private void confirmGood() {
 		
 		comment = et_comment.getText().toString();
-		quantity = Integer.parseInt(buyCountEdit.getText().toString());
+		if(!buyCountEdit.getText().toString().trim().equals("")){
+			quantity = Integer.parseInt(buyCountEdit.getText().toString().trim());
+		}else{
+			quantity = 1;
+		}
 		
 		invoice_info = et_titel.getText().toString();
 	

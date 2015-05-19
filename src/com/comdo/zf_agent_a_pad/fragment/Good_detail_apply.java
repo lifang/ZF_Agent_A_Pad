@@ -37,21 +37,21 @@ public class Good_detail_apply extends Fragment implements OnClickListener{
 	}
 	private void initView() {
 		
-		pos_lv1=(ScrollViewWithListView)view. findViewById(R.id.pos_lv1);
+	/*	pos_lv1=(ScrollViewWithListView)view. findViewById(R.id.pos_lv1);
 		pos_lv2=(ScrollViewWithListView)view. findViewById(R.id.pos_lv2);
 		pubList=Config.pub;
 		singleList=Config.single;
 		System.out.println("`pubList.size()``"+pubList.size());
-		myAdapter=new AppleNeedAdapter(getActivity(), pubList);
-		myAdapter2=new AppleNeedAdapter(getActivity(), singleList);
+		myAdapter=new AppleNeedAdapter(getActivity(), singleList);
+		myAdapter2=new AppleNeedAdapter(getActivity(), pubList);
 		pos_lv1.setAdapter(myAdapter);
-		pos_lv2.setAdapter(myAdapter2);
+		pos_lv2.setAdapter(myAdapter2);*/
+		TextView tv_apply=(TextView)view.findViewById(R.id.tv_apply);
+		tv_apply.setText(Config.apply);
 	}
 
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onClick(View arg0) {			
 	}
 
 }

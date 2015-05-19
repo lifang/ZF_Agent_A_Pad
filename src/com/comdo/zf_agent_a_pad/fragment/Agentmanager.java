@@ -3,25 +3,6 @@ package com.comdo.zf_agent_a_pad.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.comdo.zf_agent_a_pad.activity.AgentDetail;
-import com.comdo.zf_agent_a_pad.activity.CreatAgent;
-import com.comdo.zf_agent_a_pad.adapter.AgentManagerAdapter;
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.common.Page;
-import com.comdo.zf_agent_a_pad.entity.AddressManager;
-import com.comdo.zf_agent_a_pad.entity.AgentManager;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.MyApplication;
-import com.comdo.zf_agent_a_pad.util.Tools;
-import com.comdo.zf_agent_a_pad.util.XListView;
-import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.reflect.TypeToken;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +21,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.activity.AgentDetail;
+import com.comdo.zf_agent_a_pad.activity.CreatAgent;
+import com.comdo.zf_agent_a_pad.adapter.AgentManagerAdapter;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.common.Page;
+import com.comdo.zf_agent_a_pad.entity.AgentManager;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.Tools;
+import com.comdo.zf_agent_a_pad.util.XListView;
+import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
+import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
+
 public class Agentmanager extends Fragment implements OnClickListener,
 		IXListViewListener {
 	private View view;
@@ -47,7 +43,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 	private BaseAdapter agentadapter;
 	private XListView xxlistview;
 	private TextView tv_default;
-	private Button btn_reset, btn_creat_agent, btn_save;
+	private Button btn_reset, btn_creat_agent, btn_save, close;
 	private int page = 1;
 	public static Handler myHandler;
 	private boolean isrefersh = false;
@@ -55,7 +51,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 	private int a = 1;
 	private EditText et_profit;
 	private int id = MyApplication.NewUser.getAgentId();
-	private String str = "";
+	private float str = 0.0f;
 	private AlertDialog dialog;
 	private int agentsId = MyApplication.NewUser.getAgentId();
 	private LinearLayout eva_nodata;
@@ -92,7 +88,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 			@Override
 			public void onSuccess(Object data) {
-				str = String.valueOf(data);
+				str = Float.parseFloat(String.valueOf(data));
 				myHandler.sendEmptyMessage(2);
 
 			}
@@ -138,7 +134,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 					startActivity(intent);
 					break;
 				case 2:
-					tv_default.setText(str+"%");
+					tv_default.setText(str * 1.0f + "%");
 					break;
 				default:
 					break;
@@ -212,8 +208,22 @@ public class Agentmanager extends Fragment implements OnClickListener,
 			startActivity(new Intent(getActivity(), CreatAgent.class));
 			break;
 		case R.id.btn_save:
-			boolean result = et_profit.getText().toString().matches("[0-9]+");
-			if (!result) {
+
+			float f = 0;
+			boolean result = et_profit
+					.getText()
+					.toString()
+					.matches(
+							"^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$");
+			if (result) {
+
+				f = Float.parseFloat(et_profit.getText().toString());
+			} else {
+
+				CommonUtil.toastShort(getActivity(), "请输入正确的费率格式");
+				return;
+			}
+			if (!(f > 0 && f < 100)) {
 				CommonUtil.toastShort(getActivity(), "请输入0-100以内的数字");
 				return;
 			}
@@ -225,6 +235,9 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 			resetProfit();
 			break;
+		case R.id.close:
+			dialog.dismiss();
+			break;
 		default:
 			break;
 		}
@@ -233,7 +246,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 	private void resetProfit() {
 		Config.resetprofit(getActivity(),
-				Integer.parseInt(et_profit.getText().toString()), agentsId,
+				Float.parseFloat(et_profit.getText().toString()), agentsId,
 				new HttpCallback(getActivity()) {
 
 					@Override
@@ -265,7 +278,9 @@ public class Agentmanager extends Fragment implements OnClickListener,
 		builder.setView(textEntryView);
 		btn_save = (Button) textEntryView.findViewById(R.id.btn_save);
 		et_profit = (EditText) textEntryView.findViewById(R.id.et_profit);
+		close = (Button) textEntryView.findViewById(R.id.close);
 		btn_save.setOnClickListener(this);
+		close.setOnClickListener(this);
 		dialog = builder.create();
 		dialog.show();
 		// builder.create().show();
