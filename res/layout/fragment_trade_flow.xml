@@ -217,6 +217,16 @@
                     android:textColor="#292929"
                     android:textSize="15sp" />
 
+                <TextView
+                    android:id="@+id/terminalNoTxt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="终端号"
+                    android:textColor="#292929"
+                    android:textSize="15sp" />
+                
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -236,15 +246,7 @@
                     android:textSize="15sp" />
                 
                 
-                <TextView
-                    android:id="@+id/terminalNoTxt"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="终端号"
-                    android:textColor="#292929"
-                    android:textSize="15sp" />
+                
                 
                 
             </LinearLayout>
