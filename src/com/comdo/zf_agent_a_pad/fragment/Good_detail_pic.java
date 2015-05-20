@@ -3,11 +3,16 @@ package com.comdo.zf_agent_a_pad.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.comdo.zf_agent_a_pad.activity.GoodConfirm;
 import com.comdo.zf_agent_a_pad.adapter.JiaoyiHuilvAdapter;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.entity.AdressEntity;
 import com.comdo.zf_agent_a_pad.entity.ChanelEntitiy;
+import com.comdo.zf_agent_a_pad.entity.GoodPic;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,12 +27,34 @@ public class Good_detail_pic extends Fragment implements OnClickListener{
 	private View view;
 	private ListView lv;
 	private JiaoyiHuilvAdapter myAdapter;
-	private List<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
+	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
 	private ListView list;
 	private MyAdapter adapter;
+	private int GoodId;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		GoodId=Config.gid;
+		getdata();
+	}
+	private void getdata() {
+	Config.GOODPICLIST(getActivity(),GoodId,new HttpCallback<List<GoodPic>>(getActivity()){
+
+		@Override
+		public void onSuccess(List<GoodPic> data) {		
+			piclist.addAll(data);
+			adapter.notifyDataSetChanged();
+		}
+
+		@Override
+		public TypeToken getTypeToken() {
+			
+			return new TypeToken<List<GoodPic>>() {
+			};
+		}
+		
+	});
+		
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +77,7 @@ public class Good_detail_pic extends Fragment implements OnClickListener{
 		@Override
 		public int getCount() {
 			
-			return Config.piclist.size();
+			return piclist.size();
 		}
 
 		@Override
@@ -70,7 +97,7 @@ public class Good_detail_pic extends Fragment implements OnClickListener{
 			inflater = LayoutInflater.from(getActivity());
 			view = inflater.inflate(R.layout.good_detail_pic_item, null);
 			im = (ImageView)view.findViewById(R.id.pic);
-			ImageCacheUtil.IMAGE_CACHE.get(Config.piclist.get(position).getUrlPath(), im);
+			ImageCacheUtil.IMAGE_CACHE.get(piclist.get(position).getUrlPath(), im);
 			return view;
 		}
 		

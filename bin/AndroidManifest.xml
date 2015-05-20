@@ -532,6 +532,27 @@
             android:name="api_key"
             android:value="BFc8jzr5PbFAG3ngdPj2yZjf" />
         <!-- 百度推送 -->
+        
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterPhone"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterEmali"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterNPhone"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.comdo.zf_agent_a_pad.activity.AlterNEmali"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

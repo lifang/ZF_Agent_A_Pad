@@ -14,6 +14,7 @@ public class UserEntity {
 	private int accountType;
 	private int types;
 	private int is_have_profit;//2有设置分润，1是没有
+
 	private List<Machtigingen> machtigingen;
 	private int agentId;
 	private int agentCityId;
@@ -25,7 +26,6 @@ public class UserEntity {
 	private String lastLoginedAt;
 	private String email;
 	private String updatedAt;
-	
 	public int getIs_have_profit() {
 		return is_have_profit;
 	}

@@ -66,7 +66,7 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 	private ImageView reduce, add;
 	PopupWindow menuWindow;
 	private int pirce;
-	private int goodId, paychannelId, quantity, addressId, is_need_invoice = 0;
+	private int goodId, paychannelId, quantity, addressId=-1, is_need_invoice = 0;
 	private EditText buyCountEdit, comment_et, et_titel;
 	private CheckBox item_cb;
 	private int invoice_type = 0;
@@ -272,7 +272,11 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 		switch (arg0.getId()) {
 
 		case R.id.btn_pay:
-			confirmGood();
+			if(addressId!=-1){
+				confirmGood();
+			}else{
+				Toast.makeText(getApplicationContext(), "请选择地址", 1000).show();
+			}
 
 			break;
 		case R.id.add:
@@ -334,7 +338,6 @@ public class GoodConfirm extends BaseActivity implements OnClickListener {
 						return  null;
 					}
                 });
-
 	}
 
 	@Override

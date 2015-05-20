@@ -1,27 +1,25 @@
 package com.comdo.zf_agent_a_pad.entity;
-/***
- * 
-*    
-*
-* @version    
-*
- */
+
 public class MessageEntity {
+	//"content":"������������","id":"2","title":"���Ǳ���","create_at":"2015-02-12 19:42:52"
 	private String content;
-	private int id;
+	private String id;
 	private String title;
 	private String create_at;
-	private boolean status;
-	private boolean ischeck;
-	public MessageEntity(String content,int id,String title,
-			String create_at,boolean status,boolean ischeck){
-		super();
-		this.content=content;
-		this.id=id;
-		this.title=title;
-		this.create_at=create_at;
-		this.status=status;
-		this.ischeck=ischeck;
+	private Boolean ischeck=false;
+	private Boolean status;
+	
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	public Boolean getIscheck() {
+		return ischeck;
+	}
+	public void setIscheck(Boolean ischeck) {
+		this.ischeck = ischeck;
 	}
 	public String getContent() {
 		return content;
@@ -29,10 +27,10 @@ public class MessageEntity {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -47,26 +45,5 @@ public class MessageEntity {
 	public void setCreate_at(String create_at) {
 		this.create_at = create_at;
 	}
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	public boolean isIscheck() {
-		return ischeck;
-	}
-	public void setIscheck(boolean ischeck) {
-		this.ischeck = ischeck;
-	}
-	@Override
-	public String toString() {
-		return "MessageEntity [content=" + content + ", id=" + id + ", title="
-				+ title + ", create_at=" + create_at + ", status=" + status
-				+ ", ischeck=" + ischeck + "]";
-	}
-	
-	
-	
 	
 }

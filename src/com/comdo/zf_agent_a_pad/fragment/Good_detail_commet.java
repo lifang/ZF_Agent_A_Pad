@@ -158,7 +158,7 @@ public class Good_detail_commet extends Fragment implements  IXListViewListener{
 	private void getData() {
 		String url = Config.goodcomment;
 		RequestParams params = new RequestParams();
-		params.put("goodId", Config.goodId);
+		params.put("goodId", Config.gid);
 		params.put("page", page);
 	 	params.put("rows", rows);
 	 	System.out.println("---"+page);
@@ -172,12 +172,8 @@ public class Good_detail_commet extends Fragment implements  IXListViewListener{
 							byte[] responseBody) {
 						String responseMsg = new String(responseBody)
 								.toString();
-						Log.e("print", responseMsg);
-
-					 
-						 
-						Gson gson = new Gson();
-						
+						Log.e("print", responseMsg);					 						 
+						Gson gson = new Gson();						
 						JSONObject jsonobject = null;
 						String code = null;
 						try {

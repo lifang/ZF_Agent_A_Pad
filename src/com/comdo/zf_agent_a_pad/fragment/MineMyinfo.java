@@ -30,6 +30,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comdo.zf_agent_a_pad.activity.AlterEmali;
+import com.comdo.zf_agent_a_pad.activity.AlterPhone;
 import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.activity.MainActivity;
 import com.comdo.zf_agent_a_pad.adapter.AddressManagerAdapter;
@@ -93,6 +95,8 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	private AlertDialog dialog;
 	private Button close;
 	private Activity mActivity;
+	private TextView tv_phone_xg;
+	private TextView tv_email_xg;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -132,6 +136,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 		Log.e("get", String.valueOf(getActivity()));
+		
 		switch (type) {
 		case 1:
 			tv_jichuinfo.setBackgroundResource(R.drawable.tab_bg);
@@ -235,6 +240,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
+		baseinfogetData();
 		Log.e("get1", String.valueOf(getActivity()));
 
 	}
@@ -249,11 +255,26 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		tv_jichuinfo.setOnClickListener(this);
 		tv_safe.setOnClickListener(this);
 		tv_manageradress.setOnClickListener(this);
+		
+		tv_phone_xg = (TextView)view.findViewById(R.id.tv_phone_xg);
+		tv_email_xg = (TextView)view.findViewById(R.id.tv_email_xg);
+		tv_phone_xg.setOnClickListener(this);
+		tv_email_xg.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.tv_phone_xg:
+			Intent i=new Intent(getActivity(),AlterPhone.class);
+			i.putExtra("phone", tv_phone.getText().toString().trim());
+			startActivity(i);
+			break;
+		case R.id.tv_email_xg:
+			Intent i1=new Intent(getActivity(),AlterEmali.class);
+			i1.putExtra("phone", tv_email.getText().toString().trim());
+			startActivity(i1);
+			break;
 		case R.id.tv_safe:
 			type = 2;
 			tv_safe.setBackgroundResource(R.drawable.tab_bg);
@@ -417,11 +438,25 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		et_newpaw = (EditText) view.findViewById(R.id.et_newpaw);
 		et_confirmpaw = (EditText) view.findViewById(R.id.et_confirmpaw);
 		btn_save_address = (Button) view.findViewById(R.id.btn_save);
+	
 		btn_save_address.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				changepaw();
+				if(StringUtil.isNull(et_oldpaw.getText().toString())){
+					Toast.makeText(getActivity(), "原始密码不能为空", 1000).show();
+				}else if(StringUtil.isNull(et_newpaw.getText().toString())){
+					Toast.makeText(getActivity(), "新密码不能为空", 1000).show();
+				}
+				else if(StringUtil.isNull(et_confirmpaw.getText().toString())){
+					Toast.makeText(getActivity(), "确认密码不能为空", 1000).show();
+				}else if(!et_newpaw.getText().toString().equals(et_confirmpaw.getText().toString())){
+					Toast.makeText(getActivity(), "两次密码不一致!", 1000).show();
+				}else{
+					changepaw();
+				}
+					
+				
 
 			}
 		});
@@ -459,7 +494,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 						tv_yingyezhizhao.setText(data.getBusiness_license());
 						tv_company_shuiwudengji.setText(data
 								.getTax_registered_no());
-						tv_fuzeren_name.setText(data.getUsername());
+						tv_fuzeren_name.setText(data.getName());
 						tv_fuzeren_no.setText(data.getCard_id());
 						tv_phone.setText(data.getPhone());
 						tv_email.setText(data.getEmail());
@@ -798,4 +833,6 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		}
 		super.onDestroyView();
 	}
+	
 }
+

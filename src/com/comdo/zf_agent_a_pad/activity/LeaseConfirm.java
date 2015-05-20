@@ -69,7 +69,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private ImageView reduce, add;
 	PopupWindow menuWindow;
 	private int pirce;
-	private int goodId, paychannelId, quantity, addressId, is_need_invoice = 0;
+	private int goodId, paychannelId, quantity, addressId=-1, is_need_invoice = 0;
 	private CheckBox item_cb;
 	private int invoice_type = 0;
 	private String comment, invoice_info;
@@ -106,6 +106,9 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private TextView tv_chanel;
 	private LinearLayout ll_pf;
 	private LinearLayout ll_select_user;
+	private int userid;
+	private TextView tv1;
+	private TextView tv2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -114,6 +117,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 				.getInstance();
 		df.applyPattern("0.00");
 		ue = MyApplication.NewUser;
+		userid = ue.getAgentUserId();
 		type = getIntent().getIntExtra("type", 1);
 		ll_select_user = (LinearLayout)findViewById(R.id.ll_select_user);
 		if (type == 1) {
@@ -154,7 +158,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 	private void GetUser() {
 		items = new ArrayList<Map<String, Object>>();
-		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), page + 1, rows,
+
+		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), 0, rows,
 				new HttpCallback<List<UserInfo>>(this) {
 					@Override
 					public void onSuccess(List<UserInfo> data) {
@@ -183,7 +188,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
-	
+		tv1 = (TextView)findViewById(R.id.tv1);
+		tv2 = (TextView)findViewById(R.id.tv2);
+		if(type==1){
+			tv1.setText("价格");
+			tv2.setText("购买数量");
+		}
 		ll_pf = (LinearLayout)findViewById(R.id.ll_fp);
 		tv_chanel = (TextView)findViewById(R.id.wayName);
 		mInflater = LayoutInflater.from(this);
@@ -216,7 +226,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				LinearLayout layout = (LinearLayout) mInflater.inflate(
-						R.layout.drop_down_item, null);
+						R.layout.drop_down_item1, null);
 				TextView tv = (TextView) layout.findViewById(R.id.text);
 				tv.setText((String) getItem(position));
 				return layout;
@@ -232,9 +242,12 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 					public void onItemSelected(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
-
+						addressId=-1;
 						mChannelId = Integer.parseInt(items.get(arg2).get("id").toString()) ;
-						ue.setAgentUserId(mChannelId);
+						//ue.setAgentUserId(mChannelId);
+						userid=mChannelId;
+						myList.clear();
+						getData1();
 
 					}
 
@@ -407,10 +420,19 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.btn_pay:
 			if (type == 1) {
-				confirmGood();
+				if(addressId!=-1){
+					confirmGood();
+				}else{
+					Toast.makeText(getApplicationContext(), "请选择地址", 1000).show();
+				}
 			} else {
 				if (flag) {
-					confirmGood();
+					if(addressId!=-1){
+						
+						confirmGood();
+					}else{
+						Toast.makeText(getApplicationContext(), "请选择地址", 1000).show();
+					}
 				} else {
 					Toast.makeText(getApplicationContext(), "请同意租赁协议", 1000)
 							.show();
@@ -449,8 +471,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 
 		invoice_info = et_titel.getText().toString();
-
-		Config.GOODCONFIRM1(LeaseConfirm.this, ue.getAgentUserId(),
+		Config.GOODCONFIRM1(LeaseConfirm.this, userid,
 				ue.getAgentId(), ue.getId(), ue.getAgentUserId(), ordertype,
 				goodId, paychannelId, quantity, addressId, comment,
 				is_need_invoice, invoice_type, invoice_info,

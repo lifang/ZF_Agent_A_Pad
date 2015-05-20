@@ -54,8 +54,8 @@
 
                                 <Spinner
                                     android:id="@+id/spinner_user"
-                                    android:layout_width="@dimen/sp_width"
-                                    android:layout_height="@dimen/sp_height"
+                                    android:layout_width="@dimen/alertwidth"
+                                    android:layout_height="@dimen/normai_button_height"
                                     android:layout_marginRight="40dp"
                                     android:layout_marginLeft="20dp"
                                     android:spinnerMode="dropdown"
@@ -68,7 +68,7 @@
                                 android:background="@drawable/normal_button_selector"
                                 android:text="创建新用户"
                                 android:textColor="#ffffff"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
                             </LinearLayout>
                         </LinearLayout>
                         
@@ -200,7 +200,7 @@
                                 android:text="新增地址"
                                 android:textColor="#ffffff"
                                 android:id="@+id/bt_addadress"
-                                android:textSize="@dimen/textmid" />
+                                android:textSize="@dimen/textbig" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -244,7 +244,7 @@
                             android:textSize="@dimen/textmids" />
 
                         <TextView
-                            android:id="@+id/textView1"
+                            android:id="@+id/tv1"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
@@ -254,7 +254,7 @@
                             android:textSize="@dimen/textmids" />
 
                         <TextView
-                            android:id="@+id/textView1"
+                            android:id="@+id/tv2"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
@@ -828,7 +828,7 @@
                             android:background="@drawable/normal_button_selector"
                             android:text="结算"
                             android:textColor="@color/ffffff"
-                            android:textSize="@dimen/textmid" />
+                            android:textSize="@dimen/textbig" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
