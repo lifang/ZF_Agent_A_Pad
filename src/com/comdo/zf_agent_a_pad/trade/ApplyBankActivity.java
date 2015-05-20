@@ -1,9 +1,11 @@
 package com.comdo.zf_agent_a_pad.trade;
 
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BANK;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,22 +18,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.trade.entity.ApplyBank;
+import com.comdo.zf_agent_a_pad.entity.BankEntity;
+import com.comdo.zf_agent_a_pad.entity.BankEntity.Bank;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
-
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BANK;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
 
 /**
  * Created by Leo on 2015/3/16.
@@ -45,15 +43,17 @@ public class ApplyBankActivity extends Activity implements
 	private ImageButton mBankSearch;
 	private LinearLayout mResultContainer;
 
-	private List<ApplyBank> mAllBanks = new ArrayList<ApplyBank>();
-	private List<ApplyBank> mBanks = new ArrayList<ApplyBank>();
+	private List<Bank> mBanks = new ArrayList<Bank>();
 	private XListView mBankList;
 	private BankListAdapter mAdapter;
-	private ApplyBank mChosenBank;
+	private Bank mChosenBank;
 	private int page = 0;
 	private int pageSize = 20;
 	private int mTerminalId;
-	private Boolean isLoadMore = false;
+	private List<Bank> bank;
+
+	private boolean noMoreData = false;
+	private String pullType = "loadData";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +62,14 @@ public class ApplyBankActivity extends Activity implements
 		new TitleMenuUtil(this, getString(R.string.title_apply_choose_bank))
 				.show();
 		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
-		mChosenBank = (ApplyBank) getIntent().getSerializableExtra(
-				SELECTED_BANK);
+		mChosenBank = (Bank) getIntent().getSerializableExtra(SELECTED_BANK);
 
 		mBankInput = (EditText) findViewById(R.id.apply_bank_input);
 		mBankSearch = (ImageButton) findViewById(R.id.apply_bank_search);
 		mBankSearch.setOnClickListener(this);
 		mResultContainer = (LinearLayout) findViewById(R.id.apply_bank_result_container);
 		mBankList = (XListView) findViewById(R.id.apply_bank_list);
+		bank = new ArrayList<Bank>();
 		mAdapter = new BankListAdapter();
 		mBankList.initHeaderAndFooter();
 		mBankList.setXListViewListener(this);
@@ -80,7 +80,7 @@ public class ApplyBankActivity extends Activity implements
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view,
 					int i, long l) {
-				ApplyBank bank = (ApplyBank) view.getTag(R.id.item_id);
+				Bank bank = (Bank) view.getTag(R.id.item_id);
 				Intent intent = new Intent();
 				intent.putExtra(SELECTED_BANK, bank);
 				setResult(RESULT_OK, intent);
@@ -88,27 +88,45 @@ public class ApplyBankActivity extends Activity implements
 			}
 		});
 
-		 loadData();
+		// loadData();
 	}
 
 	private void loadData() {
 
-		// TODO:
-		Config.getApplyBankList(this, page + 1, keyword, pageSize, String.valueOf(mTerminalId),
-				new HttpCallback<List<ApplyBank>>(this) {
+		Config.getApplyBankList(this, page + 1, keyword, pageSize,
+				String.valueOf(mTerminalId),
+				new HttpCallback<BankEntity>(this) {
 					@Override
-					public void onSuccess(List<ApplyBank> data) {
+					public void onSuccess(BankEntity data) {
 						mResultContainer.setVisibility(View.VISIBLE);
-						mAllBanks = data;
-						mBanks.clear();
-						if (null != data && data.size() > 0)
-							mBanks.addAll(data);
+						// 没有数据或者数据不够Config.ROWS个时说明后台没有更多数据 不需要上拉加载
+						if (null == data || data.getContent().size() < pageSize)
+							noMoreData = true;
+
+						if (pullType.equals("onRefresh")) {
+							mBanks.clear();
+						}
+
+						if (null != data && data.getContent().size() > 0)
+							mBanks.addAll(data.getContent());
+						page++;
 						mAdapter.notifyDataSetChanged();
 					}
 
 					@Override
-					public TypeToken<List<ApplyBank>> getTypeToken() {
-						return new TypeToken<List<ApplyBank>>() {
+					public void preLoad() {
+						super.preLoad();
+					}
+
+					@Override
+					public void postLoad() {
+						loadFinished();
+						super.postLoad();
+					}
+
+					@Override
+					public TypeToken<BankEntity> getTypeToken() {
+						return new TypeToken<BankEntity>() {
 						};
 					}
 				});
@@ -131,7 +149,7 @@ public class ApplyBankActivity extends Activity implements
 		}
 
 		@Override
-		public ApplyBank getItem(int i) {
+		public Bank getItem(int i) {
 			return mBanks.get(i);
 		}
 
@@ -156,13 +174,13 @@ public class ApplyBankActivity extends Activity implements
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			ApplyBank bank = getItem(i);
+			Bank bank = getItem(i);
 
 			if (null != bank) {
-				holder.id.setText(bank.getCode());
+				holder.id.setText(bank.getNo());
 				holder.name.setText(bank.getName());
 				if (null != mChosenBank
-						&& bank.getCode().equals(mChosenBank.getCode())) {
+						&& bank.getNo().equals(mChosenBank.getNo())) {
 					holder.icon.setVisibility(View.VISIBLE);
 					holder.icon.setImageDrawable(getResources().getDrawable(
 							R.drawable.icon_selected));
@@ -191,20 +209,23 @@ public class ApplyBankActivity extends Activity implements
 	@Override
 	public void onRefresh() {
 		page = 0;
-		mBanks.clear();
+		pullType = "onRefresh";
+		noMoreData = false;
 		mBankList.setPullLoadEnable(true);
 		loadData();
 	}
 
 	@Override
 	public void onLoadMore() {
-		if (!isLoadMore) {
-			mBankList.setPullLoadEnable(false);
+		pullType = "onLoadMore";
+		if (noMoreData) {
 			mBankList.stopLoadMore();
+			mBankList.setPullLoadEnable(false);
 			CommonUtil.toastShort(this,
 					getResources().getString(R.string.no_more_data));
 		} else {
 			loadData();
 		}
+
 	}
 }

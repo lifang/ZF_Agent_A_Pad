@@ -1,14 +1,5 @@
 package com.comdo.zf_agent_a_pad.activity;
 
-import com.comdo.zf_agent_a_pad.adapter.StaffmanagerAdapter;
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.common.HttpCallback;
-import com.comdo.zf_agent_a_pad.fragment.Staffmanagr;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
-import com.google.gson.reflect.TypeToken;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +9,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+
+import com.comdo.zf_agent_a_pad.adapter.StaffmanagerAdapter;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.fragment.Staffmanagr;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
+import com.example.zf_agent_a_pad.R;
+import com.google.gson.reflect.TypeToken;
 
 public class EditStallmanager extends BaseActivity implements
 		OnCheckedChangeListener {
@@ -221,6 +221,18 @@ public class EditStallmanager extends BaseActivity implements
 	protected void editStaffff() {
 		if ("".equals(roles)) {
 			CommonUtil.toastShort(EditStallmanager.this, "请为员工选择权限");
+			return;
+		}
+		if (et_paw.getText().toString().length() < 6
+				|| et_paw.getText().toString().length() > 20) {
+
+			CommonUtil.toastShort(EditStallmanager.this, "密码应为6-20位");
+			return;
+		}
+		if (!et_paw.getText().toString()
+				.equals(et_confirm_paw.getText().toString())) {
+
+			CommonUtil.toastShort(EditStallmanager.this, "两次密码输入不一致");
 			return;
 		}
 		String rolesnew = roles.substring(0, roles.length() - 1);
