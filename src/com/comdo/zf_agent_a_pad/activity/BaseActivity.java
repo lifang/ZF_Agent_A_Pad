@@ -81,6 +81,11 @@ public class BaseActivity extends Activity implements View.OnClickListener {
         } catch (RuntimeException ex) {
             Log.d("UNCatchException", ex.getMessage());
         }
+        
+        
+        mContext = this;
+        
+        
         MobclickAgent.setDebugMode(true);
 		// SDK在统计Fragment时，需要关闭Activity自带的页面统计，
 		// 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
@@ -102,16 +107,17 @@ public class BaseActivity extends Activity implements View.OnClickListener {
 	protected void onPause() {
 		super.onPause();
 //		StatService.onPause(this);
-		MobclickAgent.onPageStart(mContext.toString());
-		MobclickAgent.onResume(mContext);
+		MobclickAgent.onPageEnd( mContext.toString() );
+		MobclickAgent.onPause(mContext);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 	//	StatService.onResume(this);
-		MobclickAgent.onPageEnd( mContext.toString() );
-		MobclickAgent.onPause(mContext);
+		MobclickAgent.onPageStart(mContext.toString());
+		MobclickAgent.onResume(mContext);
+		
 	}
 
     @Override
