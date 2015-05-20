@@ -54,8 +54,7 @@
     <LinearLayout
         android:id="@+id/ll_baseinfo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" >
+        android:layout_height="match_parent" >
 
         <ScrollView
             android:id="@+id/sLV"
@@ -229,6 +228,16 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/text6c6c6c6"
                             android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_phone_xg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:gravity="center_vertical"
+                            android:text="修改"
+                            android:textColor="@color/bgtitle"
+                            android:textSize="20sp" />
                     </TableRow>
 
                     <TableRow android:layout_marginTop="40dp" >
@@ -248,6 +257,16 @@
                             android:layout_marginLeft="30dp"
                             android:gravity="center_vertical"
                             android:textColor="@color/text6c6c6c6"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_email_xg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:gravity="center_vertical"
+                            android:text="修改"
+                            android:textColor="@color/bgtitle"
                             android:textSize="20sp" />
                     </TableRow>
 

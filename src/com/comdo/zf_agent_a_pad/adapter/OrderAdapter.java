@@ -210,6 +210,8 @@ public class OrderAdapter extends BaseAdapter{
 			}else{
 				holder.tv_status.setText("已发货");
 				holder.ll_ishow.setVisibility(View.GONE);
+				holder.btn_comment.setVisibility(View.VISIBLE);
+				holder.btn_comment.setText("再次采购");
 			}
 
 			break;
@@ -220,7 +222,9 @@ public class OrderAdapter extends BaseAdapter{
 		case 5:
 			holder.tv_status.setText("已取消");
 			holder.ll_ishow.setVisibility(View.GONE);
-			//holder.btn_comment.setVisibility(View.VISIBLE);
+			holder.btn_comment.setVisibility(View.VISIBLE);
+			holder.btn_comment.setText("再次代购");
+			
 			/*if(OrderList.type.equals("5")){
 				holder.btn_comment.setText("再次批购");
 				

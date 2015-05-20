@@ -97,7 +97,22 @@ public class StringUtil {
 
 		return t;
 	}
+	/**
+	 * 手机号验证
+	 * 
+	 * @param string
+	 * @return 验证通过返回true
+	 */
+	public static boolean isMobile(String str) {
 
+		Pattern p = null;
+		Matcher m = null;
+		boolean b = false;
+		p = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$"); // 验证手机号
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
 	// 判断是否为空
 	public static boolean isNull(String s) {
 		if (null == s || s.equals("") || s.equalsIgnoreCase("null")) {
@@ -223,5 +238,26 @@ public class StringUtil {
 		if (TextUtils.isEmpty(str))
 			return "";
 		return str;
+	}
+	
+	public static String replaceNum(String num){
+		if(num==null||"".equals(num)||num.length()<8){
+			return num;
+		}
+		int length=num.length();
+		String start=num.substring(0,length-8);
+		String end=num.substring(length-4, length);
+		
+		return start+"****"+end;
+	}
+	public static String replaceName(String num){
+		if(num==null||"".equals(num)||num.length()<2){
+			return num;
+		}
+		int length=num.length();
+		String start=num.substring(0,length-2);
+		String end=num.substring(length-1, length);
+		
+		return start+"*"+end;
 	}
 }

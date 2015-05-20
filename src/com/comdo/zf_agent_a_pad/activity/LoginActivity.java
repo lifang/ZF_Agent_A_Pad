@@ -20,13 +20,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.UserEntity;
-import com.comdo.zf_agent_a_pad.trade.API;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
+import com.comdo.zf_agent_a_pad.util.Utils;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,7 +40,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private TextView login_text_forget, login_info;
 	private EditText login_edit_name, login_edit_pass;
 	private LinearLayout login_linear_deletename, login_linear_deletepass,
-			zhuche_ll, login_linear_login, msg;
+	zhuche_ll, login_linear_login, msg;
 	private String pass1, usename, passsword;
 	public static SharedPreferences mySharedPreferences;
 	private Editor editor;
@@ -78,6 +80,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.popwin_login);
 
+		if (Config.isFirstCreateMain == true) {
+			Config.isFirstCreateMain = false;
+			//百度推送
+			PushManager.startWork(getApplicationContext(),
+					PushConstants.LOGIN_TYPE_API_KEY,
+					Utils.getMetaValue(LoginActivity.this, "api_key"));
+		}
+		
 		initView();
 		// new ClientUpdate(LoginActivity.this).checkSetting();
 
@@ -184,7 +194,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.zhuche_ll:
 			// 注册
-			startActivity(new Intent(LoginActivity.this, Register.class));
+			//startActivity(new Intent(LoginActivity.this, Register.class));
+			startActivity(new Intent(LoginActivity.this, RegisterPartners.class));
 			break;
 		case R.id.login_linear_deletename:
 			login_edit_name.setText("");
@@ -206,7 +217,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		System.out.println("passsword`` `" + passsword);
 		Config.login(LoginActivity.this, usename, passsword,
 
-		new HttpCallback<UserEntity>(LoginActivity.this) {
+				new HttpCallback<UserEntity>(LoginActivity.this) {
 
 			@Override
 			public void onSuccess(UserEntity data) {
@@ -240,10 +251,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						CheckRights.setYijiTrue();
 					}
 				}
-				Intent it = new Intent(LoginActivity.this, MainActivity.class);
-				startActivity(it);
-				finish();
-
+//				Intent it = new Intent(LoginActivity.this, MainActivity.class);
+//				startActivity(it);
+//				finish();
+				// 百度推送
+				registerBaidu();
 			}
 
 			@Override
@@ -253,6 +265,25 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 
+	}
+
+	protected void registerBaidu() {	
+		Config.registerBaidu(LoginActivity.this,MyApplication.NewUser.getAgentUserId(),"3"+Config.channelId,
+				new HttpCallback(LoginActivity.this) {
+
+			@Override
+			public void onSuccess(Object data) {
+				
+				Intent it = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(it);
+				finish();
+			}
+
+			@Override
+			public TypeToken getTypeToken() {
+				return null;
+			}
+		});
 	}
 
 	private boolean check() {

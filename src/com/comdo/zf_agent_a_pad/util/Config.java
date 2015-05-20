@@ -11,6 +11,9 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
 import com.comdo.zf_agent_a_pad.entity.ApplyneedEntity;
@@ -20,16 +23,11 @@ import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
 import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
-import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
+import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
-
-import android.R.integer;
-import android.content.Context;
-import android.util.Log;
 
 public class Config {
 
@@ -70,7 +68,11 @@ public class Config {
 	 * public final static String PATHS =
 	 * "http://114.215.149.242:28080/ZFAgent/api/";
 	 */
-
+	public static String channelId = "";//，绑定百度推送的channelId
+	public static String notificationTitle = "";//，绑定百度推送的title
+	public static String notificationMsgID = "";//，绑定百度推送的title
+	public static boolean isFirstCreateMain = true;//，绑定百度推送只执行一次startWork
+	
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -81,7 +83,8 @@ public class Config {
 	public static int ScreenHeight = 0;
 
 	public static final String INDEXIMG = PATHS + "index/sysshufflingfigure";
-
+	public static final String MSGEDLALL ="message/receiver/batchDelete";
+	public static final String MSGREAD ="message/receiver/batchRead";
 	public static final String POSLIST = PATHS + "good/list";
 	public static final String GOODDETAIL = PATHS + "good/goodinfo";
 	public static final String paychannel_info = PATHS + "paychannel/info";
@@ -96,7 +99,7 @@ public class Config {
 	public static final String ORDERDETAIL = PATHS + "order/getWholesaleById";
 	public static final String ORDERDETAIL1 = PATHS + "order/getProxyById";
 	public static final String Comment = PATHS + "order/batchSaveComment";
-
+	public static final String GOODPICLIST = PATHS + "/good/getGoodImgUrl";
 	public static GoodinfoEntity gfe = null;
 	public static boolean iszd = false;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
@@ -113,16 +116,18 @@ public class Config {
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
-	public static int portindex = -1;
-	public static int lx;
 
-	public static String apply;
-	public static List<PortSon> son = new ArrayList<PortSon>();
-	public static List<GoodPic> piclist = new ArrayList<GoodPic>();
+	public static int gid;
+	public static int portindex=-1;
+	public static int lx;
+	public static String  apply;
+	public static List<PortSon> son=new ArrayList<PortSon>();
+	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
+
 
 	public static PortSon myson;
 	public static String getmes = PATHS + "message/receiver/getAll";
-
+	
 	// upload register url
 	public static final String UPLOAD_REGISTER = PATHS
 			+ "agent/upload/register";
@@ -418,6 +423,22 @@ public class Config {
 	public static final String SETDEFAULTPROFIT = PATHS
 			+ "lowerAgent/setDefaultProfit";
 
+	public static final String GET_PHONECODE=PATHS+"agents/getUpdatePhoneDentcode";
+	public static final String GET_EMAILCODE=PATHS+"agents/getUpdateEmailDentcode";
+	
+	public static final String UP_PHONECODE=PATHS+"agents/updatePhone/";
+	public static final String UP_EMAILCODE=PATHS+"agents/updateEmail/";
+
+
+	public static final String SENDPHONEVERCODEREG = PATHS
+			+ "agent/sendPhoneVerificationCodeReg";
+	public static final String GETJOIN = PATHS
+			+ "agent/getJoin";
+	//百度推送接口
+	public static final String URL_REGISTERBAIDU =PATHS+"agents/sendDeviceCode";
+	//版本更新
+	public static final String URL_GET_VERSION = PATHS+"index/getVersion";
+	
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -529,7 +550,6 @@ public class Config {
 			params.put("tDate", new JSONArray(gson.toJson(Posport.tDate)));
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		new HttpRequest(context, callback).post(Config.POSLIST, params);
@@ -576,7 +596,7 @@ public class Config {
 		params.put("quantity", quantity);
 		params.put("addressId", addressId);
 		params.put("comment", comment);
-
+		
 		params.put("isNeedInvoice", is_need_invoice);
 		params.put("invoiceType", invoice_type);
 		params.put("invoiceInfo", invoice_info);
@@ -589,7 +609,14 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
 		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
 	}
-
+	public static void GOODPICLIST(Context context, int goodId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("goodId", goodId);
+		System.out.println("参数--" + params.toString());
+		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
+		new HttpRequest(context, callback).post(Config.GOODPICLIST, params);
+	}
 	public static void getApplyList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1329,10 +1356,12 @@ public class Config {
 		params.put("agentId", agentId);
 		params.put("paychannelId", paychannelId);
 		params.put("goodId", goodId);
-		try {
-			params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if (serialNums != null) {
+			try {
+				params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 
 		params.put("page", page);
@@ -1543,6 +1572,13 @@ public class Config {
 		new HttpRequest(context, callback).post(SETDEFAULTPROFIT, params);
 	}
 
+	public static void AlterPhoneCode(Context context, int customerId,String phone,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("customerId", customerId);
+		params.put("phone", phone);
+		new HttpRequest(context, callback).post(CANCELS_RESUBMITCANCEL, params);
+	}
 	public static void userGetMerchants(Context context, int agentId, int page,
 			int rows, String title, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1551,5 +1587,78 @@ public class Config {
 		params.put("rows", rows);
 		params.put("title", title);
 		new HttpRequest(context, callback).post(TERMINAL_CUSTOMER, params);
+	}
+
+	public static void getPhoneCode(
+			Context context,
+			String  phone,
+			int customerId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("phone", phone);
+		params.put("customerId", customerId);
+		new HttpRequest(context, callback).post(GET_PHONECODE, params);
+	}
+	public static void getEmailCode(
+			Context context,
+			String  phone,
+			int customerId,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("email", phone);
+		params.put("customerId", customerId);
+		new HttpRequest(context, callback).post(GET_EMAILCODE, params);
+	}
+	public static void getPhoneNCode(
+			Context context,
+			String  phone,
+			int customerId,
+			String  dentcode,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("phone", phone);
+		params.put("customerId", customerId);
+		params.put("dentcode", dentcode);
+		
+		new HttpRequest(context, callback).post(UP_PHONECODE, params);
+	}
+	public static void getEmailNCode(
+			Context context,
+			String  phone,
+			int customerId,
+			String  dentcode,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("email", phone);
+		params.put("customerId", customerId);
+		params.put("dentcode", dentcode);
+		new HttpRequest(context, callback).post(UP_EMAILCODE, params);
+	}
+	public static void sendPhoneVerCodeReg(Context context,String codeNumber,
+			HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("codeNumber", codeNumber);
+		new HttpRequest(context, callback).post(SENDPHONEVERCODEREG, params);
+	}
+	public static void getRegisterPartners(Context context,String name,String phone,
+			String agentType,String address,HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("name", name);
+		params.put("phone", phone);
+		params.put("agentType", agentType);
+		params.put("address", address);
+		new HttpRequest(context, callback).post(GETJOIN, params);
+	}
+	public static void registerBaidu(Context context, int customerId,
+			String deviceCode, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", customerId);
+		params.put("deviceCode", deviceCode);
+		new HttpRequest(context, callback).post(Config.URL_REGISTERBAIDU, params);
+	}
+	public static void getVersion(Context context, int types, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("types", types);
+		new HttpRequest(context, callback).post(Config.URL_GET_VERSION,params);
 	}
 }

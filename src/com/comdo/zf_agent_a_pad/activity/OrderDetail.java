@@ -157,7 +157,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_detail);
-		// status = getIntent().getIntExtra("status", 0);
+		 status = getIntent().getIntExtra("status", 0);
 		id = getIntent().getIntExtra("id", 0);
 		type = getIntent().getIntExtra("type", 5);
 		df = (DecimalFormat) NumberFormat.getInstance();
@@ -167,7 +167,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			new TitleMenuUtil(OrderDetail.this, "批购订单详情").show();
 
 		} else {
-			new TitleMenuUtil(OrderDetail.this, "代购订单详情").show();
+			new TitleMenuUtil(OrderDetail.this, "采购订单详情").show();
 		}
 
 		getData();
@@ -330,7 +330,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		switch (status) {
 		case 1:
 
-			tv_status.setText("未付款");
+			tv_status.setText("订单状态：未付款");
 			if (PosListActivity.shoptype != 1) {
 				bt_pay.setText("付款");
 			} else {
@@ -343,45 +343,46 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 
 				ll_ishow.setVisibility(View.VISIBLE);
 				bt_pay.setText("付款");
-				tv_status.setText("已付订金");
+				tv_status.setText("订单状态：已付订金");
 				btn_ishow.setVisibility(View.VISIBLE);
 			} else {
 
-				tv_status.setText("已付款");
+				tv_status.setText("订单状态：已付款");
 				btn_ishow.setVisibility(View.VISIBLE);
 			}
 
 			break;
 		case 3:
 			if (OrderList.type.equals("5")) {
-				tv_status.setText("已完成");
+				tv_status.setText("订单状态：已完成");
 				btn_ishow.setVisibility(View.VISIBLE);
 				bt_pj.setVisibility(View.VISIBLE);
 			} else {
-				tv_status.setText("已发货");
+				tv_status.setText("订单状态：已发货");
 				btn_ishow.setVisibility(View.VISIBLE);
 				bt_pj.setVisibility(View.VISIBLE);
+				bt_pj.setText("再次采购");
 			}
 
 			break;
 		case 4:
-			tv_status.setText("已评价");
+			tv_status.setText("订单状态：已评价");
 			btn_ishow.setVisibility(View.VISIBLE);
 			break;
 		case 5:
-			tv_status.setText("已取消");
-			/*
-			 * bt_pj.setVisibility(View.VISIBLE); if
-			 * (OrderList.type.equals("5")) { bt_pj.setText("再次批购");
-			 * 
-			 * } else { bt_pj.setText("再次代购");
-			 * 
-			 * }
-			 */
+			tv_status.setText("订单状态：已取消");
+			
+			  bt_pj.setVisibility(View.VISIBLE);
+			  if(OrderList.type.equals("5")) { bt_pj.setText("再次批购");
+			  
+			  } else { bt_pj.setText("再次采购");
+			  
+			  }
+			
 			break;
 		case 6:
 
-			tv_status.setText("交易关闭");
+			tv_status.setText("订单状态：交易关闭");
 			break;
 		default:
 			break;
@@ -392,7 +393,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.btn_pj:
-			if (status == 5) {
+		/*	if (status == 5) {
 
 				Intent i = new Intent(OrderDetail.this, GoodDeatail.class);
 				if (entity != null) {
@@ -413,8 +414,16 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 					startActivity(new Intent(OrderDetail.this, Comment.class));
 				}
 
-			}
-
+			}*/
+			Intent i2 = new Intent(OrderDetail.this, GoodDeatail.class);
+			if (entity != null) {
+				if (!StringUtil.isNull(entity.getOrder_goodsList().get(0)
+						.getGood_id()))
+					i2.putExtra(
+							"id",
+							Integer.parseInt(entity.getOrder_goodsList()
+									.get(0).getGood_id()));
+				startActivity(i2);}
 			break;
 		case R.id.btn_ishow:
 			amd = new AlertMessDialog(OrderDetail.this);
@@ -479,6 +488,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			} else {
 				i.putExtra("orderId", id);
 				i.putExtra("type", type);
+				OrderDetail.this.finish();
 				startActivity(i);
 			}
 

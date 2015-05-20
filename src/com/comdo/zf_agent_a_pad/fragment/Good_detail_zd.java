@@ -48,14 +48,13 @@ public class Good_detail_zd extends Fragment implements OnClickListener{
 		tv5.setText(gfe.getLease_agreement()+"");
 		tv4.setText(gfe.getDescription()+"");
 		tv3.setText("￥" +df.format((double)gfe.getLease_price())+"");
-		tv2.setText(gfe.getReturn_time()+"天");
-		tv1.setText(gfe.getLease_time()+"天");
+		tv2.setText(gfe.getReturn_time()+"月");
+		tv1.setText(gfe.getLease_time()+"月");
 
 	}
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 

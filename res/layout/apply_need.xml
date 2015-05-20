@@ -20,11 +20,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_left2"
+                android:layout_marginLeft="@dimen/zc_margin_top2"
                 android:layout_marginTop="30dp"
                 android:text="开通所需资料"
-                android:textColor="@color/text6c6c6c6"
-                android:textSize="18sp" />
+                android:textColor="@color/text292929"
+                android:textSize="@dimen/textbig" />
 
        <View 
     android:layout_width="fill_parent"
@@ -81,7 +81,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:textSize="16sp"
+        android:textSize="@dimen/textbig"
+       	android:lineSpacingExtra="@dimen/iconma"
         android:layout_marginTop="8dp"
         android:text="" />
     
