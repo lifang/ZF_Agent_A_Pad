@@ -395,7 +395,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 				Intent i = new Intent(getActivity(), MyWebView.class);
 				i.putExtra("title", "详情");
 				i.putExtra("url", myList.get(position).getWebsite_url());
-				startActivity(i);
+				//startActivity(i);
 				}
 			});
 			container.removeView(mList.get(position));
