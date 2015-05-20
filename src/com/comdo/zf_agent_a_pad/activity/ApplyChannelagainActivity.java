@@ -28,7 +28,7 @@ import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class ApplyChannelagainActivity extends Activity {
+public class ApplyChannelagainActivity extends BaseActivity {
 
 	private List<ApplyChannelagain> channels = new ArrayList<ApplyChannelagain>();
 	private List<ApplyChannelagain.Billing> billings = new ArrayList<ApplyChannelagain.Billing>();

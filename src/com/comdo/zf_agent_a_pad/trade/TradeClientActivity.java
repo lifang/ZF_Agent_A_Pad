@@ -15,6 +15,7 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,4 +73,18 @@ public class TradeClientActivity extends ListActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+    
+    @Override
+   	protected void onResume() {
+   		super.onResume();
+   		MobclickAgent.onPageStart( this.toString() );
+   		MobclickAgent.onResume(this);
+   	}
+
+   	@Override
+   	protected void onPause() {
+   		super.onPause();
+   		MobclickAgent.onPageEnd(this.toString());
+   		MobclickAgent.onPause(this);
+   	}
 }

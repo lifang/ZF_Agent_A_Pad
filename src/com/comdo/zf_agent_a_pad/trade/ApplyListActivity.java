@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.activity.GenerateSearch;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -39,7 +40,7 @@ import com.comdo.zf_agent_a_pad.video.VideoActivity;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class ApplyListActivity extends Activity implements
+public class ApplyListActivity extends BaseActivity implements
 		XListView.IXListViewListener {
 
 	private LinearLayout titleback_linear_back;

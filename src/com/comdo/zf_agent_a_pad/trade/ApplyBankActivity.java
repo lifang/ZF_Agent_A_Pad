@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.BankEntity;
@@ -34,7 +35,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Created by Leo on 2015/3/16.
  */
-public class ApplyBankActivity extends Activity implements
+public class ApplyBankActivity extends BaseActivity implements
 		View.OnClickListener, XListView.IXListViewListener {
 
 	private String mTerminalNumber, keyword = "";

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.zf_agent_a_pad.R;
 
-public class FindpassmailSucces extends Activity {
+public class FindpassmailSucces extends BaseActivity {
 	private String type="";
 	private String value="";
 	private LinearLayout ll_mail;

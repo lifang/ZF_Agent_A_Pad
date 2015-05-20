@@ -178,6 +178,15 @@ public class Transgoods extends Fragment implements OnClickListener,
 			datatrans.clear();
 			quary();
 		}
+		if (TerminalSelectActivity.isTerconfirm == true) {
+			TerminalSelectActivity.isTerconfirm = false;
+			
+			mTerminalNum = TerminalSelectActivity.mTerminalNum;
+			mTerminalArray = TerminalSelectActivity.mTerminalArray;
+			tv_choose_terminal.setText(mTerminalArray);
+			paychannelId = TerminalSelectActivity.paychannelId;
+			goodId = TerminalSelectActivity.goodId;
+		}
 	}
 
 	protected void onLoad() {

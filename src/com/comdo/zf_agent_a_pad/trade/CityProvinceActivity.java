@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
@@ -25,7 +26,7 @@ import com.example.zf_agent_a_pad.R;
 /**
  * Created by Leo on 2015/2/11.
  */
-public class CityProvinceActivity extends Activity {
+public class CityProvinceActivity extends BaseActivity {
 
     private List<Province> mProvinces;
     private static final int OFFSET = 5;

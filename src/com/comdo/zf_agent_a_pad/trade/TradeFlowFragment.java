@@ -55,6 +55,7 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 public class TradeFlowFragment extends Fragment implements
 		View.OnClickListener, XListView.IXListViewListener {
@@ -90,6 +91,7 @@ public class TradeFlowFragment extends Fragment implements
 	private int page = 1;
 	private boolean canLoadMore = true;
 	private int total = 0;
+	private String mPageName;
 
 	public static TradeFlowFragment newInstance(int mTradeType) {
 		TradeFlowFragment fragment = new TradeFlowFragment();
@@ -113,6 +115,7 @@ public class TradeFlowFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
 			mTradeType = getArguments().getInt(TRADE_TYPE);
+			 mPageName = String.format("tradeflow %d", mTradeType);
 		}
 	}
 
@@ -230,10 +233,6 @@ public class TradeFlowFragment extends Fragment implements
 				});
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
 
 	@Override
 	public void onDetach() {
@@ -594,4 +593,18 @@ public class TradeFlowFragment extends Fragment implements
 			// 然后调用onDateSet()会引以onDateSet()方法回调两次
 		}
 	}
+	
+	 @Override
+		public void onPause() {
+	  			// TODO Auto-generated method stub
+	  			super.onPause();
+	  			MobclickAgent.onPageEnd( mPageName );
+	  		}
+	    
+	    @Override
+		public void onResume() {
+			// TODO Auto-generated method stub
+			super.onResume();
+			MobclickAgent.onPageStart( mPageName );	
+		}
 }

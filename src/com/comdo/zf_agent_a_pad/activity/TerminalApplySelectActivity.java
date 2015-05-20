@@ -54,7 +54,7 @@ import com.google.gson.reflect.TypeToken;
 /**
 
  */
-public class TerminalApplySelectActivity extends Activity implements
+public class TerminalApplySelectActivity extends BaseActivity implements
 		View.OnClickListener, XListView.IXListViewListener {
 
 	private TextView selectedpos, selectedchannel;

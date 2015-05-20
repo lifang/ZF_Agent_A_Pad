@@ -6,6 +6,7 @@ import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.example.zf_agent_a_pad.R;
+import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -134,6 +135,7 @@ public class Mmy extends Fragment implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
+		MobclickAgent.onPageStart(this.toString());
 		changeTap();
 	}
 
@@ -405,4 +407,11 @@ public class Mmy extends Fragment implements OnClickListener {
 	// throw new RuntimeException(e);
 	// }
 	// }
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPageEnd(this.toString());
+	}
 }

@@ -98,14 +98,23 @@ OnClickListener, IXListViewListener {
 	private ArrayList<ApplyChannelagain> channelList = new ArrayList<ApplyChannelagain>();
 	private WindowManager.LayoutParams lp;
 	private PopupWindow popuSelPos,popuSelChannel;
+
+	private String mflag;
+	private String[] str = null;
+
+	public static boolean isTerconfirm = false;
+	public static int mTerminalNum = 0;
+	public static String mTerminalArray = "";
+	public static int paychannelId = 0;
+	public static int goodId = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_tt);
 		new TitleMenuUtil(TerminalSelectActivity.this, "选择终端").show();
 		lp = getWindow().getAttributes(); // 设置popupWindow弹出后背景的阴影
-		
-		String mflag = getIntent().getExtras().getString("flag");
+
+		mflag = getIntent().getExtras().getString("flag");
 		if (mflag.equals("Distribute")) {
 			agentId = MyApplication.NewUser.getAgentId();
 		}else {
@@ -222,7 +231,9 @@ OnClickListener, IXListViewListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.terminal_comfirm:
+
 			StringBuffer string = new StringBuffer();
+			int falg = 0;
 			for (int i = 0; i < mTerminalItems.size(); i++) {
 				if (mTerminalItems.get(i).isCheck()) {
 					string.append(mTerminalItems.get(i).getSerial_num());
@@ -231,15 +242,25 @@ OnClickListener, IXListViewListener {
 
 						string.append(",");
 					}
+					falg++;
 				}
 			}
-			Intent it = new Intent();
-			it.putExtra(TERMINAL_TOTAL, checked);
-			it.putExtra(TERMINAL_ARRAY, string.toString());
-			it.putExtra("goodsid", posID);
-			it.putExtra("paychannelId", mChannelId);
-			setResult(RESULT_OK, it);
-			finish();
+			if (falg>0) {
+
+				isTerconfirm = true;
+				mTerminalNum = checked;
+				mTerminalArray = string.toString();
+				paychannelId = mChannelId;
+				goodId = posID;
+
+				Intent it = new Intent();
+				it.putExtra(TERMINAL_TOTAL, checked);
+				it.putExtra(TERMINAL_ARRAY, string.toString());
+				it.putExtra("goodsid", posID);
+				it.putExtra("paychannelId", mChannelId);
+				setResult(RESULT_OK, it);
+				finish();
+			}
 			break;
 		case R.id.selectedpos:
 			popSelectPos();
@@ -252,11 +273,21 @@ OnClickListener, IXListViewListener {
 			if (mTerminalItems.size() != 0) {
 				mTerminalItems.clear();
 			}
-			if (isFromTrans) {
-				confirmUp_trans();
-			} else {
-				confirmUp();
-			}
+			isrefersh = true;
+			a = page;
+			rows = a * rows;
+			page = 1;
+			mChannelId = 0;
+			posID = 0;
+			checked = 0;
+			 str = zdh.getText().toString().split("\n");
+			confirmUp();
+			//confirmUp_trans();
+			//			if (isFromTrans) {
+			//				confirmUp_trans();
+			//			} else {
+			//				confirmUp();
+			//			}
 
 			break;
 		case R.id.search:
@@ -357,7 +388,7 @@ OnClickListener, IXListViewListener {
 	}
 
 	private void confirmUp() {
-		String[] str = new String[] {};
+		//String[] str = new String[] {};
 		// str = zdh.getText().toString().split("\n");
 		Config.getTerminallist(TerminalSelectActivity.this, agentId,
 				mChannelId, posID, str, page, rows,
@@ -410,6 +441,12 @@ OnClickListener, IXListViewListener {
 				if (mTerminalItems.size() != 0) {
 					mTerminalItems.clear();
 				}
+				isrefersh = true;
+				a = page;
+				rows = a * rows;
+				page = 1;
+				str = null;
+				checked = 0;
 				confirmUp();
 			}
 		});
@@ -450,6 +487,12 @@ OnClickListener, IXListViewListener {
 				if (mTerminalItems.size() != 0) {
 					mTerminalItems.clear();
 				}
+				isrefersh = true;
+				a = page;
+				rows = a * rows;
+				page = 1;
+				str = null;
+				checked = 0;
 				confirmUp();
 			}
 		});
@@ -527,6 +570,11 @@ OnClickListener, IXListViewListener {
 		page = 1;
 		mTerminalItems.clear();
 		confirmUp();
+//		if (confirmUp_trans == false) {
+//			confirmUp();
+//		}else {
+//			confirmUp_trans();
+//		}
 
 	}
 
@@ -538,6 +586,11 @@ OnClickListener, IXListViewListener {
 		}
 		page += 1;
 		confirmUp();
+//		if (confirmUp_trans == false) {
+//			confirmUp();
+//		}else {
+//			confirmUp_trans();
+//		}
 
 	}
 }

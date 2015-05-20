@@ -140,6 +140,15 @@ IXListViewListener {
 			quary();
 		}
 
+		if (TerminalSelectActivity.isTerconfirm == true) {
+			TerminalSelectActivity.isTerconfirm = false;
+			
+			mTerminalNum = TerminalSelectActivity.mTerminalNum;
+			mTerminalArray = TerminalSelectActivity.mTerminalArray;
+			tv_choose_terminal.setText(mTerminalArray);
+			paychannelId = TerminalSelectActivity.paychannelId;
+			goodId = TerminalSelectActivity.goodId;
+		}
 		// xxlistview.setAdapter(distributeAdapter);
 		/*
 		 * if(datadistribut.size()!=0){ datadistribut.clear(); } if(page!=1){
@@ -277,6 +286,7 @@ IXListViewListener {
 		/*
 		 * if (resultCode != RESULT_OK) return;
 		 */
+		System.out.println("");
 		switch (requestCode) {
 		case REQUEST_SELECT_CLIENT: {
 			if (data == null) {

@@ -37,7 +37,7 @@ import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class OrderList extends Activity implements IXListViewListener,
+public class OrderList extends BaseActivity implements IXListViewListener,
 		OnClickListener, OnEditorActionListener {
 	private XListView Xlistview;
 	private boolean onRefresh_number = true;
@@ -113,7 +113,7 @@ public class OrderList extends Activity implements IXListViewListener,
 		all_good = (ImageView) findViewById(R.id.AllGood);
 		all_good.setOnClickListener(this);
 		sp = (Spinner) findViewById(R.id.spinner);
-		arrs = new String[] { "全部", "未付款", "已付订金", "已发货", "已取消"};
+		arrs = new String[] { "全部", "未付款", "已付款", "已发货", "已取消"};
 		arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, arrs);
 		sp.setAdapter(arrayAdapter);

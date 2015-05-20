@@ -38,7 +38,7 @@ import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_USER;
 
-public class TerminalApplyBindActivity extends Activity implements
+public class TerminalApplyBindActivity extends BaseActivity implements
 		View.OnClickListener {
 
 	private Spinner spinner;

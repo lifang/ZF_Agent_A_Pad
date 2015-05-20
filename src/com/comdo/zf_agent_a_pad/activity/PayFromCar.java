@@ -38,14 +38,14 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 	private String price;
 	private String unionprice;
 	private int type;
-	
-	private String pay_status;//定金支付状态
-	private String price_dingjin;//定金总额
-	private String order_totalPrice;//总共的钱
-	private String shengyu_price;//剩余要付的钱
-	
+
+	private String pay_status = "";//定金支付状态
+	private String price_dingjin = "";//定金总额
+	private String order_totalPrice = "";//总共的钱
+	private String shengyu_price = "";//剩余要付的钱
+
 	private String priceEdit = "";//输入要付的金额
-	
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -64,13 +64,13 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 
 		orderId = getIntent().getIntExtra("orderId", -1);
 		type = getIntent().getIntExtra("type", 5);
-		
+
 		if (type == 5) {
 			priceEdit = getIntent().getStringExtra("pay");
 		}else {
 			priceEdit = "";
 		}
-		
+
 		new TitleMenuUtil(PayFromCar.this, "选择支付方式").show();
 
 		tv_pay=(TextView) findViewById(R.id.tv_pay);
@@ -81,7 +81,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 		ll_request.setOnClickListener(this);
 		ll_yl = (LinearLayout) findViewById(R.id.ll_sh);
 		ll_yl.setOnClickListener(this);
-		
+
 		if (type == 5) {
 			getOrderPayOrder();//批购
 		}else {
@@ -92,32 +92,32 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.titleback_linear_back:
-				dialogIntent();
+			dialogIntent();
 			break;
 		case R.id.ll_request:
-			if (pay_status.equals("1")) {
+	//		if (pay_status.equals("1")) {
 				payShop(outTradeNo, subject, body, price);
-			}else {
-				if (!StringUtil.isNull(shengyu_price) && !StringUtil.isNull(priceEdit)) {
-					if (Integer.valueOf(shengyu_price) > Integer.valueOf(shengyu_price)) {
-						Toast.makeText(this, "付款金额大于剩余金额", Toast.LENGTH_SHORT).show();
-					}else {
-						payOrder(outTradeNo, subject, body, price);
-					}
-				}
-			}
+//			}else {
+//				if (!StringUtil.isNull(shengyu_price) && !StringUtil.isNull(priceEdit)) {
+//					if (Integer.valueOf(shengyu_price) > Integer.valueOf(shengyu_price)) {
+//						Toast.makeText(this, "付款金额大于剩余金额", Toast.LENGTH_SHORT).show();
+//					}else {
+//						payOrder(outTradeNo, subject, body, price);
+//					}
+//				}
+//			}
 			break;
 		case R.id.ll_sh:
 			Intent intent = new Intent();
-	        intent.setClass(this, APKActivity.class);
-	        intent.putExtra("orderId", orderId);
-	        intent.putExtra("outTradeNo", outTradeNo);
-	        intent.putExtra("type", type);
-	        intent.putExtra("price", unionprice);
-	        startActivity(intent);
-	        if(!MyApplication.getInstance().getHistoryList().contains(this)){
-	        	MyApplication.getInstance().getHistoryList().add(this);	
-	        }
+			intent.setClass(this, APKActivity.class);
+			intent.putExtra("orderId", orderId);
+			intent.putExtra("outTradeNo", outTradeNo);
+			intent.putExtra("type", type);
+			intent.putExtra("price", unionprice);
+			startActivity(intent);
+			if(!MyApplication.getInstance().getHistoryList().contains(this)){
+				MyApplication.getInstance().getHistoryList().add(this);	
+			}
 			break;
 		default:
 			break;
@@ -144,17 +144,17 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK
 				&& event.getRepeatCount() == 0) {
-				dialogIntent();
+			dialogIntent();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	private void getShopPayOrder() {
 
 		Config.shopPayOrder(this, orderId, 
 				new HttpCallback<ShopPayOrderEntity>(this) {
- 
+
 			@Override
 			public void onSuccess(ShopPayOrderEntity data) {
 				if (data.getGood().size()>0) {
@@ -178,14 +178,14 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 
 		Config.orderPayOrder(this, orderId, 
 				new HttpCallback<OrderPayOrderEntity>(this) {
- 
+
 			@Override
 			public void onSuccess(OrderPayOrderEntity data) {
 				pay_status = data.getPay_status();
 				price_dingjin = data.getPrice_dingjin();
 				order_totalPrice = data.getOrder_totalPrice();
 				shengyu_price = data.getShengyu_price();
-				
+
 				if (!StringUtil.isNull(data.getBody())) {
 					subject = data.getBody();
 				}else {
@@ -194,17 +194,19 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 				body = subject;
 				outTradeNo = data.getOrder_number();
 				System.out.println("pay_status:::orderId"+pay_status+":::"+orderId);
-				if (pay_status.equals("1")) {
-					price = price_dingjin;
-					if (!StringUtil.isNull(price)) {
-						price = String.format("%.2f", Integer.parseInt(price_dingjin)/100f);
-					}
-				}else {
-					price = priceEdit;
-					if (!StringUtil.isNull(price)) {
-						price = String.format("%.2f", Float.parseFloat(price));
+				if (!StringUtil.isNull(pay_status)) {
+					if (pay_status.equals("1")) {
+						price = price_dingjin;
+						if (!StringUtil.isNull(price)) {
+							price = String.format("%.2f", Integer.parseInt(price_dingjin)/100f);
+						}
 					}else {
-						price = "0.00";
+						price = priceEdit;
+						if (!StringUtil.isNull(price)) {
+							price = String.format("%.2f", Float.parseFloat(price));
+						}else {
+							price = "0.00";
+						}
 					}
 				}
 				handler.sendEmptyMessage(0);
@@ -216,7 +218,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 			}
 		});
 	}
-	
+
 	@Override
 	public void success() {
 		Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
@@ -237,12 +239,12 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 	}
 	@Override
 	public void fail() {
-		Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
-		intent.putExtra("status",1);
-		intent.putExtra("id", orderId);
-		intent.putExtra("type", type);
-		startActivity(intent);
-		finish();
+		//		Intent intent = new Intent(PayFromCar.this,OrderDetail.class);
+		//		intent.putExtra("status",1);
+		//		intent.putExtra("id", orderId);
+		//		intent.putExtra("type", type);
+		//		startActivity(intent);
+		//		finish();
 	}
 }
 

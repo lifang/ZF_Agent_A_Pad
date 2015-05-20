@@ -47,7 +47,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 @SuppressLint("NewApi")
-public class TerminalManagerDetailActivity extends Activity {
+public class TerminalManagerDetailActivity extends BaseActivity {
 
 	private int mTerminalStatus;
 	private String mTerminalNumber;

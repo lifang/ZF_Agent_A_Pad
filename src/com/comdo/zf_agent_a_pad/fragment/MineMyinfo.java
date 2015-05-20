@@ -514,7 +514,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 						shenfenzheng = data.getCard_id_photo_path();
 						yingyezhizhao = data.getLicense_no_pic_path();
 						shuiwu = data.getTax_no_pic_path();
-						tv_id_detail.setText(data.getName());
+						tv_id_detail.setText(data.getUsername());
 					}
 
 					@Override

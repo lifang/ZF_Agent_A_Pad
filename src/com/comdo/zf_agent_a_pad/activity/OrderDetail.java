@@ -64,7 +64,6 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private int status, id;
 	private OrderDetailEntity entity;
 	private Handler handler = new Handler() {
-
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
@@ -80,15 +79,21 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				} else {
 					tv_sjps.setText("实付金额 ：￥ "
 							+ df.format(check(entity.getOrder_totalPrice()) / 100));
+					tv_psf.setText("配送费 ：￥ "
+							+ df.format(check(entity.getOrder_psf()) / 100));
 				}
-
 				// tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
 				tv_reperson.setText("收件人  ：   " + entity.getOrder_receiver());
 				tv_tel.setText(entity.getOrder_receiver_phone());
 				tv_adress.setText("收货地址  ：   " + entity.getOrder_address());
 				tv_ly.setText("留言  ：   " + entity.getOrder_comment());
-				tv_fplx.setText(entity.getOrder_invoce_type().equals("1") ? "发票类型 : 个人"
-						: "发票类型 : 公司");
+				if(entity.getNeed_invoice()==0){
+					tv_fplx.setText("发票类型");
+				}else{
+					tv_fplx.setText(entity.getOrder_invoce_type().equals("1") ? "发票类型 : 个人"
+							: "发票类型 : 公司");
+				}
+				
 				fptt.setText("发票抬头  ：   " + entity.getOrder_invoce_info());
 				tv_ddbh.setText("订单编号  ：   " + entity.getOrder_number());
 				if (entity.getOrder_payment_type().equals("1")) {
@@ -100,7 +105,6 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				} else {
 					tv_pay.setText("支付方式  ：   ");
 				}
-
 				tv_time.setText("实付金额  ：   ￥"
 						+ df.format(check(entity.getOrder_totalPrice()) / 100));
 				tv_money.setText("订单日期  ：   " + entity.getOrder_createTime());
@@ -119,7 +123,6 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			case 1:
 				Toast.makeText(getApplicationContext(), (String) msg.obj,
 						Toast.LENGTH_SHORT).show();
-
 				break;
 			case 2:
 				Toast.makeText(getApplicationContext(),
@@ -205,14 +208,12 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 										.getLoadingDialg(OrderDetail.this);
 								loadingDialog.show();
 							}
-
 							@Override
 							public void onFinish() {
 
 								super.onFinish();
 								loadingDialog.dismiss();
 							}
-
 							@Override
 							public void onSuccess(int statusCode,
 									Header[] headers, byte[] responseBody) {
@@ -488,6 +489,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			} else {
 				i.putExtra("orderId", id);
 				i.putExtra("type", type);
+				OrderDetail.this.finish();
 				startActivity(i);
 			}
 

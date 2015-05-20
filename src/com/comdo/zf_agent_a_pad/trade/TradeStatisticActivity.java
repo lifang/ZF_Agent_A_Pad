@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeStatistic;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
@@ -17,7 +18,7 @@ import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class TradeStatisticActivity extends Activity {
+public class TradeStatisticActivity extends BaseActivity {
 
 	public static final String TRADE_TYPE = "trade_type";
 	public static final String START_DATE = "start_date";

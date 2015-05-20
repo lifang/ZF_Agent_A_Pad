@@ -6,9 +6,7 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+    
 
         <LinearLayout
             android:layout_width="460dp"
@@ -44,7 +42,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="#484849" />
-
+<ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -250,8 +250,10 @@
                     android:text="保存"
                     android:textColor="@color/fffefe"
                     android:textSize="20sp" />
+                 
             </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
+   
 
 </LinearLayout>

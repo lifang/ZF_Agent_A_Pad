@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class AddAdress extends Activity implements OnClickListener{
+public class AddAdress extends BaseActivity implements OnClickListener{
 	private AlertDialog.Builder builder;
 	private TextView area,tv_title;
 	private Button btn_save,close;
@@ -81,8 +81,15 @@ public class AddAdress extends Activity implements OnClickListener{
 		switch (v.getId()) {
 	
 		case R.id.btn_save:
-			if(check())
-			addAddresss();			
+			if(check()){
+				if(cb.isChecked()){
+					isDefault=1;
+				}else{
+					isDefault=2;
+				}
+				addAddresss();
+			}
+						
 			break;
 		case R.id.area:
 			Intent intent = new Intent(AddAdress.this,

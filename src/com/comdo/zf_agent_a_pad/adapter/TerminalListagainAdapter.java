@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.adapter;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import android.content.Context;
@@ -66,7 +68,13 @@ public class TerminalListagainAdapter extends BaseAdapter{
 			holder=(ViewHolder) convertView.getTag();
 		}
 		holder.terminal_num.setText(mTerminalItems.get(position).getSerial_num());
-		holder.price.setText(mTerminalItems.get(position).getMoney()+"");
+		DecimalFormat df = (DecimalFormat) NumberFormat
+				.getInstance();
+		df.applyPattern("0.00");
+		holder.price.setText(context.getString(R.string.notation_yuan)
+				+ df.format(mTerminalItems.get(position).getMoney() * 1.0f / 100));
+		
+		
 		//final TerminalPriceEntity item = getItem(position);
 		holder.checkbox.setChecked(TerminalSelectActivity.allCheck);
 		holder.checkbox

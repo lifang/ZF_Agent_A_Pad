@@ -11,7 +11,7 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class MyWebView extends Activity {
+public class MyWebView extends BaseActivity {
 	private String Url="";
 	private String Title="";
 	private WebView webview;
