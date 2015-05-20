@@ -21,11 +21,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.comdo.zf_agent_a_pad.trade.widget.MyTabWidget;
 import com.comdo.zf_agent_a_pad.trade.widget.MyViewPager;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
+import com.umeng.analytics.MobclickAgent;
 
 
 public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
@@ -50,6 +52,7 @@ public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnP
 		if (isPrompt == 0) {
 			showTagDialog();
 		}
+		Log.e("", getWindowManager().getDefaultDisplay().getHeight()+"====="+getWindowManager().getDefaultDisplay().getWidth());
 	}
 
 	private void showTagDialog() {
@@ -160,5 +163,17 @@ public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnP
 			return mFragments.size();
 		}
 	}
+	
+	 @Override
+		protected void onPause() {
+			super.onPause();
+			MobclickAgent.onPause(this);
+		}
+	    
+	    @Override
+		protected void onResume() {
+			super.onResume();
+			MobclickAgent.onResume(this);
+		}
 
 }

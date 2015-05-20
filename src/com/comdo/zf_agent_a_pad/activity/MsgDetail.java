@@ -56,8 +56,11 @@ public class MsgDetail extends BaseActivity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		Intent intent = getIntent();
-		id = intent.getIntExtra("id", 0);
+		Intent intent=getIntent();
+		id=intent.getIntExtra("id", 0);
+		if (id == Integer.valueOf(Config.notificationMsgID)) {
+			Config.notificationMsgID = "";
+		}
 		getMsgdetail();
 		/*
 		 * String title=intent.getStringExtra("title"); String

@@ -37,7 +37,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class StockInfoListActivity extends Activity implements OnClickListener,IXListViewListener{
+public class StockInfoListActivity extends BaseActivity implements OnClickListener,IXListViewListener{
 	private LinearLayout titleback_linear_back;
 
 	private ImageView evevt_img;

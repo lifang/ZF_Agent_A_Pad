@@ -35,7 +35,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class AddPayChannel extends Activity implements OnClickListener {
+public class AddPayChannel extends BaseActivity implements OnClickListener {
 
 	private LayoutInflater mInflater;
 	private BaseAdapter mAdapter;

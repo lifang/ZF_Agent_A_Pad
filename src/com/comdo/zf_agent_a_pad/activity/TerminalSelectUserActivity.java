@@ -34,7 +34,7 @@ import com.google.gson.reflect.TypeToken;
 /**
 
  */
-public class TerminalSelectUserActivity extends Activity implements
+public class TerminalSelectUserActivity extends BaseActivity implements
 		View.OnClickListener, XListView.IXListViewListener {
 
 	private XListView mUserList;

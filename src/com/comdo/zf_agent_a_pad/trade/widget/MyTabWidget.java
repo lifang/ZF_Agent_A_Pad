@@ -92,20 +92,14 @@ public class MyTabWidget extends TabWidget implements View.OnClickListener {
 
         for (TextView tv : mTabViews) {
             tv.setBackgroundColor(getResources().getColor(R.color.bg));
-        	//tv.setBackgroundDrawable(resources.getDrawable(R.drawable.tab_bg));
+        	tv.setBackgroundDrawable(null);
             tv.setTextColor(resources.getColor(R.color.text292929));
         }
 
         TextView tv = mTabViews.get(position);
         tv.setTextColor(resources.getColor(R.color.text292929));
-        if (mTabViews.indexOf(tv) == 0) {
-            tv.setBackgroundDrawable(resources.getDrawable(R.drawable.tab_bg));
-        } else if (mTabViews.indexOf(tv) == mTabViews.size() - 1) {
-            tv.setBackgroundDrawable(resources.getDrawable(R.drawable.tab_bg));
-        } else {
-            //tv.setBackgroundColor(mBaseColor);
-        	 tv.setBackgroundDrawable(resources.getDrawable(R.drawable.tab_bg));
-        }
+        tv.setBackgroundColor(Color.TRANSPARENT);
+        tv.setBackgroundDrawable(resources.getDrawable(R.drawable.tab_bg));
     }
 
 }

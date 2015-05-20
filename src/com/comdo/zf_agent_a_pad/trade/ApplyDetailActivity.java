@@ -84,6 +84,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 
 public class ApplyDetailActivity extends FragmentActivity {
 
@@ -1316,4 +1317,19 @@ public class ApplyDetailActivity extends FragmentActivity {
 		}
 
 	};
+	
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onResume(this);
+	}
 }

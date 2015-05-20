@@ -1,3 +1,4 @@
+
 package com.comdo.zf_agent_a_pad.util;
 
 import java.io.File;
@@ -70,7 +71,10 @@ public class Config {
 	 * public final static String PATHS =
 	 * "http://114.215.149.242:28080/ZFAgent/api/";
 	 */
-
+	public static String channelId = "";//，绑定百度推送的channelId
+	public static String notificationTitle = "";//，绑定百度推送的title
+	public static String notificationMsgID = "";//，绑定百度推送的title
+	public static boolean isFirstCreateMain = true;//，绑定百度推送只执行一次startWork
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -432,7 +436,10 @@ public class Config {
 			+ "agent/sendPhoneVerificationCodeReg";
 	public static final String GETJOIN = PATHS
 			+ "agent/getJoin";
-
+	//百度推送接口
+	public static final String URL_REGISTERBAIDU =PATHS+"agents/sendDeviceCode";
+	//版本更新
+	public static final String URL_GET_VERSION = PATHS+"index/getVersion";
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1641,4 +1648,17 @@ public class Config {
 		params.put("address", address);
 		new HttpRequest(context, callback).post(GETJOIN, params);
 	}
+	public static void registerBaidu(Context context, int customerId,
+			String deviceCode, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", customerId);
+		params.put("deviceCode", deviceCode);
+		new HttpRequest(context, callback).post(Config.URL_REGISTERBAIDU, params);
+	}
+	public static void getVersion(Context context, int types, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("types", types);
+		new HttpRequest(context, callback).post(Config.URL_GET_VERSION,params);
+	}
 }
+

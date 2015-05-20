@@ -25,7 +25,7 @@ import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class StockTerminaListActivity extends Activity implements IXListViewListener{
+public class StockTerminaListActivity extends BaseActivity implements IXListViewListener{
 	private TextView hoitoryCount;
 	private TextView openCount;
 	private TextView lastPrepareTime;

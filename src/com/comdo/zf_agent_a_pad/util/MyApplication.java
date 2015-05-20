@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.baidu.frontia.FrontiaApplication;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.GeofenceClient;
@@ -153,7 +154,9 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		mInstance = this;
-
+		
+		FrontiaApplication.initFrontiaApplication(getApplicationContext()); 
+		
 		initImageLoader(mInstance);
 
 		mLocationClient = new LocationClient(this.getApplicationContext());

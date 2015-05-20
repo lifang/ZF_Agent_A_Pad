@@ -20,17 +20,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.UserEntity;
-import com.comdo.zf_agent_a_pad.trade.API;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
+import com.comdo.zf_agent_a_pad.util.Utils;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener {
 	private String name, pass, url, deviceToken;
 	private ImageView loginImage;
 	private CheckBox isremeber_cb;
@@ -78,6 +80,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.popwin_login);
 
+		if (Config.isFirstCreateMain == true) {
+			Config.isFirstCreateMain = false;
+			//百度推送
+			PushManager.startWork(getApplicationContext(),
+					PushConstants.LOGIN_TYPE_API_KEY,
+					Utils.getMetaValue(LoginActivity.this, "api_key"));
+		}
+		
 		initView();
 		// new ClientUpdate(LoginActivity.this).checkSetting();
 
@@ -241,10 +251,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 						CheckRights.setYijiTrue();
 					}
 				}
-				Intent it = new Intent(LoginActivity.this, MainActivity.class);
-				startActivity(it);
-				finish();
-
+//				Intent it = new Intent(LoginActivity.this, MainActivity.class);
+//				startActivity(it);
+//				finish();
+				// 百度推送
+				registerBaidu();
 			}
 
 			@Override
@@ -254,6 +265,25 @@ public class LoginActivity extends Activity implements OnClickListener {
 			}
 		});
 
+	}
+
+	protected void registerBaidu() {	
+		Config.registerBaidu(LoginActivity.this,MyApplication.NewUser.getAgentUserId(),"3"+Config.channelId,
+				new HttpCallback(LoginActivity.this) {
+
+			@Override
+			public void onSuccess(Object data) {
+				
+				Intent it = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(it);
+				finish();
+			}
+
+			@Override
+			public TypeToken getTypeToken() {
+				return null;
+			}
+		});
 	}
 
 	private boolean check() {

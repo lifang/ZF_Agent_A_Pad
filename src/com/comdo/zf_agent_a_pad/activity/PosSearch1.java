@@ -53,7 +53,7 @@ import android.widget.Toast;
  * 
  *         comdo
  */
-public class PosSearch1 extends Activity implements OnEditorActionListener {
+public class PosSearch1 extends BaseActivity implements OnEditorActionListener {
 	private String lat, lng, CName;
 	private EditText et;
 
