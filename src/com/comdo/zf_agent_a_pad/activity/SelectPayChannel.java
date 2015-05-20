@@ -210,8 +210,8 @@ public class SelectPayChannel extends BaseActivity {
 			EditText editText = (EditText) ll_paychannel.findViewWithTag(str
 					.get(i));
 			if (editText != null && !"".equals(editText.getText().toString())) {
-				if (RegText.isFloat(editText.getText().toString())) {
-					CommonUtil.toastShort(SelectPayChannel.this, "请填写正确的费率格式");
+				if (!RegText.isFloat(editText.getText().toString())) {
+					CommonUtil.toastShort(SelectPayChannel.this, "请填写正确的分润");
 					return;
 				}
 				if (Float.parseFloat(editText.getText().toString()) < 0

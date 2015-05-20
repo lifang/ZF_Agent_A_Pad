@@ -557,6 +557,7 @@ OnClickListener, IXListViewListener {
 						mTerminalItems.remove(i);
 					}
 				}
+				myHandler.sendEmptyMessage(1);
 			}
 
 			break;
