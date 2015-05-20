@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zf_agent_a_pad"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="v1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -364,12 +364,12 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
-              <activity
+        <activity
             android:name="com.comdo.zf_agent_a_pad.activity.RegisterPartners"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
-             <activity
+        <activity
             android:name="com.comdo.zf_agent_a_pad.activity.AgreementActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
@@ -399,14 +399,15 @@
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" >
+            android:screenOrientation="landscape" >
         </activity>
+        <!-- alipay -->
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.WelcomeActivity"
             android:screenOrientation="landscape" >
@@ -442,7 +443,7 @@
             android:name="com.comdo.zf_agent_a_pad.activity.AddPayChannel"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
-        </activity>        
+        </activity>
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.TerminalSelectUserActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -453,6 +454,84 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
         </activity>
+        <!-- 百度推送 -->
+        <!-- push富媒体，不使用富媒体推送不需要 -->
+        <activity
+            android:name="com.baidu.android.pushservice.richmedia.MediaViewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="MediaViewActivity" >
+        </activity>
+        <activity
+            android:name="com.baidu.android.pushservice.richmedia.MediaListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="MediaListActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <!-- push富媒体结束 -->
+
+
+        <!-- push应用定义消息receiver声明 -->
+        <receiver android:name="com.comdo.zf_agent_a_pad.util.MyPushMessageReceiver" >
+            <intent-filter>
+
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- push必须的receviver和service声明 -->
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
+        <!-- 4.4版本新增的CommandService声明，提升小米和魅族手机上的实际推送到达率 -->
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true" />
+        <!-- push结束 -->
+
+
+        <!-- 在百度开发者中心查询应用的API Key -->
+        <meta-data
+            android:name="api_key"
+            android:value="BFc8jzr5PbFAG3ngdPj2yZjf" />
+        <!-- 百度推送 -->
     </application>
 
 </manifest>

@@ -63,7 +63,18 @@ public class FindPass extends Activity implements OnClickListener {
 					tv_code.setText(Countmun + "秒后重新发送");
 					System.out.println("Countmun`D2`" + Countmun);
 				}
-
+			case 2:
+				if (!StringUtil.isNull(login_edit_code.getText().toString().trim())) {
+					if (login_edit_code.getText().toString().equals(vcode)) {
+						img_check.setVisibility(View.VISIBLE);
+						img_check_n.setVisibility(View.GONE);
+						chenckcode = true;
+					} else {
+						img_check.setVisibility(View.GONE);
+						img_check_n.setVisibility(View.VISIBLE);
+						chenckcode = false;
+					}
+				}
 			}
 			super.handleMessage(msg);
 		}
@@ -81,7 +92,7 @@ public class FindPass extends Activity implements OnClickListener {
 		initView();
 
 		img_check.setVisibility(View.GONE);
-		img_check_n.setVisibility(View.VISIBLE);
+		img_check_n.setVisibility(View.GONE);
 		chenckcode = true;
 		runnable = new Runnable() {
 			@Override
@@ -162,7 +173,35 @@ public class FindPass extends Activity implements OnClickListener {
 		// login_linear_deletpass
 
 		login_edit_code = (EditText) findViewById(R.id.login_edit_code);
+		login_edit_code.addTextChangedListener(new TextWatcher() {
 
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(2000);
+							handler.sendEmptyMessage(2);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						} 
+					}
+				}).start();
+			}
+		});
 		// login_linear_deletpass
 		login_linear_deletpass = (LinearLayout) findViewById(R.id.login_linear_deletpass);
 		login_linear_deletpass.setOnClickListener(this);

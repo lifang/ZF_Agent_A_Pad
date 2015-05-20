@@ -1,11 +1,10 @@
 package com.comdo.zf_agent_a_pad.activity;
 
-import java.lang.reflect.Field;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -16,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.fragment.M_MianFragment;
 import com.comdo.zf_agent_a_pad.fragment.Mmy;
@@ -24,6 +25,7 @@ import com.comdo.zf_agent_a_pad.trade.CityProvinceActivity;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
+import com.comdo.zf_agent_a_pad.util.Utils;
 import com.example.zf_agent_a_pad.R;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
@@ -36,18 +38,19 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private Mmy f_my;
 	public static boolean isCity = false;
 	private int flag = 0;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		Display display = getWindowManager().getDefaultDisplay();
 		Config.ScreenWidth = display.getWidth();
 		Config.ScreenHeight = display.getHeight();
 		f_sy = new M_MianFragment();
 
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.m_fragment, f_sy).commit();
+		.replace(R.id.m_fragment, f_sy).commit();
 		initView();
 	}
 
@@ -95,10 +98,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		textwd.setTextColor(getResources().getColor(R.color.white));
 
 	}
-@Override
-protected void onSaveInstanceState(Bundle outState) {
-	super.onSaveInstanceState(outState);
-}
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
@@ -117,7 +120,7 @@ protected void onSaveInstanceState(Bundle outState) {
 				// f_sy = new M_MianFragment();
 
 				getSupportFragmentManager().beginTransaction()
-						.replace(R.id.m_fragment, f_sy).commit();
+				.replace(R.id.m_fragment, f_sy).commit();
 			}
 			break;
 		case R.id.main_rl_gwc:
@@ -148,7 +151,7 @@ protected void onSaveInstanceState(Bundle outState) {
 				if (f_xx == null)
 					f_xx = new Mwdxx();
 				getSupportFragmentManager().beginTransaction()
-						.replace(R.id.m_fragment, f_xx).commit();
+				.replace(R.id.m_fragment, f_xx).commit();
 			}
 			break;
 		case R.id.main_rl_my:
@@ -159,10 +162,10 @@ protected void onSaveInstanceState(Bundle outState) {
 				changTabBg();
 				im_wd.setBackgroundResource(R.drawable.mine);
 				textwd.setTextColor(getResources().getColor(R.color.bgtitle));
-				 if(f_my==null)
-				f_my = new Mmy();
+				if(f_my==null)
+					f_my = new Mmy();
 				getSupportFragmentManager().beginTransaction()
-						.replace(R.id.m_fragment, f_my).commit();
+				.replace(R.id.m_fragment, f_my).commit();
 			}
 			break;
 		case R.id.set:
@@ -192,7 +195,7 @@ protected void onSaveInstanceState(Bundle outState) {
 			if (f_sy == null)
 				f_sy = new M_MianFragment();
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.m_fragment, f_sy).commit();
+			.replace(R.id.m_fragment, f_sy).commit();
 			break;
 		case 2:
 
@@ -204,7 +207,7 @@ protected void onSaveInstanceState(Bundle outState) {
 			if (f_xx == null)
 				f_xx = new Mwdxx();
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.m_fragment, f_xx).commit();
+			.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case 4:
 			if (!CityProvinceActivity.isClickconfirm) {
@@ -217,7 +220,7 @@ protected void onSaveInstanceState(Bundle outState) {
 				f_my = new Mmy();
 
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.m_fragment, f_my).commit();
+			.replace(R.id.m_fragment, f_my).commit();
 
 			break;
 
@@ -237,7 +240,7 @@ protected void onSaveInstanceState(Bundle outState) {
 			if (f_sy == null)
 				f_sy = new M_MianFragment();
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.m_fragment, f_sy).commit();
+			.replace(R.id.m_fragment, f_sy).commit();
 			break;
 		case 2:
 
@@ -249,7 +252,7 @@ protected void onSaveInstanceState(Bundle outState) {
 			if (f_xx == null)
 				f_xx = new Mwdxx();
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.m_fragment, f_xx).commit();
+			.replace(R.id.m_fragment, f_xx).commit();
 			break;
 		case 4:
 			changTabBg();
@@ -258,7 +261,7 @@ protected void onSaveInstanceState(Bundle outState) {
 			if (f_my == null)
 				f_my = new Mmy();
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.m_fragment, f_my).commit();
+			.replace(R.id.m_fragment, f_my).commit();
 
 			break;
 

@@ -51,6 +51,9 @@ private void init() {
 		super.onStart();
 		Intent intent=getIntent();
 		id=intent.getIntExtra("id", 0);
+		if (id == Integer.valueOf(Config.notificationMsgID)) {
+			Config.notificationMsgID = "";
+		}
 		getMsgdetail();
 		/*String title=intent.getStringExtra("title");
 		String time=intent.getStringExtra("time");

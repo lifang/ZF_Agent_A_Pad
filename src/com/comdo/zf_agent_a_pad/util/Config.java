@@ -11,6 +11,9 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
 import com.comdo.zf_agent_a_pad.entity.ApplyneedEntity;
@@ -20,16 +23,11 @@ import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
 import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
-import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
+import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
-
-import android.R.integer;
-import android.content.Context;
-import android.util.Log;
 
 public class Config {
 
@@ -70,7 +68,11 @@ public class Config {
 	 * public final static String PATHS =
 	 * "http://114.215.149.242:28080/ZFAgent/api/";
 	 */
-
+	public static String channelId = "";//，绑定百度推送的channelId
+	public static String notificationTitle = "";//，绑定百度推送的title
+	public static String notificationMsgID = "";//，绑定百度推送的title
+	public static boolean isFirstCreateMain = true;//，绑定百度推送只执行一次startWork
+	
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -422,6 +424,8 @@ public class Config {
 			+ "agent/sendPhoneVerificationCodeReg";
 	public static final String GETJOIN = PATHS
 			+ "agent/getJoin";
+	public static final String URL_REGISTERBAIDU =PATHS+"agents/sendDeviceCode";
+	public static final String URL_GET_VERSION = PATHS+"index/getVersion";
 	
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
@@ -1334,10 +1338,12 @@ public class Config {
 		params.put("agentId", agentId);
 		params.put("paychannelId", paychannelId);
 		params.put("goodId", goodId);
-		try {
-			params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if (serialNums != null) {
+			try {
+				params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 
 		params.put("page", page);
@@ -1571,5 +1577,17 @@ public class Config {
 		params.put("agentType", agentType);
 		params.put("address", address);
 		new HttpRequest(context, callback).post(GETJOIN, params);
+	}
+	public static void registerBaidu(Context context, int customerId,
+			String deviceCode, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", customerId);
+		params.put("deviceCode", deviceCode);
+		new HttpRequest(context, callback).post(Config.URL_REGISTERBAIDU, params);
+	}
+	public static void getVersion(Context context, int types, HttpCallback callback) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("types", types);
+		new HttpRequest(context, callback).post(Config.URL_GET_VERSION,params);
 	}
 }

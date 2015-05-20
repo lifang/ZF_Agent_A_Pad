@@ -479,6 +479,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			} else {
 				i.putExtra("orderId", id);
 				i.putExtra("type", type);
+				OrderDetail.this.finish();
 				startActivity(i);
 			}
 
