@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-
 /**
  * Created by Leo on 2015/2/11.
  */
@@ -17,9 +16,15 @@ public class JsonParser {
 
 		int code = jo.get("code").getAsInt();
 		JsonElement messageElement = jo.get("message");
-		String message = messageElement.isJsonNull() ? null : messageElement.getAsString();
+		String message = messageElement.isJsonNull() ? null : messageElement
+				.getAsString();
 		JsonElement resultElement = jo.get("result");
-		String result = resultElement.isJsonNull() ? null : resultElement.getAsString();
+		String result = null;
+		if (code != -1) {
+
+			result = resultElement.isJsonNull() ? null : resultElement
+					.getAsString();
+		}
 
 		return new Response(code, message, result);
 	}
@@ -30,9 +35,15 @@ public class JsonParser {
 
 		int code = jo.get("code").getAsInt();
 		JsonElement messageElement = jo.get("message");
-		String message = messageElement.isJsonNull() ? null : messageElement.getAsString();
-		JsonElement resultElement = jo.get("result");
-		T result = gson.fromJson(resultElement, typeToken.getType());
+		String message = messageElement.isJsonNull() ? null : messageElement
+				.getAsString();
+		JsonElement resultElement = resultElement = jo.get("result");
+		T result = null;
+
+		if (code != -1) {
+
+			result = gson.fromJson(resultElement, typeToken.getType());
+		}
 
 		return new Response(code, message, result);
 	}

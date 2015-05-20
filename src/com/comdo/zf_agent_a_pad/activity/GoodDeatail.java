@@ -164,6 +164,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					ll_shoptype = (LinearLayout) findViewById(R.id.ll_shoptype);
 					ll_shoptype.setVisibility(View.VISIBLE);
 					setting_btn_clear.setText("采购");
+					Config.canzl=false;
+				}else{
+					tv_zd.setVisibility(View.GONE);
+					Config.canzl=true;
 				}
 				
 				break;
@@ -184,6 +188,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private TextView tv_dp;
 	private TextView tv_j_isshow;
 	private DecimalFormat df;
+	private TextView tv_zd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -249,7 +254,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		tv_kt.setOnClickListener(this);
 		tv_pl = (TextView) findViewById(R.id.tv_pl);
 		tv_pl.setOnClickListener(this);
-		TextView tv_zd = (TextView) findViewById(R.id.tv_zd);
+		tv_zd = (TextView) findViewById(R.id.tv_zd);
 		tv_zd.setOnClickListener(this);
 		TextView tv_jy = (TextView) findViewById(R.id.tv_jy);
 		tv_jy.setOnClickListener(this);
@@ -469,7 +474,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 							byte[] responseBody) {
 			
 						String userMsg = new String(responseBody).toString();
-						innitView();
+						
 						Log.i("ljp", userMsg);
 						Gson gson = new Gson();
 						// EventEntity
@@ -484,7 +489,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 								  LoginActivity.class); startActivity(i);
 								 
 							} else if (code == 1) {
-
+								innitView();
 								String res = jsonobject.getString("result");
 								jsonobject = new JSONObject(res);
 								Config.piclist= gson.fromJson(
@@ -810,6 +815,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 														ImageCacheUtil.IMAGE_CACHE.get(factoryEntity.getLogo_file_path(),
 																fac_img);
 													}
+													Config.apply=jsonobject.getString("opening_datum");
 													tv_sjhttp.setText(factoryEntity.getWebsite_url() );
 													fac_detai.setText(factoryEntity.getDescription() );
 										

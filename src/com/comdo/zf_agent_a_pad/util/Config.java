@@ -1,3 +1,4 @@
+
 package com.comdo.zf_agent_a_pad.util;
 
 import java.io.File;
@@ -11,9 +12,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.HttpRequest;
 import com.comdo.zf_agent_a_pad.entity.ApplyneedEntity;
@@ -23,11 +21,16 @@ import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
 import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
-import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.comdo.zf_agent_a_pad.entity.tDates;
+import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.loopj.android.http.RequestParams;
+
+import android.R.integer;
+import android.content.Context;
+import android.util.Log;
 
 public class Config {
 
@@ -72,7 +75,6 @@ public class Config {
 	public static String notificationTitle = "";//，绑定百度推送的title
 	public static String notificationMsgID = "";//，绑定百度推送的title
 	public static boolean isFirstCreateMain = true;//，绑定百度推送只执行一次startWork
-	
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -116,11 +118,11 @@ public class Config {
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
-
 	public static int gid;
 	public static int portindex=-1;
 	public static int lx;
 	public static String  apply;
+	public static boolean  canzl=false;
 	public static List<PortSon> son=new ArrayList<PortSon>();
 	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
 
@@ -438,7 +440,6 @@ public class Config {
 	public static final String URL_REGISTERBAIDU =PATHS+"agents/sendDeviceCode";
 	//版本更新
 	public static final String URL_GET_VERSION = PATHS+"index/getVersion";
-	
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1356,12 +1357,10 @@ public class Config {
 		params.put("agentId", agentId);
 		params.put("paychannelId", paychannelId);
 		params.put("goodId", goodId);
-		if (serialNums != null) {
-			try {
-				params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+		try {
+			params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 
 		params.put("page", page);
@@ -1662,3 +1661,4 @@ public class Config {
 		new HttpRequest(context, callback).post(Config.URL_GET_VERSION,params);
 	}
 }
+

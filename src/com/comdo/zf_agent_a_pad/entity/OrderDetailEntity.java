@@ -19,6 +19,14 @@ public class OrderDetailEntity {
 	public void setShengyu_price(int shengyu_price) {
 		this.shengyu_price = shengyu_price;
 	}
+	public int getNeed_invoice() {
+		return need_invoice;
+	}
+
+	public void setNeed_invoice(int need_invoice) {
+		this.need_invoice = need_invoice;
+	}
+	private int need_invoice;
 	private String total_dingjin;
 	private String pay_status; 
 	private String guishu_user;

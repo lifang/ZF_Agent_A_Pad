@@ -20,62 +20,67 @@
                 android:layout_height="fill_parent"
                 android:orientation="vertical" >
 
-<LinearLayout
-                            android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/ll_select_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/titilepad1"
+                    android:paddingRight="@dimen/titilepad1" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="24dp"
+                        android:text="选择用户"
+                        android:textColor="#292929"
+                        android:textSize="@dimen/textbig" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="32dp"
+                        android:gravity="center_vertical" >
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                         	android:id="@+id/ll_select_user"
-                            android:paddingLeft="@dimen/titilepad1"
-                            android:paddingRight="@dimen/titilepad1" >
+                            android:text="已有用户"
+                            android:textColor="#292929"
+                            android:textSize="@dimen/textbig" />
 
-                            <TextView
-                                android:id="@+id/textView2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="选择用户"
-                                android:textColor="#292929"
-                                android:layout_marginBottom="24dp"
-                                android:layout_marginTop="24dp"
-                                android:textSize="@dimen/textbig" />
+                        <TextView
+                            android:id="@+id/user_selected"
+                            android:layout_width="230dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/ed_adress"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="30dp"
+                            android:textColor="@color/text6c6c6c6"
+                            android:textSize="@dimen/textbig" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" 
-                                android:gravity="center_vertical"
-                                android:layout_marginBottom="32dp">
+                        <Button
+                            android:id="@+id/bt_add"
+                            android:layout_width="@dimen/normai_button_width"
+                            android:layout_height="@dimen/normai_button_height"
+                            android:background="@drawable/normal_button_selector"
+                            android:text="创建新用户"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/textbig" />
+                    </LinearLayout>
+                </LinearLayout>
 
-                                <TextView
-                                    android:id="@+id/textView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="已有用户"
-                                    android:textColor="#292929"
-                                    android:textSize="@dimen/textbig" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E3E3" />
 
-                                <Spinner
-                                    android:id="@+id/spinner_user"
-                                    android:layout_width="@dimen/alertwidth"
-                                    android:layout_height="@dimen/normai_button_height"
-                                    android:layout_marginRight="40dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:spinnerMode="dropdown"
-                                    android:background="@drawable/ed_adress" />
-                                <Button
-                                android:id="@+id/bt_add"
-                                android:layout_width="@dimen/normai_button_width"
-                                android:layout_height="@dimen/normai_button_height"
-
-                                android:background="@drawable/normal_button_selector"
-                                android:text="创建新用户"
-                                android:textColor="#ffffff"
-                                android:textSize="@dimen/textbig" />
-                            </LinearLayout>
-                        </LinearLayout>
-                        
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:background="#E5E3E3" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -190,16 +195,16 @@
                                 android:visibility="gone" />
 
                             <Button
+                                android:id="@+id/bt_addadress"
                                 android:layout_width="@dimen/normai_button_width"
                                 android:layout_height="@dimen/normai_button_height"
-                                android:layout_alignParentTop="true"
                                 android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
                                 android:layout_marginRight="@dimen/textbig"
                                 android:layout_toLeftOf="@+id/button1"
                                 android:background="@drawable/normal_button_selector"
                                 android:text="新增地址"
                                 android:textColor="#ffffff"
-                                android:id="@+id/bt_addadress"
                                 android:textSize="@dimen/textbig" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -350,9 +355,9 @@
                                                         android:ellipsize="end"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
+                                                        android:singleLine="true"
                                                         android:text="contentcontentcontentcontent"
                                                         android:textColor="@color/text292929"
-                                                        android:singleLine="true"
                                                         android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
 
@@ -381,8 +386,8 @@
                                                         android:ellipsize="end"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
-                                                        android:text="支付宝"
                                                         android:singleLine="true"
+                                                        android:text="支付宝"
                                                         android:textColor="@color/text292929"
                                                         android:textSize="@dimen/textbig" />
                                                 </LinearLayout>
@@ -414,10 +419,10 @@
                                                         android:layout_height="wrap_content"
                                                         android:gravity="bottom"
                                                         android:maxLines="1"
-                                                        android:visibility="gone"
                                                         android:text="原价：99999999"
                                                         android:textColor="#959494"
-                                                        android:textSize="@dimen/textmid" />
+                                                        android:textSize="@dimen/textmid"
+                                                        android:visibility="gone" />
 
                                                     <TextView
                                                         android:id="@+id/tv_price"
@@ -563,8 +568,8 @@
                                             android:layout_height="fill_parent"
                                             android:layout_weight="1"
                                             android:background="@color/ffffff"
-                                         android:editable="true"
-                                         android:digits="0123456789"
+                                            android:digits="0123456789"
+                                            android:editable="true"
                                             android:gravity="center"
                                             android:text="1" />
 
@@ -584,9 +589,9 @@
                                     android:gravity="top"
                                     android:maxLines="1"
                                     android:text="最小起批量：100件"
-                                    android:visibility="gone"
                                     android:textColor="@color/text292929"
-                                    android:textSize="@dimen/textmids" />
+                                    android:textSize="@dimen/textmids"
+                                    android:visibility="gone" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -657,7 +662,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
-                                 android:gravity="left|center_vertical"
+                                android:gravity="left|center_vertical"
                                 android:text="配送费:￥0"
                                 android:textColor="#292929"
                                 android:textSize="@dimen/textmid" />
@@ -716,26 +721,24 @@
                                 android:layout_marginLeft="14dp"
                                 android:checked="false" />
 
-                       
-
                             <TextView
                                 android:id="@+id/tv_zl"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
-                                android:text="我同意    《租赁协议》"
-                                android:textColor="#FD7D24"
+                                android:text="我同意  《租赁协议》"
+                                android:textColor="@color/bgtitle"
                                 android:textSize="@dimen/textbig" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_fp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ll_fp"
-                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/titilepad1"
-                        android:gravity="center_vertical" >
+                        android:gravity="center_vertical"
+                        android:visibility="gone" >
 
                         <TextView
                             android:id="@+id/textView2"
@@ -780,11 +783,12 @@
                         android:layout_marginBottom="34dp"
                         android:background="#EEEDED" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                            android:gravity="right" >
+                    android:layout_weight="1"
+                    android:gravity="right" >
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -797,7 +801,6 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                           
                             android:orientation="vertical" >
 
                             <TextView
@@ -834,4 +837,5 @@
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
- </LinearLayout>
+
+</LinearLayout>

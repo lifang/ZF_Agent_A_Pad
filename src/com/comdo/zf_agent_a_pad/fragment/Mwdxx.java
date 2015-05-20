@@ -10,11 +10,13 @@ import org.json.JSONObject;
 
 import com.comdo.zf_agent_a_pad.activity.MainActivity;
 import com.comdo.zf_agent_a_pad.activity.MsgDetail;
+import com.comdo.zf_agent_a_pad.activity.OrderDetail;
 import com.comdo.zf_agent_a_pad.adapter.MessageAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.DialogUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.MessageEntity;
+import com.comdo.zf_agent_a_pad.util.AlertDialog;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
@@ -230,7 +232,29 @@ public class Mwdxx extends Fragment implements OnClickListener,
 		for (int i = 0; i < ids.length; i++) {
 			ids[i] = selList.get(i).getId();
 		}
-		getData(1);
+		if(ids.length==0){
+			Toast.makeText(getActivity(), "请选择消息后进行操作！", 1000).show();
+		}else{
+			final AlertDialog ad = new AlertDialog(getActivity());
+			ad.setTitle("提示");
+			ad.setMessage("确认取消?");
+			ad.setPositiveButton("取消", new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					ad.dismiss();
+				}
+			});
+			ad.setNegativeButton("确定", new OnClickListener() {
+				@Override
+				public void onClick(final View arg0) {
+					getData(1);
+					ad.dismiss();
+				}	
+			});
+		
+		
+		}
+		
 	}
 
 	private void read_bj() {
@@ -245,7 +269,11 @@ public class Mwdxx extends Fragment implements OnClickListener,
 		for (int i = 0; i < ids.length; i++) {
 			ids[i] = selList.get(i).getId();
 		}
-		getData(2);
+		if(ids.length==0){
+			Toast.makeText(getActivity(), "请选择消息后进行操作！", 1000).show();
+		}else{
+			getData(2);
+		}
 	}
 
 	@Override
