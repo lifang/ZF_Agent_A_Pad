@@ -45,6 +45,7 @@ import com.comdo.zf_agent_a_pad.trade.ApplyChannelActivity;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.MyToast;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
@@ -87,6 +88,8 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 	private int page = 0;
 	private int total = 0;
 	private final int rows = 10;
+	
+	private boolean isScreeningTerminalNum = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +106,8 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 		// init the XListView
 		mTerminalList.initHeaderAndFooter();
 		mTerminalList.setXListViewListener(this);
-		mTerminalList.setPullLoadEnable(true);
+		mTerminalList.setPullRefreshEnable(false);
+		mTerminalList.setPullLoadEnable(false);
 		mTerminalList.getmFooterView().setVisibility(View.GONE);
 		mTerminalList.setAdapter(mAdapter);
 		posselect = (LinearLayout) findViewById(R.id.posselect);
@@ -315,7 +319,15 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 			break;
 
 		case R.id.terminal_commit:
-
+			page = 0;
+			// allCheck = false;
+			checked = 0;
+			mTerminalItems.clear();
+			checkboxAll.setChecked(false);
+			count.clear();
+			mTerminalList.setPullLoadEnable(true);
+			mTerminalList.setPullRefreshEnable(true);
+			isScreeningTerminalNum = true;
 			loadData();
 
 			break;
@@ -420,6 +432,8 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 						}
 					});
 
+		}else {
+			MyToast.showToast(this, "请输入终端号");
 		}
 		// else if (maxPrice < minPrice) {
 		//
@@ -427,48 +441,47 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 		// getResources().getString(R.string.terminal_price_error));
 		//
 		// }
-		else {
+	}
 
-			Config.screeningTerminalNum(TerminalApplySelectActivity.this,
-					posName, mChannelId, 0, 0,
-					MyApplication.NewUser.getAgentId(), page + 1, rows,
-					searchKey,
-					new HttpCallback<List<TerminalPriceEntity>>(this) {
-						@Override
-						public void onSuccess(List<TerminalPriceEntity> data) {
+	private void screeningTerminalNum() {
+		Config.screeningTerminalNum(TerminalApplySelectActivity.this,
+				posName, mChannelId, 0, 0,
+				MyApplication.NewUser.getAgentId(), page + 1, rows,
+				searchKey,
+				new HttpCallback<List<TerminalPriceEntity>>(this) {
+					@Override
+					public void onSuccess(List<TerminalPriceEntity> data) {
 
-							if (data.size() < rows) {
-								isLoadMore = false;
-							} else {
-								isLoadMore = true;
+						if (data.size() < rows) {
+							isLoadMore = false;
+						} else {
+							isLoadMore = true;
+						}
+						mTerminalItems.addAll(data);
+						if (isSelectAll)
+							for (int index = 0; index < mTerminalItems
+									.size(); index++) {
+								mTerminalItems.get(index).setIsCheck(
+										isSelectAll);
 							}
-							mTerminalItems.addAll(data);
-							if (isSelectAll)
-								for (int index = 0; index < mTerminalItems
-										.size(); index++) {
-									mTerminalItems.get(index).setIsCheck(
-											isSelectAll);
-								}
-							count.addAll(data);
-							page++;
-							mAdapter.notifyDataSetChanged();
-							loadFinished();
-							myHandler.sendEmptyMessage(0);
-						}
+						count.addAll(data);
+						page++;
+						mAdapter.notifyDataSetChanged();
+						loadFinished();
+						myHandler.sendEmptyMessage(0);
+					}
 
-						@Override
-						public void onFailure(String message) {
-							super.onFailure(message);
-						}
+					@Override
+					public void onFailure(String message) {
+						super.onFailure(message);
+					}
 
-						@Override
-						public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
-							return new TypeToken<List<TerminalPriceEntity>>() {
-							};
-						}
-					});
-
-		}
+					@Override
+					public TypeToken<List<TerminalPriceEntity>> getTypeToken() {
+						return new TypeToken<List<TerminalPriceEntity>>() {
+						};
+					}
+				});
 	}
 
 	Handler myHandler = new Handler() {
@@ -495,6 +508,17 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 			posID = data.getIntExtra(SELECTED_ID, 0);
 			posName = data.getStringExtra(SELECTED_TITLE);
 			selectedpos.setText(posName);
+			
+			page = 0;
+			// allCheck = false;
+			checked = 0;
+			mTerminalItems.clear();
+			checkboxAll.setChecked(false);
+			count.clear();
+			mTerminalList.setPullLoadEnable(true);
+			mTerminalList.setPullRefreshEnable(true);
+			isScreeningTerminalNum = false;
+			screeningTerminalNum();
 			break;
 
 		}
@@ -502,6 +526,17 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 		case REQUEST_SEARCH: {
 
 			searchKey = data.getStringExtra(SELECTED_TERMINAL);
+			
+			page = 0;
+			// allCheck = false;
+			checked = 0;
+			mTerminalItems.clear();
+			checkboxAll.setChecked(false);
+			count.clear();
+			mTerminalList.setPullLoadEnable(true);
+			mTerminalList.setPullRefreshEnable(true);
+			isScreeningTerminalNum = false;
+			screeningTerminalNum();
 			break;
 		}
 
@@ -513,6 +548,16 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 			mChannelId = mChosenChannel.getId();
 			selectedchannel.setText(mChosenChannel.getName());
 
+			page = 0;
+			// allCheck = false;
+			checked = 0;
+			mTerminalItems.clear();
+			checkboxAll.setChecked(false);
+			count.clear();
+			mTerminalList.setPullLoadEnable(true);
+			mTerminalList.setPullRefreshEnable(true);
+			isScreeningTerminalNum = false;
+			screeningTerminalNum();
 			break;
 		}
 		}
@@ -533,7 +578,12 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 		checkboxAll.setChecked(false);
 		count.clear();
 		mTerminalList.setPullLoadEnable(true);
-		loadData();
+		
+		if (isScreeningTerminalNum == false) {
+			screeningTerminalNum();
+		}else {
+			loadData();
+		}
 	}
 
 	@Override
@@ -544,7 +594,12 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 			CommonUtil.toastShort(this,
 					getResources().getString(R.string.no_more_data));
 		} else {
-			loadData();
+			
+			if (isScreeningTerminalNum == false) {
+				screeningTerminalNum();
+			}else {
+				loadData();
+			}
 		}
 	}
 }
