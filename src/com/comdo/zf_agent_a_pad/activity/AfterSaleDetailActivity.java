@@ -32,7 +32,7 @@ import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class AfterSaleDetailActivity extends Activity{
+public class AfterSaleDetailActivity extends BaseActivity{
 	//“终端号”、终端号字符串
 	private TextView terminal_infoTextView,terminal_noTextView;
 	//申请时间、申请单号、申请状态

@@ -30,7 +30,7 @@ import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener {
 	private String name, pass, url, deviceToken;
 	private ImageView loginImage;
 	private CheckBox isremeber_cb;

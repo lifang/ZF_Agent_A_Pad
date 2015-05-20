@@ -77,6 +77,7 @@ import com.loopj.android.http.ResponseHandlerInterface;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 
 public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private Button setting_btn_clear;
@@ -946,4 +947,19 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 
 	}
 
+	
+	@Override
+	protected void onResume() {
+		super.onPause();
+		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onResume();
+		MobclickAgent.onPageEnd(this.toString());
+		MobclickAgent.onPause(this);
+	}
+	
 }

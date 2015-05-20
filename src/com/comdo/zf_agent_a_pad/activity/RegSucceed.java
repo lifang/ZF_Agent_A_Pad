@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 
-public class RegSucceed extends Activity {
+public class RegSucceed extends BaseActivity {
 	private LinearLayout ll_mail;
 	private LinearLayout ll_tel;
 	private TextView tv_tel;

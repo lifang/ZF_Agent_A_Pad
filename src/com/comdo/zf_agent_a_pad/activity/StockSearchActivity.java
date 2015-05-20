@@ -34,7 +34,7 @@ import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class StockSearchActivity extends Activity implements OnClickListener,IXListViewListener{
+public class StockSearchActivity extends BaseActivity implements OnClickListener,IXListViewListener{
 
 	private LinearLayout titleback_linear_back;
 	private EditText searchEditText;

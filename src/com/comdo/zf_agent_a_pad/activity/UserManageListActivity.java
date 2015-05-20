@@ -31,7 +31,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * 用户列表
  */
-public class UserManageListActivity extends Activity implements IXListViewListener {
+public class UserManageListActivity extends BaseActivity implements IXListViewListener {
 
 	private XListView Xlistview;
 	private int page = 1;

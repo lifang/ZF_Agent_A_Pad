@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/sy_bt_height"
-        android:background="@color/white">
+        android:background="#E9E8E8">
 
         <com.comdo.zf_agent_a_pad.trade.widget.MyTabWidget
             android:id="@+id/tab_widget"

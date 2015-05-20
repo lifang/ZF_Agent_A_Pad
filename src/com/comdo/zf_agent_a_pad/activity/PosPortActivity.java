@@ -36,7 +36,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-public class PosPortActivity extends Activity implements OnClickListener {
+public class PosPortActivity extends BaseActivity implements OnClickListener {
 	public ExpandableListView listView;
 	private List<PostPortEntity> portlist = new ArrayList<PostPortEntity>();
 	private List<PostPortEntity> glist = new ArrayList<PostPortEntity>();

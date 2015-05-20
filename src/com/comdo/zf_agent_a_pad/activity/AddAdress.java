@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class AddAdress extends Activity implements OnClickListener{
+public class AddAdress extends BaseActivity implements OnClickListener{
 	private AlertDialog.Builder builder;
 	private TextView area,tv_title;
 	private Button btn_save,close;

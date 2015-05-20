@@ -51,7 +51,7 @@ import com.comdo.zf_agent_a_pad.video.VideoActivity;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class TerminalManagerActivity extends Activity implements
+public class TerminalManagerActivity extends BaseActivity implements
 		XListView.IXListViewListener {
 
 	private LinearLayout titleback_linear_back;

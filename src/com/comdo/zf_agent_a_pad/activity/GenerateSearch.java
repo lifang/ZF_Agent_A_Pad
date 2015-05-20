@@ -35,7 +35,7 @@ import com.example.zf_agent_a_pad.R;
 
 ;
 
-public class GenerateSearch extends Activity implements OnClickListener,
+public class GenerateSearch extends BaseActivity implements OnClickListener,
 		IXListViewListener, OnEditorActionListener {
 
 	private LinearLayout titleback_linear_back;

@@ -27,6 +27,7 @@ import com.comdo.zf_agent_a_pad.trade.widget.MyTabWidget;
 import com.comdo.zf_agent_a_pad.trade.widget.MyViewPager;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
+import com.umeng.analytics.MobclickAgent;
 
 
 public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
@@ -162,5 +163,17 @@ public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnP
 			return mFragments.size();
 		}
 	}
+	
+	 @Override
+		protected void onPause() {
+			super.onPause();
+			MobclickAgent.onPause(this);
+		}
+	    
+	    @Override
+		protected void onResume() {
+			super.onResume();
+			MobclickAgent.onResume(this);
+		}
 
 }

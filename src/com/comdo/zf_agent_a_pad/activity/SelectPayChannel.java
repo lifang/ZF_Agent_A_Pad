@@ -38,7 +38,7 @@ import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 import com.unionpay.mobile.android.utils.i;
 
-public class SelectPayChannel extends Activity {
+public class SelectPayChannel extends BaseActivity {
 
 	private int sonAgentsId, payChannelId, target, defaultID;
 	private ListView channelList;

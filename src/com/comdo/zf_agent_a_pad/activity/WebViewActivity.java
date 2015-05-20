@@ -15,7 +15,7 @@ import com.comdo.zf_agent_a_pad.util.URLImageParser;
 import com.example.zf_agent_a_pad.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
-public class WebViewActivity extends Activity{
+public class WebViewActivity extends BaseActivity{
 	private String IMAGE_PATH;
 	private WebView webview;
 	private TextView content;

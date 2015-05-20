@@ -29,6 +29,7 @@ import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 public class Mwdxx extends Fragment implements IXListViewListener,
 		OnClickListener {
@@ -85,6 +86,8 @@ public class Mwdxx extends Fragment implements IXListViewListener,
 	@Override
 	public void onResume() {
 		super.onResume();
+		MobclickAgent.onPageStart(this.toString());
+
 		if (datamsg.size() != 0) {
 			datamsg.clear();
 		}
@@ -293,6 +296,13 @@ public class Mwdxx extends Fragment implements IXListViewListener,
 			}
 		});
 
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPageEnd(this.toString());
 	}
 
 }

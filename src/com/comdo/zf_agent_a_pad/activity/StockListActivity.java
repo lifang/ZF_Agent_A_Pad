@@ -31,7 +31,7 @@ import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class StockListActivity extends Activity implements IXListViewListener{
+public class StockListActivity extends BaseActivity implements IXListViewListener{
 	private XListView mListView;
 	private LinearLayout eva_nodata;
 	private StockListAdapter stockListAdapter;

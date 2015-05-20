@@ -40,7 +40,7 @@ import com.google.gson.reflect.TypeToken;
 /**
 
  */
-public class TerminalApplyServiceActivity extends Activity implements
+public class TerminalApplyServiceActivity extends BaseActivity implements
 		View.OnClickListener {
 	private TextView client_names;
 	private int mTerminalNum=0;

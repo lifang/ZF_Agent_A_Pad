@@ -45,7 +45,7 @@ import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
 @SuppressLint("InflateParams")
-public class AfterSaleActivity extends Activity implements View.OnClickListener,IXListViewListener {
+public class AfterSaleActivity extends BaseActivity implements View.OnClickListener,IXListViewListener {
 
 	private View selectView;
 	private View orderView_x,cancelView_xl,cancelView_xr,updateView_x;

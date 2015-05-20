@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class WelcomeActivity extends Activity implements OnPageChangeListener,
+public class WelcomeActivity extends BaseActivity implements OnPageChangeListener,
 		OnClickListener {
 
 	private ImageView img;
