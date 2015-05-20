@@ -43,7 +43,7 @@ import com.google.gson.reflect.TypeToken;
 /**
 
  */
-public class TerminalApplyCreateActivity extends Activity implements
+public class TerminalApplyCreateActivity extends BaseActivity implements
 		View.OnClickListener {
 
 	private TextView selectedcity, tv_code;

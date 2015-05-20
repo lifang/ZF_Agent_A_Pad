@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.PageMerchane;
@@ -29,7 +30,7 @@ import com.comdo.zf_agent_a_pad.util.XListView;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class ApplyChooseActivity extends Activity implements
+public class ApplyChooseActivity extends BaseActivity implements
 XListView.IXListViewListener{
 
 	private int page = 0;

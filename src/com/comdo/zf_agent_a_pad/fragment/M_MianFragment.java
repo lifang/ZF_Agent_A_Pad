@@ -51,6 +51,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 
 public class M_MianFragment extends Fragment implements OnClickListener {
 	private View view;
@@ -146,8 +147,8 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		case R.id.main_rl_jyls: // 交易流水
 			if (Config.CheckIsLogin(getActivity())) {
 
-
-				if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_4)
+				if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
+						&& !CheckRights.RIGHT_4)
 					CommonUtil.toastShort(getActivity(),
 							R.string.right_not_match);
 				else
@@ -172,8 +173,8 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		case R.id.main_rl_renzhen: // 订单管理
 			if (Config.CheckIsLogin(getActivity())) {
 
-				
-				if (CheckRights.IS_ERJI|| (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
+				if (CheckRights.IS_ERJI
+						|| (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
 					CommonUtil.toastShort(getActivity(),
 							R.string.right_not_match);
 				} else {
@@ -182,34 +183,37 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			}
 			break;
 		case R.id.main_rl_xtgg: // 售后记录
-			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
+			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
+					&& !CheckRights.RIGHT_3)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(), AfterSaleActivity.class));
 			break;
 		case R.id.main_rl_wylc: // 用户管理
-			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_6)
+			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
+					&& !CheckRights.RIGHT_6)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(),
 						UserManageListActivity.class));
 			break;
 		case R.id.main_rl_Forum: // 库存管理
-			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_9)
+			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
+					&& !CheckRights.RIGHT_9)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(), StockListActivity.class));
 
-			
 			break;
 
-		case R.id.main_rl_lxwm://开通认证
+		case R.id.main_rl_lxwm:// 开通认证
 			startActivity(new Intent(getActivity(), ApplyListActivity.class));
 			break;
 		case R.id.main_rl_zdgl: // 终端管理
 
 			// if (Config.CheckIsLogin(getActivity())) {
-			if (!CheckRights.IS_YIJI&&!CheckRights.IS_ERJI&&!CheckRights.RIGHT_3)
+			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
+					&& !CheckRights.RIGHT_3)
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			else
 				startActivity(new Intent(getActivity(),
@@ -339,6 +343,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		private List<View> mList;
 		private int index;
 		DisplayImageOptions options = MyApplication.getDisplayOption();
+
 		public MyAdapter(List<View> list) {
 			mList = list;
 
@@ -385,17 +390,17 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 			View view = mList.get(position);
 			ImageView image = ((ImageView) view.findViewById(R.id.image));
-			ImageLoader.getInstance().displayImage(ma.get(position), image, options);
-			//ImageCacheUtil.IMAGE_CACHE.get(ma.get(position), image);
+			ImageLoader.getInstance().displayImage(ma.get(position), image,
+					options);
+			// ImageCacheUtil.IMAGE_CACHE.get(ma.get(position), image);
 			image.setOnClickListener(new OnClickListener() {
 
-
-			@Override
-			public void onClick(View arg0) {
-				Intent i = new Intent(getActivity(), MyWebView.class);
-				i.putExtra("title", "详情");
-				i.putExtra("url", myList.get(position).getWebsite_url());
-				startActivity(i);
+				@Override
+				public void onClick(View arg0) {
+					Intent i = new Intent(getActivity(), MyWebView.class);
+					i.putExtra("title", "详情");
+					i.putExtra("url", myList.get(position).getWebsite_url());
+					startActivity(i);
 				}
 			});
 			container.removeView(mList.get(position));
@@ -454,7 +459,6 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		}
 
 	}
-	
 
 	@Override
 	public void onResume() {
@@ -466,6 +470,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 			}
 		};
 		timer.schedule(task, 0, time);
+		MobclickAgent.onPageStart(this.toString());
 	}
 
 	@Override
@@ -474,5 +479,12 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 		super.onStop();
 
 		timer.cancel();
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPageEnd(this.toString());
 	}
 }

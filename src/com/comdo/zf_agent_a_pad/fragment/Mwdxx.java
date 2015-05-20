@@ -50,6 +50,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import com.umeng.analytics.MobclickAgent;
 
 public class Mwdxx extends Fragment implements OnClickListener,
 		IXListViewListener {
@@ -143,6 +144,7 @@ public class Mwdxx extends Fragment implements OnClickListener,
 		ckall = (CheckBox) view.findViewById(R.id.cb_all);
 		ckall.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
+	
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				if (arg1) {
@@ -387,6 +389,7 @@ public class Mwdxx extends Fragment implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
+		MobclickAgent.onPageStart(this.toString());
 		if(!isFrist){
 			page = 1;
 			myList.clear();
@@ -396,6 +399,11 @@ public class Mwdxx extends Fragment implements OnClickListener,
 		isFrist=false;
 	}
 	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPageEnd(this.toString());
+	}
 
-	
 }

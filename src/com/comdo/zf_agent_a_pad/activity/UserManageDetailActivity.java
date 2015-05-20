@@ -21,7 +21,7 @@ import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class UserManageDetailActivity extends Activity implements IXListViewListener{
+public class UserManageDetailActivity extends BaseActivity implements IXListViewListener{
 	private LinearLayout eva_nodata;
 	private XListView Xlistview;
 	private UserMDAdapter myAdapter;

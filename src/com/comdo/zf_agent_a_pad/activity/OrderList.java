@@ -37,7 +37,7 @@ import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class OrderList extends Activity implements IXListViewListener,
+public class OrderList extends BaseActivity implements IXListViewListener,
 		OnClickListener, OnEditorActionListener {
 	private XListView Xlistview;
 	private boolean onRefresh_number = true;

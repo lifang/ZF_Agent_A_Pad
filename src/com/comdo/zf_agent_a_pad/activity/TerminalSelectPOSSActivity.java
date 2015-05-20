@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.entity.Pos;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
+import com.umeng.analytics.MobclickAgent;
+
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.CHOOSE_TITLE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.CHOOSE_ITEMS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
@@ -64,5 +66,19 @@ public class TerminalSelectPOSSActivity extends ListActivity {
 		setResult(RESULT_OK, intent);
 		finish();
 	}
+	
+	 @Override
+		protected void onResume() {
+			super.onResume();
+			MobclickAgent.onPageStart( this.toString() );
+			MobclickAgent.onResume(this);
+		}
+
+		@Override
+		protected void onPause() {
+			super.onPause();
+			MobclickAgent.onPageEnd(this.toString());
+			MobclickAgent.onPause(this);
+		}
 }
 

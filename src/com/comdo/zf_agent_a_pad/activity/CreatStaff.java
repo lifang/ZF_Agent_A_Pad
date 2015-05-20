@@ -21,7 +21,7 @@ import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 
-public class CreatStaff extends Activity implements OnCheckedChangeListener{
+public class CreatStaff extends BaseActivity implements OnCheckedChangeListener{
 	private EditText et_loginid,et_name,et_paw,et_confirm_paw;
 	private CheckBox cb_pigou,cb_daigou,cb_manager_zhongduan,cb_quary,
 	cb_manager_agent,cb_manager_user,cb_manager_worker,cb_manager_Addres;

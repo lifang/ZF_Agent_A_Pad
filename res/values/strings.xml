@@ -250,24 +250,32 @@
     <string name="trade_item_commercial_info">商户信息</string>
     <string name="trade_item_bank_info">交易信息</string>
     <string name="toast_end_date_error">结束时间不能小于开始时间</string>
+        <string-array name="trade_item_commercial">
+            <item>编    号</item>
+            <item>代理商ID</item>
+            <item>商 户 ID</item>
+        </string-array>
+        <string-array name="trade_item_bank">
+            <item>终 端 号</item>
+            <item>付款账号</item>
+            <item>收款账号</item>
+            <item>支付通道</item>
+            <item>分润金额</item>
+            <item>交易金额</item>
+            <item>交易时间</item>
+            <item>交易状态</item>
+            <item>交易批次号</item>
+            <item>交易流水号</item>
+        </string-array>
+        <string-array name="trade_flow_tabs">
+            <item>消费</item>
+            <item>转账</item>
+            <item>还款</item>
+            <item>话费充值</item>
+            <item>生活充值</item>
+        </string-array>
+<string name="endCall1">结束视频</string>
 
-    <string-array name="trade_item_commercial">
-        <item>商户编号</item>
-        <item>所属代理商</item>
-        <item>商户名称</item>
-    </string-array>
-    <string-array name="trade_item_bank">
-        <item>终 端 号</item>
-        <item>付款账号</item>
-        <item>收款账号</item>
-        <item>支付通道</item>
-        <item>分润金额</item>
-        <item>交易金额</item>
-        <item>交易时间</item>
-        <item>交易状态</item>
-        <item>交易批次号</item>
-        <item>交易流水号</item>
-    </string-array>
     <!-- 转账 。还款 -->
     <string-array name="trade_item_bank_transfer">
         <item>终 端 号</item>
@@ -364,13 +372,6 @@
         <item>交易批次号</item>
         <item>交易流水号</item>
     </string-array>
-    <string-array name="trade_flow_tabs">
-        <item>消费</item>
-        <item>转账</item>
-        <item>还款</item>
-        <item>生活充值</item>
-        <item>话费充值</item>
-    </string-array>
     <!-- 版本更新 -->
     <string name="version_check_tip">正在检测中&#8230;</string>
     <string name="check_version">版本检测</string>
@@ -384,7 +385,6 @@
     <string name="updata_check">"正在下载更新！"</string>
     <string name="upload_fail">下载失败！</string>
     
-    <string name="endCall1">结束视频</string>
     <string name="agreement">华尔街金融平台用户使用协议（下称"协议"）是您与上海掌富网络技术有限公司（下称"我们"）之间的协议。您对本公司互联网站www.ebank007.com （下称"本网站"）的所有使用，包括但不限于对本网站的访问、加入本网站各论坛，或参加本网站上的其他竞赛、浏览本网站的内容等，代表您同意了本协议下的所有条款及声明。\n
 您同意在使用本网站前认真阅读本协议，并同意接受包含于本协议中的所有条款。\n
 出于安全要求，我们须监控您对本公司网站的使用，并有权因合法的原因或目的自由地使用或披露从您那里接收到或通过您对公司网站的使用而收集到的全部或部分信息。当然您的隐私将依据我们的隐私保护措施被我们完好的保护。\n

@@ -16,12 +16,14 @@ import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.events.Events;
 import com.example.zf_agent_a_pad.R;
+import com.umeng.analytics.MobclickAgent;
 
 import de.greenrobot.event.EventBus;
 
 public class BaseActivity extends Activity implements View.OnClickListener {
 
     protected String TAG = getClass().toString();
+	protected Context mContext;
 
     HashMap<String, Class> clickableMap = new HashMap<String, Class>();
     private static final ArrayList<String> tabImages = new ArrayList<String>() {{
@@ -79,6 +81,14 @@ public class BaseActivity extends Activity implements View.OnClickListener {
         } catch (RuntimeException ex) {
             Log.d("UNCatchException", ex.getMessage());
         }
+        MobclickAgent.setDebugMode(true);
+		// SDK在统计Fragment时，需要关闭Activity自带的页面统计，
+		// 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
+		MobclickAgent.openActivityDurationTrack(false);
+		// MobclickAgent.setAutoLocation(true);
+		// MobclickAgent.setSessionContinueMillis(1000);
+
+		MobclickAgent.updateOnlineConfig(this);
     }
 
     @Override
@@ -91,13 +101,17 @@ public class BaseActivity extends Activity implements View.OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-	//	StatService.onPause(this);
+//		StatService.onPause(this);
+		MobclickAgent.onPageStart(mContext.toString());
+		MobclickAgent.onResume(mContext);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 	//	StatService.onResume(this);
+		MobclickAgent.onPageEnd( mContext.toString() );
+		MobclickAgent.onPause(mContext);
 	}
 
     @Override

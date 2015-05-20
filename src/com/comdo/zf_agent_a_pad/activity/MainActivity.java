@@ -27,6 +27,7 @@ import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.comdo.zf_agent_a_pad.util.Utils;
 import com.example.zf_agent_a_pad.R;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private M_MianFragment f_sy;
@@ -232,6 +233,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		MobclickAgent.onResume(this);
 		switch (Config.TABID) {
 		case 1:
 			changTabBg();
@@ -276,4 +278,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		Config.TABID = 1;
 	}
 
+
+	@Override
+	protected void onPause() {
+		super.onResume();
+		MobclickAgent.onPageEnd(this.toString());
+		MobclickAgent.onPause(this);
+	}
 }

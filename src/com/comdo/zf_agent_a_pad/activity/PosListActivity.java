@@ -52,7 +52,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PosListActivity extends Activity implements OnClickListener,
+public class PosListActivity extends BaseActivity implements OnClickListener,
 		IXListViewListener {
 	private ImageView pos_select, img3;
 	private Parcelable listState;

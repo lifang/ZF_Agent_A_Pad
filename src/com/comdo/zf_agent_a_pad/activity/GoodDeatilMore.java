@@ -7,6 +7,8 @@ import com.comdo.zf_agent_a_pad.fragment.Good_detail_trade;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_zd;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.example.zf_agent_a_pad.R;
+import com.umeng.analytics.MobclickAgent;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -196,4 +198,18 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 		Config.iszd=false;
 	}
 
+	
+	@Override
+	protected void onResume() {
+		super.onPause();
+		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onResume();
+		MobclickAgent.onPageEnd(this.toString());
+		MobclickAgent.onPause(this);
+	}
 }

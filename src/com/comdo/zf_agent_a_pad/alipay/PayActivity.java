@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import com.alipay.sdk.app.PayTask;
+import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.util.Config;
 
 import android.app.Activity;
@@ -15,7 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 
-public abstract class PayActivity extends Activity{
+public abstract class PayActivity extends BaseActivity{
 
 	private static final int SDK_PAY_FLAG = 1;
 

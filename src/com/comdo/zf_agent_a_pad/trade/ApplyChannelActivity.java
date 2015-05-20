@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.activity.TerminalSelectActivity;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.entity.ApplyChannelagain;
@@ -30,7 +31,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Created by Leo on 2015/3/16.
  */
-public class ApplyChannelActivity extends Activity {
+public class ApplyChannelActivity extends BaseActivity {
 
 	private List<ApplyChannel> channels = new ArrayList<ApplyChannel>();
 	private List<ApplyChannel.Billing> billings = new ArrayList<ApplyChannel.Billing>();

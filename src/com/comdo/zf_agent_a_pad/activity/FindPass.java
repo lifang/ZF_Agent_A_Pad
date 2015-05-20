@@ -28,7 +28,7 @@ import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 
-public class FindPass extends Activity implements OnClickListener {
+public class FindPass extends BaseActivity implements OnClickListener {
 	private TextView tv_code, tv_check;
 	private EditText login_edit_email, login_edit_code, login_edit_pass,
 			login_edit_pass2;
