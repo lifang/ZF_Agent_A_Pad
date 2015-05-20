@@ -101,6 +101,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+               
                 android:layout_marginBottom="42dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
@@ -110,11 +111,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="18dp"
                     android:text="代理商"
+                     android:visibility="gone"
                     android:textColor="#6c6c6c"
                     android:textSize="@dimen/textbig" />
 
                 <LinearLayout
                     android:id="@+id/trade_agent"
+                     android:visibility="gone"
                     android:layout_width="@dimen/zc_rl_w"
                     android:layout_height="@dimen/sp_height"
                     android:background="@drawable/ed_adress"
@@ -147,6 +150,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/normal_button_selector"
                     android:enabled="false"
+                     android:visibility="gone"
                     android:text="开始统计"
                     android:textColor="#ffffff" />
             </LinearLayout>

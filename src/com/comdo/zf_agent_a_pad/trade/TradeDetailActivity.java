@@ -187,7 +187,7 @@ public class TradeDetailActivity extends Activity {
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
 									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
-											: i == 1 ? StringUtil.replaceNum(data.getAccount_name())//账户名
+											: i == 1 ? StringUtil.replaceName(data.getAccount_name())//账户名
 											: i == 2 ? StringUtil.replaceNum(data.getAccount_number())//账户号码
 											: i == 3 ? data.getPaychannel()//支付通道
 											: i == 4 ? getString(R.string.notation_yuan)+df.format(data.getAmount()*1.0f/100)//交易金额
@@ -207,7 +207,7 @@ public class TradeDetailActivity extends Activity {
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
 									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
-											: i == 1 ? StringUtil.replaceNum(data.getAccount_name())//账户名
+											: i == 1 ? StringUtil.replaceName(data.getAccount_name())//账户名
 											: i == 2 ? StringUtil.replaceNum(data.getAccount_number())//账户号码
 											: i == 3 ? data.getPaychannel()//支付通道
 											: i == 4 ? getString(R.string.notation_yuan)+df.format(data.getGet()*1.0f/100)//产出分润
