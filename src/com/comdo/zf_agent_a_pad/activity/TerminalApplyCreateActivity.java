@@ -148,7 +148,11 @@ public class TerminalApplyCreateActivity extends Activity implements
 		switch (view.getId()) {
 
 		case R.id.terminal_submit:
-
+			if(pwd.getText().toString().length()<6||pwd.getText().toString().length()>20){
+				Toast.makeText(getApplicationContext(), "密码为6-20位！", 1000).show();
+				break;
+			}
+			
 			if (pwd.getText().toString()
 					.equals(confirmpwd.getText().toString())) {
 				Config.addCustomer(this, setCode.getText().toString(), name,

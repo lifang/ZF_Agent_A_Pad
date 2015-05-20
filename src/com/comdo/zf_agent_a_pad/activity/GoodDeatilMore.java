@@ -1,4 +1,5 @@
 package com.comdo.zf_agent_a_pad.activity;
+
 import com.comdo.zf_agent_a_pad.fragment.F_good_detail;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_apply;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_commet;
@@ -19,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
+public class GoodDeatilMore extends FragmentActivity implements OnClickListener {
 
 	private F_good_detail detail;
 	private Good_detail_apply apply;
@@ -38,13 +39,15 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 	private int comments;
 	private LinearLayout ll_isshow;
 	private TextView tv_pic;
+	private TextView titleback_text_title;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.goodmoremain);	
+		setContentView(R.layout.goodmoremain);
 		type = getIntent().getIntExtra("type", 0);
 		comments = getIntent().getIntExtra("commets", 0);
-		
+
 		initView();
 		switch (type) {
 		case 0:
@@ -92,14 +95,18 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 		default:
 			break;
 		}
-		
+
 	}
 
 	private void initView() {
-		ll_isshow = (LinearLayout)findViewById(R.id.ll_isshow);
-		if(Config.iszd)
+		titleback_text_title = (TextView) findViewById(R.id.titleback_text_title);
+		ll_isshow = (LinearLayout) findViewById(R.id.ll_isshow);
+		if (Config.iszd) {
 			ll_isshow.setVisibility(View.GONE);
-		ll_back = (LinearLayout)findViewById(R.id.titleback_linear_back);
+			titleback_text_title.setText("租赁说明");
+		}
+
+		ll_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		ll_back.setOnClickListener(this);
 
 		tv_ms = (TextView) findViewById(R.id.tv_ms);
@@ -108,16 +115,20 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 		tv_kt.setOnClickListener(this);
 		tv_pl = (TextView) findViewById(R.id.tv_pl);
 		tv_pl.setOnClickListener(this);
-		tv_pl.setText("评论"+"("+comments+")");
+		tv_pl.setText("评论" + "(" + comments + ")");
 		tv_zd = (TextView) findViewById(R.id.tv_zd);
 		tv_zd.setOnClickListener(this);
 		tv_jy = (TextView) findViewById(R.id.tv_jy);
 		tv_jy.setOnClickListener(this);
 		tv_pic = (TextView) findViewById(R.id.tv_pic);
 		tv_pic.setOnClickListener(this);
-		
+		if (Config.canzl) {
+			tv_zd.setVisibility(View.GONE);
+		}
+
 	}
-	private void changColor(){
+
+	private void changColor() {
 		tv_ms.setTextColor(getResources().getColor(R.color.text292929));
 		tv_kt.setTextColor(getResources().getColor(R.color.text292929));
 		tv_pl.setTextColor(getResources().getColor(R.color.text292929));
@@ -125,6 +136,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 		tv_jy.setTextColor(getResources().getColor(R.color.text292929));
 		tv_pic.setTextColor(getResources().getColor(R.color.text292929));
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -156,8 +168,8 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			tv_kt.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case R.id.tv_pl:
-			//Config.goodId = gfe.getId();
-			//Config.commentsCount = commentsCount + "";
+			// Config.goodId = gfe.getId();
+			// Config.commentsCount = commentsCount + "";
 			if (commet == null)
 				commet = new Good_detail_commet();
 			getSupportFragmentManager().beginTransaction()
@@ -166,8 +178,8 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			tv_pl.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case R.id.tv_jy:
-			//Config.goodId = gfe.getId();
-			//Config.commentsCount = commentsCount + "";
+			// Config.goodId = gfe.getId();
+			// Config.commentsCount = commentsCount + "";
 			if (jy == null)
 				jy = new Good_detail_trade();
 			getSupportFragmentManager().beginTransaction()
@@ -176,8 +188,8 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 			tv_jy.setTextColor(getResources().getColor(R.color.bgtitle));
 			break;
 		case R.id.tv_pic:
-			//Config.goodId = gfe.getId();
-			//Config.commentsCount = commentsCount + "";
+			// Config.goodId = gfe.getId();
+			// Config.commentsCount = commentsCount + "";
 			if (pic == null)
 				pic = new Good_detail_pic();
 			getSupportFragmentManager().beginTransaction()
@@ -188,12 +200,13 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener{
 		default:
 			break;
 		}
-		
+
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Config.iszd=false;
+		Config.iszd = false;
 	}
 
 }

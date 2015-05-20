@@ -114,11 +114,11 @@ public class Config {
 	public static String tv_sqkt;
 	public static int GOODID = -1;
 	public static int goodId;
-
 	public static int gid;
 	public static int portindex=-1;
 	public static int lx;
 	public static String  apply;
+	public static boolean  canzl=false;
 	public static List<PortSon> son=new ArrayList<PortSon>();
 	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
 

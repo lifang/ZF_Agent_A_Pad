@@ -81,8 +81,15 @@ public class AddAdress extends Activity implements OnClickListener{
 		switch (v.getId()) {
 	
 		case R.id.btn_save:
-			if(check())
-			addAddresss();			
+			if(check()){
+				if(cb.isChecked()){
+					isDefault=1;
+				}else{
+					isDefault=2;
+				}
+				addAddresss();
+			}
+						
 			break;
 		case R.id.area:
 			Intent intent = new Intent(AddAdress.this,
