@@ -50,8 +50,8 @@
                                 android:layout_height="30dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
-                                android:editable="false"
                                 android:background="@drawable/tv_bg"
+                                android:editable="false"
                                 android:singleLine="true" />
                         </TableRow>
 
@@ -96,6 +96,8 @@
                                 android:layout_height="30dp"
                                 android:layout_marginLeft="10dp"
                                 android:background="@drawable/tv_bg"
+                                android:inputType="textPassword"
+                                android:maxLength="20"
                                 android:singleLine="true" />
                         </TableRow>
 
@@ -118,6 +120,8 @@
                                 android:layout_height="30dp"
                                 android:layout_marginLeft="10dp"
                                 android:background="@drawable/tv_bg"
+                                android:inputType="textPassword"
+                                android:maxLength="20"
                                 android:singleLine="true" />
                         </TableRow>
                     </TableLayout>
@@ -143,7 +147,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="180dp" >
 
-                        <TableRow android:layout_marginTop="20dp" >
+                        <TableRow
+                            android:layout_marginTop="20dp"
+                            android:visibility="gone" >
 
                             <CheckBox
                                 android:id="@+id/cb_pigou"

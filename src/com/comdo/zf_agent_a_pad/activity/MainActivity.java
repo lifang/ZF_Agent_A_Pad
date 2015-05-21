@@ -45,7 +45,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		MobclickAgent.openActivityDurationTrack(false);
 		Display display = getWindowManager().getDefaultDisplay();
 		Config.ScreenWidth = display.getWidth();
 		Config.ScreenHeight = display.getHeight();

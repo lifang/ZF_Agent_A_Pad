@@ -55,6 +55,7 @@ import com.comdo.zf_agent_a_pad.fragment.Transgoods;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.MyToast;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
@@ -281,7 +282,11 @@ OnClickListener, IXListViewListener {
 			posID = 0;
 			checked = 0;
 			 str = zdh.getText().toString().split("\n");
-			confirmUp();
+			 if (str != null) {
+				 confirmUp();
+			}else {
+				MyToast.showToast(this, "请输入终端号");
+			}
 			//confirmUp_trans();
 			//			if (isFromTrans) {
 			//				confirmUp_trans();
@@ -552,6 +557,7 @@ OnClickListener, IXListViewListener {
 						mTerminalItems.remove(i);
 					}
 				}
+				myHandler.sendEmptyMessage(1);
 			}
 
 			break;

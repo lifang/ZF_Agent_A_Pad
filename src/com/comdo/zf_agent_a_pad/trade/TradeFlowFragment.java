@@ -178,9 +178,15 @@ public class TradeFlowFragment extends Fragment implements
 
 		switch (mTradeType) {
 		case TRANSFER:
+			payAccountTxt.setText("手续费");
+			recieveAccountTxt.setVisibility(View.GONE);
+			break;
 		case CONSUME:
+			payAccountTxt.setText("付款账号");
+			recieveAccountTxt.setText("收款账号");
 			break;
 		case REPAYMENT:
+			payAccountTxt.setText("付款账号");
 			recieveAccountTxt.setText("转入账号");
 			break;
 		case LIFE_PAY:
@@ -515,6 +521,10 @@ public class TradeFlowFragment extends Fragment implements
 
 			switch (mTradeType) {
 			case TRANSFER:
+				
+				holder.tvAccount.setText(getString(R.string.notation_yuan) + df.format(record.getPoundage()*1.0f/100));
+				holder.tvReceiveAccount.setVisibility(View.GONE);
+				break;
 			case REPAYMENT:
 			case CONSUME:
 				// holder.tvAccountKey.setText(getString(R.string.trade_pay_account));

@@ -11,6 +11,7 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_UP
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BANK;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_BILLING;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_CHANNEL;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_CHANNEL_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TITLE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_CITY;
@@ -62,7 +63,7 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
-import com.comdo.zf_agent_a_pad.trade.entity.ApplyBank;
+import com.comdo.zf_agent_a_pad.entity.BankEntity.Bank;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChooseItem;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
@@ -76,6 +77,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithGView;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
@@ -116,7 +118,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private TextView mPosModel;
 	private TextView mSerialNum;
 	private TextView mChannel;
+	private int mPayChannelID = 0;
+	private String bankCode;
 
+	private View clickView;
 	private String[] mMerchantKeys;
 	private String[] mBankKeys;
 
@@ -147,7 +152,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private String photoPath;
 	private TextView uploadingTextView;
 	private ImageButton uploadingImageButton;
-	private ApplyBank mChosenBank;
+	private Bank mChosenBank;
 	private ApplyChannel mChosenChannel;
 	private ApplyChannel.Billing mChosenBilling;
 	private String mBankKey;
@@ -162,11 +167,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private ScrollViewWithGView gridView, gridView_;
 	private ApplyListAdapter1 adapter1;
 	private ApplyListAdapter2 adapter2;
-	private String mUploadUri;
 
-	// private Boolean isBankName = false;
-	// private Boolean isShopName = false;
-	// private String shopName;
+	private Boolean isBankName = false;
+	private Boolean isShopName = false;
+	private String shopName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -176,7 +180,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
 		mTerminalNumber = getIntent().getStringExtra(TERMINAL_NUMBER);
 		mTerminalStatus = getIntent().getIntExtra(TERMINAL_STATUS, 0);
-
+		MobclickAgent.openActivityDurationTrack(false);
 		initViews();
 		loadData(mApplyType);
 	}
@@ -243,7 +247,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 				params.put("terminalId", mTerminalId);
 				// yewei
 				// params.put("status", mTerminalStatus == 2 ? 2 : 1);
-				params.put("applyCustomerId", mMerchant.getCustomerId());
+				params.put("applyCustomerId", MyApplication.getNewUser()
+						.getAgentUserId());
 				params.put("publicPrivateStatus", mApplyType);
 
 				params.put("merchantId", mMerchantId);
@@ -251,15 +256,36 @@ public class ApplyDetailActivity extends FragmentActivity {
 				params.put("merchantName", getItemValue(mMerchantKeys[2]));
 				params.put("sex", mMerchantGender);
 				params.put("birthday", getItemValue(mMerchantKeys[4]));
+				if (!RegText.isIdentityCard(getItemValue(mMerchantKeys[5]))) {
+					CommonUtil
+							.toastShort(ApplyDetailActivity.this, "身份证号格式不正确");
+					return;
+				}
 				params.put("cardId", getItemValue(mMerchantKeys[5]));
+
+				if (!RegText.isMobileNO(getItemValue(mMerchantKeys[6]))) {
+					CommonUtil
+							.toastShort(ApplyDetailActivity.this, "手机号码格式不正确");
+					return;
+				}
 				params.put("phone", getItemValue(mMerchantKeys[6]));
+				if (!RegText.isEmail(getItemValue(mMerchantKeys[7]))) {
+					CommonUtil.toastShort(ApplyDetailActivity.this, "邮箱格式不正确");
+					return;
+				}
 				params.put("email", getItemValue(mMerchantKeys[7]));
+
 				params.put("cityId",
 						null != mMerchantCity ? mMerchantCity.getId() : 0);
 
-				params.put("bankName", getItemValue(mBankKeys[0]));
-				params.put("bankCode", getItemValue(mBankKeys[1]));
-				params.put("bankNum", getItemValue(mBankKeys[2]));
+				params.put("bankNum", getItemValue(mBankKeys[0]));
+				params.put("bankName", getItemValue(mBankKeys[1]));
+
+				params.put("bank_name", getItemValue(mBankKeys[2]));
+				if (mChosenBank != null)
+					params.put("bankCode", mChosenBank.getNo());
+				else
+					params.put("bankCode", bankCode);
 				if (mApplyType == APPLY_PUBLIC) {
 					params.put("registeredNo", getItemValue(mBankKeys[3]));
 					params.put("organizationNo", getItemValue(mBankKeys[4]));
@@ -288,6 +314,24 @@ public class ApplyDetailActivity extends FragmentActivity {
 						String value = (String) item
 								.getTag(R.id.apply_detail_key);
 						material.setValue(value);
+					} else if (material.getTypes() == TYPE_IMAGE) {
+						String key = material.getName();
+						LinearLayout item = (LinearLayout) mContainer
+								.findViewWithTag(key);
+						// if (item.findViewById(R.id.apply_detail_value) !=
+						// null) {
+						// material.setValue((String) item.findViewById(
+						// R.id.apply_detail_value).getTag());
+						// } else
+						if (item.findViewById(R.id.apply_detail_view) != null) {
+							material.setValue((String) item.findViewById(
+									R.id.apply_detail_view).getTag());
+						} else {
+							System.out.println(item);
+						}
+						// String value = (String) item
+						// .getTag(R.id.apply_detail_key);
+						// material.setValue(value);
 					}
 					if (TextUtils.isEmpty(material.getValue()))
 						continue;
@@ -327,13 +371,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	@SuppressLint({ "NewApi", "ResourceAsColor" })
 	private void loadData(int applyType) {
 
-		mMerchantContainer_0.removeAllViews();
-		mMerchantContainer_1.removeAllViews();
-		mMerchantContainer_2.removeAllViews();
-		mCustomerContainer_1.removeAllViews();
-		mCustomerContainer_2.removeAllViews();
-
-		Config.getApplyDetail(this, mTerminalId, mTerminalStatus,
+		Config.getApplyDetail(this, mTerminalId, applyType,
 				new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
@@ -353,6 +391,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 							mPosModel.setText(terminalDetail.getModelNumber());
 							mSerialNum.setText(terminalDetail.getSerialNumber());
 							mChannel.setText(terminalDetail.getChannelName());
+							mPayChannelID = terminalDetail.getChannelId();
 							supportRequirementType = terminalDetail
 									.getSupportRequirementType();
 							if (supportRequirementType == 1) {
@@ -366,6 +405,11 @@ public class ApplyDetailActivity extends FragmentActivity {
 							}
 						}
 
+						mMerchantContainer_0.removeAllViews();
+						mMerchantContainer_1.removeAllViews();
+						mMerchantContainer_2.removeAllViews();
+						mCustomerContainer_1.removeAllViews();
+						mCustomerContainer_2.removeAllViews();
 						initMerchantDetailKeys();
 						// set the choosing merchant listener
 						// View merchantChoose = mMerchantContainer
@@ -397,6 +441,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 						gridView_.setAdapter(adapter2);
 
 						if (openingInfos != null) {
+
+							mMerchantId = openingInfos.getMerchant_id();
+							bankCode = openingInfos.getAccount_bank_code();
 							setData(openingInfos);
 						}
 						updateUIWithValidation();
@@ -404,17 +451,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 					@Override
 					public void onFailure(String message) {
-						try {
-							JSONObject jsonobject = new JSONObject(message);
-							if (jsonobject.getInt("code") == -1) {
-								CommonUtil.toastShort(ApplyDetailActivity.this,
-										jsonobject.getString("message"));
-							}
-						} catch (JSONException e) {
-							// TODO:
-							CommonUtil.toastShort(ApplyDetailActivity.this,
-									"终端尚未绑定不能开通！");
-						}
+
+						CommonUtil
+								.toastShort(ApplyDetailActivity.this, message);
 						finish();
 					}
 
@@ -430,6 +469,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private void setData(final OpeningInfos openingInfos) {
 		final String[] items = getResources().getStringArray(
 				R.array.apply_detail_gender);
+		setItemValue(mMerchantKeys[0], openingInfos.getMerchant_name());
 		setItemValue(mMerchantKeys[1], openingInfos.getName());
 		setItemValue(mMerchantKeys[2], openingInfos.getMerchant_name());
 		setItemValue(mMerchantKeys[3], items[openingInfos.getSex() % 2]);
@@ -450,12 +490,13 @@ public class ApplyDetailActivity extends FragmentActivity {
 					}
 				});
 
-		setItemValue(mBankKeys[0], openingInfos.getAccount_bank_name());
-		setItemValue(mBankKeys[1], openingInfos.getAccount_bank_num());
-		setItemValue(mBankKeys[2], openingInfos.getAccount_bank_code());
+		setItemValue(mBankKeys[0], openingInfos.getAccount_bank_num());
+		setItemValue(mBankKeys[1], openingInfos.getAccount_bank_name());
+		setItemValue(mBankKeys[2], openingInfos.getBank_name());
 		if (mApplyType == APPLY_PUBLIC) {
 			setItemValue(mBankKeys[3], openingInfos.getTax_registered_no());
 			setItemValue(mBankKeys[4], openingInfos.getOrganization_code_no());
+
 		}
 		setItemValue(mBankKeys[5],
 				StringUtil.formatNull(openingInfos.getChannelname())
@@ -515,12 +556,12 @@ public class ApplyDetailActivity extends FragmentActivity {
 		}
 
 		case REQUEST_CHOOSE_BANK: {
-			mChosenBank = (ApplyBank) data.getSerializableExtra(SELECTED_BANK);
+			mChosenBank = (Bank) data.getSerializableExtra(SELECTED_BANK);
 			if (null != mChosenBank) {
 				LinearLayout item = (LinearLayout) mContainer
-						.findViewWithTag(mBankKey);
-				item.setTag(R.id.apply_detail_key, mChosenBank.getCode());
-				setItemValue(mBankKey, mChosenBank.getName());
+						.findViewWithTag(mBankKeys[2]);
+				item.setTag(R.id.apply_detail_key, mChosenBank.getNo());
+				setItemValue(mBankKeys[2], mChosenBank.getName());
 			}
 
 			break;
@@ -533,18 +574,23 @@ public class ApplyDetailActivity extends FragmentActivity {
 				public void handleMessage(Message msg) {
 					if (msg.what == 1) {
 
-						mUploadUri = (String) msg.obj;
+						String uri = (String) msg.obj;
 						if (null != uploadingTextView) {
 							uploadingTextView.setVisibility(View.GONE);
 							uploadingImageButton.setVisibility(View.VISIBLE);
+							uploadingImageButton.setTag(uri);
 							uploadingImageButton
 									.setOnClickListener(new onWatchListener());
 
+						} else {
+
+							clickView.setTag(uri);
+							clickView.setOnClickListener(new onWatchListener());
 						}
 						for (MyApplyMaterial material : mMaterials.values()) {
 							if (material.getTypes() == TYPE_IMAGE
 									&& material.getName().equals(mUploadKey)) {
-								material.setValue(mUploadUri);
+								material.setValue(uri);
 								break;
 							}
 						}
@@ -696,11 +742,18 @@ public class ApplyDetailActivity extends FragmentActivity {
 	 * @param value
 	 */
 	private void setItemValue(String key, String value) {
-		LinearLayout item = (LinearLayout) mContainer.findViewWithTag(key);
 
+		LinearLayout item = (LinearLayout) mContainer.findViewWithTag(key);
 		if (item == null) {
 			item = (LinearLayout) mMerchantContainer_0.findViewWithTag(key);
 		}
+		if (item == null) {
+			item = (LinearLayout) mMerchantContainer_1.findViewWithTag(key);
+		}
+		if (item == null) {
+			item = (LinearLayout) mMerchantContainer_2.findViewWithTag(key);
+		}
+		Log.e("key+++++++++", "key------------------>" + key);
 		TextView tvValue = (TextView) item
 				.findViewById(R.id.apply_detail_value);
 		tvValue.setText(value);
@@ -714,6 +767,16 @@ public class ApplyDetailActivity extends FragmentActivity {
 	 */
 	private String getItemValue(String key) {
 		LinearLayout item = (LinearLayout) mContainer.findViewWithTag(key);
+		if (item == null) {
+			item = (LinearLayout) mMerchantContainer_0.findViewWithTag(key);
+		}
+		if (item == null) {
+			item = (LinearLayout) mMerchantContainer_1.findViewWithTag(key);
+		}
+		if (item == null) {
+			item = (LinearLayout) mMerchantContainer_2.findViewWithTag(key);
+		}
+		Log.e("key---------", "key------------------>" + key);
 		TextView tvValue = (TextView) item
 				.findViewById(R.id.apply_detail_value);
 		return tvValue.getText().toString();
@@ -733,7 +796,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 				mMerchantKeys[0], null));
 		mMerchantContainer_1.addView(getDetailItem(ITEM_EDIT, mMerchantKeys[1],
 				null));
-		// isShopName = true;
+		isShopName = true;
 		mMerchantContainer_2.addView(getDetailItem(ITEM_EDIT, mMerchantKeys[2],
 				null));
 
@@ -802,7 +865,11 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 		mCustomerContainer_1.addView(getDetailItem(ITEM_EDIT, mBankKeys[0],
 				null));
-		View chooseBank = getDetailItem(ITEM_CHOOSE, mBankKeys[1], null);
+
+		isBankName = true;
+		mCustomerContainer_2.addView(getDetailItem(ITEM_EDIT, mBankKeys[1],
+				null));
+		View chooseBank = getDetailItem(ITEM_CHOOSE, mBankKeys[2], null);
 		chooseBank.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -813,9 +880,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 				startActivityForResult(intent, REQUEST_CHOOSE_BANK);
 			}
 		});
-		mCustomerContainer_2.addView(chooseBank);
-		mCustomerContainer_1.addView(getDetailItem(ITEM_EDIT, mBankKeys[2],
-				null));
+		mCustomerContainer_1.addView(chooseBank);
 
 		if (mApplyType == APPLY_PUBLIC) {
 			mCustomerContainer_2.addView(getDetailItem(ITEM_EDIT, mBankKeys[3],
@@ -832,6 +897,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(ApplyDetailActivity.this,
 						ApplyChannelActivity.class);
+				intent.putExtra(SELECTED_CHANNEL_ID, mPayChannelID);
 				intent.putExtra(SELECTED_CHANNEL, mChosenChannel);
 				intent.putExtra(SELECTED_BILLING, mChosenBilling);
 				startActivityForResult(intent, REQUEST_CHOOSE_CHANNEL);
@@ -987,52 +1053,45 @@ public class ApplyDetailActivity extends FragmentActivity {
 					.findViewById(R.id.apply_detail_key);
 			EditText etValue = (EditText) item
 					.findViewById(R.id.apply_detail_value);
-			etValue.addTextChangedListener(new TextWatcherAdapter() {
-				public void afterTextChanged(final Editable gitDirEditText) {
 
-					updateUIWithValidation();
-				}
-			});
+			if (isBankName) {
+				isBankName = false;
+				etValue.setFocusable(false);
+				etValue.setEnabled(false);
 
-			// if (isBankName) {
-			// isBankName = false;
-			// etValue.setFocusable(false);
-			// etValue.setEnabled(false);
-			//
-			// }
-			// if (isShopName) {
-			// shopName = value;
-			// isShopName = false;
-			// etValue.addTextChangedListener(new TextWatcherAdapter() {
-			// public void afterTextChanged(final Editable gitDirEditText) {
-			//
-			// updateUIWithValidation();
-			//
-			// LinearLayout item = (LinearLayout) mContainer
-			// .findViewWithTag(mBankKeys[1]);
-			// EditText etBankName = (EditText) item
-			// .findViewById(R.id.apply_detail_value);
-			// etBankName.setText(gitDirEditText.toString());
-			//
-			// }
-			// });
-			// } else {
-			// etValue.addTextChangedListener(new TextWatcherAdapter() {
-			// public void afterTextChanged(final Editable gitDirEditText) {
-			//
-			// updateUIWithValidation();
-			// }
-			// });
-			// }
+			}
+			if (isShopName) {
+				shopName = value;
+				isShopName = false;
+				etValue.addTextChangedListener(new TextWatcherAdapter() {
+					public void afterTextChanged(final Editable gitDirEditText) {
+
+						updateUIWithValidation();
+
+						LinearLayout item = (LinearLayout) mContainer
+								.findViewWithTag(mBankKeys[1]);
+						EditText etBankName = (EditText) item
+								.findViewById(R.id.apply_detail_value);
+						etBankName.setText(gitDirEditText.toString());
+
+					}
+				});
+			} else {
+				etValue.addTextChangedListener(new TextWatcherAdapter() {
+					public void afterTextChanged(final Editable gitDirEditText) {
+
+						updateUIWithValidation();
+					}
+				});
+			}
 			if (!TextUtils.isEmpty(key))
 				tvKey.setText(key);
 			if (!TextUtils.isEmpty(value))
-				etValue.setText(value);
-			// if (isBankName) {
-			// etValue.setText(shopName);
-			// } else {
-			// etValue.setText(value);
-			// }
+				if (isBankName) {
+					etValue.setText(shopName);
+				} else {
+					etValue.setText(value);
+				}
 			break;
 		}
 		case ITEM_CHOOSE: {
@@ -1135,8 +1194,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 					.findViewById(R.id.apply_detail_key);
 			ImageButton ibView = (ImageButton) item
 					.findViewById(R.id.apply_detail_view);
-			mUploadUri = value;
 
+			ibView.setTag(value);
 			if (!TextUtils.isEmpty(key))
 				tvKey.setText(key);
 			ibView.setOnClickListener(new onWatchListener());
@@ -1147,7 +1206,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private class onWatchListener implements View.OnClickListener {
 
 		@Override
-		public void onClick(View arg0) {
+		public void onClick(View view) {
+			clickView = view;
+			final String uri = (String) view.getTag();
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					ApplyDetailActivity.this);
 			final String[] items = getResources().getStringArray(
@@ -1167,7 +1228,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 						build.setView(textEntryView);
 						final ImageView view = (ImageView) textEntryView
 								.findViewById(R.id.imag);
-						ImageCacheUtil.IMAGE_CACHE.get(mUploadUri, view);
+						ImageCacheUtil.IMAGE_CACHE.get(uri, view);
 						build.create().show();
 						break;
 					}
@@ -1317,19 +1378,18 @@ public class ApplyDetailActivity extends FragmentActivity {
 		}
 
 	};
-	
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onPageStart(this.toString());
 		MobclickAgent.onResume(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onPageStart(this.toString());
 		MobclickAgent.onResume(this);
 	}
 }
