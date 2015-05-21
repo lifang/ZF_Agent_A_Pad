@@ -192,16 +192,22 @@ public class CreatAgent extends BaseActivity implements OnClickListener {
 
 	private void submit() {
 
-		if ("".equals(et_company_name.getText().toString())) {
-			CommonUtil.toastShort(CreatAgent.this, "公司名称不能为空");
+		if (agentType == 1) {
+			if ("".equals(et_company_name.getText().toString())) {
+				CommonUtil.toastShort(CreatAgent.this, "公司名称不能为空");
+				return;
 
-		} else if ("".equals(et_business_license.getText().toString())) {
+			} else if ("".equals(et_business_license.getText().toString())) {
 
-			CommonUtil.toastShort(CreatAgent.this, "公司营业执照登记号不能为空");
-		} else if ("".equals(et_tax_registered_no.getText().toString())) {
+				CommonUtil.toastShort(CreatAgent.this, "公司营业执照登记号不能为空");
+				return;
+			} else if ("".equals(et_tax_registered_no.getText().toString())) {
 
-			CommonUtil.toastShort(CreatAgent.this, "公司税务登记证号不能为空");
-		} else if ("".equals(et_fuze_name.getText().toString())) {
+				CommonUtil.toastShort(CreatAgent.this, "公司税务登记证号不能为空");
+				return;
+			}
+		}
+		if ("".equals(et_fuze_name.getText().toString())) {
 
 			CommonUtil.toastShort(CreatAgent.this, "负责人姓名不能为空");
 		} else if ("".equals(et_fuze_id_no.getText().toString())) {

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alipay.sdk.data.e;
 import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
@@ -112,54 +113,106 @@ public class ApplyChannelActivity extends BaseActivity {
 						finish();
 					}
 				});
-		Config.getApplyChannelList(this, new HttpCallback<List<ApplyChannel>>(
-				this) {
-			@Override
-			public void onSuccess(List<ApplyChannel> data) {
-				channels.clear();
-				billings.clear();
+		if (mPayChannelID == 0) {
 
-				if (null != data && data.size() > 0) {
-					for (int i = 0; i < data.size(); i++) {
+			Config.getApplyChannelList(this,
+					new HttpCallback<List<ApplyChannel>>(this) {
+						@Override
+						public void onSuccess(List<ApplyChannel> data) {
+							channels.clear();
+							billings.clear();
 
-						if (data.get(i).getId() == mPayChannelID)
-							channels.add(data.get(i));
-					}
+							if (null != data && data.size() > 0) {
+								channels.addAll(data);
 
-					// if (null == chosenBilling) {
-					chosenChannel = channels.get(0);
-					if (null != chosenChannel.getBillings()
-							&& chosenChannel.getBillings().size() > 0) {
-						chosenBilling = chosenChannel.getBillings().get(0);
-					}
-					// }
+								if (null == chosenBilling) {
+									chosenChannel = channels.get(0);
+									if (null != chosenChannel.getBillings()
+											&& chosenChannel.getBillings()
+													.size() > 0) {
+										chosenBilling = chosenChannel
+												.getBillings().get(0);
+									}
+								}
 
-					for (ApplyChannel channel : channels) {
-						if (channel.getId() == chosenChannel.getId()
-								&& null != chosenChannel.getBillings()) {
-							billings.addAll(chosenChannel.getBillings());
-							break;
+								for (ApplyChannel channel : channels) {
+									if (channel.getId() == chosenChannel
+											.getId()
+											&& null != chosenChannel
+													.getBillings()) {
+										billings.addAll(chosenChannel
+												.getBillings());
+										break;
+									}
+								}
+
+								channelAdapter.notifyDataSetChanged();
+								billingAdapter.notifyDataSetChanged();
+							}
+
 						}
-					}
 
-					channelAdapter.notifyDataSetChanged();
-					billingAdapter.notifyDataSetChanged();
+						@Override
+						public TypeToken<List<ApplyChannel>> getTypeToken() {
+							return new TypeToken<List<ApplyChannel>>() {
+							};
+						}
+					});
+		} else {
 
-					if (chosenBilling != null && chosenBilling.id > 0) {
-						billingList.setSelection(chosenBilling.id);
-					}
-				}
+			Config.getApplyChannelList(this,
+					new HttpCallback<List<ApplyChannel>>(this) {
+						@Override
+						public void onSuccess(List<ApplyChannel> data) {
+							channels.clear();
+							billings.clear();
 
-			}
+							if (null != data && data.size() > 0) {
+								for (int i = 0; i < data.size(); i++) {
 
-			@Override
-			public TypeToken<List<ApplyChannel>> getTypeToken() {
-				return new TypeToken<List<ApplyChannel>>() {
-				};
-			}
-		});
-		// }
+									if (data.get(i).getId() == mPayChannelID)
+										channels.add(data.get(i));
+								}
 
+								// if (null == chosenBilling) {
+								chosenChannel = channels.get(0);
+								if (null != chosenChannel.getBillings()
+										&& chosenChannel.getBillings().size() > 0) {
+									chosenBilling = chosenChannel.getBillings()
+											.get(0);
+								}
+								// }
+
+								for (ApplyChannel channel : channels) {
+									if (channel.getId() == chosenChannel
+											.getId()
+											&& null != chosenChannel
+													.getBillings()) {
+										billings.addAll(chosenChannel
+												.getBillings());
+										break;
+									}
+								}
+
+								channelAdapter.notifyDataSetChanged();
+								billingAdapter.notifyDataSetChanged();
+
+								if (chosenBilling != null
+										&& chosenBilling.id > 0) {
+									billingList.setSelection(chosenBilling.id);
+								}
+							}
+
+						}
+
+						@Override
+						public TypeToken<List<ApplyChannel>> getTypeToken() {
+							return new TypeToken<List<ApplyChannel>>() {
+							};
+						}
+					});
+
+		}
 	}
 
 	private class BillingListAdapter extends BaseAdapter {
