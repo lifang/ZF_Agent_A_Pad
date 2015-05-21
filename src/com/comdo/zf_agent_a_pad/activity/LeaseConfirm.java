@@ -271,8 +271,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		tv_zc = (TextView) findViewById(R.id.tv_zc);
 		tv_zd = (TextView) findViewById(R.id.tv_zd);
 		if (Config.gfe != null) {
-			tv_zc.setText("最长租赁时间：" + Config.gfe.getReturn_time()+ "天");
-			tv_zd.setText("最短租赁时间：" + Config.gfe.getLease_time()  + "天");
+			tv_zc.setText("最长租赁时间：" + Config.gfe.getReturn_time()+ "月");
+			tv_zd.setText("最短租赁时间：" + Config.gfe.getLease_time()  + "月");
 		}
 		sclist = (ScrollViewWithListView) findViewById(R.id.pos_lv1);
 		myAdapter = new ChooseAdressAdapter(this, myList);

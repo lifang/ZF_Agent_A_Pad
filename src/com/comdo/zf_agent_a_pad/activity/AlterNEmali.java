@@ -75,7 +75,7 @@ public class AlterNEmali extends Activity implements OnClickListener {
 		// Config.AlterPhoneCode(getApplicationContext(),
 		// MyApplication.NewUser.getAgentUserId(), "18762091710", callback);
 		initView();
-		new TitleMenuUtil(AlterNEmali.this, "修改邮箱").show();
+		new TitleMenuUtil(AlterNEmali.this, "提交邮箱").show();
 		runnable = new Runnable() {
 			@Override
 			public void run() {

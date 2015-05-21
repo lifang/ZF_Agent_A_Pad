@@ -31,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.activity.AlterEmali;
+import com.comdo.zf_agent_a_pad.activity.AlterNEmali;
+import com.comdo.zf_agent_a_pad.activity.AlterNPhone;
 import com.comdo.zf_agent_a_pad.activity.AlterPhone;
 import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.activity.MainActivity;
@@ -266,14 +268,28 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_phone_xg:
-			Intent i=new Intent(getActivity(),AlterPhone.class);
-			i.putExtra("phone", tv_phone.getText().toString().trim());
-			startActivity(i);
+			if(tv_phone.getText().toString().trim().equals("")){
+				Intent i=new Intent(getActivity(),AlterNPhone.class);
+				i.putExtra("phone", tv_phone.getText().toString().trim());
+				startActivity(i);	
+			}else{
+				Intent i=new Intent(getActivity(),AlterPhone.class);
+				i.putExtra("phone", tv_phone.getText().toString().trim());
+				startActivity(i);
+			}
+		
 			break;
 		case R.id.tv_email_xg:
-			Intent i1=new Intent(getActivity(),AlterEmali.class);
-			i1.putExtra("phone", tv_email.getText().toString().trim());
-			startActivity(i1);
+			if(tv_email.getText().toString().trim().equals("")){
+				Intent i1=new Intent(getActivity(),AlterNEmali.class);
+				i1.putExtra("phone", tv_email.getText().toString().trim());
+				startActivity(i1);	
+			}else{
+				Intent i1=new Intent(getActivity(),AlterEmali.class);
+				i1.putExtra("phone", tv_email.getText().toString().trim());
+				startActivity(i1);	
+			}
+		
 			break;
 		case R.id.tv_safe:
 			type = 2;
@@ -402,8 +418,25 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			dialog.dismiss();
 			break;
 		case R.id.deleteadress:
-			dialog.dismiss();
-			myHandler.sendEmptyMessage(3);
+			final com.comdo.zf_agent_a_pad.util.AlertDialog ad = new com.comdo.zf_agent_a_pad.util.AlertDialog(getActivity());
+			ad.setTitle("提示");
+			ad.setMessage("确认取消?");
+			ad.setPositiveButton("取消", new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					ad.dismiss();
+				}
+			});
+			ad.setNegativeButton("确定", new OnClickListener() {
+				@Override
+				public void onClick(final View arg0) {
+					dialog.dismiss();
+					
+					myHandler.sendEmptyMessage(3);
+					ad.dismiss();
+				}	
+			});
+
 			break;
 		default:
 			break;
@@ -447,6 +480,9 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 					Toast.makeText(getActivity(), "原始密码不能为空", 1000).show();
 				}else if(StringUtil.isNull(et_newpaw.getText().toString())){
 					Toast.makeText(getActivity(), "新密码不能为空", 1000).show();
+				}
+				if(et_newpaw.getText().toString().trim().length()<6||et_newpaw.getText().toString().trim().length()>20){
+					Toast.makeText(getActivity(), "密码为6-20位！", 1000).show();
 				}
 				else if(StringUtil.isNull(et_confirmpaw.getText().toString())){
 					Toast.makeText(getActivity(), "确认密码不能为空", 1000).show();
@@ -496,6 +532,9 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 								.getTax_registered_no());
 						tv_fuzeren_name.setText(data.getName());
 						tv_fuzeren_no.setText(data.getCard_id());
+						if(StringUtil.isNull(data.getPhone())){
+							tv_phone_xg.setText("去提交");
+						}
 						tv_phone.setText(data.getPhone());
 						tv_email.setText(data.getEmail());
 						CommonUtil.findCityById(mActivity,

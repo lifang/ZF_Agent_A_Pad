@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
@@ -107,8 +108,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.main_rl_sy:
-			if (flag != 0) {
-				flag = 0;
+			if (Config.TABID != 1) {
+				
 				Config.TABID = 1;
 				changTabBg();
 				im_sy.setBackgroundResource(R.drawable.home);
@@ -125,14 +126,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 			break;
 		case R.id.main_rl_gwc:
-			if (flag != 1) {
+			if (Config.TABID !=2) {
 				flag = 1;
 				if (CheckRights.IS_ERJI
 						|| (!CheckRights.IS_YIJI && !CheckRights.RIGHT_1 && !CheckRights.RIGHT_2)) {
 					CommonUtil.toastShort(MainActivity.this,
 							R.string.right_not_match);
 				} else {
-
+					
 					Config.TABID = 2;
 					Intent i = new Intent(MainActivity.this,
 							PosListActivity.class);
@@ -143,7 +144,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			break;
 		case R.id.main_rl_pos1:
-			if (flag != 2) {
+			if (Config.TABID != 3) {
 				flag = 2;
 				Config.TABID = 3;
 				changTabBg();
@@ -156,7 +157,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 			break;
 		case R.id.main_rl_my:
-			if (flag != 3) {
+			if (Config.TABID != 4) {
 				flag = 3;
 				Log.e("4", "4");
 				Config.TABID = 4;
