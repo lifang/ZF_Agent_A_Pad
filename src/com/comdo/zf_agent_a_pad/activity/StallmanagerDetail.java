@@ -91,6 +91,7 @@ public class StallmanagerDetail extends BaseActivity {
 					public void onSuccess(StaffEntity data) {
 						tv_name.setText(data.getName());
 						tv_loginid.setText(data.getLoginId());
+						tv_paw.setText(data.getCreatedAt());
 						rolesStr = data.getRolesStr();
 						str = rolesStr.split(",");
 						myHandler.sendEmptyMessage(0);

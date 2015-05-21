@@ -211,13 +211,13 @@ public class SelectPayChannel extends BaseActivity {
 					.get(i));
 			if (editText != null && !"".equals(editText.getText().toString())) {
 				if (!RegText.isFloat(editText.getText().toString())) {
-					CommonUtil.toastShort(SelectPayChannel.this, "请填写正确的分润");
+					CommonUtil.toastShort(SelectPayChannel.this, "请输入正确的分润比例");
 					return;
 				}
 				if (Float.parseFloat(editText.getText().toString()) < 0
 						|| Float.parseFloat(editText.getText().toString()) > 100) {
 					CommonUtil.toastShort(SelectPayChannel.this,
-							"请填写0-100之间正确的费率");
+							"请填写0-100之间正确的分润比例");
 					return;
 				}
 				sb.append(Float.parseFloat(editText.getText().toString())

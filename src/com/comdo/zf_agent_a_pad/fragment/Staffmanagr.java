@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -103,6 +104,7 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 					startActivity(intent);
 					break;
 				case 2:
+
 					delectone();
 					break;
 				default:
@@ -114,19 +116,38 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 	}
 
 	protected void delectone() {
-		Config.delectStaff(getActivity(), datastaff.get(StaffmanagerAdapter.pp)
-				.getId(), agentId, new HttpCallback(getActivity()) {
 
+		final com.comdo.zf_agent_a_pad.util.AlertDialog ad = new com.comdo.zf_agent_a_pad.util.AlertDialog(
+				getActivity());
+		ad.setTitle("提示");
+		ad.setMessage("确认删除?");
+		ad.setPositiveButton("取消", new OnClickListener() {
 			@Override
-			public void onSuccess(Object data) {
-				CommonUtil.toastShort(getActivity(), "删除成功");
-				getData();
+			public void onClick(View arg0) {
+				ad.dismiss();
+			}
+		});
+		ad.setNegativeButton("确定", new OnClickListener() {
+			@Override
+			public void onClick(final View arg0) {
+				Config.delectStaff(getActivity(),
+						datastaff.get(StaffmanagerAdapter.pp).getId(), agentId,
+						new HttpCallback(getActivity()) {
+
+							@Override
+							public void onSuccess(Object data) {
+								CommonUtil.toastShort(getActivity(), "删除成功");
+								getData();
+							}
+
+							@Override
+							public TypeToken getTypeToken() {
+								return null;
+							}
+						});
+				ad.dismiss();
 			}
 
-			@Override
-			public TypeToken getTypeToken() {
-				return null;
-			}
 		});
 
 	}

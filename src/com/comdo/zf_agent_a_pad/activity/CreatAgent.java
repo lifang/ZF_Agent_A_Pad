@@ -205,6 +205,14 @@ public class CreatAgent extends BaseActivity implements OnClickListener {
 
 				CommonUtil.toastShort(CreatAgent.this, "公司税务登记证号不能为空");
 				return;
+			} else if ("".equals(licensePhotoPath) || null == licensePhotoPath) {
+
+				CommonUtil.toastShort(CreatAgent.this, "请上传营业执照照片");
+				return;
+			} else if ("".equals(taxPhotoPath) || null == taxPhotoPath) {
+
+				CommonUtil.toastShort(CreatAgent.this, "请上传税务登记证照片");
+				return;
 			}
 		}
 		if ("".equals(et_fuze_name.getText().toString())) {
@@ -241,12 +249,6 @@ public class CreatAgent extends BaseActivity implements OnClickListener {
 		} else if ("".equals(cardPhotoPath) || null == cardPhotoPath) {
 
 			CommonUtil.toastShort(CreatAgent.this, "请上传身份证照片");
-		} else if ("".equals(licensePhotoPath) || null == licensePhotoPath) {
-
-			CommonUtil.toastShort(CreatAgent.this, "请上传营业执照照片");
-		} else if ("".equals(taxPhotoPath) || null == taxPhotoPath) {
-
-			CommonUtil.toastShort(CreatAgent.this, "请上传税务登记证照片");
 		} else if (!et_paw.getText().toString()
 				.equals(et_paw1.getText().toString())) {
 

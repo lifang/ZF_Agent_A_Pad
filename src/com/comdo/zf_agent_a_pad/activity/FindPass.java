@@ -32,9 +32,8 @@ public class FindPass extends BaseActivity implements OnClickListener {
 	private TextView tv_code, tv_check;
 	private EditText login_edit_email, login_edit_code, login_edit_pass,
 			login_edit_pass2;
-	private LinearLayout login_linear_deletemali,
-			login_linear_deletpass, login_linear_deletpass2,
-			login_linear_signin, ll_jy_type;
+	private LinearLayout login_linear_deletemali, login_linear_deletpass,
+			login_linear_deletpass2, login_linear_signin, ll_jy_type;
 	private int Countmun = 120;
 	private Thread myThread;
 	private Boolean isRun = true;
@@ -64,7 +63,8 @@ public class FindPass extends BaseActivity implements OnClickListener {
 					System.out.println("Countmun`D2`" + Countmun);
 				}
 			case 2:
-				if (!StringUtil.isNull(login_edit_code.getText().toString().trim())) {
+				if (!StringUtil.isNull(login_edit_code.getText().toString()
+						.trim())) {
 					if (login_edit_code.getText().toString().equals(vcode)) {
 						img_check.setVisibility(View.VISIBLE);
 						img_check_n.setVisibility(View.GONE);
@@ -176,7 +176,8 @@ public class FindPass extends BaseActivity implements OnClickListener {
 		login_edit_code.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 
 			}
 
@@ -197,7 +198,7 @@ public class FindPass extends BaseActivity implements OnClickListener {
 							handler.sendEmptyMessage(2);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
-						} 
+						}
 					}
 				}).start();
 			}
@@ -288,6 +289,11 @@ public class FindPass extends BaseActivity implements OnClickListener {
 		pass = StringUtil.replaceBlank(login_edit_pass.getText().toString());
 		if (pass.length() == 0) {
 			Toast.makeText(getApplicationContext(), "密码不能为空",
+					Toast.LENGTH_SHORT).show();
+			return false;
+		} else if (pass.length() < 6 || pass.length() > 20) {
+
+			Toast.makeText(getApplicationContext(), "密码应为6-20位",
 					Toast.LENGTH_SHORT).show();
 			return false;
 		}
@@ -436,7 +442,7 @@ public class FindPass extends BaseActivity implements OnClickListener {
 		params.put("username", email);
 
 		System.out.println(pass + "-------" + email + "----" + vcode);
-		Config.updatePassword(FindPass.this,email, pass, vcode, 
+		Config.updatePassword(FindPass.this, email, pass, vcode,
 
 		new HttpCallback(FindPass.this) {
 			@Override
