@@ -44,7 +44,7 @@ public class TradeFlowActivity extends FragmentActivity implements ViewPager.OnP
 
 		setContentView(R.layout.activity_trade_flow);
 		new TitleMenuUtil(this, "交易流水").show();
-		
+		MobclickAgent.openActivityDurationTrack(false);
 		SharedPreferences share=getSharedPreferences("isPrompt", Context.MODE_PRIVATE);
 		isPrompt = share.getInt("isPrompt",0);
 		
