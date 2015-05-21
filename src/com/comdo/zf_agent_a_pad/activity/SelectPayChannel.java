@@ -3,9 +3,7 @@ package com.comdo.zf_agent_a_pad.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,7 +34,6 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.RegText;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
-import com.unionpay.mobile.android.utils.i;
 
 public class SelectPayChannel extends BaseActivity {
 
@@ -385,5 +382,4 @@ public class SelectPayChannel extends BaseActivity {
 		super.onResume();
 		loadData();
 	};
-
 }

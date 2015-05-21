@@ -49,7 +49,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener 
 		setContentView(R.layout.goodmoremain);
 		type = getIntent().getIntExtra("type", 0);
 		comments = getIntent().getIntExtra("commets", 0);
-
+		MobclickAgent.openActivityDurationTrack(false);
 		initView();
 		switch (type) {
 		case 0:

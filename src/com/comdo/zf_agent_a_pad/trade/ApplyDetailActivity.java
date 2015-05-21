@@ -180,7 +180,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
 		mTerminalNumber = getIntent().getStringExtra(TERMINAL_NUMBER);
 		mTerminalStatus = getIntent().getIntExtra(TERMINAL_STATUS, 0);
-
+		MobclickAgent.openActivityDurationTrack(false);
 		initViews();
 		loadData(mApplyType);
 	}
