@@ -118,7 +118,7 @@ public class GoodDetailImgs extends BaseActivity{
 
 				@Override
 				public void onClick(View v) {
-
+					GoodDetailImgs.this.finish();
 				}
 			});
 			return mList.get(position);

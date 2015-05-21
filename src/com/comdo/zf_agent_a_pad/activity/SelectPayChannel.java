@@ -3,9 +3,7 @@ package com.comdo.zf_agent_a_pad.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,7 +34,6 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.RegText;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
-import com.unionpay.mobile.android.utils.i;
 
 public class SelectPayChannel extends BaseActivity {
 
@@ -211,13 +208,13 @@ public class SelectPayChannel extends BaseActivity {
 					.get(i));
 			if (editText != null && !"".equals(editText.getText().toString())) {
 				if (!RegText.isFloat(editText.getText().toString())) {
-					CommonUtil.toastShort(SelectPayChannel.this, "请填写正确的分润");
+					CommonUtil.toastShort(SelectPayChannel.this, "请输入正确的分润比例");
 					return;
 				}
 				if (Float.parseFloat(editText.getText().toString()) < 0
 						|| Float.parseFloat(editText.getText().toString()) > 100) {
 					CommonUtil.toastShort(SelectPayChannel.this,
-							"请填写0-100之间正确的费率");
+							"请填写0-100之间正确的分润比例");
 					return;
 				}
 				sb.append(Float.parseFloat(editText.getText().toString())
@@ -385,5 +382,4 @@ public class SelectPayChannel extends BaseActivity {
 		super.onResume();
 		loadData();
 	};
-
 }

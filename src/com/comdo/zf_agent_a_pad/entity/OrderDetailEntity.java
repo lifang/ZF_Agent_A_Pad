@@ -26,6 +26,23 @@ public class OrderDetailEntity {
 	public void setNeed_invoice(int need_invoice) {
 		this.need_invoice = need_invoice;
 	}
+	private String logistics_name;
+	private String logistics_number;
+	public String getLogistics_name() {
+		return logistics_name;
+	}
+
+	public void setLogistics_name(String logistics_name) {
+		this.logistics_name = logistics_name;
+	}
+
+	public String getLogistics_number() {
+		return logistics_number;
+	}
+
+	public void setLogistics_number(String logistics_number) {
+		this.logistics_number = logistics_number;
+	}
 	private int need_invoice;
 	private String total_dingjin;
 	private String pay_status; 

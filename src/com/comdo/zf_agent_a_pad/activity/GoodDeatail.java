@@ -200,6 +200,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		df = (DecimalFormat) NumberFormat
 				.getInstance();
 		df.applyPattern("0.00");
+		MobclickAgent.openActivityDurationTrack(false);
 		System.out.println("-Xlistview--" + id);
 	}
 
@@ -267,7 +268,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			tv_yj.setVisibility(View.GONE);
 		}
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 

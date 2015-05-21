@@ -105,7 +105,7 @@ public class ApplyChannelActivity extends BaseActivity {
 						chosenBilling = (ApplyChannel.Billing) view
 								.getTag(R.id.item_id);
 
-						chosenChannel = channels.get(0);
+//						chosenChannel = channels.get(0);
 						Intent intent = new Intent();
 						intent.putExtra(SELECTED_CHANNEL, chosenChannel);
 						intent.putExtra(SELECTED_BILLING, chosenBilling);

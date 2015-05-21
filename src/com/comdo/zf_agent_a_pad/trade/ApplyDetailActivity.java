@@ -180,7 +180,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
 		mTerminalNumber = getIntent().getStringExtra(TERMINAL_NUMBER);
 		mTerminalStatus = getIntent().getIntExtra(TERMINAL_STATUS, 0);
-
+		MobclickAgent.openActivityDurationTrack(false);
 		initViews();
 		loadData(mApplyType);
 	}
@@ -371,7 +371,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	@SuppressLint({ "NewApi", "ResourceAsColor" })
 	private void loadData(int applyType) {
 
-		Config.getApplyDetail(this, mTerminalId, mTerminalStatus,
+		Config.getApplyDetail(this, mTerminalId, applyType,
 				new HttpCallback<My_ApplyDetail>(this) {
 					@Override
 					public void onSuccess(My_ApplyDetail data) {
@@ -1378,19 +1378,18 @@ public class ApplyDetailActivity extends FragmentActivity {
 		}
 
 	};
-	
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onPageStart(this.toString());
 		MobclickAgent.onResume(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		MobclickAgent.onPageStart( this.toString() );
+		MobclickAgent.onPageStart(this.toString());
 		MobclickAgent.onResume(this);
 	}
 }

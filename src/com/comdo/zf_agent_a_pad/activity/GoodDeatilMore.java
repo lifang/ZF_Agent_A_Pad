@@ -49,7 +49,7 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener 
 		setContentView(R.layout.goodmoremain);
 		type = getIntent().getIntExtra("type", 0);
 		comments = getIntent().getIntExtra("commets", 0);
-
+		MobclickAgent.openActivityDurationTrack(false);
 		initView();
 		switch (type) {
 		case 0:
@@ -110,7 +110,6 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener 
 
 		ll_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		ll_back.setOnClickListener(this);
-
 		tv_ms = (TextView) findViewById(R.id.tv_ms);
 		tv_ms.setOnClickListener(this);
 		tv_kt = (TextView) findViewById(R.id.tv_kt);

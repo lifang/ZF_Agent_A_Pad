@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -89,11 +90,12 @@ public class BaseActivity extends Activity implements View.OnClickListener {
         MobclickAgent.setDebugMode(true);
 		// SDK在统计Fragment时，需要关闭Activity自带的页面统计，
 		// 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
-		MobclickAgent.openActivityDurationTrack(false);
+//		MobclickAgent.openActivityDurationTrack(false);
 		// MobclickAgent.setAutoLocation(true);
 		// MobclickAgent.setSessionContinueMillis(1000);
 
 		MobclickAgent.updateOnlineConfig(this);
+		Log.e("------", getDeviceInfo(this));
     }
 
     @Override
@@ -185,4 +187,38 @@ public class BaseActivity extends Activity implements View.OnClickListener {
     protected void toast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG);
     }
+    
+    public static String getDeviceInfo(Context context) {
+		try {
+			org.json.JSONObject json = new org.json.JSONObject();
+			android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
+					.getSystemService(Context.TELEPHONY_SERVICE);
+
+			String device_id = tm.getDeviceId();
+
+			android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager) context
+					.getSystemService(Context.WIFI_SERVICE);
+
+			String mac = wifi.getConnectionInfo().getMacAddress();
+			json.put("mac", mac);
+
+			if (TextUtils.isEmpty(device_id)) {
+				device_id = mac;
+			}
+
+			if (TextUtils.isEmpty(device_id)) {
+				device_id = android.provider.Settings.Secure.getString(
+						context.getContentResolver(),
+						android.provider.Settings.Secure.ANDROID_ID);
+			}
+
+			json.put("device_id", device_id);
+
+			return json.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
