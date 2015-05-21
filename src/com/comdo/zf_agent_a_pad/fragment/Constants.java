@@ -117,6 +117,7 @@ public class Constants {
 		public static final String SELECTED_ID = "selected_id";
 		public static final String SELECTED_TITLE = "selected_title";
 
+		public static final String SELECTED_CHANNEL_ID = "selected_channel_id";
 		public static final String SELECTED_CHANNEL = "selected_channel";
 		public static final String SELECTED_BILLING = "selected_billing";
 		public static final String SELECTED_BANK = "selected_bank";

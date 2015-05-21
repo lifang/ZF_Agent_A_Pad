@@ -131,9 +131,6 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 			String description, String customContentString) {
 		
 		System.out.println("customContentString::"+customContentString);
-		Log.d(TAG, title);
-		Log.d(TAG, description);
-		Log.d(TAG, customContentString);
 		String notifyString = "通知点击 title=\"" + title + "\" description=\""
 				+ description + "\" customContent=" + customContentString;
 		Log.d(TAG, notifyString);
@@ -159,6 +156,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 		if (!StringUtil.isNull(Config.notificationMsgID)) {
 			Intent intent = new Intent(context.getApplicationContext(), MsgDetail.class);
 			intent.putExtra("id", Integer.valueOf(Config.notificationMsgID));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.getApplicationContext().startActivity(intent);
 		}
 		// Demo更新界面展示代码，应用请在这里加入自己的处理逻辑

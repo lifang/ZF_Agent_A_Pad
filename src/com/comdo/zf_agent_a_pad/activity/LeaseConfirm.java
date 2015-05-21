@@ -1,5 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
+import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_USER;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ import com.comdo.zf_agent_a_pad.common.PageTerminal;
 import com.comdo.zf_agent_a_pad.entity.AdressEntity;
 import com.comdo.zf_agent_a_pad.entity.UserEntity;
 import com.comdo.zf_agent_a_pad.entity.UserInfo;
+import com.comdo.zf_agent_a_pad.entity.User_Info;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
@@ -109,6 +112,10 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private int userid;
 	private TextView tv1;
 	private TextView tv2;
+	public static final int REQUEST_USER = 1009;
+	private TextView userselected;
+	private User_Info userInfo = new User_Info();
+	public static final int REQUEST_CREATE_USER = 1000;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -188,6 +195,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		userselected = (TextView) findViewById(R.id.user_selected);
+		userselected.setOnClickListener(this);
 		tv1 = (TextView)findViewById(R.id.tv1);
 		tv2 = (TextView)findViewById(R.id.tv2);
 		if(type==1){
@@ -205,7 +214,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		event_img = (ImageView) findViewById(R.id.evevt_img);
 		bt_add = (Button) findViewById(R.id.bt_add);
 		bt_add.setOnClickListener(this);
-		spinner_user = (Spinner) findViewById(R.id.spinner_user);
+		//spinner_user = (Spinner) findViewById(R.id.spinner_user);
 		maAdapter = new BaseAdapter() {
 
 			@Override
@@ -236,9 +245,10 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		//adapter_user = new ArrayAdapter<String>(this,
 		//		android.R.layout.simple_spinner_item, listString);
 		// adapter.setDropDownViewResource(R.layout.drop_down_item);
-		spinner_user.setAdapter(maAdapter);
-
-		spinner_user
+		//spinner_user.setAdapter(maAdapter);
+	
+		
+		/*spinner_user
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 					public void onItemSelected(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
@@ -255,7 +265,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 					}
 
-				});
+				});*/
 		tv_price = (TextView) findViewById(R.id.tv_price);
 		tv_brand = (TextView) findViewById(R.id.content2);
 		tv_zc = (TextView) findViewById(R.id.tv_zc);
@@ -378,7 +388,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void getData1() {
-		Config.GetAdressLis(LeaseConfirm.this, ue.getAgentUserId(),
+		Config.GetAdressLis(LeaseConfirm.this, userid,
 				new HttpCallback<List<AdressEntity>>(LeaseConfirm.this) {
 
 					@Override
@@ -390,6 +400,10 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 								addressId = myList.get(i).getId();
 
 							}
+						}
+						if(addressId==-1&&myList.size()!=0){
+							myList.get(0).setIsDefault(1);
+							addressId = myList.get(0).getId();
 						}
 						myAdapter.notifyDataSetChanged();
 
@@ -406,6 +420,10 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
+		case R.id.user_selected:
+			startActivityForResult(new Intent(LeaseConfirm.this,
+					TerminalSelectUserActivity.class), REQUEST_USER);
+			break;
 		case R.id.tv_zl:
 			if (type != 1) {
 				i = new Intent(LeaseConfirm.this, GoodDeatilMore.class);
@@ -415,8 +433,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			}
 			break;
 		case R.id.bt_add:
-			i = new Intent(LeaseConfirm.this, TerminalApplyCreateActivity.class);
-			startActivity(i);
+			startActivityForResult(new Intent(LeaseConfirm.this,
+					TerminalApplyCreateActivity.class), REQUEST_CREATE_USER);
 			break;
 		case R.id.btn_pay:
 			if (type == 1) {
@@ -438,7 +456,6 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 							.show();
 				}
 			}
-
 			break;
 		case R.id.add:
 			quantity = Integer.parseInt(buyCountEdit.getText().toString()) + 1;
@@ -508,5 +525,37 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		myList.clear();
 		getData1();
 	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
 
+		switch (requestCode) {
+		case REQUEST_CREATE_USER: {
+
+			userInfo = (User_Info) data.getSerializableExtra(SELECTED_USER);
+			userselected.setText(userInfo.getUsername());
+			userid=userInfo.getId();
+			myList.clear();
+			addressId=-1;
+			getData1();
+			
+			break;
+		}
+
+		case REQUEST_USER: {
+			userInfo = (User_Info) data.getSerializableExtra(SELECTED_USER);
+			userselected.setText(userInfo.getUsername());
+			userid=userInfo.getId();
+			myList.clear();
+			addressId=-1;
+			getData1();
+			break;
+		}
+
+		default:
+			break;
+		}
+	}
 }
