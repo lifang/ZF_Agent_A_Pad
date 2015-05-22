@@ -152,7 +152,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		} 
 		if (!StringUtil.isNull(Config.notificationMsgID)) {
 			Intent intent = new Intent(context.getApplicationContext(), MsgDetail.class);
 			intent.putExtra("id", Integer.valueOf(Config.notificationMsgID));
