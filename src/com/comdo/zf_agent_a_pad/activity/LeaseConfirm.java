@@ -159,7 +159,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		ImageCacheUtil.IMAGE_CACHE.get(img_url, event_img);
 		System.out.println("=paychannelId==" + paychannelId);
 		tv_chanel.setText(getIntent().getStringExtra("chanel"));
-		GetUser();
+		//GetUser();
+		getData1();
 
 	}
 
@@ -522,8 +523,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	protected void onResume() {
 
 		super.onResume();
-		myList.clear();
-		getData1();
+
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -539,11 +539,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			userid=userInfo.getId();
 			myList.clear();
 			addressId=-1;
-			getData1();
-			
-			break;
-		}
-
+			getData1();			
+			break;		}
 		case REQUEST_USER: {
 			userInfo = (User_Info) data.getSerializableExtra(SELECTED_USER);
 			userselected.setText(userInfo.getUsername());
@@ -552,8 +549,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			addressId=-1;
 			getData1();
 			break;
+			
 		}
-
 		default:
 			break;
 		}

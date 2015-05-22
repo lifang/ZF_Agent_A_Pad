@@ -84,7 +84,7 @@ public class CreatStaff extends Activity implements OnCheckedChangeListener {
 			return;
 		}
 		if (et_loginid.getText().toString().trim().length() == 0) {
-			CommonUtil.toastShort(getApplicationContext(), "请输入登录ID");
+			CommonUtil.toastShort(getApplicationContext(), "请输入用户名");
 			return;
 		}
 		if (et_name.getText().toString().trim().length() == 0) {
