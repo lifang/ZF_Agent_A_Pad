@@ -155,6 +155,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	private Intent i;
 	private DecimalFormat df;
 	private TextView tv_yfdj;
+	private Button btn_ishow_wl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -282,6 +283,8 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		btn_ishow_wl = (Button)findViewById(R.id.btn_ishow_wl);
+		btn_ishow_wl.setOnClickListener(this);
 		line = (View) findViewById(R.id.line);
 		tv_user = (TextView) findViewById(R.id.tv_user);
 		ll_user = (LinearLayout) findViewById(R.id.ll_user);
@@ -349,7 +352,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			} else {
 
 				tv_status.setText("订单状态：已付款");
-				btn_ishow.setVisibility(View.VISIBLE);
+				//btn_ishow.setVisibility(View.VISIBLE);
 			}
 
 			break;
@@ -363,6 +366,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				btn_ishow.setVisibility(View.VISIBLE);
 				bt_pj.setVisibility(View.VISIBLE);
 				bt_pj.setText("再次采购");
+				btn_ishow_wl.setVisibility(View.VISIBLE);
 			}
 
 			break;
@@ -393,6 +397,19 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
+		case R.id.btn_ishow_wl:
+			amd = new AlertMessDialog(OrderDetail.this);
+			amd.setTitle(ode.getLogistics_name());
+			amd.setMessage(ode.getLogistics_number());
+			amd.setNegativeButton("确认", new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					amd.dismiss();
+
+				}
+			});
+			break;
 		case R.id.btn_pj:
 		/*	if (status == 5) {
 
@@ -439,6 +456,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				}
 			});
 			break;
+			
 		case R.id.bt_pay:
 			i = new Intent(OrderDetail.this, PayFromCar.class);
 			if (type == 5) {

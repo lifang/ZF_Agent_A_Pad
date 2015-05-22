@@ -110,7 +110,6 @@ public class GoodDeatilMore extends FragmentActivity implements OnClickListener 
 
 		ll_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
 		ll_back.setOnClickListener(this);
-
 		tv_ms = (TextView) findViewById(R.id.tv_ms);
 		tv_ms.setOnClickListener(this);
 		tv_kt = (TextView) findViewById(R.id.tv_kt);

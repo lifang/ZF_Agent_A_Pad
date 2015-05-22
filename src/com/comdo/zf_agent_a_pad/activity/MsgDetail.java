@@ -10,6 +10,7 @@ import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.DialogUtil1;
 import com.comdo.zf_agent_a_pad.util.DialogUtil1.CallBackChange;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
@@ -58,9 +59,12 @@ public class MsgDetail extends BaseActivity {
 		super.onStart();
 		Intent intent=getIntent();
 		id=intent.getIntExtra("id", 0);
-		if (id == Integer.valueOf(Config.notificationMsgID)) {
-			Config.notificationMsgID = "";
+		if(!StringUtil.isNull(Config.notificationMsgID)){
+			if (id == Integer.valueOf(Config.notificationMsgID)) {
+				Config.notificationMsgID = "";
+			}
 		}
+	
 		getMsgdetail();
 		/*
 		 * String title=intent.getStringExtra("title"); String

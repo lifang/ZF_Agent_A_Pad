@@ -268,7 +268,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			tv_yj.setVisibility(View.GONE);
 		}
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 

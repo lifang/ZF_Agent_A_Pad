@@ -74,7 +74,7 @@ public class AlterNPhone extends Activity implements OnClickListener {
 		// Config.AlterPhoneCode(getApplicationContext(),
 		// MyApplication.NewUser.getAgentUserId(), "18762091710", callback);
 		initView();
-		new TitleMenuUtil(AlterNPhone.this, "修改手机").show();
+		new TitleMenuUtil(AlterNPhone.this, "提交手机").show();
 		runnable = new Runnable() {
 			@Override
 			public void run() {

@@ -235,7 +235,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:gravity="center_vertical"
-                            android:text="修改"
+                            android:text="去修改"
                             android:textColor="@color/bgtitle"
                             android:textSize="20sp" />
                     </TableRow>
@@ -265,7 +265,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:gravity="center_vertical"
-                            android:text="修改"
+                            android:text="去修改"
                             android:textColor="@color/bgtitle"
                             android:textSize="20sp" />
                     </TableRow>

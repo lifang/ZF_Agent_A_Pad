@@ -55,18 +55,18 @@
                             android:id="@+id/tv_psf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text292929"
-                            android:text="配送费: ￥0.00"
                             android:layout_marginBottom="10dp"
+                            android:textColor="@color/text292929"
                             android:textSize="18sp" />
+
                         <TextView
                             android:id="@+id/tv_yfdj"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text292929"
                             android:text=""
-                            android:visibility="gone"
-                            android:textSize="18sp" />
+                            android:textColor="@color/text292929"
+                            android:textSize="18sp"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <View
@@ -74,8 +74,8 @@
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
-                        android:visibility="gone"
-                        android:background="#E3E1E1" />
+                        android:background="#E3E1E1"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -109,15 +109,14 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                     >
+                    android:layout_weight="1" >
 
                     <LinearLayout
                         android:id="@+id/ll_ishow"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
-                        android:layout_marginBottom="11dp"
                         android:layout_alignParentRight="true"
+                        android:layout_marginBottom="11dp"
                         android:gravity="center_vertical"
                         android:paddingTop="20dp" >
 
@@ -163,8 +162,8 @@
                         android:layout_centerInParent="true"
                         android:background="@color/bgtitle"
                         android:text="评价"
-                        android:textSize="@dimen/textmid"
                         android:textColor="@color/ffffff"
+                        android:textSize="@dimen/textmid"
                         android:visibility="gone" />
 
                     <LinearLayout
@@ -173,14 +172,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:visibility="gone"
-                        android:orientation="vertical" >
-                         <TextView
+                        android:orientation="vertical"
+                        android:visibility="gone" >
+
+                        <TextView
                             android:id="@+id/tv_yf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                           
                             android:textColor="@color/text292929"
                             android:textSize="18sp" />
 
@@ -189,10 +188,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text292929"
-                         
                             android:textSize="18sp" />
                     </LinearLayout>
-
                 </RelativeLayout>
             </LinearLayout>
 
@@ -227,7 +224,6 @@
                         android:id="@+id/tv_tel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="13800001111"
                         android:textColor="@color/text292929"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -402,6 +398,18 @@
                     android:textSize="18sp"
                     android:visibility="gone" />
 
+                <Button
+                    android:id="@+id/btn_ishow_wl"
+                    android:layout_width="180dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="24dp"
+                    android:background="@drawable/shape_o"
+                    android:text="查看物流"
+                    android:visibility="gone"
+                    android:textColor="@color/bgtitle"
+                    android:textSize="18sp"
+                     />
+
                 <TextView
                     android:id="@+id/tv_gj"
                     android:layout_width="0dp"
@@ -409,7 +417,6 @@
                     android:layout_marginLeft="7dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="共计:   10件"
                     android:textColor="@color/text292929"
                     android:textSize="18sp" />
 
@@ -419,7 +426,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="7dp"
-                    android:text="实付金额：9999"
                     android:textColor="@color/text292929"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -442,6 +448,7 @@
                 android:layout_marginRight="@dimen/margin_right2"
                 android:background="#e5e4e4"
                 android:divider="@null"
+                android:visibility="gone"
                 android:paddingLeft="@dimen/titilepad"
                 android:paddingRight="@dimen/titilepad" >
             </com.comdo.zf_agent_a_pad.util.ScrollViewWithListView>
