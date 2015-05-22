@@ -952,14 +952,13 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 		@Override
 		public void onPageSelected(int position) {
 
-			// 鏀瑰彉鎵?鏈夊鑸殑鑳屾櫙鍥剧墖涓猴細鏈?変腑
+		
 			for (int i = 0; i < indicator_imgs.length; i++) {
 
 				indicator_imgs[i].setBackgroundResource(R.drawable.indicator);
 
 			}
 
-			// 鏀瑰彉褰撳墠鑳屾櫙鍥剧墖涓猴細閫変腑
 			index_ima = position;
 			indicator_imgs[position]
 					.setBackgroundResource(R.drawable.indicator_focused);

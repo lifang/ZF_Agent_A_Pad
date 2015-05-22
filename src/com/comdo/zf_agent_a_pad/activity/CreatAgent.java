@@ -235,7 +235,7 @@ public class CreatAgent extends BaseActivity implements OnClickListener {
 			CommonUtil.toastShort(CreatAgent.this, "详细地址不能为空");
 		} else if ("".equals(et_login_id.getText().toString())) {
 
-			CommonUtil.toastShort(CreatAgent.this, "登录ID不能为空");
+			CommonUtil.toastShort(CreatAgent.this, "用户名不能为空");
 		} else if ("".equals(et_paw.getText().toString())) {
 
 			CommonUtil.toastShort(CreatAgent.this, "登录密码不能为空");

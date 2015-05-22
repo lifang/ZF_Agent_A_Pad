@@ -68,7 +68,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			switch (msg.what) {
 			case 0:
 				entity = ode;
-				if (OrderList.type.equals("5")) {
+				/*if (OrderList.type.equals("5")) {
 					tv_yfdj.setVisibility(View.VISIBLE);
 					tv_sjps.setText("实付金额  ：￥ "
 							+ df.format(check(entity.getOrder_totalPrice()) / 100));
@@ -81,7 +81,11 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 							+ df.format(check(entity.getOrder_totalPrice()) / 100));
 					tv_psf.setText("配送费 ：￥ "
 							+ df.format(check(entity.getOrder_psf()) / 100));
-				}
+				}*/
+				tv_sjps.setText("实付金额 ：￥ "
+						+ df.format(check(entity.getOrder_totalPrice()) / 100));
+				tv_psf.setText("配送费 ：￥ "
+						+ df.format(check(entity.getOrder_psf()) / 100));
 				// tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
 				tv_reperson.setText("收件人  ：   " + entity.getOrder_receiver());
 				tv_tel.setText(entity.getOrder_receiver_phone());

@@ -79,7 +79,7 @@ public class OrderDetail_PosAdapter extends BaseAdapter {
 		}
 		holder.content2.setText(list.get(position).getGood_brand());
 		holder.content.setText(list.get(position).getGood_name());
-		if(OrderList.type.equals("5")){
+		/*if(OrderList.type.equals("5")){
 			String string=" 原价:￥"+df.format(Double.parseDouble(list.get(position).getGood_price())*1.0f/100);
 			SpannableString sp = new SpannableString(string);
 			sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -89,7 +89,9 @@ public class OrderDetail_PosAdapter extends BaseAdapter {
 		}else{
 			holder.tv_price.setText("￥ "
 					+ df.format(((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100));			
-		}
+		}*/
+		holder.tv_price.setText("￥ "
+				+ df.format(((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100));
 		holder.tv_x.setText("X"+list.get(position).getGood_num() + "");
 		holder.btn_ishow.setVisibility(state == 3 ? View.GONE : View.GONE);
 		ImageCacheUtil.IMAGE_CACHE.get(list.get(position).getGood_logo(),

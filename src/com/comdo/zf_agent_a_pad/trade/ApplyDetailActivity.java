@@ -432,11 +432,15 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 						myApplyMaterials2 = new ArrayList<MyApplyMaterial>();
 
+						mMaterials.clear();
+
 						// set the customer details
 						setCustomerDetail(materials, customerDetails);
 
 						adapter1 = new ApplyListAdapter1(myApplyMaterials1);
 						adapter2 = new ApplyListAdapter2(myApplyMaterials2);
+						adapter1.notifyDataSetChanged();
+						adapter2.notifyDataSetChanged();
 						gridView.setAdapter(adapter1);
 						gridView_.setAdapter(adapter2);
 
@@ -491,7 +495,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 				});
 
 		setItemValue(mBankKeys[0], openingInfos.getAccount_bank_num());
-		setItemValue(mBankKeys[1], openingInfos.getAccount_bank_name());
+		// TODO:
+		// if(!"".equals(openingInfos.getName()))
+		setItemValue(mBankKeys[1], openingInfos.getMerchant_name());
 		setItemValue(mBankKeys[2], openingInfos.getBank_name());
 		if (mApplyType == APPLY_PUBLIC) {
 			setItemValue(mBankKeys[3], openingInfos.getTax_registered_no());
