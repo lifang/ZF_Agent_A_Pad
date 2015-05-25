@@ -1353,13 +1353,14 @@ public class Config {
 	}
 
 	public static void getTerminallist(Context context, int agentId,
-			int paychannelId, int goodId, String[] serialNums, int page,
+			int paychannelId, int goodId,String serialNum, String[] serialNums, int page,
 			int rows, HttpCallback callback) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("paychannelId", paychannelId);
 		params.put("goodId", goodId);
+		params.put("serialNum", serialNum);
 		try {
 			params.put("serialNums", new JSONArray(gson.toJson(serialNums)));
 		} catch (JSONException e) {

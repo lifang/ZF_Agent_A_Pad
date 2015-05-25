@@ -17,7 +17,7 @@ import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class CreatStaff extends Activity implements OnCheckedChangeListener {
@@ -78,11 +78,6 @@ public class CreatStaff extends Activity implements OnCheckedChangeListener {
 
 	protected void save() {
 
-		if (et_paw.getText().toString().length() < 6
-				|| et_paw.getText().toString().length() > 20) {
-			CommonUtil.toastShort(getApplicationContext(), "密码应为6-20位");
-			return;
-		}
 		if (et_loginid.getText().toString().trim().length() == 0) {
 			CommonUtil.toastShort(getApplicationContext(), "请输入用户名");
 			return;
@@ -91,9 +86,18 @@ public class CreatStaff extends Activity implements OnCheckedChangeListener {
 			CommonUtil.toastShort(getApplicationContext(), "请输入姓名");
 			return;
 		}
+		if (et_paw.getText().toString().length() < 6
+				|| et_paw.getText().toString().length() > 20) {
+			CommonUtil.toastShort(getApplicationContext(), "密码应为6-20位");
+			return;
+		}
 		if (!et_paw.getText().toString()
 				.equals(et_confirm_paw.getText().toString())) {
 			CommonUtil.toastShort(getApplicationContext(), "两次密码输入不一致");
+			return;
+		}
+		if ("".equals(roles)) {
+			CommonUtil.toastShort(CreatStaff.this, "请为员工选择权限");
 			return;
 		}
 		String rolesnew = roles.substring(0, roles.length() - 1);

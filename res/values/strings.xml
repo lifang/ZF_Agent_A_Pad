@@ -62,8 +62,8 @@
         <item>选择所在地</item>
     </string-array>
     <string-array name="apply_detail_gender">
-        <item>男</item>
         <item>女</item>
+        <item>男</item>
     </string-array>
     <string-array name="my_apply_detail_merchant_keys">
         <item>可选择的常用商户</item>

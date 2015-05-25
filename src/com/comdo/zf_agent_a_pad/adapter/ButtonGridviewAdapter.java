@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.entity.GriviewEntity;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 
 public class ButtonGridviewAdapter extends BaseAdapter {

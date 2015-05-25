@@ -1,14 +1,5 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
-import java.lang.reflect.Field;
-
-import com.comdo.zf_agent_a_pad.activity.LoginActivity;
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.util.CheckRights;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.example.zf_agent_a_pad.R;
-import com.umeng.analytics.MobclickAgent;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,10 +11,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.comdo.zf_agent_a_pad.activity.LoginActivity;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.epalmpay.agentPad.R;
+import com.umeng.analytics.MobclickAgent;
 
 public class Mmy extends Fragment implements OnClickListener {
 	private View view;

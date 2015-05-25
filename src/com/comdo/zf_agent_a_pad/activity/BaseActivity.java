@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.events.Events;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.umeng.analytics.MobclickAgent;
 
 import de.greenrobot.event.EventBus;

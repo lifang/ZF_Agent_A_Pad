@@ -118,7 +118,7 @@
                     android:singleLine="true"
                     android:text="2015最新POS机器旗舰版  1.0"
                     android:textColor="#292929"
-                    android:textSize="13sp" />
+                    android:textSize="15sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                             android:maxLines="1"
                             android:text="品牌型号"
                             android:textColor="@color/text6c6c6c6"
-                            android:textSize="11sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/brandNum"
@@ -153,7 +153,7 @@
                             android:gravity="bottom"
                             android:maxLines="1"
                             android:textColor="@color/text292929"
-                            android:textSize="11sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -171,7 +171,7 @@
                             android:maxLines="1"
                             android:text="支付通道"
                             android:textColor="@color/text6c6c6c6"
-                            android:textSize="11sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/paychannel"
@@ -182,7 +182,7 @@
                             android:gravity="bottom"
                             android:maxLines="1"
                             android:textColor="@color/text292929"
-                            android:textSize="11sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

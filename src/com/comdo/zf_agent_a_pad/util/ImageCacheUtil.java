@@ -2,7 +2,7 @@ package com.comdo.zf_agent_a_pad.util;
 
 import java.io.File;
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

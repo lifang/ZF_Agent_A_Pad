@@ -17,8 +17,6 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_T
 import static com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_CITY;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_PROVINCE;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,7 +79,7 @@ import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithGView;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -105,13 +103,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private static final int ITEM_BLANK = 5;
 
 	private int mTerminalId;
-	private int mTerminalStatus;
 	private int supportRequirementType;
 
-	private MerchantForApply mMerchant = new MerchantForApply();
-
 	private LayoutInflater mInflater;
-
+	private EditText getfocus;
 	private TextView toPublic;
 	private TextView toPrivate;
 	private TextView mPosBrand;
@@ -132,13 +127,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 	// private LinearLayout mMerchantContainer;
 	private LinearLayout mCustomerContainer_1;
 	private LinearLayout mCustomerContainer_2;
-	// private LinearLayout mCustomerContainer;
-	// private LinearLayout mMaterialContainer_1_1;
-	// private LinearLayout mMaterialContainer_1_2;
-	// private LinearLayout mMaterialContainer_1_3;
-	// private LinearLayout mMaterialContainer_2_1;
-	// private LinearLayout mMaterialContainer_2_2;
-
 	private Button mApplySubmit;
 
 	private int mMerchantId;
@@ -148,16 +136,13 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private City mMerchantCity;
 	// private int mChannelId;
 
-	private String mTerminalNumber;
 	private String photoPath;
 	private TextView uploadingTextView;
 	private ImageButton uploadingImageButton;
 	private Bank mChosenBank;
 	private ApplyChannel mChosenChannel;
 	private ApplyChannel.Billing mChosenBilling;
-	private String mBankKey;
 	private String mUploadKey;
-	private ArrayList<ApplyChooseItem> mChooseItems = new ArrayList<ApplyChooseItem>();
 
 	private List<String> mImageUrls = new ArrayList<String>();
 	private List<String> mImageNames = new ArrayList<String>();
@@ -178,8 +163,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 		setContentView(R.layout.activity_apply_detail);
 		new TitleMenuUtil(this, getString(R.string.title_apply_open)).show();
 		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
-		mTerminalNumber = getIntent().getStringExtra(TERMINAL_NUMBER);
-		mTerminalStatus = getIntent().getIntExtra(TERMINAL_STATUS, 0);
 		MobclickAgent.openActivityDurationTrack(false);
 		initViews();
 		loadData(mApplyType);
@@ -187,7 +170,13 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 	private void initViews() {
 		mInflater = LayoutInflater.from(this);
-
+		// start 获取焦点,使页面一直显示最上端
+		getfocus = (EditText) findViewById(R.id.getfocus);
+		getfocus.setFocusable(true);
+		getfocus.setFocusableInTouchMode(true);
+		getfocus.requestFocus();
+		getfocus.requestFocusFromTouch();
+		// end
 		toPublic = (TextView) findViewById(R.id.toPublic);
 		toPrivate = (TextView) findViewById(R.id.toPrivate);
 
@@ -530,7 +519,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 							ApplyDetailActivity.this) {
 						@Override
 						public void onSuccess(MerchantForApply data) {
-							mMerchant = data;
 							setMerchantDetailValues(data);
 							// mApplySubmit.setEnabled(true);
 							updateUIWithValidation();
@@ -935,7 +923,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 					}
 				});
 		setItemValue(mBankKeys[0], merchant.getAccountBankName());
-		setItemValue(mBankKeys[1], merchant.getAccountBankNum());
+		setItemValue(mBankKeys[1], merchant.getTitle());
 		setItemValue(mBankKeys[2], merchant.getBankOpenAccount());
 		if (mApplyType == APPLY_PUBLIC) {
 			setItemValue(mBankKeys[3], merchant.getTaxRegisteredNo());
@@ -1368,7 +1356,6 @@ public class ApplyDetailActivity extends FragmentActivity {
 				chooseBank.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						mBankKey = getItem(i).getName();
 						Intent intent = new Intent(ApplyDetailActivity.this,
 								ApplyBankActivity.class);
 						intent.putExtra(TERMINAL_ID, mTerminalId);

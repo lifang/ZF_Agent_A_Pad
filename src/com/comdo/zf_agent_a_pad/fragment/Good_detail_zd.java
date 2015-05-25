@@ -2,19 +2,18 @@ package com.comdo.zf_agent_a_pad.fragment;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-
-import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
-import com.comdo.zf_agent_a_pad.util.Config;
-import com.example.zf_agent_a_pad.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.epalmpay.agentPad.R;
 
 public class Good_detail_zd extends Fragment implements OnClickListener{
 	private View view;

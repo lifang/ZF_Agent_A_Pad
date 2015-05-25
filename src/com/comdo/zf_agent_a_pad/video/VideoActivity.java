@@ -31,7 +31,7 @@ import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.video.config.ConfigEntity;
 import com.comdo.zf_agent_a_pad.video.config.ConfigService;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class VideoActivity extends Activity implements AnyChatBaseEvent {
 

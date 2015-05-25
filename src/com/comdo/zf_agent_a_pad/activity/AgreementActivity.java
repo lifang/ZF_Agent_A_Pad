@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class AgreementActivity  extends BaseActivity{
 

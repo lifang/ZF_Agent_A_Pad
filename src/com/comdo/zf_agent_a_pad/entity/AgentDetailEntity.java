@@ -18,6 +18,13 @@ public class AgentDetailEntity {
 	private String phone;
 	private String email;
 	private int cityId;
+	private String cityName;
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 	private String address;
 	private String cardpath;
 	private String licensepath;

@@ -1,9 +1,9 @@
 package com.comdo.zf_agent_a_pad.activity;
 
-import com.example.zf_agent_a_pad.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.epalmpay.agentPad.R;
 
 public class EditAdress extends Activity {
 	private boolean isEdit = false;

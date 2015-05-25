@@ -7,7 +7,7 @@ import com.comdo.zf_agent_a_pad.adapter.AppleNeedAdapter;
 import com.comdo.zf_agent_a_pad.entity.ApplyneedEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

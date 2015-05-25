@@ -1,7 +1,7 @@
 package com.comdo.zf_agent_a_pad.util;
 
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

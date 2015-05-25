@@ -14,7 +14,7 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
@@ -192,7 +192,7 @@ public class AddPayChannel extends BaseActivity implements OnClickListener {
 	private void commit() {
 		sb = new StringBuffer();
 		for (int i = 0; i < listType.size(); i++) {
-			// if (RegText.isFloat(listType.get(i).getPercent())) {
+			// if (!RegText.isFloat(listType.get(i).getPercent())) {
 			// CommonUtil.toastShort(AddPayChannel.this, "请填写正确的费率格式");
 			// return;
 			// }
@@ -286,7 +286,7 @@ public class AddPayChannel extends BaseActivity implements OnClickListener {
 
 				@Override
 				public void afterTextChanged(Editable s) {
-					if (RegText.isFloat(s.toString())) {
+					if (!RegText.isFloat(s.toString())) {
 						CommonUtil.toastShort(AddPayChannel.this, "请填写正确的费率格式");
 						return;
 					}

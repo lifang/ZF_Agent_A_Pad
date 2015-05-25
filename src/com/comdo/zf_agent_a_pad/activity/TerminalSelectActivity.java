@@ -61,7 +61,7 @@ import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class TerminalSelectActivity extends BaseActivity implements
@@ -102,6 +102,7 @@ OnClickListener, IXListViewListener {
 
 	private String mflag;
 	private String[] str = null;
+	private String serialNum = null;
 
 	public static boolean isTerconfirm = false;
 	public static int mTerminalNum = 0;
@@ -279,6 +280,7 @@ OnClickListener, IXListViewListener {
 			rows = a * rows;
 			page = 1;
 			mChannelId = 0;
+			serialNum = null;
 			posID = 0;
 			checked = 0;
 			 str = zdh.getText().toString().split("\n");
@@ -396,7 +398,7 @@ OnClickListener, IXListViewListener {
 		//String[] str = new String[] {};
 		// str = zdh.getText().toString().split("\n");
 		Config.getTerminallist(TerminalSelectActivity.this, agentId,
-				mChannelId, posID, str, page, rows,
+				mChannelId, posID, serialNum,str, page, rows,
 				new HttpCallback<Page<TerminalList>>(
 						TerminalSelectActivity.this) {
 
@@ -452,6 +454,7 @@ OnClickListener, IXListViewListener {
 				page = 1;
 				str = null;
 				checked = 0;
+				serialNum = null;
 				confirmUp();
 			}
 		});
@@ -494,6 +497,7 @@ OnClickListener, IXListViewListener {
 				}
 				isrefersh = true;
 				a = page;
+				serialNum = null;
 				rows = a * rows;
 				page = 1;
 				str = null;
@@ -552,14 +556,19 @@ OnClickListener, IXListViewListener {
 		case REQUEST_SEARCH:
 			if (data != null) {
 				String str=data.getStringExtra(SELECTED_TERMINAL); 
-				for (int i = 0; i < mTerminalItems.size(); i++) {
-					if (!mTerminalItems.get(i).getSerial_num().equals(str)) {
-						mTerminalItems.remove(i);
-					}
+				if (mTerminalItems.size() != 0) {
+					mTerminalItems.clear();
 				}
-				myHandler.sendEmptyMessage(1);
+				isrefersh = true;
+				a = page;
+				rows = a * rows;
+				page = 1;
+				serialNum = str;
+				str = null;
+				checked = 0;
+				confirmUp();
 			}
-
+		
 			break;
 		}
 	}
