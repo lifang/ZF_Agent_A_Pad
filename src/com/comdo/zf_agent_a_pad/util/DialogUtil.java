@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class DialogUtil {
 	private Context context;

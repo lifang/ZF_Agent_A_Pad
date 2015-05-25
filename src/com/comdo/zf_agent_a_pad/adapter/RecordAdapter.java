@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.entity.MarkEntity;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
  
 

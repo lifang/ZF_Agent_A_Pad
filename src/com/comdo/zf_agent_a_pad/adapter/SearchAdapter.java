@@ -2,7 +2,7 @@ package com.comdo.zf_agent_a_pad.adapter;
 
 import java.util.List;
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.content.Context;
 import android.graphics.Color;

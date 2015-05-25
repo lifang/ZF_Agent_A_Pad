@@ -12,7 +12,7 @@ import com.comdo.zf_agent_a_pad.util.DialogUtil1.CallBackChange;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Dialog;

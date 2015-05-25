@@ -26,7 +26,7 @@ import android.util.Log;
 import com.comdo.zf_agent_a_pad.trade.widget.MyTabWidget;
 import com.comdo.zf_agent_a_pad.trade.widget.MyViewPager;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.umeng.analytics.MobclickAgent;
 
 

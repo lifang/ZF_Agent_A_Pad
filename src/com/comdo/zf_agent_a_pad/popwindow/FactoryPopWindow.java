@@ -1,7 +1,7 @@
 package com.comdo.zf_agent_a_pad.popwindow;
 
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.app.Activity;
 import android.content.Context;

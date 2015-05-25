@@ -27,7 +27,7 @@ import com.comdo.zf_agent_a_pad.entity.MyShopCar.Good;
 import com.comdo.zf_agent_a_pad.entity.UserEntity;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;

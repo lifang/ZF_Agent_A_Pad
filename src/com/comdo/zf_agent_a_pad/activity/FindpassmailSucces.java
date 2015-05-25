@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class FindpassmailSucces extends BaseActivity {
 	private String type="";

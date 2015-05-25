@@ -7,7 +7,7 @@ import java.util.List;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.entity.Goodlist;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.R.integer;
 import android.content.Context;

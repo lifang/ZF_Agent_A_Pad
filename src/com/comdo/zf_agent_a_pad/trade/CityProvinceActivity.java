@@ -22,7 +22,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.trade.widget.WheelView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 /**
  * Created by Leo on 2015/2/11.
  */

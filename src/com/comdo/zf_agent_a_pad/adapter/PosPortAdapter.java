@@ -7,7 +7,7 @@ import com.comdo.zf_agent_a_pad.activity.PostSonList;
 import com.comdo.zf_agent_a_pad.entity.PostPortEntity;
 import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;

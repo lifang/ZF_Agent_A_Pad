@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class RegSucceed extends BaseActivity {
 	private LinearLayout ll_mail;

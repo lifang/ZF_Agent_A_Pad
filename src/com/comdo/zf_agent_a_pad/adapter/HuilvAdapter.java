@@ -5,7 +5,7 @@ import java.util.List;
 import com.comdo.zf_agent_a_pad.entity.ChanelEntitiy;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
 import com.comdo.zf_agent_a_pad.entity.tDates;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 
 

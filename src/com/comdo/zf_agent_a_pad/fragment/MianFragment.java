@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.app.Activity;
 import android.content.Intent;

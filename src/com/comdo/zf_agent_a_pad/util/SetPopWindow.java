@@ -33,7 +33,7 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.NetworkUtil;
 import com.comdo.zf_agent_a_pad.entity.VersionEntity;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class SetPopWindow extends PopupWindow implements OnClickListener {

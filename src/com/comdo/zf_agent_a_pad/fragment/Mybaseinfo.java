@@ -30,7 +30,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class Mybaseinfo extends Fragment implements OnClickListener {

@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.entity.AfterSaleEntity;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class AfterSaleAdapter extends BaseAdapter{
 
