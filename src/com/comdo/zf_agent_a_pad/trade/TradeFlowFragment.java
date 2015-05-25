@@ -23,31 +23,42 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager.LayoutParams;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.PopupWindow.OnDismissListener;
 
+import com.comdo.zf_agent_a_pad.adapter.SelectStateAdapter;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.common.Page;
+import com.comdo.zf_agent_a_pad.trade.entity.TradeClient;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeRecord;
 import com.comdo.zf_agent_a_pad.trade.widget.XListView;
 import com.comdo.zf_agent_a_pad.util.Config;
@@ -93,6 +104,12 @@ public class TradeFlowFragment extends Fragment implements
 	private int total = 0;
 	private String mPageName;
 
+	//设置popupWindow弹出后背景的阴影
+	private WindowManager.LayoutParams lp;
+	private PopupWindow popuSelState;
+	private SelectStateAdapter<TradeClient> selStateAdapter;
+	private List<TradeClient> dataTradeClient = new ArrayList<TradeClient>();
+	
 	public static TradeFlowFragment newInstance(int mTradeType) {
 		TradeFlowFragment fragment = new TradeFlowFragment();
 		Bundle args = new Bundle();
@@ -130,8 +147,10 @@ public class TradeFlowFragment extends Fragment implements
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		lp = getActivity().getWindow().getAttributes(); // 设置popupWindow弹出后背景的阴影
+		
 		initViews(view);
-
+		getTerminalList();
 		// restore the saved state
 		if (!TextUtils.isEmpty(tradeClientName)) {
 			mTradeClientName.setText(tradeClientName);
@@ -274,9 +293,10 @@ public class TradeFlowFragment extends Fragment implements
 		Intent i = null;
 		switch (v.getId()) {
 		case R.id.trade_client:
-			i = new Intent(getActivity(), TradeClientActivity.class);
-			i.putExtra(CLIENT_NUMBER, tradeClientName);
-			startActivityForResult(i, REQUEST_TRADE_CLIENT);
+			popSelectTradeClient();
+//			i = new Intent(getActivity(), TradeClientActivity.class);
+//			i.putExtra(CLIENT_NUMBER, tradeClientName);
+//			startActivityForResult(i, REQUEST_TRADE_CLIENT);
 			break;
 		case R.id.trade_agent:
 			i = new Intent(getActivity(), TradeAgentActivity.class);
@@ -330,6 +350,65 @@ public class TradeFlowFragment extends Fragment implements
 			startActivity(intent);
 			break;
 		}
+	}
+
+	private void getTerminalList() {
+	    API.getTerminalList(getActivity(), MyApplication.NewUser.getAgentId(),
+	    		new HttpCallback<List<TradeClient>>(getActivity()) {
+
+				@Override
+				public void onSuccess(List<TradeClient> data) {
+					if (null != data) {
+						dataTradeClient = data;
+					}
+					
+				}
+
+				@Override
+				public TypeToken<List<TradeClient>> getTypeToken() {
+					return new TypeToken<List<TradeClient>>() {
+					};
+				}
+			});
+	}
+
+	private void popSelectTradeClient() {
+		View selectView = LayoutInflater.from(getActivity()).inflate(
+				R.layout.pop_tradeflow_serial, null);
+		ListView listViewState = (ListView) selectView.findViewById(R.id.list_one);
+		selStateAdapter = new SelectStateAdapter<TradeClient>(getActivity(), dataTradeClient);
+		listViewState.setAdapter(selStateAdapter);
+		listViewState.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				mTradeClientName.setText(dataTradeClient.get(position).getSerialNum());
+				tradeClientName = dataTradeClient.get(position).getSerialNum();
+				toggleButtons();
+				popuSelState.dismiss();
+			}
+		});
+
+		popuSelState = new PopupWindow(selectView);
+		popuSelState.setWidth(mTradeClient.getWidth());
+		popuSelState.setHeight(LayoutParams.WRAP_CONTENT);
+		popuSelState.setOutsideTouchable(true);
+		popuSelState.setFocusable(true);
+		lp.alpha = 0.4f;
+		getActivity().getWindow().setAttributes(lp);
+		popuSelState.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				lp.alpha = 1.0f;
+				getActivity().getWindow().setAttributes(lp);
+			}
+		});
+		popuSelState.setBackgroundDrawable(new ColorDrawable());
+		popuSelState.showAsDropDown(mTradeClient);
+	
 	}
 
 	// 加载更多

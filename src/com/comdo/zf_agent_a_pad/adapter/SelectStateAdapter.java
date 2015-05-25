@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.entity.ApplyChannelagain;
 import com.comdo.zf_agent_a_pad.entity.Pos;
+import com.comdo.zf_agent_a_pad.trade.entity.TradeClient;
 import com.example.zf_agent_a_pad.R;
 
 public class SelectStateAdapter<T> extends BaseAdapter {
@@ -79,6 +80,9 @@ public class SelectStateAdapter<T> extends BaseAdapter {
 		}else if (dictIndustries.get(0) instanceof ApplyChannelagain) {
 			viewHolder.nameTextView.setText(((ApplyChannelagain) dictIndustries
 					.get(position)).getPaychannel());
+		}else if (dictIndustries.get(0) instanceof TradeClient) {
+			viewHolder.nameTextView.setText(((TradeClient) dictIndustries
+					.get(position)).getSerialNum());
 		}
 		
 		return convertView;

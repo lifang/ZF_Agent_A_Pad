@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -101,6 +100,13 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 		tv_clean = (TextView) conentView.findViewById(R.id.tv_clean);
 		
 		tv_type.setText(Tools.getVerName(context)+"");
+		
+		String dataSize = "";
+		try {
+			dataSize = DataCleanManager.getTotalCacheSize(context);
+		} catch (Exception e) {
+		}
+		tv_clean.setText(dataSize);
 	}
 
 	@Override
@@ -115,10 +121,16 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 			checkVersion();
 
 			break;
-		case R.id.tv_clean:
+		case R.id.ll_clean:
 
-			tv_clean.setText("");
-
+			//tv_clean.setText("");
+			DataCleanManager.clearAllCache(context);
+			String dataSize = "";
+			try {
+				dataSize = DataCleanManager.getTotalCacheSize(context);
+			} catch (Exception e) {
+			}
+			tv_clean.setText(dataSize);
 			break;
 		case R.id.img_on_off:
 
@@ -128,7 +140,7 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 				img_on_off.setBackgroundResource(R.drawable.pos_off);
 				editor.putBoolean("isOpen_mineset", false);
 				editor.commit();
-
+				MyToast.showToast(context, "您已成功关闭推送消息，在应用进入后台时您将不会收到推送消息！");
 			} else {
 				isOpen_mineset = true;
 				img_on_off.setBackgroundResource(R.drawable.pos_on);

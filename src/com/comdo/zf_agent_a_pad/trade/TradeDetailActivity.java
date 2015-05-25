@@ -83,7 +83,7 @@ public class TradeDetailActivity extends BaseActivity {
 							value.setPadding(0, 5, 0, 5);
 							value.setTextColor(getResources().getColor(
 									R.color.text6c6c6c6));
-							value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+							value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 							value.setText(i == 0 ? data.getMerchant_number()
 									    : i == 1 ? data.getAgentName() + ""
 									    : i == 2 ? data.getMerchant_name()
@@ -98,7 +98,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? StringUtil.replaceNum(data.getPayFromAccount())//付款账号
 											: i == 2 ? StringUtil.replaceNum(data.getPayIntoAccount())//转入账号||收款账号？
@@ -118,7 +118,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? StringUtil.replaceNum(data.getPayFromAccount())//付款账号
 											: i == 2 ? StringUtil.replaceNum(data.getPayIntoAccount())//转入账号||收款账号？
@@ -143,7 +143,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? getString(R.string.notation_yuan) + df.format(data.getPoundage()*1.0f/100)//手续费
 											: i == 2 ? data.getPaychannel()//支付通道
@@ -162,7 +162,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? getString(R.string.notation_yuan) + df.format(data.getPoundage()*1.0f/100)//手续费
 											: i == 2 ? data.getPaychannel()//支付通道
@@ -186,7 +186,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? StringUtil.replaceName(data.getAccount_name())//账户名
 											: i == 2 ? StringUtil.replaceNum(data.getAccount_number())//账户号码
@@ -206,7 +206,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? StringUtil.replaceName(data.getAccount_name())//账户名
 											: i == 2 ? StringUtil.replaceNum(data.getAccount_number())//账户号码
@@ -230,7 +230,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? StringUtil.replaceNum(data.getPhone())//手机号码
 											: i == 2 ? data.getPaychannel()//支付通道
@@ -249,7 +249,7 @@ public class TradeDetailActivity extends BaseActivity {
 									value.setGravity(Gravity.LEFT);
 									value.setPadding(0, 5, 0, 5);
 									value.setTextColor(resources.getColor(R.color.text6c6c6c6));
-									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+									value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 									value.setText(i == 0 ? data.getTerminalNumber()//终 端 号
 											: i == 1 ? StringUtil.replaceNum(data.getPhone())//手机号码
 											: i == 2 ? data.getPaychannel()//支付通道
@@ -297,7 +297,7 @@ public class TradeDetailActivity extends BaseActivity {
 			key.setGravity(Gravity.RIGHT);
 			key.setPadding(0, 5, 0, 5);
 			key.setTextColor(resources.getColor(R.color.text6c6c6c6));
-			key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+			key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 			key.setText(commercialKeys[i]);
 			mCommercialKeyContainer.addView(key);
 		}
@@ -331,7 +331,7 @@ public class TradeDetailActivity extends BaseActivity {
 			key.setGravity(Gravity.RIGHT);
 			key.setPadding(0, 5, 0, 5);
 			key.setTextColor(resources.getColor(R.color.text6c6c6c6));
-			key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+			key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 			key.setText(bankKeys[i]);
 			mBankKeyContainer.addView(key);
 		}
