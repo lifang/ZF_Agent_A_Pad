@@ -7,6 +7,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/ll_isshow"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/bg"
@@ -36,6 +37,7 @@
                 android:layout_marginLeft="20dp"
                 android:gravity="center"
                 android:text="安全"
+                android:visibility="gone"
                 android:textColor="#727171"
                 android:textSize="18sp" />
 
@@ -54,7 +56,8 @@
     <LinearLayout
         android:id="@+id/ll_baseinfo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:visibility="gone" >
 
         <ScrollView
             android:id="@+id/sLV"
@@ -521,7 +524,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:orientation="vertical"
-        android:visibility="gone" >
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -599,7 +602,8 @@
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp" />
 
@@ -612,6 +616,7 @@
             android:background="@color/bgtitle"
             android:gravity="center"
             android:text="新增地址"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>

@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -286,4 +287,5 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		MobclickAgent.onPageEnd(this.toString());
 		MobclickAgent.onPause(this);
 	}
+
 }

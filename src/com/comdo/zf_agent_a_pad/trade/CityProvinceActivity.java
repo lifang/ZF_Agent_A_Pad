@@ -21,6 +21,7 @@ import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.Province;
 import com.comdo.zf_agent_a_pad.trade.widget.WheelView;
+import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.example.zf_agent_a_pad.R;
 /**
@@ -54,6 +55,7 @@ public class CityProvinceActivity extends BaseActivity {
                 intent.putExtra(SELECTED_PROVINCE, mSelectedProvince);
                 intent.putExtra(SELECTED_CITY, mSelectedCity);
                 setResult(RESULT_OK, intent);
+                Config.city=mSelectedCity;
                 finish();
             }
         });

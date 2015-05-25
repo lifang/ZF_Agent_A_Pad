@@ -46,8 +46,8 @@ public class Good_detail_zd extends Fragment implements OnClickListener{
 		tv5=(TextView)view. findViewById(R.id.tv5);
 		
 		tv5.setText(gfe.getLease_agreement()+"");
-		tv4.setText(gfe.getDescription()+"");
-		tv3.setText("￥" +df.format((double)gfe.getLease_price())+"");
+		tv4.setText(gfe.getLease_description()+"");
+		tv3.setText("￥" +df.format((double)gfe.getLease_price()/100)+"");
 		tv2.setText(gfe.getReturn_time()+"月");
 		tv1.setText(gfe.getLease_time()+"月");
 

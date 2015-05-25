@@ -23,6 +23,7 @@ import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.entity.Posport;
 import com.comdo.zf_agent_a_pad.entity.tDates;
 import com.comdo.zf_agent_a_pad.entity.other_rate;
+import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.PortSon;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -101,7 +102,7 @@ public class Config {
 	public static final String ORDERDETAIL = PATHS + "order/getWholesaleById";
 	public static final String ORDERDETAIL1 = PATHS + "order/getProxyById";
 	public static final String Comment = PATHS + "order/batchSaveComment";
-	public static final String GOODPICLIST = PATHS + "/good/getGoodImgUrl";
+	public static final String GOODPICLIST = PATHS + "good/getGoodImgUrlForPad";
 	public static GoodinfoEntity gfe = null;
 	public static boolean iszd = false;
 	public static ArrayList<ChanelEntitiy> celist = new ArrayList<ChanelEntitiy>();
@@ -123,9 +124,11 @@ public class Config {
 	public static int lx;
 	public static String  apply;
 	public static boolean  canzl=false;
+	public static boolean  issafe=false;
+	public static boolean  is_editadress=false;
 	public static List<PortSon> son=new ArrayList<PortSon>();
 	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
-
+	public static City city=null;
 
 	public static PortSon myson;
 	public static String getmes = PATHS + "message/receiver/getAll";

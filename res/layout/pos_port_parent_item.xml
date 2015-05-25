@@ -17,11 +17,12 @@
             
         <TextView
             android:id="@+id/title"
-            android:layout_width="@dimen/ddrl_width"
+            android:layout_width="@dimen/ddheight1"
             android:layout_height="60dp"
             android:gravity="right|center_vertical"
             android:text="POS品牌"
-            
+            android:singleLine="true"
+            android:textSize="@dimen/textbig"
             android:textColor="@color/text292929" />
 
         <CheckBox
@@ -158,7 +159,7 @@
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_alignParentRight="true"
-          android:textSize="@dimen/textmid"
+          android:textSize="@dimen/textbig"
             android:gravity="left|center_vertical"
             android:text="更多"
             android:textColor="@color/bgtitle" />

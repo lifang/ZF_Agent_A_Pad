@@ -165,15 +165,20 @@ public class AlterPhone extends Activity implements OnClickListener {
 			break;
 		case R.id.ll_next:
 			if (check())
-				if (ed_code.getText().toString().trim()
-						.equals(ape.getDentcode())) {
-					img_check1.setVisibility(View.VISIBLE);
-					img_check_n1.setVisibility(View.GONE);
-					flag = true;
-				} else {
-					img_check1.setVisibility(View.GONE);
-					img_check_n1.setVisibility(View.VISIBLE);
-					flag = false;
+				if(ape==null){
+					
+				}else {
+					if (ed_code.getText().toString().trim()
+							.equals(ape.getDentcode())) {
+						img_check1.setVisibility(View.VISIBLE);
+						img_check_n1.setVisibility(View.GONE);
+						flag = true;
+					} else {
+						img_check1.setVisibility(View.GONE);
+						img_check_n1.setVisibility(View.VISIBLE);
+						flag = false;
+				}
+				
 				}
 			if (check() && flag) {
 				AlterPhone.this.finish();

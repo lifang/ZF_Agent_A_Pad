@@ -398,12 +398,17 @@ public class OrderAdapter extends BaseAdapter{
 				try {
 					i.putExtra("id", Integer.parseInt(list.get(index).getOrder_id()));
 				} catch (Exception e) {
-					
+					i.putExtra("id", Integer.parseInt(list.get(index).getOrder_id()));
 				}
 				
 				/*if(list.get(index).getOrder_goodsList().get(0).getGood_id().equals("")){
 					i.putExtra("goodid", list.get(index).getOrder_goodsList().get(0).getGood_id());
 				}*/	
+				if(OrderList.type.equals("")){
+					
+				}else{
+					
+				}
 				i.putExtra("type",Integer.parseInt(OrderList.type));
 				context.startActivity(i);
 			}

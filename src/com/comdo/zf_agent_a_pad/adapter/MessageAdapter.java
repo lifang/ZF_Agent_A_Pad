@@ -64,21 +64,21 @@ public class MessageAdapter extends BaseAdapter{
 					.findViewById(R.id.tv_title);
 			holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
 			holder.item_cb = (CheckBox) convertView.findViewById(R.id.item_cb);
+		
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.tv_title.setText(list.get(position).getTitle());
 		holder.tv_time.setText(list.get(position).getCreate_at());
-		
-		
-		
-		
-			if(list.get(position).getStatus()){
-				Log.i("ccc","cccc");
-				holder.tv_title.setTextColor(context.getResources().getColor(R.color.NoRead));
-				holder.tv_time.setTextColor(context.getResources().getColor(R.color.NoRead));
-			}
+		if(list.get(position).getStatus()){
+			Log.i("ccc","cccc");
+			holder.tv_title.setTextColor(context.getResources().getColor(R.color.NoRead));
+			holder.tv_time.setTextColor(context.getResources().getColor(R.color.NoRead));
+		}else{
+			holder.tv_title.setTextColor(context.getResources().getColor(R.color.text292929));
+			holder.tv_time.setTextColor(context.getResources().getColor(R.color.text292929));	
+		}
 			//list.get(position).setIscheck(holder.item_cb.isChecked());
 			if(list.get(position).getIscheck()){
 				holder.item_cb.setChecked(true);

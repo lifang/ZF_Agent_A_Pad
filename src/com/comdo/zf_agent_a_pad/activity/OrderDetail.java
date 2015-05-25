@@ -84,15 +84,15 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				}*/
 				tv_sjps.setText("实付金额 ：￥ "
 						+ df.format(check(entity.getOrder_totalPrice()) / 100));
-				tv_psf.setText("配送费 ：￥ "
+				tv_psf.setText("配  送  费  ：￥ "
 						+ df.format(check(entity.getOrder_psf()) / 100));
 				// tv_psf.setText("配送费 ：￥ " + entity.getOrder_psf());
-				tv_reperson.setText("收件人  ：   " + entity.getOrder_receiver());
+				tv_reperson.setText("收  件  人  ：   " + entity.getOrder_receiver());
 				tv_tel.setText(entity.getOrder_receiver_phone());
 				tv_adress.setText("收货地址  ：   " + entity.getOrder_address());
-				tv_ly.setText("留言  ：   " + entity.getOrder_comment());
+					tv_ly.setText("留        言  ：   " + entity.getOrder_comment());
 				if(entity.getNeed_invoice()==0){
-					tv_fplx.setText("发票类型");
+					tv_fplx.setText("发票类型  ：");
 				}else{
 					tv_fplx.setText(entity.getOrder_invoce_type().equals("1") ? "发票类型 : 个人"
 							: "发票类型 : 公司");
@@ -403,8 +403,8 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.btn_ishow_wl:
 			amd = new AlertMessDialog(OrderDetail.this);
-			amd.setTitle(ode.getLogistics_name());
-			amd.setMessage(ode.getLogistics_number());
+			amd.setTitle("物流公司: "+ode.getLogistics_name());
+			amd.setMessage("物流单号: "+ode.getLogistics_number());
 			amd.setNegativeButton("确认", new OnClickListener() {
 
 				@Override
@@ -447,7 +447,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 									.get(0).getGood_id()));
 				startActivity(i2);}
 			break;
-		case R.id.btn_ishow:
+		case R.id.btn_ishow:			
 			amd = new AlertMessDialog(OrderDetail.this);
 			amd.setTitle("查看终端号");
 			amd.setMessage(ode.getTerminals());
@@ -564,6 +564,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 																	.getString("message"),
 															1000).show();
 													ll_ishow.setVisibility(View.INVISIBLE);
+													getData();
 												} else {
 													code = jsonobject
 															.getString("message");

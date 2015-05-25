@@ -68,6 +68,7 @@
     <dimen name="normal_height1">30dp</dimen>
     <dimen name="normal_height2">28dp</dimen>
     <dimen name="normal_height3">220dp</dimen>
+     <dimen name="normal_height4">320dp</dimen>
     <dimen name="normal_width1">700dp</dimen>
     <dimen name="normal_width2">24dp</dimen>
     <dimen name="normal_width3">12dp</dimen>

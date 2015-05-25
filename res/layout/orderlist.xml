@@ -81,7 +81,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/titilepad"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="@dimen/alertheight"
         android:layout_marginRight="@dimen/alertheight"
@@ -103,7 +103,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:text="采购"
-                    android:textColor="@color/bgtitle"
+                    android:textColor="#292929"
                     android:textSize="@dimen/textmid" />
 
                 <View
@@ -125,11 +125,13 @@
             </LinearLayout>
         <EditText
             android:id="@+id/ed_search"
-            android:layout_width="@dimen/alertwidth"
-            android:layout_height="@dimen/sp_height"
+            android:layout_width="@dimen/normal_height4"
+            android:layout_height="@dimen/leftfristtop"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:singleLine="true"
+            android:hint="请输入订单编号"
+            android:textSize="@dimen/textbig"
              android:imeOptions="actionSearch"
             android:background="@drawable/textsearch" >
         </EditText>
@@ -154,11 +156,12 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="@dimen/sp_width"
-                android:layout_height="@dimen/sp_height"
+                android:layout_width="@dimen/zc_land_w"
+                android:layout_height="@dimen/leftfristtop"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/sy_rl_margin"
                 android:layout_toRightOf="@+id/type"
+                android:textSize="@dimen/textmid"
                 android:background="@drawable/ed_adress"
                 android:spinnerMode="dropdown" />
         </LinearLayout>

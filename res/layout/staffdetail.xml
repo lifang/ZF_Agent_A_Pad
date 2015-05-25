@@ -40,7 +40,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="right|center_vertical"
-                                android:text="登录ID"
+                                android:text="用户名"
                                 android:textSize="20sp" />
 
                             <TextView
