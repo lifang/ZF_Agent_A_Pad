@@ -20,7 +20,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.TradeDetail;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class TradeDetailActivity extends BaseActivity {

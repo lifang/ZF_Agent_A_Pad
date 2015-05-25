@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import com.comdo.zf_agent_a_pad.activity.LoginActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;

@@ -27,7 +27,7 @@ import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.SetPopWindow;
 import com.comdo.zf_agent_a_pad.util.Utils;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {

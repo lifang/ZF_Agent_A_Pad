@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.entity.StockAgentEntity;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class StockInfoListAdapter extends BaseAdapter{
 

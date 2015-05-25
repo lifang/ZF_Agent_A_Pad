@@ -7,7 +7,7 @@ import com.comdo.zf_agent_a_pad.fragment.Good_detail_pic;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_trade;
 import com.comdo.zf_agent_a_pad.fragment.Good_detail_zd;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;

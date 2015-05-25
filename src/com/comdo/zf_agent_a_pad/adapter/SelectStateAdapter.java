@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.entity.ApplyChannelagain;
 import com.comdo.zf_agent_a_pad.entity.Pos;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeClient;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class SelectStateAdapter<T> extends BaseAdapter {
 

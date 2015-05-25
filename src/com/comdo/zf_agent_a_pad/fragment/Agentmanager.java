@@ -33,7 +33,7 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class Agentmanager extends Fragment implements OnClickListener,
@@ -44,17 +44,18 @@ public class Agentmanager extends Fragment implements OnClickListener,
 	private XListView xxlistview;
 	private TextView tv_default;
 	private Button btn_reset, btn_creat_agent, btn_save, close;
-	private int page = 1;
+	private int page = 0;
 	public static Handler myHandler;
 	private boolean isrefersh = false;
-	private int rows = Config.ROWS;
-	private int a = 1;
+	private int rows = 10;
 	private EditText et_profit;
 	private int id = MyApplication.NewUser.getAgentId();
 	private float str = 0.0f;
 	private AlertDialog dialog;
 	private int agentsId = MyApplication.NewUser.getAgentId();
 	private LinearLayout eva_nodata;
+	private boolean noMoreData = false;
+	private String pullType = "loadData";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -121,11 +122,11 @@ public class Agentmanager extends Fragment implements OnClickListener,
 						xxlistview.setVisibility(View.VISIBLE);
 						eva_nodata.setVisibility(View.GONE);
 						onLode();
-						xxlistview.setAdapter(agentadapter);
 					} else {
 						xxlistview.setVisibility(View.GONE);
 						eva_nodata.setVisibility(View.VISIBLE);
 					}
+					
 					break;
 				case 1:
 					Intent intent = new Intent(getActivity(), AgentDetail.class);
@@ -157,19 +158,26 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 					@Override
 					public void onSuccess(Page<AgentManager> data) {
-						if (isrefersh) {
-							page = a;
-							rows = Config.ROWS;
-							isrefersh = false;
+
+						if (null == data || data.getList().size() <= 0)
+							noMoreData = true;
+						if (pullType.equals("onRefresh")) {
+							dataadagent.clear();
 						}
-						if (dataadagent.size() != 0
-								&& data.getList().size() == 0) {
-							Toast.makeText(getActivity(), "没有更多数据!", 1000)
-									.show();
-						} else {
-							dataadagent.addAll(data.getList());
-						}
+						dataadagent.addAll(data.getList());
+						page++;
+						agentadapter.notifyDataSetChanged();
 						myHandler.sendEmptyMessage(0);
+
+					}
+
+					@Override
+					public void preLoad() {
+					}
+
+					@Override
+					public void postLoad() {
+						onLode();
 					}
 
 					@Override
@@ -193,6 +201,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 		xxlistview.setPullLoadEnable(true);
 		xxlistview.setXListViewListener(this);
 		xxlistview.setDivider(null);
+		xxlistview.setAdapter(agentadapter);
 		btn_reset.setOnClickListener(this);
 		btn_creat_agent.setOnClickListener(this);
 	}
@@ -293,11 +302,10 @@ public class Agentmanager extends Fragment implements OnClickListener,
 			CommonUtil.toastShort(getActivity(), "网络异常");
 			return;
 		}
-		isrefersh = true;
-		a = page;
-		rows = a * rows;
-		page = 1;
-		dataadagent.clear();
+		page = 0;
+		pullType = "onRefresh";
+		noMoreData = false;
+		xxlistview.setPullLoadEnable(true);
 		getData();
 
 	}
@@ -308,8 +316,15 @@ public class Agentmanager extends Fragment implements OnClickListener,
 			CommonUtil.toastShort(getActivity(), "网络异常");
 			return;
 		}
-		page += 1;
-		getData();
+		pullType = "onLoadMore";
+		if (noMoreData) {
+			xxlistview.setPullLoadEnable(false);
+			xxlistview.stopLoadMore();
+			CommonUtil.toastShort(getActivity(),
+					getResources().getString(R.string.no_more_data));
+		} else {
+			getData();
+		}
 
 	}
 }

@@ -7,7 +7,7 @@ import com.comdo.zf_agent_a_pad.entity.DistributeEntity;
 import com.comdo.zf_agent_a_pad.entity.StaffmanagerEntity;
 import com.comdo.zf_agent_a_pad.fragment.Distribute;
 import com.comdo.zf_agent_a_pad.fragment.Staffmanagr;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.content.Context;
 import android.os.Message;

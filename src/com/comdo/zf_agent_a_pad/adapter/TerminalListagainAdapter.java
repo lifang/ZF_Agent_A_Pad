@@ -20,7 +20,7 @@ import com.comdo.zf_agent_a_pad.adapter.AddressManagerAdapter.ViewHoldel;
 import com.comdo.zf_agent_a_pad.entity.AddressManager;
 import com.comdo.zf_agent_a_pad.entity.TerminalList;
 import com.comdo.zf_agent_a_pad.entity.TerminalPriceEntity;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class TerminalListagainAdapter extends BaseAdapter{
 	private List<TerminalList> mTerminalItems;

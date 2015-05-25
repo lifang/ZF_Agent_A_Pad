@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import com.comdo.zf_agent_a_pad.entity.GoodinfoEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
