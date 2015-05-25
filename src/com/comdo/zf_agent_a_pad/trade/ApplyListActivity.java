@@ -1,9 +1,9 @@
 package com.comdo.zf_agent_a_pad.trade;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.HAVE_VIDEO;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_DETAIL;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
@@ -11,7 +11,6 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENE
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.activity.GenerateSearch;
+import com.comdo.zf_agent_a_pad.activity.TerminalManagerDetailActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.PageApply;
@@ -53,7 +53,6 @@ public class ApplyListActivity extends BaseActivity implements
 	private ApplyListAdapter mAdapter;
 
 	private int page = 0;
-	private int total = 0;
 	private final int rows = 10;
 	private boolean noMoreData = false;
 
@@ -297,8 +296,6 @@ public class ApplyListActivity extends BaseActivity implements
 						Intent intent = new Intent(ApplyListActivity.this,
 								ApplyDetailActivity.class);
 						intent.putExtra(TERMINAL_ID, item.getId());
-						intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-						intent.putExtra(TERMINAL_STATUS, item.getOpenState());
 						startActivityForResult(intent, REQUEST_DETAIL);
 					}
 
@@ -317,6 +314,18 @@ public class ApplyListActivity extends BaseActivity implements
 					Intent intent = new Intent(ApplyListActivity.this,
 							VideoActivity.class);
 					intent.putExtra(TERMINAL_ID, item.getId());
+					startActivity(intent);
+				}
+			});
+
+			convertView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Intent intent = new Intent(ApplyListActivity.this,
+							TerminalManagerDetailActivity.class);
+					intent.putExtra(HAVE_VIDEO, item.getHasVideoVerify());
+					intent.putExtra(TERMINAL_ID, item.getId());
+					intent.putExtra(TERMINAL_STATUS, item.getOpenState());
 					startActivity(intent);
 				}
 			});
@@ -367,8 +376,6 @@ public class ApplyListActivity extends BaseActivity implements
 					Intent intent = new Intent(ApplyListActivity.this,
 							ApplyDetailActivity.class);
 					intent.putExtra(TERMINAL_ID, item.getId());
-					intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-					intent.putExtra(TERMINAL_STATUS, item.getOpenState());
 					startActivityForResult(intent, REQUEST_DETAIL);
 				}
 

@@ -48,8 +48,7 @@ public class SelectPayChannel extends BaseActivity {
 	private FenRunEntity fenRunEntity;
 	private LayoutInflater mInflater;
 	private ChannelListAdapter mAdapter;
-	private float percent;
-	private String tradeTypeId, profitPercent;
+	private String profitPercent;
 	private StringBuffer sb;
 	private List<String> str = new ArrayList<String>();
 
@@ -127,9 +126,6 @@ public class SelectPayChannel extends BaseActivity {
 					}
 
 				}
-				// view.setBackgroundResource(R.color.white);
-				// view.findViewById(R.id.delete).setVisibility(View.VISIBLE);
-
 				ll_paychannel.removeAllViews();
 
 				Log.e("YYYYYYYYYYYYYYYYYYYYYYYYYYY",
@@ -151,6 +147,8 @@ public class SelectPayChannel extends BaseActivity {
 						fenRunEntity = data;
 						list = fenRunEntity.getList();
 						mAdapter.notifyDataSetChanged();
+						ll_paychannel.removeAllViews();
+						addEdit(ll_paychannel, list.get(0).getDetail());
 					}
 
 					@Override
@@ -173,6 +171,7 @@ public class SelectPayChannel extends BaseActivity {
 			tv_name.setText(details.get(i).getTradeTypeName());
 			ed_rate.setHint(details.get(i).getPercent() + "%");
 			ed_rate.setTag(details.get(i).getTradeTypeId());
+			ed_rate.setSingleLine();
 			str.add(details.get(i).getTradeTypeId());
 
 			layout.addView(linearLayout);
@@ -201,6 +200,7 @@ public class SelectPayChannel extends BaseActivity {
 	}
 
 	private void saveFenRun() {
+
 		sb = new StringBuffer();
 		for (int i = 0; i < str.size(); i++) {
 
@@ -220,8 +220,9 @@ public class SelectPayChannel extends BaseActivity {
 				sb.append(Float.parseFloat(editText.getText().toString())
 						* 1.0f + "_" + str.get(i) + "|");
 			} else {
-				CommonUtil.toastShort(SelectPayChannel.this, "请输入费率");
-				return;
+				sb.append(Float.parseFloat(editText.getHint().toString()
+						.replace("%", ""))
+						* 1.0f + "_" + str.get(i) + "|");
 			}
 		}
 		profitPercent = sb.toString();
@@ -233,7 +234,8 @@ public class SelectPayChannel extends BaseActivity {
 					public void onSuccess(Object data) {
 
 						CommonUtil.toastShort(SelectPayChannel.this, "修改成功");
-						loadData();
+						// loadData();
+						finish();
 					}
 
 					@Override

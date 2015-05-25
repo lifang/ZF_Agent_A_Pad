@@ -2,7 +2,6 @@ package com.comdo.zf_agent_a_pad.activity;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.HAVE_VIDEO;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.CANCELED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
@@ -16,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,12 +45,12 @@ import com.comdo.zf_agent_a_pad.video.VideoActivity;
 import com.example.zf_agent_a_pad.R;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 @SuppressLint("NewApi")
 public class TerminalManagerDetailActivity extends BaseActivity {
 
 	private int mTerminalStatus;
-	private String mTerminalNumber;
 	private int mTerminalId;
 
 	private LayoutInflater mInflater;
@@ -79,7 +79,6 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 
 		isVideo = getIntent().getIntExtra(HAVE_VIDEO, 0);
 		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
-		mTerminalNumber = getIntent().getStringExtra(TERMINAL_NUMBER);
 		mTerminalStatus = getIntent().getIntExtra(TERMINAL_STATUS, 0);
 
 		setContentView(R.layout.activity_terminal_detail);
@@ -129,8 +128,6 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 				Intent intent = new Intent(TerminalManagerDetailActivity.this,
 						ApplyDetailActivity.class);
 				intent.putExtra(TERMINAL_ID, mTerminalId);
-				intent.putExtra(TERMINAL_NUMBER, mTerminalNumber);
-				intent.putExtra(TERMINAL_STATUS, mTerminalStatus);
 				startActivity(intent);
 			}
 		};
@@ -472,11 +469,23 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 		LinearLayout category = renderCategoryTemplate(pairs, true);
 
 		View.OnClickListener onViewPhotoListener = new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				// TODO:
-				// ShowWebImageActivity;
 
+			@Override
+			public void onClick(View v) {
+				// TODO:
+				AlertDialog.Builder build = new AlertDialog.Builder(
+						TerminalManagerDetailActivity.this);
+				LayoutInflater factory = LayoutInflater
+						.from(TerminalManagerDetailActivity.this);
+				final View textEntryView = factory.inflate(R.layout.show_view,
+						null);
+				build.setView(textEntryView);
+				final ImageView view = (ImageView) textEntryView
+						.findViewById(R.id.imag);
+				// ImageCacheUtil.IMAGE_CACHE.get((String) v.getTag(), view);
+				ImageLoader.getInstance().displayImage((String) v.getTag(),
+						view, options);
+				build.create().show();
 			}
 		};
 
@@ -490,7 +499,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 						.findViewById(R.id.terminal_open_key_left);
 				ImageButton icon = (ImageButton) column
 						.findViewById(R.id.terminal_open_icon_left);
-				icon.setTag(i);
+				icon.setTag(imageUrls.get(i));
 				icon.setOnClickListener(onViewPhotoListener);
 				key.setText(photoOpen.getKey());
 				if (i == photoOpens.size() - 1) {
@@ -503,7 +512,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 						.findViewById(R.id.terminal_open_key_right);
 				ImageButton icon = (ImageButton) column
 						.findViewById(R.id.terminal_open_icon_right);
-				icon.setTag(i);
+				icon.setTag(imageUrls.get(i));
 				icon.setOnClickListener(onViewPhotoListener);
 				key.setText(photoOpen.getKey());
 				category.addView(column);

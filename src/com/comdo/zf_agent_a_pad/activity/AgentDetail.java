@@ -203,7 +203,7 @@ public class AgentDetail extends BaseActivity implements OnClickListener {
 						tv_fuzeren_no.setText(data.getCard_id());
 						tv_phone.setText(data.getPhone());
 						tv_email.setText(data.getEmail());
-						tv_adress.setText(data.getCityId() + "");
+						tv_adress.setText(data.getCityName());
 						tv_adressdetail.setText(data.getAddress());
 						cardPath = data.getCardpath();
 						licensePath = data.getLicensepath();

@@ -4,336 +4,352 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="#ffffff"
-    android:orientation="vertical"
-    >
-<include layout="@layout/title_back" />
-   
-<ScrollView 
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_back" />
+
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout  
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
-    android:orientation="vertical">
-        <LinearLayout  
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
-    android:orientation="horizontal">
-        
-<LinearLayout  
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:orientation="vertical">
-    <TableLayout  
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent">
-   <TableRow 
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="54dp">
-    <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="用户名"
-    android:gravity="right"
-    android:textColor="#6D6D6D"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"
-    android:layout_marginTop="10dp"/>
-   <EditText 
-       android:id="@+id/et_loginid"
-    android:layout_width="240dp"
-    android:layout_height="30dp"
-    
-    android:background="@drawable/sc_edit"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="10dp"/>
-   
-   </TableRow>
-   <TableRow 
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp">
-    <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="姓名"
-    android:gravity="right"
-    android:textColor="#6D6D6D"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"/>
-   <EditText 
-       android:id="@+id/et_name"
-    android:layout_width="240dp"
-    android:layout_height="30dp"
-    
-    android:background="@drawable/sc_edit"
-    android:layout_marginLeft="10dp"/>
-   
-   </TableRow>
-   <TableRow 
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp">
-    <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="登录密码"
-    android:textColor="#6D6D6D"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"
-    android:gravity="right"/>
-   <EditText 
-       android:id="@+id/et_paw"
-    android:layout_width="240dp"
-    android:layout_height="30dp"
-     android:inputType="textPassword"
-    android:background="@drawable/sc_edit"
-    android:layout_marginLeft="10dp"/>
-  
-   </TableRow>
-   <TableRow 
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp">
-    <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="确认密码"
-    android:gravity="right"
-    android:textColor="#6D6D6D"
-    android:textSize="18sp"
-    android:layout_gravity="center_vertical"/>
-   <EditText 
-       android:id="@+id/et_confirm_paw"
-    android:layout_width="240dp"
-    android:layout_height="30dp"
-     android:inputType="textPassword"
-    android:background="@drawable/sc_edit"
-    android:layout_marginLeft="10dp"/>
-  
-   </TableRow>
-   </TableLayout>
-   </LinearLayout>
-    <LinearLayout  
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:orientation="vertical">
-    <TextView 
-        android:id="@+id/tv_chooseroot"
-        android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:text="选择员工权限:"
-    android:layout_marginTop="60dp"
-    android:textColor="#898888"
-    android:textSize="18sp"
-    android:layout_marginLeft="180dp"/>
-    
-     <TableLayout  
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_marginLeft="180dp">
-   <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_pigou"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="批购"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-             <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_daigou"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="代购"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-             <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_manager_zhongduan"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+                android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="终端管理/售后记录查看"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-             <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_quary"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="交易分润查询"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-             <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_manager_agent"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+                    <TableLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="下级代理商管理"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-             <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_manager_user"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+                        <TableRow
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="54dp" >
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="用户管理"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-             <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_manager_worker"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="10dp"
+                                android:gravity="right"
+                                android:text="用户名"
+                                android:textColor="#6D6D6D"
+                                android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="员工账号管理"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-             <TableRow 
-       android:layout_marginTop="20dp">
-    <CheckBox
-            android:id="@+id/cb_manager_Addres"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:checked="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+                            <EditText
+                                android:id="@+id/et_loginid"
+                                android:layout_width="240dp"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/tv_bg" />
+                        </TableRow>
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="代理商资料/收货地址管理"
-                android:textColor="#443E36"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/textbig" 
-                android:layout_gravity="center_vertical"/>
-            </TableRow>
-    </TableLayout>
-    </LinearLayout> 
-   </LinearLayout>
-   <View 
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="#EAEAEA"
-    android:layout_marginTop="70dp"/>
-   <Button android:id="@+id/btn_save"
-    android:layout_width="235dp"
-    android:layout_height="35dp"
-    android:layout_marginTop="70dp"
-    android:text="保存"
-    android:textSize="18sp"
-    android:background="#006FD5"
-    android:textColor="#ECF2F8"
-    android:layout_gravity="center_horizontal"
-    android:gravity="center"
-    android:layout_marginBottom="70dp"/>
-   </LinearLayout>
-</ScrollView>
-    
+                        <TableRow
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="20dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="right"
+                                android:text="姓名"
+                                android:textColor="#6D6D6D"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/et_name"
+                                android:layout_width="240dp"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/tv_bg" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="20dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="right"
+                                android:text="登录密码"
+                                android:textColor="#6D6D6D"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/et_paw"
+                                android:layout_width="240dp"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/tv_bg"
+                                android:inputType="textPassword" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="20dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="right"
+                                android:text="确认密码"
+                                android:textColor="#6D6D6D"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/et_confirm_paw"
+                                android:layout_width="240dp"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/tv_bg"
+                                android:inputType="textPassword" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/tv_chooseroot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="180dp"
+                        android:layout_marginTop="60dp"
+                        android:text="选择员工权限:"
+                        android:textColor="#898888"
+                        android:textSize="18sp" />
+
+                    <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="180dp" >
+
+                        <TableRow
+                            android:layout_marginTop="20dp"
+                            android:visibility="gone" >
+
+                            <CheckBox
+                                android:id="@+id/cb_pigou"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:id="@+id/tv_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="批购"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="20dp" >
+
+                            <CheckBox
+                                android:id="@+id/cb_daigou"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="代购"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="20dp" >
+
+                            <CheckBox
+                                android:id="@+id/cb_manager_zhongduan"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="终端管理/售后记录查看"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="20dp" >
+
+                            <CheckBox
+                                android:id="@+id/cb_quary"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="交易分润查询"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="20dp" >
+
+                            <CheckBox
+                                android:id="@+id/cb_manager_agent"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="下级代理商管理"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="20dp" >
+
+                            <CheckBox
+                                android:id="@+id/cb_manager_user"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="用户管理"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="20dp" >
+
+                            <CheckBox
+                                android:id="@+id/cb_manager_worker"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="员工账号管理"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="20dp" >
+
+                            <CheckBox
+                                android:id="@+id/cb_manager_Addres"
+                                style="@style/MyCheckBox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:checked="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:singleLine="true"
+                                android:text="代理商资料/收货地址管理"
+                                android:textColor="#443E36"
+                                android:textSize="@dimen/textbig" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="70dp"
+                android:background="#EAEAEA" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="235dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="70dp"
+                android:layout_marginTop="70dp"
+                android:background="#006FD5"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="#ECF2F8"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

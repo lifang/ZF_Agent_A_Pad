@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.activity.CreatStaff;
 import com.comdo.zf_agent_a_pad.activity.StallmanagerDetail;
@@ -45,11 +41,12 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 	private Button btn_creatstaff;
 	public static Handler myHandler;
 	private boolean isrefersh = false;
-	private int a = 1;
-	private int page = 1;
-	private int rows = Config.ROWS;
+	private int page = 0;
+	private int rows = 10;
 	private int agentId = MyApplication.NewUser.getAgentId();
 	private Activity mActivity;
+	private boolean noMoreData = false;
+	private String pullType = "loadData";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -93,8 +90,6 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 				case 0:
-					onLoad();
-					xxlistview.setAdapter(staffmanageradapter);
 					break;
 				case 1:
 					Intent intent = new Intent(getActivity(),
@@ -137,6 +132,8 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 							@Override
 							public void onSuccess(Object data) {
 								CommonUtil.toastShort(getActivity(), "删除成功");
+								page = 0;
+								datastaff.clear();
 								getData();
 							}
 
@@ -152,38 +149,31 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 
 	}
 
-	protected void onLoad() {
-		xxlistview.stopRefresh();
-		xxlistview.stopLoadMore();
-		xxlistview.setRefreshTime(Tools.getHourAndMin());
-
-	}
-
 	private void getData() {
-		if (datastaff.size() != 0) {
-			datastaff.clear();
-		}
-		Config.getStaffList(mActivity, agentId, 1, 10,
+
+		Config.getStaffList(mActivity, agentId, page + 1, rows,
 				new HttpCallback<Page<StaffmanagerEntity>>(mActivity) {
 
 					@Override
 					public void onSuccess(Page<StaffmanagerEntity> data) {
-						if (isrefersh) {
-							page = a;
-							rows = Config.ROWS;
-							isrefersh = false;
+						if (null == data || data.getList().size() <= 0)
+							noMoreData = true;
+						if (pullType.equals("onRefresh")) {
+							datastaff.clear();
 						}
-						if (datastaff.size() != 0 && data.getList().size() == 0) {
-							Toast.makeText(getActivity(), "没有更多数据!", 1000)
-									.show();
-						} else {
-							datastaff.addAll(data.getList());
-						}
+						datastaff.addAll(data.getList());
+						page++;
+						staffmanageradapter.notifyDataSetChanged();
 
-						Log.e("aa", String.valueOf(data.getList()));
-						Log.e("ss", String.valueOf(datastaff));
-						myHandler.sendEmptyMessage(0);
+					}
 
+					@Override
+					public void preLoad() {
+					}
+
+					@Override
+					public void postLoad() {
+						loadFinished();
 					}
 
 					@Override
@@ -204,11 +194,7 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 		xxlistview.setPullLoadEnable(true);
 		xxlistview.setXListViewListener(this);
 		xxlistview.setDivider(null);
-		/*
-		 * for(int i=0;i<6;i++){ datastaff.add(new StaffmanagerEntity(i,
-		 * "11111111", "11111111", "11111111")); }
-		 * xxlistview.setAdapter(staffmanageradapter);
-		 */
+		xxlistview.setAdapter(staffmanageradapter);
 		btn_creatstaff.setOnClickListener(this);
 	}
 
@@ -224,42 +210,11 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 		case R.id.btn_creatstaff:
 			Intent intent = new Intent(getActivity(), CreatStaff.class);
 			startActivity(intent);
-			// getActivity().startActivityForResult(intent, 1001);
 			break;
 
 		default:
 			break;
 		}
-
-	}
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (data == null) {
-			return;
-		}
-		switch (requestCode) {
-		case 1001:
-			getData();
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	private void opendialog() {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
-				getActivity());
-		LayoutInflater factory = LayoutInflater.from(getActivity());
-		final View textEntryView = factory.inflate(R.layout.creatstaff, null);
-		// builder.setTitle("自定义输入框");
-		builder.setView(textEntryView);
-
-		// final AlertDialog dialog = builder.show();
-		// dialog=builder.show();
-		builder.create().show();
 
 	}
 
@@ -269,13 +224,18 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 			CommonUtil.toastShort(getActivity(), "网络异常");
 			return;
 		}
-		isrefersh = true;
-		a = page;
-		rows = a * rows;
-		page = 1;
-		datastaff.clear();
+		page = 0;
+		pullType = "onRefresh";
+		noMoreData = false;
+		xxlistview.setPullLoadEnable(true);
 		getData();
 
+	}
+
+	private void loadFinished() {
+		xxlistview.stopRefresh();
+		xxlistview.stopLoadMore();
+		xxlistview.setRefreshTime(Tools.getHourAndMin());
 	}
 
 	@Override
@@ -284,8 +244,14 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 			CommonUtil.toastShort(getActivity(), "网络异常");
 			return;
 		}
-		page += 1;
-		getData();
-
+		pullType = "onLoadMore";
+		if (noMoreData) {
+			xxlistview.setPullLoadEnable(false);
+			xxlistview.stopLoadMore();
+			CommonUtil.toastShort(getActivity(),
+					getResources().getString(R.string.no_more_data));
+		} else {
+			getData();
+		}
 	}
 }

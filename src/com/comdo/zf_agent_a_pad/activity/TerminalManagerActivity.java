@@ -1,6 +1,7 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_TERMINAL;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.HAVE_VIDEO;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_ADD;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
@@ -10,14 +11,12 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.STOPPED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.HAVE_VIDEO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -71,7 +70,6 @@ public class TerminalManagerActivity extends BaseActivity implements
 	private final int rows = 10;
 	private Boolean isLoadMore = false;
 	private static final int REQUEST_SEARCH = 1000;
-	private BaseAdapter maAdapter;
 	private String searchKey;
 	private View.OnClickListener mSyncListener;
 	private View.OnClickListener mOpenListener;
@@ -404,7 +402,6 @@ public class TerminalManagerActivity extends BaseActivity implements
 
 						intent.putExtra(HAVE_VIDEO, item.getHasVideoVerify());
 						intent.putExtra(TERMINAL_ID, item.getId());
-						intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
 						intent.putExtra(TERMINAL_STATUS, item.getOpenState());
 
 						startActivity(intent);
@@ -547,8 +544,6 @@ public class TerminalManagerActivity extends BaseActivity implements
 								TerminalManagerActivity.this,
 								ApplyDetailActivity.class);
 						intent.putExtra(TERMINAL_ID, item.getId());
-						intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-						intent.putExtra(TERMINAL_STATUS, item.getOpenState());
 						startActivity(intent);
 					}
 				}
@@ -748,8 +743,6 @@ public class TerminalManagerActivity extends BaseActivity implements
 					Intent intent = new Intent(TerminalManagerActivity.this,
 							ApplyDetailActivity.class);
 					intent.putExtra(TERMINAL_ID, item.getId());
-					intent.putExtra(TERMINAL_NUMBER, item.getPosPortID());
-					intent.putExtra(TERMINAL_STATUS, item.getOpenState());
 					startActivity(intent);
 				}
 
