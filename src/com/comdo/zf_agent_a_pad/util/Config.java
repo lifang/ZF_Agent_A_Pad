@@ -1280,7 +1280,7 @@ public class Config {
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
-		new HttpRequest(context, callback).post(TERMINAL_GET_ADDRESS, params);
+		new HttpRequest(context, callback).post(GET_ADDRESS_LIST, params);
 	}
 
 	public static void submitAgent(Context context, int customerId,

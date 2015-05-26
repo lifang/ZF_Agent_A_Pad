@@ -36,7 +36,7 @@
     <string name="title_apply">开通认证</string>
     <string name="toast_upload_failed">上传图片失败</string>
     <string name="title_apply_open">开通申请</string>
-    <string name="title_apply_choose_merchant">选择商户</string>
+    <string name="title_apply_choose_merchant">可选择的常用商户</string>
     <string name="title_apply_choose_gender">选择性别</string>
     <string name="title_apply_choose_channel">选择支付通道</string>
     <string name="apply_button_open">申请开通</string>

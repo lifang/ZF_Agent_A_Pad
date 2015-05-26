@@ -4,7 +4,6 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_T
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.HAVE_VIDEO;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_ADD;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.CANCELED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
@@ -192,7 +191,9 @@ public class TerminalManagerActivity extends BaseActivity implements
 			}
 			final TerminalManagerEntity item = getItem(i);
 			holder.tv_terminal_id.setText(item.getPosPortID());
-			if (item.getPos() != null || item.getPosname() != null) {
+			if ((item.getPos() != null && !"".equals(item.getPos()))
+					|| (item.getPosname() != null && !"".equals(item
+							.getPosname()))) {
 				if (item.getPos() == null) {
 					holder.tv_postype.setText(item.getPosname());
 				} else if (item.getPosname() == null) {
@@ -204,7 +205,12 @@ public class TerminalManagerActivity extends BaseActivity implements
 			} else {
 				holder.tv_postype.setText("-");
 			}
-			holder.tv_paychannel.setText(item.getPayChannel());
+			if (item.getPayChannel() != null
+					&& !"".equals(item.getPayChannel()))
+				holder.tv_paychannel.setText(item.getPayChannel());
+			else
+				holder.tv_paychannel.setText("-");
+
 			String[] status = getResources().getStringArray(
 					R.array.terminal_status);
 			holder.tv_openstate.setText(status[item.getOpenState()]);

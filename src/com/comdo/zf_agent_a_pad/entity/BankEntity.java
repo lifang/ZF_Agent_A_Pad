@@ -1,9 +1,11 @@
 package com.comdo.zf_agent_a_pad.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class BankEntity {
+
+	public BankEntity() {
+	}
 
 	private List<Bank> content;
 
@@ -15,26 +17,5 @@ public class BankEntity {
 		this.content = content;
 	}
 
-	public class Bank implements Serializable {
 
-		private String no;
-
-		private String name;
-
-		public String getNo() {
-			return no;
-		}
-
-		public void setNo(String no) {
-			this.no = no;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-	}
 }
