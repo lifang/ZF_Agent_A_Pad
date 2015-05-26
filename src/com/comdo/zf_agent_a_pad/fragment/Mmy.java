@@ -322,9 +322,9 @@ public class Mmy extends Fragment implements OnClickListener {
 			break;
 		case R.id.tv_distribute:
 		case R.id.ll_myinfo:
-			type = 7;
+			type = 3;
 			setback();
-			im7.setVisibility(View.VISIBLE);
+			im3.setVisibility(View.VISIBLE);
 			tv_distribute
 					.setTextColor(getResources().getColor(R.color.bgtitle));
 		//if (f_distribute == null)
