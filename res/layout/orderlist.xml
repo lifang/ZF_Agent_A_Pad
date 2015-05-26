@@ -125,7 +125,7 @@
             </LinearLayout>
         <EditText
             android:id="@+id/ed_search"
-            android:layout_width="@dimen/normal_height4"
+            android:layout_width="@dimen/normal_height3"
             android:layout_height="@dimen/leftfristtop"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -156,7 +156,7 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="@dimen/zc_land_w"
+                android:layout_width="@dimen/normal_height3"
                 android:layout_height="@dimen/leftfristtop"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/sy_rl_margin"

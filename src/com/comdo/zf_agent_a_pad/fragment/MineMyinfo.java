@@ -448,7 +448,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		case R.id.deleteadress:
 			final com.comdo.zf_agent_a_pad.util.AlertDialog ad = new com.comdo.zf_agent_a_pad.util.AlertDialog(mActivity);
 			ad.setTitle("提示");
-			ad.setMessage("确认取消?");
+			ad.setMessage("确认删除?");
 			ad.setPositiveButton("取消", new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
