@@ -423,7 +423,7 @@
                         android:layout_width="190dp"
                         android:layout_height="match_parent"
                         android:gravity="right"
-                        android:text="登录ID"
+                        android:text="用户名"
                         android:textSize="20sp" />
 
                     <TextView

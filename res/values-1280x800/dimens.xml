@@ -75,4 +75,5 @@
     <dimen name="order_image">80dp</dimen>
 <dimen name="order_image1">54dp</dimen>
 <dimen name="goodimg">350dp</dimen>
+ <dimen name="normal_height4">200dp</dimen>
 </resources>

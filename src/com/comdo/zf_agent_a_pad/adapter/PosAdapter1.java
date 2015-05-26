@@ -23,7 +23,7 @@ import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class PosAdapter1 extends BaseAdapter {
 	private Context context;

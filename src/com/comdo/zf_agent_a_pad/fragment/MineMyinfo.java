@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.InflateException;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +51,7 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.RegText;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class MineMyinfo extends Fragment implements OnClickListener {
@@ -87,11 +88,12 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	private int id = MyApplication.NewUser.getId();
 	public static int[] idd;
 	private EditText login_edit_name, mobile_phone, zip_code, detail_address;
-	private TextView area, tv_title, deleteadress;
+	private TextView tv_title, deleteadress;
+	public static TextView area;
 	private Button btn_save;
 	private CheckBox cb;
 	private int isDefault;
-	private int cityId;
+	public static int cityId;
 	private AlertDialog.Builder builder;
 	private boolean isEdit = false;
 	private AlertDialog dialog;
@@ -103,6 +105,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Config.city=null;
 	}
 
 	@Override
@@ -110,13 +113,13 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 
 		// view = inflater.inflate(R.layout.f_main,container,false);
-
+	
 		Log.e("container", String.valueOf(container));
-		if (view != null) {
+		/*if (view != null) {
 			ViewGroup parent = (ViewGroup) view.getParent();
 			if (parent != null)
 				parent.removeView(view);
-		}
+		}*/
 		// if(container!=null)
 		//
 		// { container.getParent()..clearChildFocus(arg0); }
@@ -124,6 +127,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		try {
 			view = inflater.inflate(R.layout.myinfo, container, false);
 			init();
+			
 		} catch (InflateException e) {
 
 		}
@@ -137,7 +141,12 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.e("get", String.valueOf(getActivity()));
+		if(Config.city!=null){
+			area.setText(Config.city.getName());
+			cityId = Config.city.getId();
+			Log.e("cityId", cityId+"");
+		}
+		Log.e("get", String.valueOf(mActivity));
 		
 		switch (type) {
 		case 1:
@@ -197,6 +206,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 				case 0:
+					if(addressadapter!=null)
 					list.setAdapter(addressadapter);
 					break;
 				case 1:
@@ -222,6 +232,8 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 
 			};
 		};
+	
+	
 	}
 
 	@Override
@@ -237,13 +249,28 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		 * if(view!=null){ ViewGroup parent = (ViewGroup) view.getParent(); if
 		 * (parent != null) parent.removeView(view); }
 		 */
+	
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		baseinfogetData();
-		Log.e("get1", String.valueOf(getActivity()));
+
+		if(Config.is_editadress){
+			tv_safe.setBackgroundResource(0);
+			tv_jichuinfo.setBackgroundResource(0);
+			tv_manageradress.setBackgroundResource(R.drawable.tab_bg);
+
+			ll_address.setVisibility(View.VISIBLE);
+			ll_baseinfo.setVisibility(View.GONE);
+			ll_chpaw.setVisibility(View.GONE);
+			addressinit();
+			addressgetData();
+			
+		}
+		Log.e("get1", String.valueOf(mActivity));
+	
 
 	}
 
@@ -269,11 +296,11 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.tv_phone_xg:
 			if(tv_phone.getText().toString().trim().equals("")){
-				Intent i=new Intent(getActivity(),AlterNPhone.class);
+				Intent i=new Intent(mActivity,AlterNPhone.class);
 				i.putExtra("phone", tv_phone.getText().toString().trim());
 				startActivity(i);	
 			}else{
-				Intent i=new Intent(getActivity(),AlterPhone.class);
+				Intent i=new Intent(mActivity,AlterPhone.class);
 				i.putExtra("phone", tv_phone.getText().toString().trim());
 				startActivity(i);
 			}
@@ -281,11 +308,11 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			break;
 		case R.id.tv_email_xg:
 			if(tv_email.getText().toString().trim().equals("")){
-				Intent i1=new Intent(getActivity(),AlterNEmali.class);
+				Intent i1=new Intent(mActivity,AlterNEmali.class);
 				i1.putExtra("phone", tv_email.getText().toString().trim());
 				startActivity(i1);	
 			}else{
-				Intent i1=new Intent(getActivity(),AlterEmali.class);
+				Intent i1=new Intent(mActivity,AlterEmali.class);
 				i1.putExtra("phone", tv_email.getText().toString().trim());
 				startActivity(i1);	
 			}
@@ -333,7 +360,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			ll_baseinfo.setVisibility(View.VISIBLE);
 			ll_address.setVisibility(View.GONE);
 			ll_chpaw.setVisibility(View.GONE);
-
+			Config.is_editadress=false;
 			baseinfoinit();
 			baseinfogetData();
 			// if (m_baseinfo == null)
@@ -359,8 +386,8 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			openimg(tag);
 			break;
 		case R.id.btn_exit:
-			startActivity(new Intent(getActivity(), LoginActivity.class));
-			getActivity().finish();
+			startActivity(new Intent(mActivity, LoginActivity.class));
+			mActivity.finish();
 			break;
 		// address
 		case R.id.btn_add:
@@ -369,31 +396,31 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			break;
 		case R.id.btn_save:
 			if (login_edit_name.getText().toString().equals("")) {
-				CommonUtil.toastShort(getActivity(), "收件人不能为空");
+				CommonUtil.toastShort(mActivity, "收件人不能为空");
 				return;
 			}
 			if (mobile_phone.getText().toString().equals("")) {
-				CommonUtil.toastShort(getActivity(), "联系电话不能为空");
+				CommonUtil.toastShort(mActivity, "联系电话不能为空");
 				return;
 			}
 			if (!RegText.isMobileNO(mobile_phone.getText().toString())) {
-				CommonUtil.toastShort(getActivity(), "手机号码格式不正确");
+				CommonUtil.toastShort(mActivity, "手机号码格式不正确");
 				return;
 			}
 			if (zip_code.getText().toString().equals("")) {
-				CommonUtil.toastShort(getActivity(), "邮政编码不能为空");
+				CommonUtil.toastShort(mActivity, "邮政编码不能为空");
 				return;
 			}
 			if (!RegText.isYouBian(zip_code.getText().toString())) {
-				CommonUtil.toastShort(getActivity(), "邮政编码格式不正确");
+				CommonUtil.toastShort(mActivity, "邮政编码格式不正确");
 				return;
 			}
 			if (area.getText().toString().equals("")) {
-				CommonUtil.toastShort(getActivity(), "请选择所在地");
+				CommonUtil.toastShort(mActivity, "请选择所在地");
 				return;
 			}
 			if (detail_address.getText().toString().equals("")) {
-				CommonUtil.toastShort(getActivity(), "详细地址不能为空");
+				CommonUtil.toastShort(mActivity, "详细地址不能为空");
 				return;
 			}
 			dialog.dismiss();
@@ -406,11 +433,12 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			}
 			break;
 		case R.id.area:
-			Intent intent = new Intent(getActivity(),
+			Intent intent = new Intent(mActivity,
 					CityProvinceActivity.class);
 			// intent.putExtra(CITY_NAME, cityName);
 			// startActivityForResult(intent, REQUEST_CITY);
-			startActivityForResult(
+			Config.is_editadress=true;
+			mActivity.startActivityForResult(
 					intent,
 					com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.REQUEST_CHOOSE_CITY);
 			break;
@@ -418,7 +446,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			dialog.dismiss();
 			break;
 		case R.id.deleteadress:
-			final com.comdo.zf_agent_a_pad.util.AlertDialog ad = new com.comdo.zf_agent_a_pad.util.AlertDialog(getActivity());
+			final com.comdo.zf_agent_a_pad.util.AlertDialog ad = new com.comdo.zf_agent_a_pad.util.AlertDialog(mActivity);
 			ad.setTitle("提示");
 			ad.setMessage("确认取消?");
 			ad.setPositiveButton("取消", new OnClickListener() {
@@ -477,17 +505,17 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			@Override
 			public void onClick(View v) {
 				if(StringUtil.isNull(et_oldpaw.getText().toString())){
-					Toast.makeText(getActivity(), "原始密码不能为空", 1000).show();
+					Toast.makeText(mActivity, "原始密码不能为空", 1000).show();
 				}else if(StringUtil.isNull(et_newpaw.getText().toString())){
-					Toast.makeText(getActivity(), "新密码不能为空", 1000).show();
+					Toast.makeText(mActivity, "新密码不能为空", 1000).show();
 				}
 				if(et_newpaw.getText().toString().trim().length()<6||et_newpaw.getText().toString().trim().length()>20){
-					Toast.makeText(getActivity(), "密码为6-20位！", 1000).show();
+					Toast.makeText(mActivity, "密码为6-20位！", 1000).show();
 				}
 				else if(StringUtil.isNull(et_confirmpaw.getText().toString())){
-					Toast.makeText(getActivity(), "确认密码不能为空", 1000).show();
+					Toast.makeText(mActivity, "确认密码不能为空", 1000).show();
 				}else if(!et_newpaw.getText().toString().equals(et_confirmpaw.getText().toString())){
-					Toast.makeText(getActivity(), "两次密码不一致!", 1000).show();
+					Toast.makeText(mActivity, "两次密码不一致!", 1000).show();
 				}else{
 					changepaw();
 				}
@@ -501,7 +529,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 
 	private void addressinit() {
 		dataadress = new ArrayList<AddressManager>();
-		addressadapter = new AddressManagerAdapter(dataadress, getActivity()
+		addressadapter = new AddressManagerAdapter(dataadress, mActivity
 				.getBaseContext());
 		list = (ListView) view.findViewById(R.id.list);
 		btn_add = (Button) view.findViewById(R.id.btn_add);
@@ -509,14 +537,14 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	}
 
 	private void baseinfogetData() {
-		Config.GetInfo(getActivity(), customerId,
-				new HttpCallback<BaseInfoEntity>(getActivity()) {
+		Config.GetInfo(mActivity, customerId,
+				new HttpCallback<BaseInfoEntity>(mActivity) {
 
 					@Override
 					public void onSuccess(BaseInfoEntity data) {
 						// myHandler.sendEmptyMessage(0);
 						if (data == null) {
-							CommonUtil.toastShort(getActivity(), "未获得数据");
+							CommonUtil.toastShort(mActivity, "未获得数据");
 							return;
 						}
 						if (data.getTypes().equals("1")) {
@@ -565,18 +593,18 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	}
 
 	private void addressgetData() {
-		if (!Tools.isConnect(getActivity())) {
-			CommonUtil.toastShort(getActivity(), "网络异常");
+		if (!Tools.isConnect(mActivity)) {
+			CommonUtil.toastShort(mActivity, "网络异常");
 			return;
 		}
-		Config.GetAdressLis(getActivity(), id,
-				new HttpCallback<List<AddressManager>>(getActivity()) {
+		Config.GetAdressLis(mActivity, id,
+				new HttpCallback<List<AddressManager>>(mActivity) {
 
 					@Override
 					public void onSuccess(List<AddressManager> data) {
 
 						if (dataadress.size() != 0 && data.size() == 0) {
-							Toast.makeText(getActivity(), "没有更多数据!", 1000)
+							Toast.makeText(mActivity, "没有更多数据!", 1000)
 									.show();
 						} else {
 							dataadress.addAll(data);
@@ -596,7 +624,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 						if (dataadress.size() != 0) {
 							myHandler.sendEmptyMessage(0);
 						}
-
+					
 					}
 
 					@Override
@@ -609,14 +637,14 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	}
 
 	protected void changepaw() {
-		Config.changePaw(getActivity(), customerId,
+		Config.changePaw(mActivity, customerId,
 				StringUtil.Md5(et_oldpaw.getText().toString()),
 				StringUtil.Md5(et_newpaw.getText().toString()),
-				new HttpCallback(getActivity()) {
+				new HttpCallback(mActivity) {
 
 					@Override
 					public void onSuccess(Object data) {
-						CommonUtil.toastShort(getActivity(), "密码修改成功");
+						CommonUtil.toastShort(mActivity, "密码修改成功");
 						et_oldpaw.setText("");
 						et_newpaw.setText("");
 						et_confirmpaw.setText("");
@@ -651,11 +679,10 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 //		}
 //		return a;
 //	}
-
 	private void openimg(int tag) {
 
-		AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
-		LayoutInflater factory = LayoutInflater.from(getActivity());
+		AlertDialog.Builder build = new AlertDialog.Builder(mActivity);
+		LayoutInflater factory = LayoutInflater.from(mActivity);
 		final View textEntryView = factory.inflate(R.layout.img, null);
 		// build.setTitle("自定义输入框");
 		build.setView(textEntryView);
@@ -663,7 +690,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 				.findViewById(R.id.imag);
 		int ppp = tag - 1;
 		if (imgPath[ppp].equals("http://121.40.84.2:8888/")) {
-			CommonUtil.toastShort(getActivity(), "个人信息不完善，未上传照片");
+			CommonUtil.toastShort(mActivity, "个人信息不完善，未上传照片");
 			return;
 		}
 		ImageCacheUtil.IMAGE_CACHE.get(imgPath[ppp], view);
@@ -674,6 +701,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	}
 
 	private void changeAddress() {
+		cityId = Config.city.getId();
 		Config.changeAdres(mActivity, idd[AddressManagerAdapter.pp], String
 				.valueOf(cityId), login_edit_name.getText().toString(),
 				mobile_phone.getText().toString(), zip_code.getText()
@@ -688,7 +716,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 							dataadress.clear();
 						}
 						addressgetData();
-
+					
 					}
 
 					@Override
@@ -715,6 +743,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 					public void onSuccess(Object data) {
 						CommonUtil.toastShort(mActivity, "添加地址成功");
 						myHandler.sendEmptyMessage(1);
+					
 					}
 
 					@Override
@@ -726,9 +755,9 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	}
 
 	private void opendialog() {
-		builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater factory = LayoutInflater.from(getActivity());
-		final View textEntryView = factory.inflate(R.layout.addaddress, null);
+		builder = new AlertDialog.Builder(mActivity);
+		LayoutInflater factory = LayoutInflater.from(mActivity);
+		 final View textEntryView = factory.inflate(R.layout.addaddress, null);
 		// builder.setTitle("自定义输入框");
 		builder.setView(textEntryView);
 		login_edit_name = (EditText) textEntryView
@@ -762,7 +791,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			detail_address.setText(dataadress.get(AddressManagerAdapter.pp)
 					.getAddress());
 			area.setText(dataadress.get(AddressManagerAdapter.pp).getCity());
-			cityId = dataadress.get(AddressManagerAdapter.pp).getCityId();
+			//cityId = dataadress.get(AddressManagerAdapter.pp).getCityId();
 			if (dataadress.get(AddressManagerAdapter.pp).getIsDefault()
 					.equals("默认")) {
 				cb.setBackgroundResource(R.drawable.cb_y);
@@ -792,12 +821,12 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 	}
 
 	protected void delect() {
-		Config.delectAddress(getActivity(), idd[AddressManagerAdapter.pp],
-				new HttpCallback(getActivity()) {
+		Config.delectAddress(mActivity, idd[AddressManagerAdapter.pp],
+				new HttpCallback(mActivity) {
 
 					@Override
 					public void onSuccess(Object data) {
-						CommonUtil.toastShort(getActivity(), "删除地址成功");
+						CommonUtil.toastShort(mActivity, "删除地址成功");
 						if (dataadress.size() != 0) {
 							dataadress.clear();
 						}
@@ -822,7 +851,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 			if (CityProvinceActivity.isClickconfirm) {
 				City mMerchantCity = (City) data
 						.getSerializableExtra(com.comdo.zf_agent_a_pad.fragment.Constants.CityIntent.SELECTED_CITY);
-				cityId = mMerchantCity.getId();
+				//cityId = mMerchantCity.getId();
 				area.setText(mMerchantCity.getName());
 				Log.e("1", area.getText().toString());
 				CityProvinceActivity.isClickconfirm = false;
@@ -848,16 +877,20 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		super.onAttach(activity);
 		mActivity = activity;
 	}
-
+@Override
+public void onDestroy() {
+	super.onDestroy();
+}
 	@Override
 	public void onDestroyView() {
+		
 		try {
 			/*
 			 * if (view != null) { ViewGroup parent = (ViewGroup)
 			 * view.getParent(); if (parent != null)
 			 * parent.removeAllViewsInLayout(); }
 			 */
-			mRecordType = 0;
+			/*mRecordType = 0;
 			FragmentTransaction transaction = getActivity()
 					.getSupportFragmentManager().beginTransaction();
 			// getChildFragmentManager().beginTransaction();
@@ -867,11 +900,13 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 				transaction.remove(m_chpaw);
 			if (m_adress != null)
 				transaction.remove(m_adress);
-			transaction.commit();
+			transaction.commit();*/
 		} catch (Exception e) {
 		}
 		super.onDestroyView();
 	}
+	 
+	
 	
 }
 

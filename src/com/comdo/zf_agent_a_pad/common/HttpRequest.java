@@ -12,7 +12,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;

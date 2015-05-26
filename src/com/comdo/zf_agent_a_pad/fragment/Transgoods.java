@@ -37,14 +37,16 @@ import com.comdo.zf_agent_a_pad.entity.AgentEntity;
 import com.comdo.zf_agent_a_pad.entity.TransgoodsEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
+import com.comdo.zf_agent_a_pad.util.MyToast;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class Transgoods extends Fragment implements OnClickListener,
-		IXListViewListener {
+IXListViewListener {
 	private View view;
 	private List<TransgoodsEntity> datatrans;
 	private BaseAdapter transAdapter;
@@ -98,6 +100,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 			view = inflater.inflate(R.layout.transgoods, container, false);
 			init();
 			getAgentList();
+		
 		} catch (InflateException e) {
 
 		}
@@ -132,24 +135,24 @@ public class Transgoods extends Fragment implements OnClickListener,
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					mySpinner.setAdapter(adapter);
 					mySpinner
-							.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+					.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
-								@Override
-								public void onItemSelected(
-										AdapterView<?> parent, View view,
-										int position, long id) {
-									// tv_agent.setText(adapter.getItem(position));
-									mySpinner.setSelection(position);
-									cc = position;
-								}
+						@Override
+						public void onItemSelected(
+								AdapterView<?> parent, View view,
+								int position, long id) {
+							// tv_agent.setText(adapter.getItem(position));
+							mySpinner.setSelection(position);
+							cc = position;
+						}
 
-								@Override
-								public void onNothingSelected(
-										AdapterView<?> parent) {
+						@Override
+						public void onNothingSelected(
+								AdapterView<?> parent) {
 
-								}
+						}
 
-							});
+					});
 					break;
 				case 2:
 					onLoad();
@@ -180,12 +183,14 @@ public class Transgoods extends Fragment implements OnClickListener,
 		}
 		if (TerminalSelectActivity.isTerconfirm == true) {
 			TerminalSelectActivity.isTerconfirm = false;
-			
+			opendialog();
 			mTerminalNum = TerminalSelectActivity.mTerminalNum;
 			mTerminalArray = TerminalSelectActivity.mTerminalArray;
-			tv_choose_terminal.setText(mTerminalArray);
 			paychannelId = TerminalSelectActivity.paychannelId;
 			goodId = TerminalSelectActivity.goodId;
+			if (!StringUtil.isNull(mTerminalArray)) {
+				tv_choose_terminal.setText(mTerminalArray);
+			}
 		}
 	}
 
@@ -196,9 +201,13 @@ public class Transgoods extends Fragment implements OnClickListener,
 
 	}
 	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
+	@Override
 	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		mActivity = activity;
+		super.onAttach(getActivity());
+		mActivity = getActivity();
 	}
 	private void getAgentList() {
 		if (datt.size() != 0) {
@@ -210,24 +219,24 @@ public class Transgoods extends Fragment implements OnClickListener,
 		Config.getlowerAgentList(mActivity, agent,
 				new HttpCallback<List<AgentEntity>>(mActivity) {
 
-					@Override
-					public void onSuccess(List<AgentEntity> data) {
-						datt.addAll(data);
-						sonAgentId = new int[data.size()];
-						myHandler.sendEmptyMessage(1);
-					}
+			@Override
+			public void onSuccess(List<AgentEntity> data) {
+				datt.addAll(data);
+				sonAgentId = new int[data.size()];
+				myHandler.sendEmptyMessage(1);
+			}
 
-					@Override
-					public void onFailure(String message) {
-						super.onFailure(message);
-					}
+			@Override
+			public void onFailure(String message) {
+				super.onFailure(message);
+			}
 
-					@Override
-					public TypeToken<List<AgentEntity>> getTypeToken() {
-						return new TypeToken<List<AgentEntity>>() {
-						};
-					}
-				});
+			@Override
+			public TypeToken<List<AgentEntity>> getTypeToken() {
+				return new TypeToken<List<AgentEntity>>() {
+				};
+			}
+		});
 
 	}
 
@@ -245,7 +254,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 
 			mTerminalNum = data.getIntExtra(TERMINAL_TOTAL, 0);
 			mTerminalArray = data.getStringExtra(TERMINAL_ARRAY);
-			tv_choose_terminal.setText(mTerminalArray);
+			//tv_choose_terminal.setText(mTerminalArray);
 			paychannelId = data.getIntExtra("paychannelId", 0);
 			goodId = data.getIntExtra("goodId", 0);
 
@@ -281,29 +290,31 @@ public class Transgoods extends Fragment implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_transferobject:
+			to = 0;
+			from = 0;
 			opendialog();
 			break;
 		case R.id.tv_time_left:
 
 			CommonUtil.showDatePicker(getActivity(), mMerchantBirthday,
 					new CommonUtil.OnDateSetListener() {
-						@Override
-						public void onDateSet(String date) {
-							tv_time_left.setText(date);
-							left_time = date;
-						}
-					});
+				@Override
+				public void onDateSet(String date) {
+					tv_time_left.setText(date);
+					left_time = date;
+				}
+			});
 
 			break;
 		case R.id.tv_time_right:
 			CommonUtil.showDatePicker(getActivity(), mMerchantBirthday,
 					new CommonUtil.OnDateSetListener() {
-						@Override
-						public void onDateSet(String date) {
-							tv_time_right.setText(date);
-							right_time = date;
-						}
-					});
+				@Override
+				public void onDateSet(String date) {
+					tv_time_right.setText(date);
+					right_time = date;
+				}
+			});
 			break;
 		case R.id.btn_quary:
 			if (tv_time_left.getText().equals("开始日期")
@@ -318,6 +329,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 
 			break;
 		case R.id.tv_choose_terminal:
+			dialog.dismiss();
 			TerminalSelectActivity.isFromTrans = true;
 			Intent intent = new Intent(mActivity,
 					TerminalSelectActivity.class);
@@ -325,14 +337,21 @@ public class Transgoods extends Fragment implements OnClickListener,
 			intent.putExtra("sonAgentId", sonAgentId[from]);
 			intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
 			intent.putExtra(TERMINAL_ARRAY, mTerminalArray);
+
 			mActivity.startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 			break;
 		case R.id.btn_confirm:
-			dialog.dismiss();
+
 			if (tv_choose_terminal.getText().toString().equals("")) {
-				return;
+				MyToast.showToast(mActivity, "请选择终端号");
+			}else {
+				if (from == to){ 
+					MyToast.showToast(mActivity, "请选择不同的代理商进行调货");
+				}else{ 
+					trans();
+					dialog.dismiss();
+				}
 			}
-			trans();
 			break;
 		case R.id.close:
 			dialog.dismiss();
@@ -348,17 +367,17 @@ public class Transgoods extends Fragment implements OnClickListener,
 		Config.transGoods(mActivity, sonAgentId[to], sonAgentId[from], id,
 				serialNums, new HttpCallback(mActivity) {
 
-					@Override
-					public void onSuccess(Object data) {
-						CommonUtil.toastShort(mActivity, "调货成功");
-						myHandler.sendEmptyMessage(3);
-					}
+			@Override
+			public void onSuccess(Object data) {
+				CommonUtil.toastShort(mActivity, "调货成功");
+				myHandler.sendEmptyMessage(3);
+			}
 
-					@Override
-					public TypeToken getTypeToken() {
-						return null;
-					}
-				});
+			@Override
+			public TypeToken getTypeToken() {
+				return null;
+			}
+		});
 
 	}
 
@@ -373,36 +392,36 @@ public class Transgoods extends Fragment implements OnClickListener,
 				right_time, page, rows,
 				new HttpCallback<Page<TransgoodsEntity>>(mActivity) {
 
-					@Override
-					public void onSuccess(Page<TransgoodsEntity> data) {
-						TransgoodsDetail.isTra = false;
-						isLoadMore = false;
-						/*
-						 * if(isrefersh){ page=a; rows=Config.ROWS;
-						 * isrefersh=false; }
-						 */
-						if (datatrans.size() != 0 && data.getList().size() == 0) {
-							Toast.makeText(mActivity, "没有更多数据!", 1000)
-									.show();
-							xxlistview.setPullLoadEnable(false);
-						} else {
-							idd = new int[data.getList().size()];
-							if (datatrans.size() == 0) {
-								datatrans.addAll(data.getList());
-							}
-
-						}
-						isrefersh = false;
-						myHandler.sendEmptyMessage(2);
-
+			@Override
+			public void onSuccess(Page<TransgoodsEntity> data) {
+				TransgoodsDetail.isTra = false;
+				isLoadMore = false;
+				/*
+				 * if(isrefersh){ page=a; rows=Config.ROWS;
+				 * isrefersh=false; }
+				 */
+				if (datatrans.size() != 0 && data.getList().size() == 0) {
+					Toast.makeText(mActivity, "没有更多数据!", 1000)
+					.show();
+					xxlistview.setPullLoadEnable(false);
+				} else {
+					idd = new int[data.getList().size()];
+					if (datatrans.size() == 0) {
+						datatrans.addAll(data.getList());
 					}
 
-					@Override
-					public TypeToken<Page<TransgoodsEntity>> getTypeToken() {
-						return new TypeToken<Page<TransgoodsEntity>>() {
-						};
-					}
-				});
+				}
+				isrefersh = false;
+				myHandler.sendEmptyMessage(2);
+
+			}
+
+			@Override
+			public TypeToken<Page<TransgoodsEntity>> getTypeToken() {
+				return new TypeToken<Page<TransgoodsEntity>>() {
+				};
+			}
+		});
 		/*
 		 * Config.getDistributeList(mActivity, 1, sonAgentId[cc], left_time,
 		 * right_time, page, rows, new
@@ -423,7 +442,7 @@ public class Transgoods extends Fragment implements OnClickListener,
 	private void opendialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 		LayoutInflater factory = LayoutInflater.from(mActivity);
-		final View textEntryView = factory.inflate(
+		View textEntryView = factory.inflate(
 				R.layout.transferobjectdialog, null);
 		// builder.setTitle("自定义输入框");
 		builder.setView(textEntryView);
@@ -444,40 +463,44 @@ public class Transgoods extends Fragment implements OnClickListener,
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		my_diaSpinner_from.setAdapter(adapter);
 		my_diaSpinner_to.setAdapter(adapter);
+		
+		my_diaSpinner_from.setSelection(from,true);
+		my_diaSpinner_to.setSelection(to,true);
+		
 		my_diaSpinner_from
-				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+		.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
-					@Override
-					public void onItemSelected(AdapterView<?> parent,
-							View view, int position, long id) {
-						// tv_agent.setText(adapter.getItem(position));
-						my_diaSpinner_from.setSelection(position);
-						from = position;
-					}
+			@Override
+			public void onItemSelected(AdapterView<?> parent,
+					View view, int position, long id) {
+				// tv_agent.setText(adapter.getItem(position));
+				my_diaSpinner_from.setSelection(position);
+				from = position;
+			}
 
-					@Override
-					public void onNothingSelected(AdapterView<?> parent) {
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
 
-					}
+			}
 
-				});
+		});
 		my_diaSpinner_to
-				.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+		.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
-					@Override
-					public void onItemSelected(AdapterView<?> parent,
-							View view, int position, long id) {
-						// tv_agent.setText(adapter.getItem(position));
-						my_diaSpinner_to.setSelection(position);
-						to = position;
-					}
+			@Override
+			public void onItemSelected(AdapterView<?> parent,
+					View view, int position, long id) {
+				// tv_agent.setText(adapter.getItem(position));
+				my_diaSpinner_to.setSelection(position);
+				to = position;
+			}
 
-					@Override
-					public void onNothingSelected(AdapterView<?> parent) {
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
 
-					}
+			}
 
-				});
+		});
 		dialog = builder.create();
 		dialog.show();
 	}

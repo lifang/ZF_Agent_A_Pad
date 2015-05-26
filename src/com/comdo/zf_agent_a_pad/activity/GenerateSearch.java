@@ -31,7 +31,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 ;
 

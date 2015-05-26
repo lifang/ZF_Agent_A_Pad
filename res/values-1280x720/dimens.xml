@@ -78,4 +78,5 @@
 
 <dimen name="guidebtnwidth">150dp</dimen>
 	<dimen name="guidebtnheight">42dp</dimen>
+	 <dimen name="normal_height4">200dp</dimen>
 </resources>

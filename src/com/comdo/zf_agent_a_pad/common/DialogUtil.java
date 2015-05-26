@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class DialogUtil {
 

@@ -22,7 +22,7 @@ import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -237,7 +237,7 @@ public class Mwdxx extends Fragment implements OnClickListener,
 		}else{
 			final AlertDialog ad = new AlertDialog(getActivity());
 			ad.setTitle("提示");
-			ad.setMessage("确认取消?");
+			ad.setMessage("确认删除?");
 			ad.setPositiveButton("取消", new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
@@ -290,7 +290,6 @@ public class Mwdxx extends Fragment implements OnClickListener,
 	public void onLoadMore() {
 		if (onRefresh_number) {
 			page = page + 1;
-
 			onRefresh_number = false;
 			getData(0);
 			// if (Tools.isConnect(getApplicationContext())) {
@@ -305,9 +304,6 @@ public class Mwdxx extends Fragment implements OnClickListener,
 		}
 	}
 
-	/*
-	 * ��������
-	 */
 	private void getData(final int type) {
 		RequestParams params = new RequestParams();
 		Gson gson = new Gson();
@@ -429,7 +425,7 @@ public class Mwdxx extends Fragment implements OnClickListener,
 	
 	@Override
 	public void onPause() {
-		// TODO Auto-generated method stub
+	
 		super.onPause();
 		MobclickAgent.onPageEnd(this.toString());
 	}

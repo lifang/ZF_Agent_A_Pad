@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.comdo.zf_agent_a_pad.entity.PosEntity;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 public class GridviewAdapter extends BaseAdapter {
 	private Context context;

@@ -55,7 +55,7 @@ import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -470,7 +470,9 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			buyCountEdit.setText(quantity + "");
 			break;
 		case R.id.bt_addadress:
-			startActivity(new Intent(LeaseConfirm.this, AddAdress.class));
+			Intent i=new Intent(LeaseConfirm.this, AddAdress.class);
+			i.putExtra("userid", userid);
+			startActivityForResult(i,0);
 
 			break;
 		default:
@@ -532,6 +534,11 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			return;
 
 		switch (requestCode) {
+		case 0:
+			myList.clear();
+			addressId=-1;
+			getData1();		
+			break;
 		case REQUEST_CREATE_USER: {
 
 			userInfo = (User_Info) data.getSerializableExtra(SELECTED_USER);

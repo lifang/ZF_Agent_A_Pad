@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.comdo.zf_agent_a_pad.entity.AgentManager;
 import com.comdo.zf_agent_a_pad.fragment.Agentmanager;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 
 import android.content.Context;
 import android.os.Message;

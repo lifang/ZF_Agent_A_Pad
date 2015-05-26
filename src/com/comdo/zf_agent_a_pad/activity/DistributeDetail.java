@@ -19,7 +19,7 @@ import com.comdo.zf_agent_a_pad.entity.TerminalEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class DistributeDetail extends BaseActivity {

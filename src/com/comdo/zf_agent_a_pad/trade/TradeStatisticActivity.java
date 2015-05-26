@@ -15,7 +15,7 @@ import com.comdo.zf_agent_a_pad.trade.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.TradeStatistic;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 public class TradeStatisticActivity extends BaseActivity {

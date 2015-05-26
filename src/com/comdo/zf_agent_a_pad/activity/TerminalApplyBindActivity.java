@@ -34,7 +34,7 @@ import com.comdo.zf_agent_a_pad.entity.UserInfo;
 import com.comdo.zf_agent_a_pad.entity.User_Info;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_USER;
 

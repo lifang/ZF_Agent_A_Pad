@@ -8,7 +8,7 @@ import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
@@ -37,11 +37,13 @@ public class AddAdress extends BaseActivity implements OnClickListener{
 	private AlertDialog dialog;
 	private Button bt_addadress;
 	private int cityId;
+	private int userid;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.maddaddress);
+		userid = getIntent().getIntExtra("userid", 0);
 		initView();
 	}
 
@@ -109,11 +111,12 @@ public class AddAdress extends BaseActivity implements OnClickListener{
 		Config.AddAdress(AddAdress.this, String.valueOf(cityId), login_edit_name.getText().toString(), 
 				mobile_phone.getText().toString(), 
 				zip_code.getText().toString(), 
-				detail_address.getText().toString(), isDefault, MyApplication.NewUser.getId(), new HttpCallback(AddAdress.this) {
+				detail_address.getText().toString(), isDefault, userid, new HttpCallback(AddAdress.this) {
 
 					@Override
 					public void onSuccess(Object data) {
 						CommonUtil.toastShort(AddAdress.this, "添加地址成功");
+						setResult(RESULT_OK);
 						AddAdress.this.finish();
 					}
 

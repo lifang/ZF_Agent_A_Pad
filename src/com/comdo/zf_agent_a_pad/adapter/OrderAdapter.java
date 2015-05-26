@@ -40,7 +40,7 @@ import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.PayAlertDialog;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -398,12 +398,17 @@ public class OrderAdapter extends BaseAdapter{
 				try {
 					i.putExtra("id", Integer.parseInt(list.get(index).getOrder_id()));
 				} catch (Exception e) {
-					
+					i.putExtra("id", Integer.parseInt(list.get(index).getOrder_id()));
 				}
 				
 				/*if(list.get(index).getOrder_goodsList().get(0).getGood_id().equals("")){
 					i.putExtra("goodid", list.get(index).getOrder_goodsList().get(0).getGood_id());
 				}*/	
+				if(OrderList.type.equals("")){
+					
+				}else{
+					
+				}
 				i.putExtra("type",Integer.parseInt(OrderList.type));
 				context.startActivity(i);
 			}

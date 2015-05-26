@@ -7,7 +7,7 @@ import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
-import com.example.zf_agent_a_pad.R;
+import com.epalmpay.agentPad.R;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
@@ -165,15 +165,20 @@ public class AlterPhone extends Activity implements OnClickListener {
 			break;
 		case R.id.ll_next:
 			if (check())
-				if (ed_code.getText().toString().trim()
-						.equals(ape.getDentcode())) {
-					img_check1.setVisibility(View.VISIBLE);
-					img_check_n1.setVisibility(View.GONE);
-					flag = true;
-				} else {
-					img_check1.setVisibility(View.GONE);
-					img_check_n1.setVisibility(View.VISIBLE);
-					flag = false;
+				if(ape==null){
+					
+				}else {
+					if (ed_code.getText().toString().trim()
+							.equals(ape.getDentcode())) {
+						img_check1.setVisibility(View.VISIBLE);
+						img_check_n1.setVisibility(View.GONE);
+						flag = true;
+					} else {
+						img_check1.setVisibility(View.GONE);
+						img_check_n1.setVisibility(View.VISIBLE);
+						flag = false;
+				}
+				
 				}
 			if (check() && flag) {
 				AlterPhone.this.finish();

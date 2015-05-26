@@ -1,13 +1,5 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
-import java.lang.reflect.Field;
-
-import com.comdo.zf_agent_a_pad.activity.LoginActivity;
-import com.comdo.zf_agent_a_pad.common.CommonUtil;
-import com.comdo.zf_agent_a_pad.util.CheckRights;
-import com.example.zf_agent_a_pad.R;
-import com.umeng.analytics.MobclickAgent;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,9 +11,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.comdo.zf_agent_a_pad.activity.LoginActivity;
+import com.comdo.zf_agent_a_pad.common.CommonUtil;
+import com.comdo.zf_agent_a_pad.util.CheckRights;
+import com.comdo.zf_agent_a_pad.util.Config;
+import com.epalmpay.agentPad.R;
+import com.umeng.analytics.MobclickAgent;
 
 public class Mmy extends Fragment implements OnClickListener {
 	private View view;
@@ -35,7 +33,11 @@ public class Mmy extends Fragment implements OnClickListener {
 	private Transgoods f_transgood;
 	private Staffmanagr f_staffmanagr;
 	private ImageView im1, im2, im3, im4, im5, im6;
-	private int type;
+	private int type=1;
+	private ImageView im7;
+	private RelativeLayout ll_safe;
+	private TextView tv_safe;
+	private MineSafe f_safe;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -140,12 +142,13 @@ public class Mmy extends Fragment implements OnClickListener {
 	}
 
 	private void changeTap() {
+		
 		switch (type) {
 		case 1:
 			setback();
 			im1.setVisibility(View.VISIBLE);
 			tv_myinfo.setTextColor(getResources().getColor(R.color.bgtitle));
-			// if (f_info == null)
+			 //if (f_info == null)
 			f_info = new MineMyinfo();
 			/*
 			 * else{ Fragment p = f_info.getParentFragment(); if(p!=null){
@@ -223,6 +226,7 @@ public class Mmy extends Fragment implements OnClickListener {
 		im4 = (ImageView) view.findViewById(R.id.im4);
 		im5 = (ImageView) view.findViewById(R.id.im5);
 		im6 = (ImageView) view.findViewById(R.id.im6);
+		im7 = (ImageView) view.findViewById(R.id.im7);
 		tv_myinfo = (TextView) view.findViewById(R.id.tv_myinfo);
 		tv_manager_shopper = (TextView) view
 				.findViewById(R.id.tv_manager_shopper);
@@ -230,6 +234,7 @@ public class Mmy extends Fragment implements OnClickListener {
 		tv_transgoods = (TextView) view.findViewById(R.id.tv_transgoods);
 		tv_staffmanagr = (TextView) view.findViewById(R.id.tv_staffmanagr);
 		tv_exit = (TextView) view.findViewById(R.id.tv_exit);
+		tv_safe = (TextView) view.findViewById(R.id.tv_safe);
 
 		ll_dd = (RelativeLayout) view.findViewById(R.id.ll_dd);
 		ll_shjl = (RelativeLayout) view.findViewById(R.id.ll_shjl);
@@ -237,6 +242,7 @@ public class Mmy extends Fragment implements OnClickListener {
 		ll_mysh = (RelativeLayout) view.findViewById(R.id.ll_mysh);
 		ll_plan = (RelativeLayout) view.findViewById(R.id.ll_plan);
 		ll_exit = (RelativeLayout) view.findViewById(R.id.ll_exit);
+		ll_safe = (RelativeLayout) view.findViewById(R.id.ll_safe);
 
 		tv_myinfo.setOnClickListener(this);
 		tv_manager_shopper.setOnClickListener(this);
@@ -250,6 +256,8 @@ public class Mmy extends Fragment implements OnClickListener {
 		ll_mysh.setOnClickListener(this);
 		ll_plan.setOnClickListener(this);
 		ll_exit.setOnClickListener(this);
+		tv_safe.setOnClickListener(this);
+		ll_safe.setOnClickListener(this);
 	}
 
 	@Override
@@ -261,6 +269,7 @@ public class Mmy extends Fragment implements OnClickListener {
 					&& !CheckRights.RIGHT_8) {
 				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
 			} else {
+				Config.issafe=false;
 				type = 1;
 				setback();
 				im1.setVisibility(View.VISIBLE);
@@ -272,6 +281,25 @@ public class Mmy extends Fragment implements OnClickListener {
 				// getChildFragmentManager().beginTransaction()
 				getActivity().getSupportFragmentManager().beginTransaction()
 						.replace(R.id.f_mine, f_info).commit();
+			}
+			break;
+		case R.id.ll_safe:
+	
+			if (!CheckRights.IS_YIJI && !CheckRights.IS_ERJI
+					&& !CheckRights.RIGHT_8) {
+				CommonUtil.toastShort(getActivity(), R.string.right_not_match);
+			} else {
+				Config.issafe=true;
+				type = 1;
+				setback();
+				im7.setVisibility(View.VISIBLE);
+				tv_safe
+						.setTextColor(getResources().getColor(R.color.bgtitle));
+				f_safe = new MineSafe();
+
+				// getChildFragmentManager().beginTransaction()
+				getActivity().getSupportFragmentManager().beginTransaction()
+						.replace(R.id.f_mine, f_safe).commit();
 			}
 			break;
 		case R.id.tv_manager_shopper:
@@ -358,17 +386,19 @@ public class Mmy extends Fragment implements OnClickListener {
 		im4.setVisibility(View.GONE);
 		im5.setVisibility(View.GONE);
 		im6.setVisibility(View.GONE);
+		im7.setVisibility(View.GONE);
 		tv_myinfo.setTextColor(getResources().getColor(R.color.white));
 		tv_manager_shopper.setTextColor(getResources().getColor(R.color.white));
 		tv_distribute.setTextColor(getResources().getColor(R.color.white));
 		tv_transgoods.setTextColor(getResources().getColor(R.color.white));
 		tv_staffmanagr.setTextColor(getResources().getColor(R.color.white));
 		tv_exit.setTextColor(getResources().getColor(R.color.white));
-
+		tv_safe.setTextColor(getResources().getColor(R.color.white));
 	}
 
 	@Override
 	public void onDestroyView() {
+	
 		try {
 			FragmentTransaction transaction = getActivity()
 					.getSupportFragmentManager().beginTransaction()
@@ -385,7 +415,8 @@ public class Mmy extends Fragment implements OnClickListener {
 				transaction.remove(f_transgood);
 			if (f_staffmanagr != null)
 				transaction.remove(f_staffmanagr);
-
+			if (f_safe != null)
+				transaction.remove(f_safe);
 			transaction.commit();
 		} catch (Exception e) {
 		}
@@ -410,8 +441,12 @@ public class Mmy extends Fragment implements OnClickListener {
 
 	@Override
 	public void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		MobclickAgent.onPageEnd(this.toString());
+	}
+	@Override
+	public void onDestroy() {
+		Config.is_editadress=false;
+		super.onDestroy();
 	}
 }

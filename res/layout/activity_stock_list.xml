@@ -97,6 +97,7 @@
         android:id="@+id/mListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
         android:scrollbars="none" />

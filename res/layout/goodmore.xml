@@ -294,6 +294,11 @@
                     android:orientation="vertical"
                     android:paddingRight="@dimen/sp_width" >
 
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/Viewc2" />
+
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -322,8 +327,12 @@
                         android:layout_width="fill_parent"
                         android:layout_height="25dp"
                         android:layout_marginTop="3dp"
-                        android:background="@drawable/ca_vg"
                         android:orientation="horizontal" >
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="fill_parent"
+                            android:background="@color/Viewc2" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -331,6 +340,11 @@
                             android:layout_weight="1"
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
+
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
 
                             <TextView
                                 android:layout_width="fill_parent"
@@ -352,6 +366,11 @@
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
 
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
+
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="20dp"
@@ -372,6 +391,11 @@
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
 
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
+
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="20dp"
@@ -379,7 +403,17 @@
                                 android:text="说明"
                                 android:textColor="@color/text292929" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="fill_parent"
+                            android:background="@color/Viewc2" />
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/Viewc2" />
 
                     <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
                         android:id="@+id/pos_lv1"
@@ -424,8 +458,12 @@
                         android:layout_width="fill_parent"
                         android:layout_height="25dp"
                         android:layout_marginTop="3dp"
-                        android:background="@drawable/ca_vg"
                         android:orientation="horizontal" >
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="fill_parent"
+                            android:background="@color/Viewc2" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -433,6 +471,11 @@
                             android:layout_weight="1"
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
+
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
 
                             <TextView
                                 android:layout_width="fill_parent"
@@ -454,6 +497,11 @@
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
 
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
+
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="20dp"
@@ -474,6 +522,11 @@
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
 
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
+
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="20dp"
@@ -481,7 +534,17 @@
                                 android:text="说明"
                                 android:textColor="@color/text292929" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="fill_parent"
+                            android:background="@color/Viewc2" />
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/Viewc2" />
 
                     <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
                         android:id="@+id/pos_lv2"
@@ -533,8 +596,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="25dp"
                         android:layout_marginTop="3dp"
-                        android:background="@drawable/ca_vg"
                         android:orientation="horizontal" >
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="fill_parent"
+                            android:background="@color/Viewc2"
+                            android:paddingBottom="1dp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -542,6 +610,11 @@
                             android:layout_weight="1"
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
+
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
 
                             <TextView
                                 android:layout_width="fill_parent"
@@ -563,6 +636,11 @@
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
 
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
+
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="20dp"
@@ -583,6 +661,11 @@
                             android:background="@color/F3F3F3"
                             android:orientation="vertical" >
 
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/Viewc2" />
+
                             <TextView
                                 android:layout_width="fill_parent"
                                 android:layout_height="20dp"
@@ -590,7 +673,17 @@
                                 android:text="说明"
                                 android:textColor="@color/text292929" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="fill_parent"
+                            android:background="@color/Viewc2" />
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/Viewc2" />
 
                     <com.comdo.zf_agent_a_pad.util.ScrollViewWithListView
                         android:id="@+id/pos_lv3"
@@ -653,6 +746,7 @@
                 android:layout_marginLeft="@dimen/margin_left2"
                 android:layout_marginRight="@dimen/margin_left2"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -673,6 +767,7 @@
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="7dp"
                 android:layout_marginTop="3dp"
+                android:visibility="gone"
                 android:background="@color/bgtitle" />
 
             <TextView
@@ -682,6 +777,7 @@
                 android:layout_marginLeft="@dimen/margin_left2"
                 android:layout_marginRight="@dimen/margin_left2"
                 android:ellipsize="end"
+                android:lineSpacingExtra="6dp"
                 android:textColor="@color/text292929"
                 android:textSize="@dimen/textbig" />
 
@@ -689,8 +785,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:visibility="gone"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <View
                     android:layout_width="0dp"
@@ -725,8 +821,8 @@
                 android:horizontalSpacing="20dip"
                 android:numColumns="4"
                 android:stretchMode="columnWidth"
-                android:visibility="gone"
-                android:verticalSpacing="10dip" >
+                android:verticalSpacing="10dip"
+                android:visibility="gone" >
             </com.comdo.zf_agent_a_pad.util.ScrollViewWithGView>
         </LinearLayout>
     </ScrollView>

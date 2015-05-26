@@ -32,7 +32,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="登录ID"
+            android:text="用户名"
             android:textColor="#636363"
             android:textSize="18sp" />
 
