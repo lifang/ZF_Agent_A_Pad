@@ -501,6 +501,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 				icon.setTag(imageUrls.get(i));
 				icon.setOnClickListener(onViewPhotoListener);
 				key.setText(photoOpen.getKey());
+				key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 				if (i == photoOpens.size() - 1) {
 					category.addView(column);
 					column.findViewById(R.id.terminal_open_right)
@@ -514,6 +515,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 				icon.setTag(imageUrls.get(i));
 				icon.setOnClickListener(onViewPhotoListener);
 				key.setText(photoOpen.getKey());
+				key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 				category.addView(column);
 			}
 		}
@@ -571,10 +573,12 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 		for (Map.Entry<String, String> pair : pairs.entrySet()) {
 			TextView key = createCategoryText();
 			key.setText(pair.getKey());
+			key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 			keyContainer.addView(key);
 
 			TextView value = createCategoryText();
 			value.setText(pair.getValue());
+			value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 			valueContainer.addView(value);
 		}
 		return terminalCategory;

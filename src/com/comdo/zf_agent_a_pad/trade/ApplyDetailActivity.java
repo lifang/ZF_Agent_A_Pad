@@ -63,6 +63,7 @@ import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
 import com.comdo.zf_agent_a_pad.entity.Bank;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
+import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel.Billing;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChooseItem;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
 import com.comdo.zf_agent_a_pad.trade.entity.MerchantForApply;
@@ -140,8 +141,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private TextView uploadingTextView;
 	private ImageButton uploadingImageButton;
 	private Bank mChosenBank;
-	private ApplyChannel mChosenChannel;
-	private ApplyChannel.Billing mChosenBilling;
+	private com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel mChosenChannel;
+	private com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel.Billing mChosenBilling;
 	private String mUploadKey;
 
 	private List<String> mImageUrls = new ArrayList<String>();
@@ -502,6 +503,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mChosenBilling = mChosenChannel.new Billing();
 		mChosenBilling.id = openingInfos.getBilling_cyde_id();
 		mChosenBilling.name = openingInfos.getBillingname();
+//		List<Billing> billings = new ArrayList<Billing>();
+//		billings.add(mChosenBilling);
+//		mChosenChannel.setBillings(billings);
 	}
 
 	@Override
@@ -545,7 +549,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 			mChosenBilling = (ApplyChannel.Billing) data
 					.getSerializableExtra(SELECTED_BILLING);
 			setItemValue(getString(R.string.apply_detail_channel),
-					mChosenChannel.getName());
+					mChosenChannel.getName() + mChosenBilling.name);
 			break;
 		}
 

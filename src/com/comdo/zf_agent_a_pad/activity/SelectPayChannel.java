@@ -381,5 +381,6 @@ public class SelectPayChannel extends BaseActivity {
 	protected void onResume() {
 		super.onResume();
 		loadData();
+		mAdapter.setMySelection(0);
 	};
 }

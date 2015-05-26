@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <include layout="@layout/title_back" >
@@ -9,7 +10,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:background="@color/white" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,10 +24,10 @@
 
             <LinearLayout
                 android:id="@+id/ll_tel"
-               android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -33,9 +35,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="4dp"
                     android:text="恭喜您的"
-                    android:visibility="gone"
                     android:textColor="@color/text292929"
-                    android:textSize="@dimen/textbig" />
+                    android:textSize="20sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -51,7 +53,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="您的密码已更新!"
                         android:textColor="@color/text292929"
-                        android:textSize="@dimen/textbig" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/tv_tel"
@@ -59,37 +61,37 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="13500001111"
-                        android:visibility="gone"
                         android:textColor="@color/bgtitle"
-                        android:textSize="@dimen/textbig" />
+                        android:textSize="20sp"
+                        android:visibility="gone" />
                 </LinearLayout>
+
                 <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="3dp"
-                android:text="已经注册成功"
-                android:visibility="gone"
-                android:textColor="@color/text292929"
-                android:textSize="@dimen/textbig" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text="已经注册成功"
+                    android:textColor="@color/text292929"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
             </LinearLayout>
-  <LinearLayout
+
+            <LinearLayout
                 android:id="@+id/ll_mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" 
-               android:visibility="gone"
-              >
-<TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="3dp"
-                android:text="重置密码邮件"
-             
-                android:textColor="@color/text292929"
-                android:textSize="@dimen/textbig" />
-                
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="3dp"
+                    android:text="重置密码邮件"
+                    android:textColor="@color/text292929"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -105,7 +107,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="已发送至"
                         android:textColor="@color/text292929"
-                        android:textSize="@dimen/textbig" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/tv_mail"
@@ -114,17 +116,18 @@
                         android:layout_gravity="center_horizontal"
                         android:text="13500001111"
                         android:textColor="@color/bgtitle"
-                        android:textSize="@dimen/textbig" />
-                    
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="请注意查收"
-                        android:textColor="@color/text292929"
-                        android:textSize="@dimen/textbig" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="请注意查收"
+                    android:textColor="@color/text292929"
+                    android:textSize="20sp" />
             </LinearLayout>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
@@ -134,7 +137,7 @@
             <LinearLayout
                 android:id="@+id/login_linear_signin"
                 android:layout_width="@dimen/zc_land_w"
-                android:layout_height="@dimen/sp_height"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/sp_height"
                 android:background="@drawable/bg_blue_shape"
@@ -142,11 +145,14 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="马上登录"
+                    android:gravity="center"
                     android:textColor="@color/fffefe"
-                    android:textSize="@dimen/textmid" />
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
