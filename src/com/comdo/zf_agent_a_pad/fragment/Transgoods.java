@@ -38,6 +38,7 @@ import com.comdo.zf_agent_a_pad.entity.TransgoodsEntity;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.MyToast;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
 import com.comdo.zf_agent_a_pad.util.XListView;
 import com.comdo.zf_agent_a_pad.util.XListView.IXListViewListener;
@@ -99,6 +100,7 @@ IXListViewListener {
 			view = inflater.inflate(R.layout.transgoods, container, false);
 			init();
 			getAgentList();
+		
 		} catch (InflateException e) {
 
 		}
@@ -181,12 +183,14 @@ IXListViewListener {
 		}
 		if (TerminalSelectActivity.isTerconfirm == true) {
 			TerminalSelectActivity.isTerconfirm = false;
-
+			opendialog();
 			mTerminalNum = TerminalSelectActivity.mTerminalNum;
 			mTerminalArray = TerminalSelectActivity.mTerminalArray;
-			tv_choose_terminal.setText(mTerminalArray);
 			paychannelId = TerminalSelectActivity.paychannelId;
 			goodId = TerminalSelectActivity.goodId;
+			if (!StringUtil.isNull(mTerminalArray)) {
+				tv_choose_terminal.setText(mTerminalArray);
+			}
 		}
 	}
 
@@ -197,9 +201,13 @@ IXListViewListener {
 
 	}
 	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
+	@Override
 	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		mActivity = activity;
+		super.onAttach(getActivity());
+		mActivity = getActivity();
 	}
 	private void getAgentList() {
 		if (datt.size() != 0) {
@@ -246,7 +254,7 @@ IXListViewListener {
 
 			mTerminalNum = data.getIntExtra(TERMINAL_TOTAL, 0);
 			mTerminalArray = data.getStringExtra(TERMINAL_ARRAY);
-			tv_choose_terminal.setText(mTerminalArray);
+			//tv_choose_terminal.setText(mTerminalArray);
 			paychannelId = data.getIntExtra("paychannelId", 0);
 			goodId = data.getIntExtra("goodId", 0);
 
@@ -282,6 +290,8 @@ IXListViewListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_transferobject:
+			to = 0;
+			from = 0;
 			opendialog();
 			break;
 		case R.id.tv_time_left:
@@ -319,6 +329,7 @@ IXListViewListener {
 
 			break;
 		case R.id.tv_choose_terminal:
+			dialog.dismiss();
 			TerminalSelectActivity.isFromTrans = true;
 			Intent intent = new Intent(mActivity,
 					TerminalSelectActivity.class);
@@ -326,6 +337,7 @@ IXListViewListener {
 			intent.putExtra("sonAgentId", sonAgentId[from]);
 			intent.putExtra(TERMINAL_TOTAL, mTerminalNum);
 			intent.putExtra(TERMINAL_ARRAY, mTerminalArray);
+
 			mActivity.startActivityForResult(intent, REQUEST_SELECT_CLIENT);
 			break;
 		case R.id.btn_confirm:
@@ -430,7 +442,7 @@ IXListViewListener {
 	private void opendialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 		LayoutInflater factory = LayoutInflater.from(mActivity);
-		final View textEntryView = factory.inflate(
+		View textEntryView = factory.inflate(
 				R.layout.transferobjectdialog, null);
 		// builder.setTitle("自定义输入框");
 		builder.setView(textEntryView);
@@ -451,6 +463,10 @@ IXListViewListener {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		my_diaSpinner_from.setAdapter(adapter);
 		my_diaSpinner_to.setAdapter(adapter);
+		
+		my_diaSpinner_from.setSelection(from,true);
+		my_diaSpinner_to.setSelection(to,true);
+		
 		my_diaSpinner_from
 		.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
