@@ -92,7 +92,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				tv_adress.setText("收货地址  ：   " + entity.getOrder_address());
 					tv_ly.setText("留        言  ：   " + entity.getOrder_comment());
 				if(entity.getNeed_invoice()==0){
-					tv_fplx.setText("发票类型   ：");
+					tv_fplx.setText("发票类型  ：");
 				}else{
 					tv_fplx.setText(entity.getOrder_invoce_type().equals("1") ? "发票类型  ：    个人"
 							: "发票类型  ：    公司");
