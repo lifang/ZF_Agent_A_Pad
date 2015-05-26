@@ -61,7 +61,7 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
-import com.comdo.zf_agent_a_pad.entity.BankEntity.Bank;
+import com.comdo.zf_agent_a_pad.entity.Bank;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChooseItem;
 import com.comdo.zf_agent_a_pad.trade.entity.City;

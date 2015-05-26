@@ -225,6 +225,7 @@ public class Staffmanagr extends Fragment implements OnClickListener,
 			return;
 		}
 		page = 0;
+		datastaff.clear();
 		pullType = "onRefresh";
 		noMoreData = false;
 		xxlistview.setPullLoadEnable(true);

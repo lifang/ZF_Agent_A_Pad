@@ -223,8 +223,9 @@ public class EditStallmanager extends BaseActivity implements
 			CommonUtil.toastShort(EditStallmanager.this, "请为员工选择权限");
 			return;
 		}
-		if (et_paw.getText().toString().length() < 6
-				|| et_paw.getText().toString().length() > 20) {
+		if (!"".equals(et_paw.getText().toString())
+				&& (et_paw.getText().toString().length() < 6 || et_paw
+						.getText().toString().length() > 20)) {
 
 			CommonUtil.toastShort(EditStallmanager.this, "密码应为6-20位");
 			return;

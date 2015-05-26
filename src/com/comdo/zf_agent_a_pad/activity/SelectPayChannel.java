@@ -109,6 +109,7 @@ public class SelectPayChannel extends BaseActivity {
 					if (position == i) {
 						payChannelId = Integer.parseInt(list.get(position)
 								.getId());
+						mAdapter.setMySelection(position);
 						v.setBackgroundResource(R.color.white);
 						v.findViewById(R.id.delete).setVisibility(View.VISIBLE);
 						v.findViewById(R.id.delete).setOnClickListener(
@@ -116,6 +117,8 @@ public class SelectPayChannel extends BaseActivity {
 
 									@Override
 									public void onClick(View arg0) {
+										Log.e("position---------",
+												"position---------" + position);
 										target = position;
 										delChannel();
 									}
@@ -127,9 +130,6 @@ public class SelectPayChannel extends BaseActivity {
 
 				}
 				ll_paychannel.removeAllViews();
-
-				Log.e("YYYYYYYYYYYYYYYYYYYYYYYYYYY",
-						"addEdit++++++++++++++++++++++++++++++++");
 				if (list.get(position).getDetail().size() > 0)
 					addEdit(ll_paychannel, list.get(position).getDetail());
 			}
@@ -256,11 +256,7 @@ public class SelectPayChannel extends BaseActivity {
 					public void onSuccess(Object data) {
 
 						list.remove(target);
-						if (list.size() == 0) {
-							myHandler.sendEmptyMessage(1);
-						}
-						// mAdapter.notifyDataSetChanged();
-
+						myHandler.sendEmptyMessage(1);
 						mAdapter.setMySelection(0);
 					}
 
@@ -366,13 +362,15 @@ public class SelectPayChannel extends BaseActivity {
 
 			switch (msg.what) {
 			case 0:
-				Log.e("YYYYYYYYYYYYYYYYYYYYYYYYYYY",
-						"addEdit++++++++++++++++++++++++++++++++");
 				if (list.get(defaultID).getDetail().size() > 0)
 					addEdit(ll_paychannel, list.get(defaultID).getDetail());
 
 				break;
+			case 1:
+				if (list.size() > 0)
+					addEdit(ll_paychannel, list.get(0).getDetail());
 
+				break;
 			default:
 				break;
 			}

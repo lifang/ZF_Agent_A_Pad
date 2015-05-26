@@ -126,7 +126,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 						xxlistview.setVisibility(View.GONE);
 						eva_nodata.setVisibility(View.VISIBLE);
 					}
-					
+
 					break;
 				case 1:
 					Intent intent = new Intent(getActivity(), AgentDetail.class);
@@ -153,7 +153,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 	}
 
 	private void getData() {
-		Config.GetAgentList(getActivity(), agentsId, page, rows,
+		Config.GetAgentList(getActivity(), agentsId, page + 1, rows,
 				new HttpCallback<Page<AgentManager>>(getActivity()) {
 
 					@Override
@@ -304,6 +304,7 @@ public class Agentmanager extends Fragment implements OnClickListener,
 		}
 		page = 0;
 		pullType = "onRefresh";
+		dataadagent.clear();
 		noMoreData = false;
 		xxlistview.setPullLoadEnable(true);
 		getData();
