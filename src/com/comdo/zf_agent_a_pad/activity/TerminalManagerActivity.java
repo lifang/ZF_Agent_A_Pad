@@ -541,13 +541,12 @@ public class TerminalManagerActivity extends BaseActivity implements
 					openDialog(item);
 
 				} else {
-					if (item.getOpenstatus() != null) {
-						if (!"".equals(item.getAppid())
-								&& Integer.parseInt(item.getOpenstatus()) == 6) {
-							CommonUtil.toastShort(TerminalManagerActivity.this,
-									"正在第三方审核,请耐心等待...");
+					if (item.getOpenstatus() != null
+							&& !"".equals(item.getAppid())
+							&& Integer.parseInt(item.getOpenstatus()) == 6) {
+						CommonUtil.toastShort(TerminalManagerActivity.this,
+								"正在第三方审核,请耐心等待...");
 
-						}
 					} else {
 						Intent intent = new Intent(
 								TerminalManagerActivity.this,

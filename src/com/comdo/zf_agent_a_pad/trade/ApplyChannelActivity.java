@@ -189,23 +189,10 @@ public class ApplyChannelActivity extends BaseActivity {
 									}
 								}
 
-								// for (ApplyChannel channel : channels) {
-								// if (channel.getId() == chosenChannel
-								// .getId()
-								// && null != chosenChannel
-								// .getBillings()) {
-								// break;
-								// }
-								// }
-
 								billings.addAll(channels.get(0).getBillings());
 								channelAdapter.notifyDataSetChanged();
 								billingAdapter.notifyDataSetChanged();
 
-								// if (chosenBilling != null
-								// && chosenBilling.id > 0) {
-								// billingList.setSelection(chosenBilling.id);
-								// }
 							}
 
 						}
