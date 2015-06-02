@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.ActionBar.LayoutParams;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -222,11 +221,11 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 			if (appidBoolean) {
 				if (videoBoolean) {
 
-					mBtnLeftBottom.setVisibility(View.INVISIBLE);
-					mBtnLeftTop.setVisibility(View.VISIBLE);
-					mBtnLeftTop
+					mBtnLeftTop.setVisibility(View.INVISIBLE);
+					mBtnLeftBottom.setVisibility(View.VISIBLE);
+					mBtnLeftBottom
 							.setText(getString(R.string.terminal_button_sync));
-					mBtnLeftTop.setOnClickListener(mSyncListener);
+					mBtnLeftBottom.setOnClickListener(mSyncListener);
 					mBtnRightTop.setVisibility(View.VISIBLE);
 					mBtnRightTop
 							.setText(getString(R.string.terminal_button_video));
@@ -472,7 +471,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO:
+
 				AlertDialog.Builder build = new AlertDialog.Builder(
 						TerminalManagerDetailActivity.this);
 				LayoutInflater factory = LayoutInflater
@@ -502,6 +501,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 				icon.setTag(imageUrls.get(i));
 				icon.setOnClickListener(onViewPhotoListener);
 				key.setText(photoOpen.getKey());
+				key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 				if (i == photoOpens.size() - 1) {
 					category.addView(column);
 					column.findViewById(R.id.terminal_open_right)
@@ -515,6 +515,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 				icon.setTag(imageUrls.get(i));
 				icon.setOnClickListener(onViewPhotoListener);
 				key.setText(photoOpen.getKey());
+				key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 				category.addView(column);
 			}
 		}
@@ -552,18 +553,6 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 		return tv;
 	}
 
-	@SuppressLint("ResourceAsColor")
-	private TextView createRateText() {
-		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 1);
-		TextView tv = new TextView(this);
-		tv.setLayoutParams(lp);
-		tv.setGravity(Gravity.CENTER);
-		tv.setTextColor(R.color.bgtitle);
-		tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-		return tv;
-	}
-
 	private LinearLayout renderCategoryTemplate(
 			LinkedHashMap<String, String> pairs, Boolean isOpen) {
 
@@ -584,10 +573,12 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 		for (Map.Entry<String, String> pair : pairs.entrySet()) {
 			TextView key = createCategoryText();
 			key.setText(pair.getKey());
+			key.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 			keyContainer.addView(key);
 
 			TextView value = createCategoryText();
 			value.setText(pair.getValue());
+			value.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 			valueContainer.addView(value);
 		}
 		return terminalCategory;

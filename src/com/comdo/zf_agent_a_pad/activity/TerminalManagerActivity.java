@@ -4,7 +4,6 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.ApplyIntent.SELECTED_T
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.HAVE_VIDEO;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_ADD;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_ID;
-import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_NUMBER;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINAL_STATUS;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.CANCELED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
@@ -35,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -192,7 +192,9 @@ public class TerminalManagerActivity extends BaseActivity implements
 			}
 			final TerminalManagerEntity item = getItem(i);
 			holder.tv_terminal_id.setText(item.getPosPortID());
-			if (item.getPos() != null || item.getPosname() != null) {
+			if ((item.getPos() != null && !"".equals(item.getPos()))
+					|| (item.getPosname() != null && !"".equals(item
+							.getPosname()))) {
 				if (item.getPos() == null) {
 					holder.tv_postype.setText(item.getPosname());
 				} else if (item.getPosname() == null) {
@@ -204,7 +206,12 @@ public class TerminalManagerActivity extends BaseActivity implements
 			} else {
 				holder.tv_postype.setText("-");
 			}
-			holder.tv_paychannel.setText(item.getPayChannel());
+			if (item.getPayChannel() != null
+					&& !"".equals(item.getPayChannel()))
+				holder.tv_paychannel.setText(item.getPayChannel());
+			else
+				holder.tv_paychannel.setText("-");
+
 			String[] status = getResources().getStringArray(
 					R.array.terminal_status);
 			holder.tv_openstate.setText(status[item.getOpenState()]);
@@ -394,6 +401,8 @@ public class TerminalManagerActivity extends BaseActivity implements
 
 					if ("2".equals(item.getType())) {
 						// 通过添加其他终端 进来的终端，是没有详情，也没有操作按钮
+						Toast.makeText(TerminalManagerActivity.this,
+								"自主开通终端无详情", Toast.LENGTH_SHORT).show();
 						return;
 					} else {
 						Intent intent = new Intent(
@@ -532,13 +541,12 @@ public class TerminalManagerActivity extends BaseActivity implements
 					openDialog(item);
 
 				} else {
-					if (item.getOpenstatus() != null) {
-						if (!"".equals(item.getAppid())
-								&& Integer.parseInt(item.getOpenstatus()) == 6) {
-							CommonUtil.toastShort(TerminalManagerActivity.this,
-									"正在第三方审核,请耐心等待...");
+					if (item.getOpenstatus() != null
+							&& !"".equals(item.getAppid())
+							&& Integer.parseInt(item.getOpenstatus()) == 6) {
+						CommonUtil.toastShort(TerminalManagerActivity.this,
+								"正在第三方审核,请耐心等待...");
 
-						}
 					} else {
 						Intent intent = new Intent(
 								TerminalManagerActivity.this,

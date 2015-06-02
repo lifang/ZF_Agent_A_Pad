@@ -33,7 +33,7 @@
                 android:layout_marginRight="@dimen/alertll"
                 android:singleLine="true"
                 android:text="全部"
-                android:textColor="@color/text6c6c6c6"
+                android:textColor="@color/text292929"
                 android:textSize="@dimen/textbig" />
         </LinearLayout>
 
@@ -58,7 +58,7 @@
                 android:layout_marginLeft="7dp"
                 android:singleLine="true"
                 android:text="全部"
-                android:textColor="@color/text6c6c6c6"
+                android:textColor="@color/text292929"
                 android:textSize="@dimen/textbig" />
         </LinearLayout>
 
@@ -83,7 +83,7 @@
                 android:layout_marginLeft="7dp"
                 android:singleLine="true"
                 android:text="全部"
-                android:textColor="@color/text6c6c6c6"
+                android:textColor="@color/text292929"
                 android:textSize="@dimen/textbig" />
         </LinearLayout>
 
@@ -108,7 +108,7 @@
                 android:layout_marginLeft="7dp"
                 android:singleLine="true"
                 android:text="全部"
-                android:textColor="@color/text6c6c6c6"
+                android:textColor="@color/text292929"
                 android:textSize="@dimen/textbig" />
         </LinearLayout>
     </LinearLayout>

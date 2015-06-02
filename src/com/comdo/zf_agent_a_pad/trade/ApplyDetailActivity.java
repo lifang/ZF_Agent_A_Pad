@@ -61,7 +61,7 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.TextWatcherAdapter;
-import com.comdo.zf_agent_a_pad.entity.BankEntity.Bank;
+import com.comdo.zf_agent_a_pad.entity.Bank;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChooseItem;
 import com.comdo.zf_agent_a_pad.trade.entity.City;
@@ -140,8 +140,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private TextView uploadingTextView;
 	private ImageButton uploadingImageButton;
 	private Bank mChosenBank;
-	private ApplyChannel mChosenChannel;
-	private ApplyChannel.Billing mChosenBilling;
+	private com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel mChosenChannel;
+	private com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel.Billing mChosenBilling;
 	private String mUploadKey;
 
 	private List<String> mImageUrls = new ArrayList<String>();
@@ -394,7 +394,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 							}
 						}
 
-						mMerchantContainer_0.removeAllViews();
+//						mMerchantContainer_0.removeAllViews();
 						mMerchantContainer_1.removeAllViews();
 						mMerchantContainer_2.removeAllViews();
 						mCustomerContainer_1.removeAllViews();
@@ -403,10 +403,10 @@ public class ApplyDetailActivity extends FragmentActivity {
 						// set the choosing merchant listener
 						// View merchantChoose = mMerchantContainer
 						// .findViewWithTag(mMerchantKeys[0]);
-						View merchantChoose_1 = mMerchantContainer_0
-								.findViewWithTag(mMerchantKeys[0]);
+						// View merchantChoose_1 = mMerchantContainer_0
+						// .findViewWithTag(mMerchantKeys[0]);
 
-						merchantChoose_1
+						mMerchantContainer_0
 								.setOnClickListener(new View.OnClickListener() {
 									@Override
 									public void onClick(View v) {
@@ -502,6 +502,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mChosenBilling = mChosenChannel.new Billing();
 		mChosenBilling.id = openingInfos.getBilling_cyde_id();
 		mChosenBilling.name = openingInfos.getBillingname();
+//		List<Billing> billings = new ArrayList<Billing>();
+//		billings.add(mChosenBilling);
+//		mChosenChannel.setBillings(billings);
 	}
 
 	@Override
@@ -545,7 +548,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 			mChosenBilling = (ApplyChannel.Billing) data
 					.getSerializableExtra(SELECTED_BILLING);
 			setItemValue(getString(R.string.apply_detail_channel),
-					mChosenChannel.getName());
+					mChosenChannel.getName() + mChosenBilling.name);
 			break;
 		}
 
@@ -739,7 +742,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 
 		LinearLayout item = (LinearLayout) mContainer.findViewWithTag(key);
 		if (item == null) {
-			item = (LinearLayout) mMerchantContainer_0.findViewWithTag(key);
+			item = mMerchantContainer_0;
 		}
 		if (item == null) {
 			item = (LinearLayout) mMerchantContainer_1.findViewWithTag(key);
@@ -762,7 +765,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 	private String getItemValue(String key) {
 		LinearLayout item = (LinearLayout) mContainer.findViewWithTag(key);
 		if (item == null) {
-			item = (LinearLayout) mMerchantContainer_0.findViewWithTag(key);
+			item = mMerchantContainer_0;
 		}
 		if (item == null) {
 			item = (LinearLayout) mMerchantContainer_1.findViewWithTag(key);
@@ -786,8 +789,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mMerchantKeys = getResources().getStringArray(
 				R.array.my_apply_detail_merchant_keys);
 
-		mMerchantContainer_0.addView(getDetailItem(ITEM_CHOOSE,
-				mMerchantKeys[0], null));
+		mMerchantContainer_0.setTag(mMerchantKeys[0]);
+//		mMerchantContainer_0.addView(getDetailItem(ITEM_CHOOSE,
+//				mMerchantKeys[0], null));
 		mMerchantContainer_1.addView(getDetailItem(ITEM_EDIT, mMerchantKeys[1],
 				null));
 		isShopName = true;

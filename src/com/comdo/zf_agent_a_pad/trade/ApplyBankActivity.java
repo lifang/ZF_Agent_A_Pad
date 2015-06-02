@@ -6,7 +6,6 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.TERMINA
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,8 +22,8 @@ import android.widget.TextView;
 import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
+import com.comdo.zf_agent_a_pad.entity.Bank;
 import com.comdo.zf_agent_a_pad.entity.BankEntity;
-import com.comdo.zf_agent_a_pad.entity.BankEntity.Bank;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.comdo.zf_agent_a_pad.util.Tools;
@@ -37,6 +36,10 @@ import com.google.gson.reflect.TypeToken;
  */
 public class ApplyBankActivity extends BaseActivity implements
 		View.OnClickListener, XListView.IXListViewListener {
+
+	private LinearLayout titleback_linear_back;
+	private TextView titleback_text_title, shuruneirong;
+	private ImageView titleback_image_back;
 
 	private String mTerminalNumber, keyword = "";
 
@@ -60,11 +63,42 @@ public class ApplyBankActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_apply_bank);
-		new TitleMenuUtil(this, getString(R.string.title_apply_choose_bank))
-				.show();
+//		new TitleMenuUtil(this, getString(R.string.title_apply_choose_bank))
+//				.show();
 		mTerminalId = getIntent().getIntExtra(TERMINAL_ID, 0);
 		mChosenBank = (Bank) getIntent().getSerializableExtra(SELECTED_BANK);
 
+		titleback_linear_back = (LinearLayout) findViewById(R.id.titleback_linear_back);
+		titleback_text_title = (TextView) findViewById(R.id.titleback_text_title);
+		titleback_image_back = (ImageView) findViewById(R.id.titleback_image_back);
+		shuruneirong = (TextView) findViewById(R.id.shuruneirong);
+		titleback_linear_back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ApplyBankActivity.this.finish();
+			}
+		});
+
+		titleback_image_back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ApplyBankActivity.this.finish();
+			}
+		});
+
+		titleback_text_title.setText(getString(R.string.title_apply_choose_bank));
+
+		shuruneirong.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Bank bank = new Bank();
+				bank.setName(mBankInput.getText().toString());
+				Intent intent = new Intent();
+				intent.putExtra(SELECTED_BANK, bank);
+				setResult(RESULT_OK, intent);
+				finish();
+			}
+		});
 		mBankInput = (EditText) findViewById(R.id.apply_bank_input);
 		mBankSearch = (ImageButton) findViewById(R.id.apply_bank_search);
 		mBankSearch.setOnClickListener(this);
@@ -117,6 +151,13 @@ public class ApplyBankActivity extends BaseActivity implements
 					@Override
 					public void preLoad() {
 						super.preLoad();
+					}
+
+					@Override
+					public void onFailure(String message) {
+						if (message.contains("没有获取到")) {
+
+						}
 					}
 
 					@Override

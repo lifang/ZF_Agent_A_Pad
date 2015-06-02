@@ -30,7 +30,7 @@
 		    android:background="@color/Viewc2"/>
         <LinearLayout
             android:layout_width="0dp"
-             android:layout_height="@dimen/normai_height"
+             android:layout_height="@dimen/leftfristtop"
             android:layout_weight="1"
              android:background="@color/F3F3F3"
             android:orientation="vertical" >
@@ -41,7 +41,7 @@
                 android:id="@+id/tv_name"
                 
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/normai_height"
+                android:layout_height="@dimen/leftfristtop"
                 android:gravity="center"
                 android:text="结算时间"
                 android:textSize="@dimen/textmids"
@@ -66,7 +66,7 @@
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/normal_height1"
+                android:layout_height="@dimen/leftfristtop"
                 android:gravity="center"
                 android:text="资金服务费（/天）"
                 android:textSize="@dimen/textmids"

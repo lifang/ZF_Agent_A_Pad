@@ -76,7 +76,7 @@ public class OrderAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		inflater = LayoutInflater.from(context);
  		if(convertView == null){
 			holder = new ViewHolder();
@@ -356,14 +356,11 @@ public class OrderAdapter extends BaseAdapter{
 							String pay=ad.getPay();
 							
 							ad.dismiss();
-							try {
 								i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
 								i.putExtra("type", Integer.parseInt(OrderList.type));
 								i.putExtra("pay",pay);							
-							
-							} catch (Exception e) {
 								
-							}	
+
 							Log.i(pay,list.get(v.getId()).getShengyu_price());
 							context.startActivity(i);	
 							/*if(Float.parseFloat(pay)<Float.parseFloat(list.get(v.getId()).getShengyu_price())){
@@ -375,12 +372,15 @@ public class OrderAdapter extends BaseAdapter{
 						}
 					});		
 				}else{
-					try {
+					if(list.size()==1){
+						i.putExtra("orderId",Integer.parseInt(list.get(0).getOrder_id()) );
+					}else{
 						i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
-						i.putExtra("type", Integer.parseInt(OrderList.type));
-					} catch (Exception e) {
+					}
 						
-					}								
+					
+						i.putExtra("type", Integer.parseInt(OrderList.type));
+											
 					context.startActivity(i);
 				}
 				

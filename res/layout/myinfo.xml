@@ -57,7 +57,7 @@
         android:id="@+id/ll_baseinfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" >
+        >
 
         <ScrollView
             android:id="@+id/sLV"
@@ -423,6 +423,7 @@
                     android:layout_marginTop="40dp"
                     android:background="#006FD5"
                     android:text="退出"
+                    android:visibility="gone"
                     android:textColor="#E0EbF7" />
             </LinearLayout>
         </ScrollView>
@@ -524,6 +525,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:orientation="vertical"
+       android:visibility="gone"
         >
 
         <LinearLayout
