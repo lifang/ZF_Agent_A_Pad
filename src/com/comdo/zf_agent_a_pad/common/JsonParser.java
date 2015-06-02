@@ -21,11 +21,9 @@ public class JsonParser {
 		JsonElement resultElement = jo.get("result");
 		String result = null;
 		if (code != -1) {
-
 			result = resultElement.isJsonNull() ? null : resultElement
 					.getAsString();
 		}
-
 		return new Response(code, message, result);
 	}
 
