@@ -70,17 +70,22 @@
                     android:layout_width="230dp"
                     android:layout_height="fill_parent"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/ed_adress"
+                    android:background="@drawable/shape"
                     android:orientation="horizontal" >
 
                     <TextView
                         android:id="@+id/client_names"
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="left"
-                        android:paddingRight="30dp"
                         android:textColor="@color/text6c6c6c6"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/edadressbg" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -106,12 +111,12 @@
                     android:orientation="horizontal" >
 
                     <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ed_adress"
-                    android:drawSelectorOnTop="true"
-                    android:spinnerMode="dropdown" />
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ed_adress"
+                        android:drawSelectorOnTop="true"
+                        android:spinnerMode="dropdown" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -124,11 +129,11 @@
 
                 <TextView
                     android:id="@+id/login_img_pass2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
                     android:text="售后原因"
                     android:textColor="#292929"
-                    android:textSize="20sp" 
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="230dp"
@@ -140,22 +145,21 @@
                         android:id="@+id/reason"
                         android:layout_width="230dp"
                         android:layout_height="200dp"
+                        android:background="@drawable/shape"
                         android:gravity="left"
                         android:paddingRight="30dp"
                         android:textColor="@color/text6c6c6c6"
-                        android:background="@drawable/shape"
                         android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        
 
-            <Button
-                android:id="@+id/terminal_submit"
-                style="@style/ButtonNormal"
-                android:enabled="false"
-                android:text="@string/button_submit"
-                android:layout_marginBottom="48dp" />
+        <Button
+            android:id="@+id/terminal_submit"
+            style="@style/ButtonNormal"
+            android:layout_marginBottom="48dp"
+            android:enabled="false"
+            android:text="@string/button_submit" />
     </LinearLayout>
 
 </LinearLayout>
