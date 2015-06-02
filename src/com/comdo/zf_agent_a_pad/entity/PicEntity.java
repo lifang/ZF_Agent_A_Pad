@@ -7,6 +7,14 @@ public class PicEntity {
 	private int id;
 	private String picture_url;
 	private String website_url;
+	private int goodid;
+	
+	public int getGoodid() {
+		return goodid;
+	}
+	public void setGoodid(int goodid) {
+		this.goodid = goodid;
+	}
 	public int getId() {
 		return id;
 	}

@@ -6,6 +6,7 @@ package com.comdo.zf_agent_a_pad.util;
 import com.epalmpay.agentPad.R;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,6 +46,11 @@ public class XListView extends ListView implements OnScrollListener {
 	private boolean mPullLoading;
 	private boolean mIsFooterReady = false;
 
+	/*
+	 * 防止多个手指刷新，造成数据重复
+	 */
+	boolean oneRefresh = true;
+	
 	public void initHeaderAndFooter() {
 		// init header view
 		mHeaderView = new XListViewHeader(getContext());
@@ -326,10 +332,19 @@ public class XListView extends ListView implements OnScrollListener {
 				// invoke refresh
 				if (mEnablePullRefresh
 						&& mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
+					if (oneRefresh == true) {//防止多个手指刷新，造成数据重复
 					mPullRefreshing = true;
 					mHeaderView.setState(XListViewHeader.STATE_REFRESHING);
 					if (mListViewListener != null) {
 						mListViewListener.onRefresh();
+						
+						oneRefresh = false;
+						new Handler().postDelayed(new Runnable(){    
+							public void run() {   
+								oneRefresh = true;
+							}    
+						}, 1000); 
+					}
 					}
 				}
 				resetHeaderHeight();

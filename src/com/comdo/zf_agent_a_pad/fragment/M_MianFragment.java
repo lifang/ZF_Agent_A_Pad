@@ -1,6 +1,5 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -25,13 +24,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.activity.AfterSaleActivity;
-import com.comdo.zf_agent_a_pad.activity.MyWebView;
+import com.comdo.zf_agent_a_pad.activity.GoodDeatail;
 import com.comdo.zf_agent_a_pad.activity.OrderList;
 import com.comdo.zf_agent_a_pad.activity.PosListActivity;
 import com.comdo.zf_agent_a_pad.activity.StockListActivity;
@@ -43,7 +43,6 @@ import com.comdo.zf_agent_a_pad.trade.ApplyListActivity;
 import com.comdo.zf_agent_a_pad.trade.TradeFlowActivity;
 import com.comdo.zf_agent_a_pad.util.CheckRights;
 import com.comdo.zf_agent_a_pad.util.Config;
-import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.epalmpay.agentPad.R;
 import com.google.gson.Gson;
@@ -385,6 +384,7 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 			View view = mList.get(position);
 			ImageView image = ((ImageView) view.findViewById(R.id.image));
+			   image.setScaleType(ScaleType.CENTER_INSIDE);
 			ImageLoader.getInstance().displayImage(ma.get(position), image, options);
 			//ImageCacheUtil.IMAGE_CACHE.get(ma.get(position), image);
 			image.setOnClickListener(new OnClickListener() {
@@ -392,6 +392,9 @@ public class M_MianFragment extends Fragment implements OnClickListener {
 
 			@Override
 			public void onClick(View arg0) {
+		      	Intent i =new Intent (getActivity(),GoodDeatail.class);
+				i.putExtra("id", myList.get(position).getGoodid());
+				startActivity(i);
 				/*Intent i = new Intent(getActivity(), MyWebView.class);
 				i.putExtra("title", "详情");
 				i.putExtra("url", myList.get(position).getWebsite_url());
