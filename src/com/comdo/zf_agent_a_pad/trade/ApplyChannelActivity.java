@@ -10,6 +10,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.alipay.sdk.data.e;
 import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel;
+import com.comdo.zf_agent_a_pad.trade.entity.ApplyChannel.Billing;
 import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.epalmpay.agentPad.R;
@@ -59,12 +61,12 @@ public class ApplyChannelActivity extends BaseActivity {
 		channelList.addFooterView(new View(this));
 		channelAdapter = new ChannelListAdapter();
 		channelList.setAdapter(channelAdapter);
-
 		channelList.setSelection(0);
 		billingList = (ListView) findViewById(R.id.apply_billing_list);
 		billingList.addFooterView(new View(this));
 		billingAdapter = new BillingListAdapter();
 		billingList.setAdapter(billingAdapter);
+		billingList.setSelection(0);
 
 		channelList
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,7 +107,7 @@ public class ApplyChannelActivity extends BaseActivity {
 						chosenBilling = (ApplyChannel.Billing) view
 								.getTag(R.id.item_id);
 
-//						chosenChannel = channels.get(0);
+						// chosenChannel = channels.get(0);
 						Intent intent = new Intent();
 						intent.putExtra(SELECTED_CHANNEL, chosenChannel);
 						intent.putExtra(SELECTED_BILLING, chosenBilling);
@@ -115,6 +117,7 @@ public class ApplyChannelActivity extends BaseActivity {
 				});
 		if (mPayChannelID == 0) {
 
+			// 选择所有的支付通道
 			Config.getApplyChannelList(this,
 					new HttpCallback<List<ApplyChannel>>(this) {
 						@Override
@@ -132,6 +135,7 @@ public class ApplyChannelActivity extends BaseActivity {
 													.size() > 0) {
 										chosenBilling = chosenChannel
 												.getBillings().get(0);
+
 									}
 								}
 
@@ -160,6 +164,7 @@ public class ApplyChannelActivity extends BaseActivity {
 					});
 		} else {
 
+			// 开通申请选择支付通道
 			Config.getApplyChannelList(this,
 					new HttpCallback<List<ApplyChannel>>(this) {
 						@Override
@@ -174,33 +179,20 @@ public class ApplyChannelActivity extends BaseActivity {
 										channels.add(data.get(i));
 								}
 
-								// if (null == chosenBilling) {
-								chosenChannel = channels.get(0);
-								if (null != chosenChannel.getBillings()
-										&& chosenChannel.getBillings().size() > 0) {
-									chosenBilling = chosenChannel.getBillings()
-											.get(0);
-								}
-								// }
-
-								for (ApplyChannel channel : channels) {
-									if (channel.getId() == chosenChannel
-											.getId()
-											&& null != chosenChannel
-													.getBillings()) {
-										billings.addAll(chosenChannel
-												.getBillings());
-										break;
+								if (null == chosenBilling) {
+									chosenChannel = channels.get(0);
+									if (null != chosenChannel.getBillings()
+											&& chosenChannel.getBillings()
+													.size() > 0) {
+										chosenBilling = chosenChannel
+												.getBillings().get(0);
 									}
 								}
 
+								billings.addAll(channels.get(0).getBillings());
 								channelAdapter.notifyDataSetChanged();
 								billingAdapter.notifyDataSetChanged();
 
-								if (chosenBilling != null
-										&& chosenBilling.id > 0) {
-									billingList.setSelection(chosenBilling.id);
-								}
 							}
 
 						}
@@ -258,7 +250,7 @@ public class ApplyChannelActivity extends BaseActivity {
 				if (null != chosenBilling && billing.id == chosenBilling.id) {
 					holder.icon.setVisibility(View.VISIBLE);
 					holder.icon.setImageDrawable(getResources().getDrawable(
-							R.drawable.icon_selected));
+							R.drawable.cb_y));
 				} else {
 					holder.icon.setVisibility(View.INVISIBLE);
 				}

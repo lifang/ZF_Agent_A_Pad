@@ -1664,5 +1664,20 @@ public class Config {
 		params.put("types", types);
 		new HttpRequest(context, callback).post(Config.URL_GET_VERSION,params);
 	}
+	
+	//获取银联交易流水号
+//		public static final String UNION_TN_URL = "http://agent.ebank007.com/unionpay.do";
+//		public static final String UNION_TN_URL = "http://121.40.224.25:8080/unionpay.do";
+		public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
+		//支付成功回调修改订单状态	
+//		public static final String UNION_SUCESS_URL = "http://agent.ebank007.com/api/pay/alipayback";
+//		public static final String UNION_SUCESS_URL = "http://121.40.224.25:8080/api/pay/alipayback";
+		public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
+
+		/*****************************************************************
+		 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+		 *****************************************************************/
+		public static final String UNION_MEDE = "01";
+//		public static final String UNION_MEDE = "00";
 }
 

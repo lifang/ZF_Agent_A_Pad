@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -400,6 +401,8 @@ public class TerminalManagerActivity extends BaseActivity implements
 
 					if ("2".equals(item.getType())) {
 						// 通过添加其他终端 进来的终端，是没有详情，也没有操作按钮
+						Toast.makeText(TerminalManagerActivity.this,
+								"自主开通终端无详情", Toast.LENGTH_SHORT).show();
 						return;
 					} else {
 						Intent intent = new Intent(
@@ -538,13 +541,12 @@ public class TerminalManagerActivity extends BaseActivity implements
 					openDialog(item);
 
 				} else {
-					if (item.getOpenstatus() != null) {
-						if (!"".equals(item.getAppid())
-								&& Integer.parseInt(item.getOpenstatus()) == 6) {
-							CommonUtil.toastShort(TerminalManagerActivity.this,
-									"正在第三方审核,请耐心等待...");
+					if (item.getOpenstatus() != null
+							&& !"".equals(item.getAppid())
+							&& Integer.parseInt(item.getOpenstatus()) == 6) {
+						CommonUtil.toastShort(TerminalManagerActivity.this,
+								"正在第三方审核,请耐心等待...");
 
-						}
 					} else {
 						Intent intent = new Intent(
 								TerminalManagerActivity.this,
