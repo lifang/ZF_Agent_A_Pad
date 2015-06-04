@@ -15,6 +15,14 @@ public class OrderDetailEntity {
 	public int getShengyu_price() {
 		return shengyu_price;
 	}
+	private int bd_cost;
+	public int getBd_cost() {
+		return bd_cost;
+	}
+
+	public void setBd_cost(int bd_cost) {
+		this.bd_cost = bd_cost;
+	}
 
 	public void setShengyu_price(int shengyu_price) {
 		this.shengyu_price = shengyu_price;

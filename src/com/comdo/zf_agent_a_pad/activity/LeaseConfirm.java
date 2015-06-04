@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -116,6 +117,9 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private TextView userselected;
 	private User_Info userInfo = new User_Info();
 	public static final int REQUEST_CREATE_USER = 1000;
+	private TextView hpsf;
+	private TextView ktf;
+	private TextView tv_isshow;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -151,14 +155,17 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		retail_price.setText("原价:￥" +  df.format(pirce*1.0f/100));
 		goodId = getIntent().getIntExtra("goodId", 1);
 		paychannelId = getIntent().getIntExtra("paychannelId", 1);
-		tv_pay.setText("实付：￥ " +   df.format(pg_price*1.0f/100));
-		tv_totle.setText("实付：￥ " +   df.format(pg_price*1.0f/100));
-		tv_price.setText("￥" +   df.format(pg_price *1.0f/100));
+		tv_pay.setText("实付：￥ " +   df.format((pirce)*1.0f/100));
+		tv_totle.setText("实付：￥ " +   df.format((pirce)*1.0f/100));
+		tv_price.setText("￥" +   df.format(pirce *1.0f/100));
 		tv_brand.setText(getIntent().getStringExtra("brand"));
 		String img_url = getIntent().getStringExtra("piclist");
 		ImageCacheUtil.IMAGE_CACHE.get(img_url, event_img);
 		System.out.println("=paychannelId==" + paychannelId);
 		tv_chanel.setText(getIntent().getStringExtra("chanel"));
+		hpsf.setText("含开通费:￥"+df.format(getIntent().getIntExtra("hpsf", 0)*1.0f/100));
+		ktf.setText("含开通费:￥"+df.format(getIntent().getIntExtra("hpsf", 0)*1.0f/100));
+		tv_isshow.setText("(含开通费:￥"+df.format(getIntent().getIntExtra("hpsf", 0)*1.0f/100)+")");
 		//GetUser();
 		getData1();
 
@@ -196,6 +203,16 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
+		tv_isshow = (TextView)findViewById(R.id.tv_isshow);
+		
+		
+		if (type == 1) {
+			tv_isshow.setVisibility(View.VISIBLE);
+		}else{
+			tv_isshow.setVisibility(View.GONE);
+		}
+		ktf = (TextView)findViewById(R.id.ktf);
+		hpsf = (TextView)findViewById(R.id.hpsf);
 		userselected = (TextView) findViewById(R.id.user_selected);
 		userselected.setOnClickListener(this);
 		tv1 = (TextView)findViewById(R.id.tv1);
@@ -265,7 +282,6 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					public void onNothingSelected(AdapterView<?> arg0) {
 
 					}
-
 				});*/
 		tv_price = (TextView) findViewById(R.id.tv_price);
 		tv_brand = (TextView) findViewById(R.id.content2);
@@ -348,9 +364,18 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					quantity = Integer.parseInt(buyCountEdit.getText()
 							.toString());
 				}
-
+			if(type==1){
 				tv_totle.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
 				tv_pay.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
+			}else{
+				tv_totle.setText("实付：￥ " + df.format(((double) pirce+getIntent().getIntExtra("hpsf", 0)) / 100 * quantity));
+				tv_pay.setText("实付：￥ " + df.format(((double) pirce+getIntent().getIntExtra("hpsf", 0)) / 100 * quantity));
+			}
+				
+				
+				ktf.setText("含开通费￥"+df.format(getIntent().getIntExtra("hpsf", 0)*quantity*1.0f/100));
+				hpsf.setText("含开通费￥"+df.format(getIntent().getIntExtra("hpsf", 0)*quantity*1.0f/100));
+			
 			}
 
 			@Override

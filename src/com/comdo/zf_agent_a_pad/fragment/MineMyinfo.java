@@ -680,7 +680,6 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 //		return a;
 //	}
 	private void openimg(int tag) {
-
 		AlertDialog.Builder build = new AlertDialog.Builder(mActivity);
 		LayoutInflater factory = LayoutInflater.from(mActivity);
 		final View textEntryView = factory.inflate(R.layout.img, null);
@@ -697,9 +696,7 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 		// ImageCacheUtil.IMAGE_CACHE.get("http://www.sinaimg.cn/dy/slidenews/2_img/2015_16/789_1481006_298613.jpg",
 		// view);
 		build.create().show();
-
 	}
-
 	private void changeAddress() {
 		cityId = Config.city.getId();
 		Config.changeAdres(mActivity, idd[AddressManagerAdapter.pp], String
@@ -707,7 +704,6 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 				mobile_phone.getText().toString(), zip_code.getText()
 						.toString(), detail_address.getText().toString(), id,
 				isDefault, new HttpCallback(mActivity) {
-
 					@Override
 					public void onSuccess(Object data) {
 						isEdit = false;
@@ -715,23 +711,18 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 						if (dataadress.size() != 0) {
 							dataadress.clear();
 						}
-						addressgetData();
-					
+						addressgetData();					
 					}
-
 					@Override
 					public void onFailure(String message) {
 						super.onFailure(message);
 					}
-
 					@Override
 					public TypeToken getTypeToken() {
 						return null;
 					}
 				});
-
 	}
-
 	private void addAddresss() {
 		Config.AddAdress(mActivity, String.valueOf(cityId), login_edit_name
 				.getText().toString(), mobile_phone.getText().toString(),
@@ -742,16 +733,13 @@ public class MineMyinfo extends Fragment implements OnClickListener {
 					@Override
 					public void onSuccess(Object data) {
 						CommonUtil.toastShort(mActivity, "添加地址成功");
-						myHandler.sendEmptyMessage(1);
-					
+						myHandler.sendEmptyMessage(1);					
 					}
-
 					@Override
 					public TypeToken getTypeToken() {
 						return null;
 					}
 				});
-
 	}
 
 	private void opendialog() {

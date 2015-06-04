@@ -42,7 +42,8 @@
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
         </activity>
         <!-- 交易流水 start -->
         <activity
@@ -454,7 +455,7 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="landscape" >
         </activity>
-        
+
         <!-- 百度推送 -->
         <!-- push富媒体，不使用富媒体推送不需要 -->
         <activity
@@ -533,7 +534,7 @@
             android:name="api_key"
             android:value="BFc8jzr5PbFAG3ngdPj2yZjf" />
         <!-- 百度推送 -->
-        
+
         <activity
             android:name="com.comdo.zf_agent_a_pad.activity.AlterPhone"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -555,7 +556,7 @@
             android:screenOrientation="landscape" >
         </activity>
 
-<!-- Caution! Do not change this app key. It is only for demo usage. -->
+        <!-- Caution! Do not change this app key. It is only for demo usage. -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="553df0fb67e58ed9f40003e2" >
