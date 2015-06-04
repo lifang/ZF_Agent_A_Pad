@@ -1,4 +1,3 @@
-
 package com.comdo.zf_agent_a_pad.util;
 
 import java.io.File;
@@ -72,10 +71,10 @@ public class Config {
 	 * public final static String PATHS =
 	 * "http://114.215.149.242:28080/ZFAgent/api/";
 	 */
-	public static String channelId = "";//，绑定百度推送的channelId
-	public static String notificationTitle = "";//，绑定百度推送的title
-	public static String notificationMsgID = "";//，绑定百度推送的title
-	public static boolean isFirstCreateMain = true;//，绑定百度推送只执行一次startWork
+	public static String channelId = "";// ，绑定百度推送的channelId
+	public static String notificationTitle = "";// ，绑定百度推送的title
+	public static String notificationMsgID = "";// ，绑定百度推送的title
+	public static boolean isFirstCreateMain = true;// ，绑定百度推送只执行一次startWork
 	public final static String IMAGE_PATH = "";
 	public static String checkVersion = PATHS + "";
 	public static int ROWS = 10;
@@ -86,8 +85,8 @@ public class Config {
 	public static int ScreenHeight = 0;
 
 	public static final String INDEXIMG = PATHS + "index/sysshufflingfigure";
-	public static final String MSGEDLALL ="message/receiver/batchDelete";
-	public static final String MSGREAD ="message/receiver/batchRead";
+	public static final String MSGEDLALL = "message/receiver/batchDelete";
+	public static final String MSGREAD = "message/receiver/batchRead";
 	public static final String POSLIST = PATHS + "good/list";
 	public static final String GOODDETAIL = PATHS + "good/goodinfo";
 	public static final String paychannel_info = PATHS + "paychannel/info";
@@ -120,19 +119,19 @@ public class Config {
 	public static int GOODID = -1;
 	public static int goodId;
 	public static int gid;
-	public static int portindex=-1;
+	public static int portindex = -1;
 	public static int lx;
-	public static String  apply;
-	public static boolean  canzl=false;
-	public static boolean  issafe=false;
-	public static boolean  is_editadress=false;
-	public static List<PortSon> son=new ArrayList<PortSon>();
-	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
-	public static City city=null;
+	public static String apply;
+	public static boolean canzl = false;
+	public static boolean issafe = false;
+	public static boolean is_editadress = false;
+	public static List<PortSon> son = new ArrayList<PortSon>();
+	public static List<GoodPic> piclist = new ArrayList<GoodPic>();
+	public static City city = null;
 
 	public static PortSon myson;
 	public static String getmes = PATHS + "message/receiver/getAll";
-	
+
 	// upload register url
 	public static final String UPLOAD_REGISTER = PATHS
 			+ "agent/upload/register";
@@ -428,21 +427,23 @@ public class Config {
 	public static final String SETDEFAULTPROFIT = PATHS
 			+ "lowerAgent/setDefaultProfit";
 
-	public static final String GET_PHONECODE=PATHS+"agents/getUpdatePhoneDentcode";
-	public static final String GET_EMAILCODE=PATHS+"agents/getUpdateEmailDentcode";
-	
-	public static final String UP_PHONECODE=PATHS+"agents/updatePhone/";
-	public static final String UP_EMAILCODE=PATHS+"agents/updateEmail/";
+	public static final String GET_PHONECODE = PATHS
+			+ "agents/getUpdatePhoneDentcode";
+	public static final String GET_EMAILCODE = PATHS
+			+ "agents/getUpdateEmailDentcode";
 
+	public static final String UP_PHONECODE = PATHS + "agents/updatePhone/";
+	public static final String UP_EMAILCODE = PATHS + "agents/updateEmail/";
 
 	public static final String SENDPHONEVERCODEREG = PATHS
 			+ "agent/sendPhoneVerificationCodeReg";
-	public static final String GETJOIN = PATHS
-			+ "agent/getJoin";
-	//百度推送接口
-	public static final String URL_REGISTERBAIDU =PATHS+"agents/sendDeviceCode";
-	//版本更新
-	public static final String URL_GET_VERSION = PATHS+"index/getVersion";
+	public static final String GETJOIN = PATHS + "agent/getJoin";
+	// 百度推送接口
+	public static final String URL_REGISTERBAIDU = PATHS
+			+ "agents/sendDeviceCode";
+	// 版本更新
+	public static final String URL_GET_VERSION = PATHS + "index/getVersion";
+
 	public static void login(Context context, String username, String password,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -600,7 +601,7 @@ public class Config {
 		params.put("quantity", quantity);
 		params.put("addressId", addressId);
 		params.put("comment", comment);
-		
+
 		params.put("isNeedInvoice", is_need_invoice);
 		params.put("invoiceType", invoice_type);
 		params.put("invoiceInfo", invoice_info);
@@ -613,6 +614,7 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
 		new HttpRequest(context, callback).post(Config.GOODCOMFIRM, params);
 	}
+
 	public static void GOODPICLIST(Context context, int goodId,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -621,6 +623,7 @@ public class Config {
 		// new HttpRequest(context, callback).post(Config.SHOPORDER, params);
 		new HttpRequest(context, callback).post(Config.GOODPICLIST, params);
 	}
+
 	public static void getApplyList(Context context, int agentId, int page,
 			int rows, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -656,7 +659,8 @@ public class Config {
 	}
 
 	public static void getApplyBankList(Context context, int page,
-			String keyword, int pageSize, String terminalId, HttpCallback callback) {
+			String keyword, int pageSize, String terminalId,
+			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("page", page);
 		params.put("keyword", keyword);
@@ -1230,7 +1234,7 @@ public class Config {
 
 	public static void submitApply(Context context, Map<String, Object> params,
 			HttpCallback callback) {
-		new HttpRequest(context, callback).post(APPLY_SUBMIT, params);
+		new HttpRequest(context, callback).post(APPLY_SUBMIT, params, true);
 	}
 
 	public static void getMerchants(Context context, int terminalId, int page,
@@ -1305,7 +1309,7 @@ public class Config {
 		params.put("serialNum", serialNum);
 		params.put("agentId", agentId);
 		new HttpRequest(context, callback).post(TERMINAL_BATCH_TERMINALNUM,
-				params);
+				params, true);
 	}
 
 	public static void screeningTerminalNum(Context context, String title,
@@ -1353,8 +1357,8 @@ public class Config {
 	}
 
 	public static void getTerminallist(Context context, int agentId,
-			int paychannelId, int goodId,String serialNum, String[] serialNums, int page,
-			int rows, HttpCallback callback) {
+			int paychannelId, int goodId, String serialNum,
+			String[] serialNums, int page, int rows, HttpCallback callback) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
@@ -1575,13 +1579,14 @@ public class Config {
 		new HttpRequest(context, callback).post(SETDEFAULTPROFIT, params);
 	}
 
-	public static void AlterPhoneCode(Context context, int customerId,String phone,
-			HttpCallback callback) {
+	public static void AlterPhoneCode(Context context, int customerId,
+			String phone, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
 		params.put("phone", phone);
 		new HttpRequest(context, callback).post(CANCELS_RESUBMITCANCEL, params);
 	}
+
 	public static void userGetMerchants(Context context, int agentId, int page,
 			int rows, String title, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1592,59 +1597,51 @@ public class Config {
 		new HttpRequest(context, callback).post(TERMINAL_CUSTOMER, params);
 	}
 
-	public static void getPhoneCode(
-			Context context,
-			String  phone,
-			int customerId,
-			HttpCallback callback) {
+	public static void getPhoneCode(Context context, String phone,
+			int customerId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("phone", phone);
 		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(GET_PHONECODE, params);
 	}
-	public static void getEmailCode(
-			Context context,
-			String  phone,
-			int customerId,
-			HttpCallback callback) {
+
+	public static void getEmailCode(Context context, String phone,
+			int customerId, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("email", phone);
 		params.put("customerId", customerId);
 		new HttpRequest(context, callback).post(GET_EMAILCODE, params);
 	}
-	public static void getPhoneNCode(
-			Context context,
-			String  phone,
-			int customerId,
-			String  dentcode,
-			HttpCallback callback) {
+
+	public static void getPhoneNCode(Context context, String phone,
+			int customerId, String dentcode, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("phone", phone);
 		params.put("customerId", customerId);
 		params.put("dentcode", dentcode);
-		
+
 		new HttpRequest(context, callback).post(UP_PHONECODE, params);
 	}
-	public static void getEmailNCode(
-			Context context,
-			String  phone,
-			int customerId,
-			String  dentcode,
-			HttpCallback callback) {
+
+	public static void getEmailNCode(Context context, String phone,
+			int customerId, String dentcode, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("email", phone);
 		params.put("customerId", customerId);
 		params.put("dentcode", dentcode);
 		new HttpRequest(context, callback).post(UP_EMAILCODE, params);
 	}
-	public static void sendPhoneVerCodeReg(Context context,String codeNumber,
+
+	public static void sendPhoneVerCodeReg(Context context, String codeNumber,
 			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("codeNumber", codeNumber);
 		new HttpRequest(context, callback).post(SENDPHONEVERCODEREG, params);
 	}
-	public static void getRegisterPartners(Context context,String name,String phone,
-			String agentType,String address,HttpCallback callback) {
+
+	public static void getRegisterPartners(Context context, String name,
+			String phone, String agentType, String address,
+			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("name", name);
 		params.put("phone", phone);
@@ -1652,32 +1649,39 @@ public class Config {
 		params.put("address", address);
 		new HttpRequest(context, callback).post(GETJOIN, params);
 	}
+
 	public static void registerBaidu(Context context, int customerId,
 			String deviceCode, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", customerId);
 		params.put("deviceCode", deviceCode);
-		new HttpRequest(context, callback).post(Config.URL_REGISTERBAIDU, params);
+		new HttpRequest(context, callback).post(Config.URL_REGISTERBAIDU,
+				params);
 	}
-	public static void getVersion(Context context, int types, HttpCallback callback) {
+
+	public static void getVersion(Context context, int types,
+			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("types", types);
-		new HttpRequest(context, callback).post(Config.URL_GET_VERSION,params);
+		new HttpRequest(context, callback).post(Config.URL_GET_VERSION, params);
 	}
-	
-	//获取银联交易流水号
-//		public static final String UNION_TN_URL = "http://agent.ebank007.com/unionpay.do";
-//		public static final String UNION_TN_URL = "http://121.40.224.25:8080/unionpay.do";
-		public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
-		//支付成功回调修改订单状态	
-//		public static final String UNION_SUCESS_URL = "http://agent.ebank007.com/api/pay/alipayback";
-//		public static final String UNION_SUCESS_URL = "http://121.40.224.25:8080/api/pay/alipayback";
-		public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
 
-		/*****************************************************************
-		 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-		 *****************************************************************/
-		public static final String UNION_MEDE = "01";
-//		public static final String UNION_MEDE = "00";
+	// 获取银联交易流水号
+	// public static final String UNION_TN_URL =
+	// "http://agent.ebank007.com/unionpay.do";
+	// public static final String UNION_TN_URL =
+	// "http://121.40.224.25:8080/unionpay.do";
+	public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
+	// 支付成功回调修改订单状态
+	// public static final String UNION_SUCESS_URL =
+	// "http://agent.ebank007.com/api/pay/alipayback";
+	// public static final String UNION_SUCESS_URL =
+	// "http://121.40.224.25:8080/api/pay/alipayback";
+	public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
+
+	/*****************************************************************
+	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+	 *****************************************************************/
+	public static final String UNION_MEDE = "01";
+	// public static final String UNION_MEDE = "00";
 }
-

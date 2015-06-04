@@ -107,6 +107,7 @@ public class TerminalApplySelectActivity extends BaseActivity implements
 		mTerminalList.initHeaderAndFooter();
 		mTerminalList.setXListViewListener(this);
 		mTerminalList.setPullRefreshEnable(false);
+		mTerminalList.setDivider(null);
 		mTerminalList.setPullLoadEnable(false);
 		mTerminalList.getmFooterView().setVisibility(View.GONE);
 		mTerminalList.setAdapter(mAdapter);
