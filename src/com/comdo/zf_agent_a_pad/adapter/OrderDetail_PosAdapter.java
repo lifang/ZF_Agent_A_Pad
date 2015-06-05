@@ -73,6 +73,7 @@ public class OrderDetail_PosAdapter extends BaseAdapter {
 			holder.chanel = (TextView) convertView.findViewById(R.id.chanel);
 			holder.im = (ImageView) convertView.findViewById(R.id.evevt_img);
 			holder.pg_price=(TextView)convertView.findViewById(R.id.pg_price);
+			holder.ktfy = (TextView) convertView.findViewById(R.id.ktfy);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -90,6 +91,7 @@ public class OrderDetail_PosAdapter extends BaseAdapter {
 			holder.tv_price.setText("￥ "
 					+ df.format(((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100));			
 		}*/
+		holder.ktfy.setText("(含开通费￥"+df.format(list.get(position).getGood_opening_cost()*1.0f/100)+")");
 		holder.tv_price.setText("￥ "
 				+ df.format(((double) Integer.parseInt(list.get(position).getGood_price()))*1.0f / 100));
 		holder.tv_x.setText("X"+list.get(position).getGood_num() + "");
@@ -101,7 +103,7 @@ public class OrderDetail_PosAdapter extends BaseAdapter {
 	}
 
 	public final class ViewHolder {
-		public TextView content, tv_price, tv_x, content2,chanel,pg_price;
+		public TextView content, tv_price, tv_x, content2,chanel,pg_price,ktfy;
 		public Button btn_ishow;
 		public ImageView im;
 	}

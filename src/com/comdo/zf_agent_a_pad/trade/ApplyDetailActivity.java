@@ -547,7 +547,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 					.getSerializableExtra(SELECTED_CHANNEL);
 			mChosenBilling = (ApplyChannel.Billing) data
 					.getSerializableExtra(SELECTED_BILLING);
-			setItemValue(getString(R.string.apply_detail_channel),
+			setItemValue(mBankKeys[5],
 					mChosenChannel.getName() + mChosenBilling.name);
 			break;
 		}

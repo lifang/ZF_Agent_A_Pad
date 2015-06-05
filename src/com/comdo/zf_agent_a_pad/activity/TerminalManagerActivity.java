@@ -110,7 +110,7 @@ public class TerminalManagerActivity extends BaseActivity implements
 		mTerminalList.initHeaderAndFooter();
 		mTerminalList.setXListViewListener(this);
 		mTerminalList.setPullLoadEnable(true);
-
+		mTerminalList.setDivider(null);
 		mTerminalList.setAdapter(mAdapter);
 
 		adapter = new ArrayAdapter<String>(this,

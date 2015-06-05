@@ -254,7 +254,7 @@
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="押金"
+                            android:text="租赁押金"
                             android:textColor="#292929"
                             android:textSize="@dimen/textmids" />
 
@@ -434,6 +434,16 @@
                                                         android:text="$999.00"
                                                         android:textColor="#FF4400"
                                                         android:textSize="@dimen/textbig2" />
+                                                    <TextView
+                                                       android:id="@+id/tv_isshow"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginTop="6dp"
+                                                        android:gravity="center"
+                                                        android:maxLines="1"
+                                                       
+                                                        android:textColor="@color/text292929"
+                                                        android:textSize="@dimen/textmid" />
                                                 </LinearLayout>
                                             </LinearLayout>
                                         </LinearLayout>
@@ -658,7 +668,7 @@
                                 android:textSize="@dimen/textmid" />
 
                             <TextView
-                                android:id="@+id/textView1"
+                                android:id="@+id/ktf"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
@@ -793,7 +803,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/normai_button_width"
-                        android:background="#ffffff"
+                       
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingRight="@dimen/titilepad1" >
@@ -813,6 +823,7 @@
                                 android:textSize="@dimen/textmids" />
 
                             <TextView
+                                 android:id="@+id/hpsf"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"

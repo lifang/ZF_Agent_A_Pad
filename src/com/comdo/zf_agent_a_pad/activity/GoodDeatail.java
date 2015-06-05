@@ -145,6 +145,13 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				sp.setSpan(new StrikethroughSpan(), 0, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 				tv_yj.setText(sp);
 				System.out.println("-Xlistview--" +gfe.getPurchase_price());
+				String str=" ￥" + df.format((double)(gfe.getPrice()) / 100)+" ";
+				SpannableString sp1 = new SpannableString(str);
+				sp1.setSpan(new StrikethroughSpan(), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				
+				jjyj.setText(sp1);
+				jjxj.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()));
+				ktfy.setText("￥ "+StringUtil.getMoneyString(opening_cost));
 				if (islea == false) {
 					//购买
 					if(PosListActivity.shoptype != 1){
@@ -189,6 +196,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private TextView tv_j_isshow;
 	private DecimalFormat df;
 	private TextView tv_zd;
+	private TextView jjyj;
+	private TextView jjxj;
+	private TextView ktfy;
+	private TextView tv_jj;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +216,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	}
 
 	private void innitView() {
+		tv_jj = (TextView)findViewById(R.id.tv_jj);
+		jjyj = (TextView)findViewById(R.id.jjyj);
+		jjxj = (TextView)findViewById(R.id.jjxj);
+		ktfy = (TextView)findViewById(R.id.ktfy);
 		tv_j_isshow = (TextView)findViewById(R.id.tv_j_isshow);
 		tv_dp = (TextView)findViewById(R.id.tv_dp);
 		tv_yj = (TextView) findViewById(R.id.tv_yj);
@@ -301,6 +316,8 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			tv_bug.setBackgroundColor(getResources().getColor(R.color.bgtitle));			
 			tv_bug.setTextColor(getResources().getColor(R.color.white));
 			tv_lea.setTextColor(getResources().getColor(R.color.text292929));
+			jjxj.setText("￥ "+StringUtil.getMoneyString(gfe.getRetail_price()));
+			tv_jj.setText("机具现价");
 			break;
 		case R.id.tv_lea:
 			// tv_bug
@@ -321,6 +338,8 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					R.drawable.bg_shape));
 			tv_bug.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.send_out_goods_shape));*/
+			jjxj.setText("￥ "+StringUtil.getMoneyString(gfe.getLease_deposit()));
+			tv_jj.setText("租赁押金");
 			break;
 		case R.id.tv_zd:
 			i = new Intent(GoodDeatail.this, GoodDeatilMore.class);
@@ -380,9 +399,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				if(islea){
 					Intent i21 = new Intent(GoodDeatail.this, LeaseConfirm.class);
 					i21.putExtra("getTitle", gfe.getTitle());
-					i21.putExtra("price", gfe.getPrice()+opening_cost);
+					i21.putExtra("price", gfe.getLease_deposit());
 					i21.putExtra("model", gfe.getModel_number());
-					i21.putExtra("purchase_price", gfe.getLease_deposit()+opening_cost);
+					i21.putExtra("hpsf", opening_cost);
+					i21.putExtra("purchase_price", gfe.getLease_deposit());
 					i21.putExtra("brand", gfe.getGood_brand()+gfe.getModel_number());
 					i21.putExtra("paychannelId", paychannelId);
 					i21.putExtra("goodId", gfe.getId());
@@ -396,11 +416,11 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					startActivity(i21);
 				}else{
 					Intent i21 = new Intent(GoodDeatail.this, LeaseConfirm.class);
-				
+					i21.putExtra("hpsf", opening_cost);
 					i21.putExtra("getTitle", gfe.getTitle());
-					i21.putExtra("price", gfe.getPrice()+opening_cost);
+					i21.putExtra("price", gfe.getRetail_price()+opening_cost);
 					i21.putExtra("model", gfe.getModel_number());
-					i21.putExtra("purchase_price", gfe.getPurchase_price()+opening_cost);
+					i21.putExtra("purchase_price", gfe.getPurchase_price());
 					i21.putExtra("brand", gfe.getGood_brand()+gfe.getModel_number());
 					i21.putExtra("paychannelId", paychannelId);
 					i21.putExtra("goodId", gfe.getId());
@@ -424,6 +444,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 				i2.putExtra("brand", gfe.getGood_brand()+gfe.getModel_number());
 				i2.putExtra("goodId", gfe.getId());
 				i2.putExtra("chanel", tdname);
+				i2.putExtra("hpsf", opening_cost);
 				if(piclist.size()!=0){
 					i2.putExtra("piclist",piclist.get(0));
 				}	
@@ -895,6 +916,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 											tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getLease_deposit()+opening_cost));
 										}*/
 										opening_cost=jsonobject.getInt("opening_cost");
+										ktfy.setText("￥ "+StringUtil.getMoneyString(opening_cost));
 										tdname = jsonobject.getString("name");
 										if (islea == false) {
 											//购买
