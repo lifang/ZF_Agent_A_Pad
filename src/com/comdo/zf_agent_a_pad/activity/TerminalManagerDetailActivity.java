@@ -8,6 +8,7 @@ import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.PART_OPENED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.STOPPED;
 import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalStatus.UNOPENED;
+import static com.comdo.zf_agent_a_pad.fragment.Constants.TerminalIntent.REQUEST_DETAIL;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -127,7 +128,7 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 				Intent intent = new Intent(TerminalManagerDetailActivity.this,
 						ApplyDetailActivity.class);
 				intent.putExtra(TERMINAL_ID, mTerminalId);
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_DETAIL);
 			}
 		};
 		mPosListener = new View.OnClickListener() {
@@ -202,6 +203,20 @@ public class TerminalManagerDetailActivity extends BaseActivity {
 						};
 					}
 				});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK)
+			return;
+		switch (requestCode) {
+		case REQUEST_DETAIL: {
+			mTerminalId = data.getIntExtra(TERMINAL_ID, 0);
+			loadData();
+			break;
+		}
+		}
 	}
 
 	private void setStatusAndButtons(TerminalApply apply) {
