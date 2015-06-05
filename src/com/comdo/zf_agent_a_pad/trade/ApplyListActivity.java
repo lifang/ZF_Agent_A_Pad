@@ -27,7 +27,6 @@ import android.widget.TextView;
 
 import com.comdo.zf_agent_a_pad.activity.BaseActivity;
 import com.comdo.zf_agent_a_pad.activity.GenerateSearch;
-import com.comdo.zf_agent_a_pad.activity.TerminalManagerActivity;
 import com.comdo.zf_agent_a_pad.activity.TerminalManagerDetailActivity;
 import com.comdo.zf_agent_a_pad.common.CommonUtil;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
@@ -198,8 +197,12 @@ public class ApplyListActivity extends BaseActivity implements
 			searchKey = data.getStringExtra(SELECTED_TERMINAL);
 
 			loadData();
-		}
 			break;
+		}
+		case REQUEST_DETAIL: {
+			onRefresh();
+			break;
+		}
 		}
 	}
 

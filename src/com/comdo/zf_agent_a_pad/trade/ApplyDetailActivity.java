@@ -345,6 +345,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 							public void onSuccess(Object data) {
 								CommonUtil.toastShort(ApplyDetailActivity.this,
 										data.toString());
+								Intent intent = new Intent();
+								intent.putExtra(TERMINAL_ID, mTerminalId);
+								setResult(RESULT_OK);
 								finish();
 							}
 
@@ -394,7 +397,7 @@ public class ApplyDetailActivity extends FragmentActivity {
 							}
 						}
 
-//						mMerchantContainer_0.removeAllViews();
+						// mMerchantContainer_0.removeAllViews();
 						mMerchantContainer_1.removeAllViews();
 						mMerchantContainer_2.removeAllViews();
 						mCustomerContainer_1.removeAllViews();
@@ -502,9 +505,9 @@ public class ApplyDetailActivity extends FragmentActivity {
 		mChosenBilling = mChosenChannel.new Billing();
 		mChosenBilling.id = openingInfos.getBilling_cyde_id();
 		mChosenBilling.name = openingInfos.getBillingname();
-//		List<Billing> billings = new ArrayList<Billing>();
-//		billings.add(mChosenBilling);
-//		mChosenChannel.setBillings(billings);
+		// List<Billing> billings = new ArrayList<Billing>();
+		// billings.add(mChosenBilling);
+		// mChosenChannel.setBillings(billings);
 	}
 
 	@Override
@@ -547,8 +550,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 					.getSerializableExtra(SELECTED_CHANNEL);
 			mChosenBilling = (ApplyChannel.Billing) data
 					.getSerializableExtra(SELECTED_BILLING);
-			setItemValue(getString(R.string.apply_detail_channel),
-					mChosenChannel.getName() + mChosenBilling.name);
+			setItemValue(mBankKeys[5], mChosenChannel.getName()
+					+ mChosenBilling.name);
 			break;
 		}
 
@@ -790,8 +793,8 @@ public class ApplyDetailActivity extends FragmentActivity {
 				R.array.my_apply_detail_merchant_keys);
 
 		mMerchantContainer_0.setTag(mMerchantKeys[0]);
-//		mMerchantContainer_0.addView(getDetailItem(ITEM_CHOOSE,
-//				mMerchantKeys[0], null));
+		// mMerchantContainer_0.addView(getDetailItem(ITEM_CHOOSE,
+		// mMerchantKeys[0], null));
 		mMerchantContainer_1.addView(getDetailItem(ITEM_EDIT, mMerchantKeys[1],
 				null));
 		isShopName = true;
