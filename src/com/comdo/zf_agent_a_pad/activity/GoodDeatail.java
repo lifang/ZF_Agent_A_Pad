@@ -614,7 +614,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 								// ButtonGridviewAdapter(GoodDeatail.this,
 								// User_button,0);
 								// gview1.setAdapter(buttonAdapter);
-								if (jsonobject.getBoolean("support_type")) {
+								Config.support_type=jsonobject.getBoolean("support_type");
 									arelist = gson.fromJson(
 											jsonobject.getString("supportArea"),
 											new TypeToken<List<String>>() {
@@ -625,10 +625,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 									}
 
 									Config.suportare = a;
-								} else {
-									Config.suportare = "不支持";
-
-								}
+								
 								if (jsonobject
 										.getBoolean("support_cancel_flag")) {
 									Config.suportcl = "支持";
@@ -882,8 +879,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 										// ButtonGridviewAdapter(GoodDeatail.this,
 										// User_button,0);
 										// gview1.setAdapter(buttonAdapter);
-										if (jsonobject
-												.getBoolean("support_type")) {
+										
 											arelist = gson.fromJson(
 													jsonobject
 															.getString("supportArea"),
@@ -895,10 +891,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 											}
 
 											Config.suportare = a;
-										} else {
-											Config.suportare = "不支持";
-
-										}
+										
 										if (jsonobject
 												.getBoolean("support_cancel_flag")) {
 											Config.suportcl = "支持";
@@ -917,6 +910,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 										}*/
 										opening_cost=jsonobject.getInt("opening_cost");
 										ktfy.setText("￥ "+StringUtil.getMoneyString(opening_cost));
+										Config.support_type=jsonobject.getBoolean("support_type");
 										tdname = jsonobject.getString("name");
 										if (islea == false) {
 											//购买

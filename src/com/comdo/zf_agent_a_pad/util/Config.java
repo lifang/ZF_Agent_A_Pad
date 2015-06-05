@@ -126,6 +126,7 @@ public class Config {
 	public static boolean  canzl=false;
 	public static boolean  issafe=false;
 	public static boolean  is_editadress=false;
+	public static boolean support_type=false;
 	public static List<PortSon> son=new ArrayList<PortSon>();
 	public static List<GoodPic> piclist=new ArrayList<GoodPic>();
 	public static City city=null;

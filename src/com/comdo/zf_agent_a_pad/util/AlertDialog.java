@@ -75,7 +75,7 @@ public class AlertDialog {
 		button.setBackgroundResource(R.drawable.dialog);
 		button.setText(text);
 		button.setTextColor(Color.BLUE);
-		button.setTextSize(16);
+		button.setTextSize(14);
 		button.setOnClickListener(listener);
 		if(buttonLayout2.getChildCount()>0)
 		{

@@ -57,6 +57,7 @@
         android:id="@+id/ll_baseinfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        
         >
 
         <ScrollView
@@ -322,7 +323,7 @@
 
                 <TableLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="26dp"
                     android:layout_marginTop="40dp" >
 
@@ -330,7 +331,7 @@
 
                         <TextView
                             android:layout_width="190dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="right"
                             android:text="身份证照片"
@@ -348,7 +349,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="right"
                             android:text="营业执照照片"
@@ -366,7 +367,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="right"
                             android:text="税务登记证照片"
@@ -525,7 +526,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:orientation="vertical"
-       android:visibility="gone"
+      
         >
 
         <LinearLayout
