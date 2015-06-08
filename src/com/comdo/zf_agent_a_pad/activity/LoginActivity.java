@@ -86,6 +86,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			PushManager.startWork(getApplicationContext(),
 					PushConstants.LOGIN_TYPE_API_KEY,
 					Utils.getMetaValue(LoginActivity.this, "api_key"));
+			SharedPreferences mySharedPreferences = getSharedPreferences(Config.SHARED, MODE_PRIVATE);
+			Boolean isOpen_mineset = mySharedPreferences.getBoolean("isOpen_mineset", true);
+			if (isOpen_mineset == false) {
+				//关闭百度推送
+				PushManager.stopWork(getApplicationContext());
+			}
 		}
 		
 		initView();
