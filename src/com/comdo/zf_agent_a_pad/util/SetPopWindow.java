@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.baidu.android.pushservice.PushManager;
 import com.comdo.zf_agent_a_pad.common.HttpCallback;
 import com.comdo.zf_agent_a_pad.common.NetworkUtil;
 import com.comdo.zf_agent_a_pad.entity.VersionEntity;
@@ -45,10 +46,10 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 	private TextView tv_clean;
 	private TextView tv_type;
 	private Activity context;
-	
+
 	private Dialog versionCheckingDialog;
 	private Handler handler;
-	
+
 	public SetPopWindow(final Activity context) {
 		this.context = context;
 		LayoutInflater inflater = (LayoutInflater) context
@@ -98,9 +99,9 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 		ll_clean.setOnClickListener(this);
 
 		tv_clean = (TextView) conentView.findViewById(R.id.tv_clean);
-		
+
 		tv_type.setText(Tools.getVerName(context)+"");
-		
+
 		String dataSize = "";
 		try {
 			dataSize = DataCleanManager.getTotalCacheSize(context);
@@ -141,11 +142,15 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 				editor.putBoolean("isOpen_mineset", false);
 				editor.commit();
 				MyToast.showToast(context, "您已成功关闭推送消息，在应用进入后台时您将不会收到推送消息！");
+				//关闭百度推送
+				PushManager.stopWork(context.getApplicationContext());
 			} else {
 				isOpen_mineset = true;
 				img_on_off.setBackgroundResource(R.drawable.pos_on);
 				editor.putBoolean("isOpen_mineset", true);
-				editor.commit();
+				editor.commit();	
+				//重新启动百度推送
+				PushManager.resumeWork(context.getApplicationContext());
 			}
 
 			break;
@@ -229,7 +234,7 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 				builder.create().show();
 				break;
 			case HAS_NEW_VERSION:
-				 final String url = msg.getData().getString("url");
+				final String url = msg.getData().getString("url");
 				builder.setCancelable(true);
 				String string = context.getResources().getString(
 						R.string.version_check_true);
@@ -254,7 +259,7 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 		}
 	}
 	private void upgrading(String apkUrl) {
-		 ProgressDialog pd = new ProgressDialog(context);
+		ProgressDialog pd = new ProgressDialog(context);
 		pd.setCancelable(true);
 		pd.setCanceledOnTouchOutside(false);
 		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
