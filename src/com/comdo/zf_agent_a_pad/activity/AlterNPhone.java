@@ -31,7 +31,7 @@ public class AlterNPhone extends Activity implements OnClickListener {
 	private EditText ed_code;
 	private EditText ed_nphone;
 	private String phone;
-	private AlterPhoneentity ape;
+	private AlterPhoneentity ape = new AlterPhoneentity();
 	private LinearLayout ll_next;
 	private Button bt_yzm;
 	private Button bt_check;
