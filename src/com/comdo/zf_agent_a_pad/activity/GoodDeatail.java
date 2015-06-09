@@ -14,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -115,7 +116,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 	private int opening_cost;
 	private String tdname;
 	private Handler handler = new Handler() {
-		public void handleMessage(Message msg) {
+		@SuppressLint("ResourceAsColor") public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
 				for (int i = 0; i < ma.size(); i++) {
@@ -176,7 +177,11 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 					tv_zd.setVisibility(View.GONE);
 					Config.canzl=true;
 				}
-				
+				if(gfe.getQuantity()<=0){
+					setting_btn_clear.setText("缺货");
+					
+					setting_btn_clear.setBackgroundColor(R.color.qhgray);
+				}
 				break;
 			case 1:
 				Toast.makeText(getApplicationContext(), (String) msg.obj,
@@ -395,6 +400,10 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			startActivity(i);
 			break;
 		case R.id.btn_buy: // tv_comment
+			if(gfe.getQuantity()<=0){
+				Toast.makeText(getApplicationContext(), "很抱歉，该商品正在加紧补货中", 1000).show();
+				return;
+			}
 			if (PosListActivity.shoptype!=1) {
 				if(islea){
 					Intent i21 = new Intent(GoodDeatail.this, LeaseConfirm.class);
