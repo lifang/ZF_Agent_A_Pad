@@ -124,6 +124,8 @@ public class OrderList extends BaseActivity implements IXListViewListener,
 					int position, long id) {
 				Spinner spinner = (Spinner) parent;
 				q = position == 0 ? "" : position + "";
+				if(q.equals("4"))
+					q="5";
 				page = 1;
 				myList.clear();
 

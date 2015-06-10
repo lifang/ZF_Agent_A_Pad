@@ -223,7 +223,7 @@ public class OrderAdapter extends BaseAdapter{
 			holder.tv_status.setText("已取消");
 			holder.ll_ishow.setVisibility(View.GONE);
 			holder.btn_comment.setVisibility(View.VISIBLE);
-			holder.btn_comment.setText("再次代购");
+			holder.btn_comment.setText("再次采购");
 			
 			/*if(OrderList.type.equals("5")){
 				holder.btn_comment.setText("再次批购");

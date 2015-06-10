@@ -329,6 +329,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 			all_price = gfe.getLease_deposit()+opening_cost;
 			tv_price.setText("￥ "+StringUtil.getMoneyString(gfe.getLease_deposit()+opening_cost));
 			islea = true;
+			if(gfe.getQuantity()>0)
 			setting_btn_clear.setText("租赁");
 			tv_dp.setText("租赁价格");
 			tv_lea.setBackgroundColor(getResources().getColor(R.color.bgtitle));
