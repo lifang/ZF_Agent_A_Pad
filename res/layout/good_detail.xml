@@ -255,7 +255,8 @@
                             android:layout_marginBottom="12dp"
                             android:layout_marginLeft="@dimen/margin_left2"
                             android:layout_marginRight="@dimen/margin_left2"
-                            android:orientation="horizontal" >
+                            android:orientation="horizontal"
+                            android:visibility="gone" >
 
                             <TextView
                                 android:layout_width="wrap_content"
