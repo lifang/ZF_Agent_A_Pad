@@ -347,7 +347,7 @@
 
                     <TextView
                         android:layout_width="190dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="right"
                         android:text="身份证照片"
@@ -357,6 +357,7 @@
                         android:id="@+id/iv_shenfenzheng"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="40dp"
                         android:background="@drawable/check_it" />
                 </TableRow>
