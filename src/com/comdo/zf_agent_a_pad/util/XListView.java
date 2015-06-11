@@ -362,7 +362,7 @@ public class XListView extends ListView implements OnScrollListener {
 							public void run() {   
 								oneLoadMore = true;
 							}    
-						}, 1000); 
+						}, 1500); 
 					}
 				}
 				resetFooterHeight();
