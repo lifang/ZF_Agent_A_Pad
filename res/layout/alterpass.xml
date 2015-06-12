@@ -109,7 +109,6 @@
                             android:layout_marginRight="@dimen/zc_margin"
                             android:background="@drawable/shape_edittext"
                             android:hint="请输入验证码"
-                            android:inputType="textPassword"
                             android:paddingLeft="@dimen/zc_margin"
                             android:singleLine="true" >
                         </EditText>
