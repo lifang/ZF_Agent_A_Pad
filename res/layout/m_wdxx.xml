@@ -8,62 +8,63 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="48dp"
-        android:gravity="center_vertical" 
-        android:paddingTop="6dp"
+        android:background="#989898"
+        android:gravity="center_vertical"
         android:paddingBottom="6dp"
-        android:background="#989898">
+        android:paddingTop="6dp" >
+
         <CheckBox
-                    android:id="@+id/cb_all"
-                    style="@style/MyCheckBox1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                   	android:layout_marginLeft="53dp"
-                   	android:layout_marginRight="27dp"
-              
-                   	 android:layout_gravity="center_vertical"
-                    android:checked="false" />
+            android:id="@+id/cb_all"
+            style="@style/MyCheckBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="53dp"
+            android:layout_marginRight="27dp"
+            android:checked="false" />
 
         <Button
             android:id="@+id/bt_bj"
             android:layout_width="120dp"
             android:layout_height="36dp"
-            android:background="@drawable/shape_white"
-            android:textColor="#ffffff"
             android:layout_marginRight="20dp"
-            android:text="标注为已读" />
+            android:background="@drawable/shape_white"
+            android:text="标注为已读"
+            android:textColor="#ffffff" />
 
-         <Button
+        <Button
             android:id="@+id/bt_del"
             android:layout_width="120dp"
             android:layout_height="36dp"
             android:background="@drawable/shape_white"
-            android:textColor="#ffffff"
-            android:text="删除" />
-
+            android:text="删除"
+            android:textColor="#ffffff" />
     </LinearLayout>
-	 <LinearLayout
+
+    <LinearLayout
         android:id="@+id/eva_nodata"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:background="@color/ffffff"
-        android:orientation="horizontal" 
-        android:visibility="gone">
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <include layout="@layout/include_norecord" />
     </LinearLayout>
- 	
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="612dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
-         		<com.comdo.zf_agent_a_pad.util.XListView
-        android:id="@+id/x_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#F3F2F2"
-        android:fadingEdge="none"
-        android:scrollbars="none" />
+
+        <com.comdo.zf_agent_a_pad.util.XListView
+            android:id="@+id/x_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#F3F2F2"
+            android:fadingEdge="none"
+            android:scrollbars="none" />
     </LinearLayout>
 
 </LinearLayout>

@@ -631,7 +631,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 											}.getType());
 									String a = "";
 									for (int i = 0; i < arelist.size(); i++) {
-										a = a + arelist.get(i);
+										a = a +" "+ arelist.get(i);
 									}
 
 									Config.suportare = a;
@@ -897,7 +897,7 @@ public class GoodDeatail extends FragmentActivity implements OnClickListener {
 													}.getType());
 											String a = "";
 											for (int i = 0; i < arelist.size(); i++) {
-												a = a + arelist.get(i);
+												a = a +" "+ arelist.get(i);
 											}
 
 											Config.suportare = a;
