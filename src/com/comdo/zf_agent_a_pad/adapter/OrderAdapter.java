@@ -200,6 +200,7 @@ public class OrderAdapter extends BaseAdapter{
 			}else{
 				holder.tv_status.setText("已付款");
 				holder.ll_ishow.setVisibility(View.GONE);
+				holder.btn_comment.setVisibility(View.GONE);
 			}
 		
 			break;
