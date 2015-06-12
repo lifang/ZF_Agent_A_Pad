@@ -532,7 +532,7 @@ public class Config {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		params.put("keys", keys);
-		params.put("city_id", city_id);
+		params.put("cityId", city_id);
 		params.put("rows", rows);
 		params.put("page", page);
 		params.put("orderType", orderType);
@@ -543,17 +543,17 @@ public class Config {
 		if (Config.lx != -1)
 			params.put("category", Config.lx);
 		try {
-			params.put("brands_id",
+			params.put("brandsId",
 					new JSONArray(gson.toJson(Posport.brands_id)));
 			// params.put("category", new
 			// JSONArray(gson.toJson(Posport.category)));
-			params.put("pay_channel_id",
+			params.put("payChannelId",
 					new JSONArray(gson.toJson(Posport.pay_channel_id)));
-			params.put("pay_card_id",
+			params.put("payCardId",
 					new JSONArray(gson.toJson(Posport.pay_card_id)));
-			params.put("trade_type_id",
+			params.put("tradeTypeId",
 					new JSONArray(gson.toJson(Posport.trade_type_id)));
-			params.put("sale_slip_id",
+			params.put("saleSlipId",
 					new JSONArray(gson.toJson(Posport.sale_slip_id)));
 			params.put("tDate", new JSONArray(gson.toJson(Posport.tDate)));
 
