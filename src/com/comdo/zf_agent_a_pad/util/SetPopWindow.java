@@ -100,7 +100,7 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 
 		tv_clean = (TextView) conentView.findViewById(R.id.tv_clean);
 
-		tv_type.setText(Tools.getVerName(context)+"");
+		tv_type.setText("v"+Tools.getVerName(context));
 
 		String dataSize = "";
 		try {
