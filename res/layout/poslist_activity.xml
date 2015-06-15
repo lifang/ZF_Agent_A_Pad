@@ -256,7 +256,7 @@
             android:paddingLeft="@dimen/sp_height" >
 
             <LinearLayout
-                android:layout_width="@dimen/normal_width4"
+                android:layout_width="@dimen/goodimg"
                 android:layout_height="@dimen/titleback_height"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal" >
@@ -361,7 +361,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/normal_width5"
+                android:layout_marginLeft="@dimen/leftfristtop"
                 android:layout_marginRight="@dimen/titilepad"
                 android:background="@drawable/pos_pxf" />
 
