@@ -79,13 +79,14 @@
             android:textSize="@dimen/textbig" />
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/titilepad"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="@dimen/alertheight"
         android:layout_marginRight="@dimen/alertheight"
         android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 <LinearLayout
     			android:id="@+id/ll_isshow"
@@ -123,25 +124,13 @@
                     android:textColor="#292929"
                     android:textSize="@dimen/textmid" />
             </LinearLayout>
-        <EditText
-            android:id="@+id/ed_search"
-            android:layout_width="@dimen/normal_height3"
-            android:layout_height="@dimen/leftfristtop"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:singleLine="true"
-            android:hint="请输入订单编号"
-            android:textSize="@dimen/textbig"
-             android:imeOptions="actionSearch"
-            android:background="@drawable/textsearch" >
-        </EditText>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:layout_toRightOf="@+id/ll_isshow"
+            
             android:orientation="horizontal" >
 
             <TextView
@@ -151,12 +140,12 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="选择状态"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="@dimen/alertll"
                 android:textSize="@dimen/textbig" />
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="@dimen/normal_height3"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/leftfristtop"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/sy_rl_margin"
@@ -164,9 +153,30 @@
                 android:textSize="@dimen/textmid"
                 android:background="@drawable/ed_adress"
                 android:spinnerMode="dropdown" />
+         
         </LinearLayout>
-
-    </RelativeLayout>
+           <TextView
+               
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="选择状态"
+                android:visibility="invisible"
+                android:layout_marginLeft="@dimen/alertll"
+                android:textSize="@dimen/textbig" />
+<EditText
+            android:id="@+id/ed_search"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/leftfristtop"
+         android:layout_weight="1"
+            android:singleLine="true"
+            android:hint="请输入订单编号"
+            android:textSize="@dimen/textbig"
+             android:imeOptions="actionSearch"
+            android:background="@drawable/textsearch" >
+        </EditText>
+    </LinearLayout>
 
     <View
         android:layout_width="fill_parent"
