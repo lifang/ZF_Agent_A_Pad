@@ -149,16 +149,13 @@ public class Agentmanager extends Fragment implements OnClickListener,
 		xxlistview.stopRefresh();
 		xxlistview.stopLoadMore();
 		xxlistview.setRefreshTime(Tools.getHourAndMin());
-
 	}
 
 	private void getData() {
 		Config.GetAgentList(getActivity(), agentsId, page + 1, rows,
 				new HttpCallback<Page<AgentManager>>(getActivity()) {
-
 					@Override
 					public void onSuccess(Page<AgentManager> data) {
-
 						if (null == data || data.getList().size() <= 0)
 							noMoreData = true;
 						if (pullType.equals("onRefresh")) {
@@ -168,7 +165,6 @@ public class Agentmanager extends Fragment implements OnClickListener,
 						page++;
 						agentadapter.notifyDataSetChanged();
 						myHandler.sendEmptyMessage(0);
-
 					}
 
 					@Override
