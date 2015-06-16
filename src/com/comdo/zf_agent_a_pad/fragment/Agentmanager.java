@@ -96,7 +96,6 @@ public class Agentmanager extends Fragment implements OnClickListener,
 
 			@Override
 			public void onFailure(String message) {
-				super.onFailure(message);
 			}
 
 			@Override

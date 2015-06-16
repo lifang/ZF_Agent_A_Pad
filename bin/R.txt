@@ -216,13 +216,13 @@ int dimen normai_height1 0x7f060036
 int dimen normai_height3 0x7f060037
 int dimen normal_height1 0x7f060061
 int dimen normal_height2 0x7f060062
-int dimen normal_height3 0x7f06006d
+int dimen normal_height3 0x7f06006e
 int dimen normal_height4 0x7f06006c
 int dimen normal_width1 0x7f060063
 int dimen normal_width2 0x7f060064
 int dimen normal_width3 0x7f060065
 int dimen normal_width4 0x7f060066
-int dimen normal_width5 0x7f06006e
+int dimen normal_width5 0x7f06006d
 int dimen order_image 0x7f060067
 int dimen order_image1 0x7f060068
 int dimen postimg 0x7f06003d
@@ -572,7 +572,7 @@ int id ed_comment 0x7f0b01d9
 int id ed_max 0x7f0b0292
 int id ed_min 0x7f0b0291
 int id ed_phone 0x7f0b010c
-int id ed_search 0x7f0b025e
+int id ed_search 0x7f0b025f
 int id editText1 0x7f0b02a2
 int id endCall 0x7f0b02e6
 int id et_address_detail 0x7f0b0144
@@ -1124,7 +1124,7 @@ int id tv_zd 0x7f0b01e3
 int id tv_zl 0x7f0b01e5
 int id tvc_qy 0x7f0b020c
 int id tvc_zx 0x7f0b020d
-int id type 0x7f0b025f
+int id type 0x7f0b025e
 int id type_pop 0x7f0b0221
 int id updateView 0x7f0b0036
 int id updateView_x 0x7f0b0039

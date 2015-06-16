@@ -21,8 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class WelcomeActivity extends BaseActivity implements OnPageChangeListener,
-		OnClickListener {
+public class WelcomeActivity extends BaseActivity implements
+		OnPageChangeListener, OnClickListener {
 
 	private ImageView img;
 	private ViewPager view_pager;
@@ -39,6 +39,10 @@ public class WelcomeActivity extends BaseActivity implements OnPageChangeListene
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.welcome);
+		if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+			finish();
+			return;
+		}
 		img = (ImageView) this.findViewById(R.id.img);
 		new Handler().postDelayed(new Runnable() {
 
@@ -162,15 +166,11 @@ public class WelcomeActivity extends BaseActivity implements OnPageChangeListene
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.left:
-			 i = new Intent(
-					getApplicationContext(),
-					Register.class);
+			i = new Intent(getApplicationContext(), Register.class);
 			startActivity(i);
 			break;
 		case R.id.right:
-			 i = new Intent(
-					getApplicationContext(),
-					LoginActivity.class);
+			i = new Intent(getApplicationContext(), LoginActivity.class);
 			startActivity(i);
 			finish();
 			break;
