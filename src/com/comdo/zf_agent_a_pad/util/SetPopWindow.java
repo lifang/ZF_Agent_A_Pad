@@ -57,23 +57,23 @@ public class SetPopWindow extends PopupWindow implements OnClickListener {
 		conentView = inflater.inflate(R.layout.popwin_setting, null);
 		int h = context.getWindowManager().getDefaultDisplay().getHeight();
 		int w = context.getWindowManager().getDefaultDisplay().getWidth();
-		// ����SelectPicPopupWindow��View
+		// 设置SelectPicPopupWindow的View
 		this.setContentView(conentView);
-		// ����SelectPicPopupWindow��������Ŀ�
+		// 设置SelectPicPopupWindow弹出窗体的宽
 		this.setWidth(LayoutParams.FILL_PARENT);
-		// ����SelectPicPopupWindow��������ĸ�
+		// 设置SelectPicPopupWindow弹出窗体的高
 		this.setHeight(LayoutParams.FILL_PARENT);
-		// ����SelectPicPopupWindow��������ɵ��
+		// 设置SelectPicPopupWindow弹出窗体可点击
 		this.setFocusable(true);
 		this.setOutsideTouchable(true);
-		// ˢ��״̬
+		// 刷新状态״̬
 		this.update();
-		// ʵ����һ��ColorDrawable��ɫΪ��͸��
+		// 实例化一个ColorDrawable颜色为半透明
 		ColorDrawable dw = new ColorDrawable(0000000000);
-		// ��back���������ط�ʹ����ʧ,������������ܴ���OnDismisslistener �����������ؼ��仯�Ȳ���
+		// 点back键和其他地方使其消失,设置了这个才能触发OnDismisslistener ，设置其他控件变化等操作
 		this.setBackgroundDrawable(dw);
 		// mPopupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
-		// ����SelectPicPopupWindow�������嶯��Ч��
+		// 设置SelectPicPopupWindow弹出窗体动画效果
 		// this.setAnimationStyle(R.style.AnimationPreview);
 		initView();
 		handler = new VersionHandler(context);

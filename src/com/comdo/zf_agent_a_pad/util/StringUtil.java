@@ -19,7 +19,7 @@ import android.util.Base64;
 import android.util.Log;
 
 /***
- * ���ַ��� ���ܣ�����
+ *  对字符串 加密，解析
  * 
  * @author Lijinpeng
  * 
@@ -122,7 +122,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * MD5�����㷨
+	 * MD5加密算法
 	 * 
 	 * @param plainText
 	 * @return
@@ -156,7 +156,7 @@ public class StringUtil {
 		return md5Password.toUpperCase();
 	}
 
-	// ȥ�����пո�
+	// 去除所有空格
 	public static String replaceBlank(String str) {
 		String dest = "";
 		if (str != null) {
@@ -168,7 +168,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * �������
+	 * 密码加密
 	 * 
 	 * @param src
 	 * @param key
@@ -195,11 +195,11 @@ public class StringUtil {
 	}
 
 	/***
-	 * ��������
+	 * 参数加密
 	 * 
 	 * @param paramValues
 	 * @param secret
-	 * @return ����sign
+	 * @return 加密sign
 	 */
 	public static String sign(Map<String, String> paramValues, String secret) {
 		StringBuilder sign = new StringBuilder();

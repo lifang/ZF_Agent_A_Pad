@@ -61,6 +61,8 @@ import android.widget.TextView;
  
 
 
+
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -70,7 +72,7 @@ public class Tools {
 	static ArrayList<ImageView> imageviewList0;
 	private static Bitmap bm = null;
 	
-	// �ж�Ӧ��ǰ̨���Ǻ�̨
+	// 判断应用前台还是后台
 	public static boolean isApplicationBroughtToBackground(final Context context) {
 		ActivityManager am = (ActivityManager) context
 				.getSystemService(Context.ACTIVITY_SERVICE);
@@ -106,14 +108,14 @@ public class Tools {
 				try {
 					Log.i("linshi------------", url);
 					URL myurl = new URL(url);
-					// �������
+					//获得连接
 					HttpURLConnection conn = (HttpURLConnection) myurl
 							.openConnection();
-					conn.setConnectTimeout(6000);// ���ó�ʱ
+					conn.setConnectTimeout(6000);//设置超时
 					conn.setDoInput(true);
-					conn.setUseCaches(false);// ������
+					conn.setUseCaches(false);// 不缓存
 					conn.connect();
-					InputStream is = conn.getInputStream();// ���ͼƬ��������
+					InputStream is = conn.getInputStream();// 获得图片的数据流
 					// bm =decodeSampledBitmapFromStream(is,150,150);
 
 					BitmapFactory.Options options = new BitmapFactory.Options();
@@ -142,9 +144,9 @@ public class Tools {
 						// bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 						// out.flush();
 						// out.close();
-						// Log.i("linshi", "�Ѿ�����");
+						// Log.i("linshi", "已经保存");
 						face_drawable = new BitmapDrawable(bm);
-						Message msg = new Message();// ����Message ����
+						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						msg.obj = face_drawable;
 						mHandler.sendMessage(msg);
@@ -152,7 +154,7 @@ public class Tools {
 					}
 
 				} catch (Exception e) {
-					Log.i("linshi", "�����쳣");
+					Log.i("linshi", "发生异常");
 					// Log.i("linshi", url);
 				}
 
@@ -186,14 +188,14 @@ public class Tools {
 					Log.i("linshi------------", url);
 					URL myurl = new URL(url);
 					// initTrustSSL();
-					// �������
+					// 获得连接
 					HttpURLConnection conn = (HttpURLConnection) myurl
 							.openConnection();
-					conn.setConnectTimeout(6000);// ���ó�ʱ
+					conn.setConnectTimeout(6000);// 设置超时
 					conn.setDoInput(true);
-					conn.setUseCaches(false);// ������
+					conn.setUseCaches(false);// 不缓存
 					conn.connect();
-					InputStream is = conn.getInputStream();// ���ͼƬ��������
+					InputStream is = conn.getInputStream();// 获得图片的数据流
 					// bm =decodeSampledBitmapFromStream(is,150,150);
 
 					BitmapFactory.Options options = new BitmapFactory.Options();
@@ -222,9 +224,9 @@ public class Tools {
 						// bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 						// out.flush();
 						// out.close();
-						// Log.i("linshi", "�Ѿ�����");
+						// Log.i("linshi", "已经保存");
 
-						Message msg = new Message();// ����Message ����
+						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						msg.obj = bm;
 						mHandler.sendMessage(msg);
@@ -232,7 +234,7 @@ public class Tools {
 					}
 
 				} catch (Exception e) {
-					Log.i("linshi", "�����쳣");
+					Log.i("linshi", "发生异常");
 					// Log.i("linshi", url);
 				}
 
@@ -244,10 +246,10 @@ public class Tools {
 	}
 
 	/**
-	 * ת��ͼƬ��Բ��
+	 * 转换图片成圆形
 	 * 
 	 * @param bitmap
-	 *            ����Bitmap����
+	 *            传入Bitmap对象
 	 * @return
 	 */
 	public static Bitmap toRoundBitmap(Bitmap bitmap) {
@@ -289,23 +291,23 @@ public class Tools {
 				(int) bottom);
 		final Rect dst = new Rect((int) dst_left, (int) dst_top,
 				(int) dst_right, (int) dst_bottom);
-		paint.setAntiAlias(true);// ���û����޾��
+		paint.setAntiAlias(true);// 设置画笔无锯齿
 
-		canvas.drawARGB(0, 0, 0, 0); // �������Canvas
+		canvas.drawARGB(0, 0, 0, 0); // 填充整个Canvas
 		paint.setColor(color);
 
-		// ���������ַ�����Բ,drawRounRect��drawCircle
+		// 以下有两种方法画圆,drawRounRect和drawCircle
 		// canvas.drawRoundRect(rectF, roundPx, roundPx, paint);//
-		// ��Բ�Ǿ��Σ���һ������Ϊͼ����ʾ���򣬵ڶ��������͵����������ֱ���ˮƽԲ�ǰ뾶�ʹ�ֱԲ�ǰ뾶��
+		// 画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
 		canvas.drawCircle(roundPx, roundPx, roundPx, paint);
 
-		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));// ��������ͼƬ�ཻʱ��ģʽ,�ο�http://trylovecatch.iteye.com/blog/1189452
-		canvas.drawBitmap(bitmap, src, dst, paint); // ��Mode.SRC_INģʽ�ϲ�bitmap���Ѿ�draw�˵�Circle
+		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye.com/blog/1189452
+		canvas.drawBitmap(bitmap, src, dst, paint); // 以Mode.SRC_IN模式合并bitmap和已经draw了的Circle
 
 		return output;
 	}
 
-	// �ж�sd���Ƿ����
+	// 判断sd卡是否可用
 	public static boolean isHasSdcard() {
 		String status = Environment.getExternalStorageState();
 		if (status.equals(Environment.MEDIA_MOUNTED)) {
@@ -315,20 +317,20 @@ public class Tools {
 		}
 	}
 
-	// �ж�����
+	// 判断网络
 	public static boolean isConnect(Context context) {
 
-		// ��ȡ�ֻ��������ӹ�����󣨰�����wi-fi,net�����ӵĹ���
+		// 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
 		try {
 			ConnectivityManager connectivity = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			if (connectivity != null) {
 
-				// ��ȡ�������ӹ���Ķ���
+				// 获取网络连接管理的对象
 				NetworkInfo info = connectivity.getActiveNetworkInfo();
 
 				if (info != null && info.isConnected()) {
-					// �жϵ�ǰ�����Ƿ��Ѿ�����
+					// 判断当前网络是否已经连接
 					if (info.getState() == NetworkInfo.State.CONNECTED) {
 						return true;
 					}
@@ -341,7 +343,7 @@ public class Tools {
 	}
 
 	/**
-	 * ����ԭͼ���Բ��
+	 * 根据原图添加圆角
 	 * 
 	 * @param source
 	 * @return
@@ -391,15 +393,15 @@ public class Tools {
 		}
 	}
 
-	public static String del_tag(String str) {// ȥ��HTML��ǩ
+	public static String del_tag(String str) {// 去除HTML标签
 		Pattern p_html = Pattern.compile("<[^>]+>", Pattern.CASE_INSENSITIVE);
 		Matcher m_html = p_html.matcher(str);
-		String content = m_html.replaceAll(""); // ����html��ǩ
+		String content = m_html.replaceAll(""); // 过滤html标签
 		return content;
 	}
 
 	/**
-	 * �����ֻ��ķֱ��ʴ� dp �ĵ�λ ת��Ϊ px(����)
+	 * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
 	 */
 	public static int dip2px(Context context, float dpValue, int size) {
 		final float scale = context.getResources().getDisplayMetrics().density;
@@ -415,15 +417,15 @@ public class Tools {
 	}
 
 	/**
-	 * ��õ�ǰʱ�� hh��mm
-	 * */
+	 * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+	 */
 	public static String getHourAndMin() {
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		return format.format(new Date());
 	}
 
 	/**
-	 * �������뷨
+	 * 获得当前时间 hh：mm
 	 * */
 	public static void hideInputMethod(Activity act) {
 		InputMethodManager imm = (InputMethodManager) act
@@ -475,7 +477,7 @@ public class Tools {
 //			@Override
 //			public boolean onPreDraw() {
 //				loadingDw.start();
-//				return true; // ����Ҫ�����true����
+//				return true;  // 必须要有这个true返回
 //			}
 //		});
 //		TextView tv = (TextView) view.findViewById(R.id.loading_tv);
