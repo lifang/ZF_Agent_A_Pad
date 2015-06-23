@@ -212,7 +212,6 @@
                         android:id="@+id/imageView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/editText1"
                         android:layout_centerVertical="true"
                         android:src="@drawable/search_bg" />
 
@@ -453,7 +452,6 @@
                 android:textSize="@dimen/textmid" />
 
             <TextView
-                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="4dp"

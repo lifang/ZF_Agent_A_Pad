@@ -16,35 +16,29 @@ public class API {
 
 	static Gson gson = new Gson();
 
-	public static final String SCHEMA = "http://";
-	// public static final String HOST = "114.215.149.242:28080";
-	//public static final String HOST = "121.40.84.2:28080";
-	public static final String HOST = "121.40.84.2:28080";
-	// public static final String HOST = "192.168.1.101:8080";
-
 	// selection terminal list
-	public static final String TERMINAL_LIST = SCHEMA + HOST
-			+ "/ZFAgent/api/trade/record/getTerminals";
+	public static final String TERMINAL_LIST = Config.PATHS
+			+ "trade/record/getTerminals";
 	// selection agent list
-	public static final String AGENT_LIST = SCHEMA + HOST
-			+ "/ZFAgent/api/trade/record/getAgents";
+	public static final String AGENT_LIST = Config.PATHS
+			+ "trade/record/getAgents";
 	// trade record list
-	public static final String TRADE_RECORD_LIST = SCHEMA + HOST
-			+ "/ZFAgent/api/trade/record/getTradeRecords";
+	public static final String TRADE_RECORD_LIST = Config.PATHS
+			+ "trade/record/getTradeRecords";
 	// trade record statistic
-	public static final String TRADE_RECORD_STATISTIC = SCHEMA + HOST
-			+ "/ZFAgent/api/trade/record/getTradeRecordTotal";
+	public static final String TRADE_RECORD_STATISTIC = Config.PATHS
+			+ "trade/record/getTradeRecordTotal";
 	// trade record detail
-	public static final String TRADE_RECORD_DETAIL = SCHEMA + HOST
-			+ "/ZFAgent/api/trade/getTradeRecord";
+	public static final String TRADE_RECORD_DETAIL = Config.PATHS
+			+ "trade/getTradeRecord";
 
 
 	// upload image url
-	public static final String UPLOAD_IMAGE = SCHEMA + HOST
-			+ "/ZFMerchant/api/comment/upload/tempImage";
+	public static final String UPLOAD_IMAGE = Config.PATHS
+			+ "comment/upload/tempImage";
 
-	public static final String WNATBUY = SCHEMA + HOST
-			+ "/ZFMerchant/api/paychannel/intention/add";
+	public static final String WNATBUY = Config.PATHS
+			+ "paychannel/intention/add";
 
 	public static void getTerminalList(Context context, int agentId,
 			HttpCallback callback) {
