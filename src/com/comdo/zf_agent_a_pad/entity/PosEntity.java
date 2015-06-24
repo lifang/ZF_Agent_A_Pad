@@ -36,7 +36,7 @@ public class PosEntity {
         this.url_path = url_path;
     }
 
-    private int total_score;
+    private String total_score;
 
     public int getFloor_purchase_quantity() {
         return floor_purchase_quantity;
@@ -70,10 +70,10 @@ public class PosEntity {
 	public void setGood_brand(String good_brand) {
 		this.good_brand = good_brand;
 	}
-	public int getTotal_score() {
+	public String getTotal_score() {
 		return total_score;
 	}
-	public void setTotal_score(int total_score) {
+	public void setTotal_score(String total_score) {
 		this.total_score = total_score;
 	}
 	public int getRetail_price() {

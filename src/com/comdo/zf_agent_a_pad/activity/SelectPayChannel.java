@@ -148,7 +148,9 @@ public class SelectPayChannel extends BaseActivity {
 						list = fenRunEntity.getList();
 						mAdapter.notifyDataSetChanged();
 						ll_paychannel.removeAllViews();
-						addEdit(ll_paychannel, list.get(0).getDetail());
+						if (list.size() != 0) {
+							addEdit(ll_paychannel, list.get(0).getDetail());
+						}
 					}
 
 					@Override

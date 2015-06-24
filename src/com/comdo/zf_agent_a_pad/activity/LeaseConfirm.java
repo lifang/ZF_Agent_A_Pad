@@ -55,6 +55,7 @@ import com.comdo.zf_agent_a_pad.util.Config;
 import com.comdo.zf_agent_a_pad.util.ImageCacheUtil;
 import com.comdo.zf_agent_a_pad.util.MyApplication;
 import com.comdo.zf_agent_a_pad.util.ScrollViewWithListView;
+import com.comdo.zf_agent_a_pad.util.StringUtil;
 import com.comdo.zf_agent_a_pad.util.TitleMenuUtil;
 import com.epalmpay.agentPad.R;
 import com.google.gson.Gson;
@@ -68,7 +69,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 	private String Url = Config.ChooseAdress;
 	private TextView tv_sjr, tv_tel, tv_adress;
 	private TextView tv_pop, tv_totle, title2, retail_price, showCountText,
-			tv_pay, tv_count;
+	tv_pay, tv_count;
 	private Button btn_pay;
 	private ImageView reduce, add;
 	PopupWindow menuWindow;
@@ -176,36 +177,36 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 
 		Config.userGetUser(this, MyApplication.NewUser.getAgentUserId(), 0, rows,
 				new HttpCallback<List<UserInfo>>(this) {
-					@Override
-					public void onSuccess(List<UserInfo> data) {
+			@Override
+			public void onSuccess(List<UserInfo> data) {
 
-						for (UserInfo userInfo :data) {
-							Map<String, Object> item = new HashMap<String, Object>();
-							item.put("id", userInfo.getId());
-							item.put("name", userInfo.getName());
-							listString.add(userInfo.getName());
-							items.add(item);
-						}
-						maAdapter.notifyDataSetChanged();
-					}
+				for (UserInfo userInfo :data) {
+					Map<String, Object> item = new HashMap<String, Object>();
+					item.put("id", userInfo.getId());
+					item.put("name", userInfo.getName());
+					listString.add(userInfo.getName());
+					items.add(item);
+				}
+				maAdapter.notifyDataSetChanged();
+			}
 
-					@Override
-					public void onFailure(String message) {
-						super.onFailure(message);
-					}
+			@Override
+			public void onFailure(String message) {
+				super.onFailure(message);
+			}
 
-					@Override
-					public TypeToken<List<UserInfo>> getTypeToken() {
-						return new TypeToken<List<UserInfo>>() {
-						};
-					}
-				});
+			@Override
+			public TypeToken<List<UserInfo>> getTypeToken() {
+				return new TypeToken<List<UserInfo>>() {
+				};
+			}
+		});
 	}
 
 	private void initView() {
 		tv_isshow = (TextView)findViewById(R.id.tv_isshow);
-		
-		
+
+
 		if (type == 1) {
 			tv_isshow.setVisibility(View.VISIBLE);
 		}else{
@@ -264,8 +265,8 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		//		android.R.layout.simple_spinner_item, listString);
 		// adapter.setDropDownViewResource(R.layout.drop_down_item);
 		//spinner_user.setAdapter(maAdapter);
-	
-		
+
+
 		/*spinner_user
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 					public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -337,7 +338,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 						et_titel.setEnabled(true);
 						ll_pf.setVisibility(View.VISIBLE);
 					}
-						
+
 				} else {
 					flag = false;
 					if (type == 1){
@@ -345,7 +346,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 						et_titel.setEnabled(false);
 						ll_pf.setVisibility(View.GONE);
 					}
-						
+
 				}
 			}
 		});
@@ -364,18 +365,18 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 					quantity = Integer.parseInt(buyCountEdit.getText()
 							.toString());
 				}
-			if(type==1){
-				tv_totle.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
-				tv_pay.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
-			}else{
-				tv_totle.setText("实付：￥ " + df.format(((double) pirce+getIntent().getIntExtra("hpsf", 0)) / 100 * quantity));
-				tv_pay.setText("实付：￥ " + df.format(((double) pirce+getIntent().getIntExtra("hpsf", 0)) / 100 * quantity));
-			}
-				
-				
+				if(type==1){
+					tv_totle.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
+					tv_pay.setText("实付：￥ " + df.format(((double) pirce) / 100 * quantity));
+				}else{
+					tv_totle.setText("实付：￥ " + df.format(((double) pirce+getIntent().getIntExtra("hpsf", 0)) / 100 * quantity));
+					tv_pay.setText("实付：￥ " + df.format(((double) pirce+getIntent().getIntExtra("hpsf", 0)) / 100 * quantity));
+				}
+
+
 				ktf.setText("含开通费￥"+df.format(getIntent().getIntExtra("hpsf", 0)*quantity*1.0f/100));
 				hpsf.setText("含开通费￥"+df.format(getIntent().getIntExtra("hpsf", 0)*quantity*1.0f/100));
-			
+
 			}
 
 			@Override
@@ -417,30 +418,30 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 		Config.GetAdressLis(LeaseConfirm.this, userid,
 				new HttpCallback<List<AdressEntity>>(LeaseConfirm.this) {
 
-					@Override
-					public void onSuccess(List<AdressEntity> data) {
-						myList.addAll(data);
-						for (int i = 0; i < myList.size(); i++) {
-							if (myList.get(i).getIsDefault() == 1) {
-								// tv_name,tv_tel,tv_adresss;
-								addressId = myList.get(i).getId();
-
-							}
-						}
-						if(addressId==-1&&myList.size()!=0){
-							myList.get(0).setIsDefault(1);
-							addressId = myList.get(0).getId();
-						}
-						myAdapter.notifyDataSetChanged();
+			@Override
+			public void onSuccess(List<AdressEntity> data) {
+				myList.addAll(data);
+				for (int i = 0; i < myList.size(); i++) {
+					if (myList.get(i).getIsDefault() == 1) {
+						// tv_name,tv_tel,tv_adresss;
+						addressId = myList.get(i).getId();
 
 					}
+				}
+				if(addressId==-1&&myList.size()!=0){
+					myList.get(0).setIsDefault(1);
+					addressId = myList.get(0).getId();
+				}
+				myAdapter.notifyDataSetChanged();
 
-					@Override
-					public TypeToken getTypeToken() {
-						return new TypeToken<List<AdressEntity>>() {
-						};
-					}
-				});
+			}
+
+			@Override
+			public TypeToken getTypeToken() {
+				return new TypeToken<List<AdressEntity>>() {
+				};
+			}
+		});
 	}
 
 	@Override
@@ -471,15 +472,18 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 				}
 			} else {
 				if (flag) {
-					if(addressId!=-1){
-						
-						confirmGood();
-					}else{
-						Toast.makeText(getApplicationContext(), "请选择地址", 1000).show();
+					if (StringUtil.isNull(userselected.getText().toString())) {
+						Toast.makeText(getApplicationContext(), "请选择用户", 1000).show();
+					}else {
+						if(addressId!=-1){
+							confirmGood();
+						}else{ 
+							Toast.makeText(getApplicationContext(), "请选择地址", 1000).show();
+						}
 					}
 				} else {
 					Toast.makeText(getApplicationContext(), "请同意租赁协议", 1000)
-							.show();
+					.show();
 				}
 			}
 			break;
@@ -521,28 +525,28 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 				goodId, paychannelId, quantity, addressId, comment,
 				is_need_invoice, invoice_type, invoice_info,
 				new HttpCallback(LeaseConfirm.this) {
-					@Override
-					public void onSuccess(Object data) {
-						Intent i1 = new Intent(LeaseConfirm.this,
-								PayFromCar.class);
-						try {
-							i1.putExtra("orderId", Integer.parseInt(data.toString()));
-						} catch (Exception e) {
-							
-						}
-						if(PosListActivity.shoptype==1){
-							i1.putExtra("type", 5);
-						}else{
-							i1.putExtra("type", 3);
-						}
-						startActivity(i1);
-					}
+			@Override
+			public void onSuccess(Object data) {
+				Intent i1 = new Intent(LeaseConfirm.this,
+						PayFromCar.class);
+				try {
+					i1.putExtra("orderId", Integer.parseInt(data.toString()));
+				} catch (Exception e) {
 
-					@Override
-					public TypeToken getTypeToken() {
-						return null;
-					}
-				});
+				}
+				if(PosListActivity.shoptype==1){
+					i1.putExtra("type", 5);
+				}else{
+					i1.putExtra("type", 3);
+				}
+				startActivity(i1);
+			}
+
+			@Override
+			public TypeToken getTypeToken() {
+				return null;
+			}
+		});
 
 	}
 
@@ -581,7 +585,7 @@ public class LeaseConfirm extends BaseActivity implements OnClickListener {
 			addressId=-1;
 			getData1();
 			break;
-			
+
 		}
 		default:
 			break;
