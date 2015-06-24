@@ -114,6 +114,7 @@ public class PayFromCar extends PayActivity implements OnClickListener{
 			intent.putExtra("outTradeNo", outTradeNo);
 			intent.putExtra("type", type);
 			intent.putExtra("price", unionprice);
+			intent.putExtra("type", type+"");
 			startActivity(intent);
 			if(!MyApplication.getInstance().getHistoryList().contains(this)){
 				MyApplication.getInstance().getHistoryList().add(this);	
