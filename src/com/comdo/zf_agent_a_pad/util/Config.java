@@ -54,28 +54,28 @@ public class Config {
 	 * product
 	 */
 
-	// public static final String PATHS = "http://agent.ebank007.com/api/";
-	// public static final String APIURL = "http://agent.ebank007.com/api";
-	// //异步通知接口
-	// public static final String NOTIFT_URL =
-	// "http://agent.ebank007.com/app_notify_url.jsp";
-	// //支付成功跳转页面
-	// public static final String RETURN_URL =
-	// "http://agent.ebank007.com/return_url.jsp";
+	 public static final String PATHS = "http://agent.ebank007.com/api/";
+	 public static final String APIURL = "http://agent.ebank007.com/api";
+	 //异步通知接口
+	 public static final String NOTIFT_URL =
+	 "http://agent.ebank007.com/app_notify_url.jsp";
+	 //支付成功跳转页面
+	 public static final String RETURN_URL =
+	 "http://agent.ebank007.com/return_url.jsp";
 	// 异步通知接口
-//		public static final String ORDER_NOTIFT_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
-//		// 支付成功跳转页面
-//		public static final String ORDER_RETURN_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
-	// //获取银联交易流水号
-	// public static final String UNION_TN_URL =
-	// "http://agent.ebank007.com/unionpay.do";
-	// //支付成功回调修改订单状态
-	// public static final String UNION_SUCESS_URL =
-	// "http://agent.ebank007.com/api/pay/alipayback";
-	// /*****************************************************************
-	// * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-	// *****************************************************************/
-	// public static final String UNION_MEDE = "00";
+		public static final String ORDER_NOTIFT_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
+		// 支付成功跳转页面
+		public static final String ORDER_RETURN_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
+	 //获取银联交易流水号
+	 public static final String UNION_TN_URL =
+	 "http://agent.ebank007.com/unionpay.do";
+	 //支付成功回调修改订单状态
+	 public static final String UNION_SUCESS_URL =
+	 "http://agent.ebank007.com/api/pay/alipayback";
+	 /*****************************************************************
+	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+	 *****************************************************************/
+	 public static final String UNION_MEDE = "00";
 
 	/**
 	 * pre -- product
@@ -105,24 +105,24 @@ public class Config {
 	/**
 	 * sit
 	 */
-	public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
-	public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
-	// 异步通知接口
-	public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
-	// 支付成功跳转页面
-	public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
-	// 异步通知接口
-	public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-	// 支付成功跳转页面
-	public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-	// 获取银联交易流水号
-	public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
-	// 支付成功回调修改订单状态
-	public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
-	/*****************************************************************
-	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-	 *****************************************************************/
-	public static final String UNION_MEDE = "01";
+//	public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+//	public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
+//	// 异步通知接口
+//	public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
+//	// 支付成功跳转页面
+//	public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
+//	// 异步通知接口
+//	public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+//	// 支付成功跳转页面
+//	public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+//	// 获取银联交易流水号
+//	public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
+//	// 支付成功回调修改订单状态
+//	public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
+//	/*****************************************************************
+//	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+//	 *****************************************************************/
+//	public static final String UNION_MEDE = "01";
 	
 	
 	public static String channelId = "";// ，绑定百度推送的channelId
@@ -941,25 +941,28 @@ public class Config {
 
 	public static void DelectOneMsg(Context context, int id, int customerId,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(DELECT_ONE, params);
 	}
 
 	public static void GetMsgDetail(Context context, int id, int customerId,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_MSGDETAIL, params);
 	}
 
 	public static void DelectMoreMsg(Context context, String[] ids,
 			int customerId, HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		try {
 			params.put("ids", new JSONArray(gson.toJson(ids)));
 			params.put("customerId", customerId);
@@ -967,13 +970,14 @@ public class Config {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(DELECT_MORE, params);
 	}
 
 	public static void IsRead(Context context, String[] ids, int customerId,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		try {
 			params.put("ids", new JSONArray(gson.toJson(ids)));
 			params.put("customerId", customerId);
@@ -981,7 +985,7 @@ public class Config {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(IS_READ, params);
 	}
 
@@ -1051,15 +1055,15 @@ public class Config {
 	public static void addStaffList(Context context, String userName,
 			String loginId, String roles, int agentsId, String pwd,
 			String pwd1, HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		// Map<String, Object> params = new HashMap<String, Object>();
+		//RequestParams params = new RequestParams();
+		 Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userName", userName);
 		params.put("loginId", loginId);
 		params.put("roles", roles);
 		params.put("agentsId", agentsId);
 		params.put("pwd", pwd);
 		params.put("pwd1", pwd1);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ADD_STAFFMANAGER, params);
 	}
 
@@ -1077,28 +1081,31 @@ public class Config {
 
 	public static void GetAgentList(Context context, int agentsId, int page,
 			int rows, HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentsId", agentsId);
 		params.put("page", page);
 		params.put("rows", rows);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(AGENT_LIST, params);
 	}
 
 	public static void GetAgentDetail(Context context, int sonAgentsId,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
+	//	RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("sonAgentsId", sonAgentsId);
-		params.setUseJsonStreamer(true);
+	//	params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(AGENT_DETAIL, params);
 	}
 
 	public static void resetprofit(Context context, float defaultProfit,
 			int agentsId, HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("defaultProfit", defaultProfit);
 		params.put("agentsId", agentsId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(RESET_PROFIT, params);
 	}
 
@@ -1124,13 +1131,10 @@ public class Config {
 	}
 
 	public static void uploadPic(Context context, File img,
-			HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		try {
-			params.put("img", img);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+			HttpCallback callback) throws FileNotFoundException {
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("img", img);
 		new HttpRequest(context, callback).post(UPLOAD_FILE, params);
 	}
 
@@ -1192,10 +1196,10 @@ public class Config {
 
 	public static void getlowerAgentList(Context context, int agentId,
 			HttpCallback callback) {
-		RequestParams params = new RequestParams();
-		// Map<String, Object> params = new HashMap<String, Object>();
+		//RequestParams params = new RequestParams();
+		 Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_AGENTLIST, params);
 		Log.e("params", String.valueOf(params));
 		Log.e("url", GET_DISTRIBUTE);
@@ -1254,9 +1258,10 @@ public class Config {
 	public static void GetAdressList(Context context, int customerId,
 
 	HttpCallback callback) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
-		params.setUseJsonStreamer(true);
+		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(ChooseAdress, params);
 		Log.e("customerId", customerId + "");
 		Log.e("GET_ADDRESS_LIST", ChooseAdress);
