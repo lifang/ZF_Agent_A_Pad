@@ -35,10 +35,13 @@ import android.util.Log;
 public class Config {
 
 	// 视频通话
-	public static final String VIDEO_SERVER_IP = "121.40.84.2";
+	//	public static final String VIDEO_SERVER_IP = "121.40.84.2";
+	public static final String VIDEO_SERVER_IP = "121.40.64.120";
 	public static final int VIDEO_SERVER_PORT = 8906;
 
-	public static final String URL_NOTICE_VIDEO = "http://121.40.84.2:8180/zfmanager/notice/video";
+	public static final String URL_NOTICE_VIDEO =
+			"http://admin.ebank007.com/notice/video";
+	//	public static final String URL_NOTICE_VIDEO = "http://121.40.84.2:8180/zfmanager/notice/video";
 
 	// 商户PID
 	public static final String PARTNER = "2088811347108355";
@@ -54,77 +57,76 @@ public class Config {
 	 * product
 	 */
 
-	 public static final String PATHS = "http://agent.ebank007.com/api/";
-	 public static final String APIURL = "http://agent.ebank007.com/api";
-	 //异步通知接口
-	 public static final String NOTIFT_URL =
-	 "http://agent.ebank007.com/app_notify_url.jsp";
-	 //支付成功跳转页面
-	 public static final String RETURN_URL =
-	 "http://agent.ebank007.com/return_url.jsp";
+	public static final String PATHS = "http://agent.ebank007.com/api/";
+	public static final String APIURL = "http://agent.ebank007.com/api";
+	//异步通知接口
+	public static final String NOTIFT_URL =
+			"http://agent.ebank007.com/app_notify_url.jsp";
+	//支付成功跳转页面
+	public static final String RETURN_URL =
+			"http://agent.ebank007.com/return_url.jsp";
 	// 异步通知接口
-		public static final String ORDER_NOTIFT_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
-		// 支付成功跳转页面
-		public static final String ORDER_RETURN_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
-	 //获取银联交易流水号
-	 public static final String UNION_TN_URL =
-	 "http://agent.ebank007.com/unionpay.do";
-	 //支付成功回调修改订单状态
-	 public static final String UNION_SUCESS_URL =
-	 "http://agent.ebank007.com/api/pay/alipayback";
-	 /*****************************************************************
+	public static final String ORDER_NOTIFT_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
+	// 支付成功跳转页面
+	public static final String ORDER_RETURN_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
+	//获取银联交易流水号
+	public static final String UNION_TN_URL =
+			"http://agent.ebank007.com/unionpay.do";
+	//支付成功回调修改订单状态
+	public static final String UNION_SUCESS_URL =
+			"http://agent.ebank007.com/api/pay/alipayback";
+	/*****************************************************************
 	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
 	 *****************************************************************/
-	 public static final String UNION_MEDE = "00";
+	public static final String UNION_MEDE = "00";
 
 	/**
 	 * pre -- product
 	 */
-	// public static final String PATHS = "http://121.40.224.25:9090/api/";
-	// public static final String APIURL = "http://121.40.224.25:9090/api";
-	// //异步通知接口
-	// public static final String NOTIFT_URL =
-	// "http://121.40.224.25:9090/app_notify_url.jsp";
-	// //支付成功跳转页面
-	// public static final String RETURN_URL =
-	// "http://121.40.224.25:9090/return_url.jsp";
-//	public static final String ORDER_NOTIFT_URL = "http://121.40.224.25:9090/deposit_app_notify_url.jsp";
-//	// 支付成功跳转页面
-//	public static final String ORDER_RETURN_URL = "http://121.40.224.25:9090/deposit_app_notify_url.jsp";
-	// //获取银联交易流水号
-	// public static final String UNION_TN_URL =
-	// "http://121.40.224.25:9090/unionpay.do";
-	// //支付成功回调修改订单状态
-	// public static final String UNION_SUCESS_URL =
-	// "http://121.40.224.25:9090/api/pay/alipayback";
-	// /*****************************************************************
-	// * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-	// *****************************************************************/
-	// public static final String UNION_MEDE = "00";
+	//	 public static final String PATHS = "http://121.40.224.25:9090/api/";
+	//	 public static final String APIURL = "http://121.40.224.25:9090/api";
+	//	 //异步通知接口
+	//	 public static final String NOTIFT_URL =
+	//	 "http://121.40.224.25:9090/app_notify_url.jsp";
+	//	 //支付成功跳转页面
+	//	 public static final String RETURN_URL =
+	//	 "http://121.40.224.25:9090/return_url.jsp";
+	//	public static final String ORDER_NOTIFT_URL = "http://121.40.224.25:9090/deposit_app_notify_url.jsp";
+	//	// 支付成功跳转页面
+	//	public static final String ORDER_RETURN_URL = "http://121.40.224.25:9090/deposit_app_notify_url.jsp";
+	//	 //获取银联交易流水号
+	//	 public static final String UNION_TN_URL =
+	//	 "http://121.40.224.25:9090/unionpay.do";
+	//	 //支付成功回调修改订单状态
+	//	 public static final String UNION_SUCESS_URL =
+	//	 "http://121.40.224.25:9090/api/pay/alipayback";
+	//	 /*****************************************************************
+	//	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+	//	 *****************************************************************/
+	//	 public static final String UNION_MEDE = "00";
 
 	/**
 	 * sit
 	 */
-//	public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
-//	public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
-//	// 异步通知接口
-//	public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
-//	// 支付成功跳转页面
-//	public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
-//	// 异步通知接口
-//	public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-//	// 支付成功跳转页面
-//	public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-//	// 获取银联交易流水号
-//	public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
-//	// 支付成功回调修改订单状态
-//	public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
-//	/*****************************************************************
-//	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-//	 *****************************************************************/
-//	public static final String UNION_MEDE = "01";
-	
-	
+	//	public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+	//	public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
+	//	// 异步通知接口
+	//	public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
+	//	// 支付成功跳转页面
+	//	public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
+	//	// 异步通知接口
+	//	public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+	//	// 支付成功跳转页面
+	//	public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+	//	// 获取银联交易流水号
+	//	public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
+	//	// 支付成功回调修改订单状态
+	//	public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
+	//	/*****************************************************************
+	//	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+	//	 *****************************************************************/
+	//	public static final String UNION_MEDE = "01";
+
 	public static String channelId = "";// ，绑定百度推送的channelId
 	public static String notificationTitle = "";// ，绑定百度推送的title
 	public static String notificationMsgID = "";// ，绑定百度推送的title
@@ -1002,7 +1004,7 @@ public class Config {
 
 	public static void GetAdressLis(Context context, int customerId,
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 
 		// RequestParams params = new RequestParams();
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1034,7 +1036,7 @@ public class Config {
 
 	public static void AddAdress(Context context, String cityId,
 
-	String receiver, String moblephone, String zipCode, String address,
+			String receiver, String moblephone, String zipCode, String address,
 			int isDefault, int customerId, HttpCallback callback) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1056,7 +1058,7 @@ public class Config {
 			String loginId, String roles, int agentsId, String pwd,
 			String pwd1, HttpCallback callback) {
 		//RequestParams params = new RequestParams();
-		 Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userName", userName);
 		params.put("loginId", loginId);
 		params.put("roles", roles);
@@ -1092,10 +1094,10 @@ public class Config {
 
 	public static void GetAgentDetail(Context context, int sonAgentsId,
 			HttpCallback callback) {
-	//	RequestParams params = new RequestParams();
+		//	RequestParams params = new RequestParams();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("sonAgentsId", sonAgentsId);
-	//	params.setUseJsonStreamer(true);
+		//	params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(AGENT_DETAIL, params);
 	}
 
@@ -1197,7 +1199,7 @@ public class Config {
 	public static void getlowerAgentList(Context context, int agentId,
 			HttpCallback callback) {
 		//RequestParams params = new RequestParams();
-		 Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
 		//params.setUseJsonStreamer(true);
 		new HttpRequest(context, callback).post(GET_AGENTLIST, params);
@@ -1257,7 +1259,7 @@ public class Config {
 
 	public static void GetAdressList(Context context, int customerId,
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 		//RequestParams params = new RequestParams();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("customerId", customerId);
@@ -1311,7 +1313,7 @@ public class Config {
 
 	public static void bindingTerminal(Context context, String terminalsNum,
 
-	int userId, int agentId, HttpCallback callback) {
+			int userId, int agentId, HttpCallback callback) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("terminalsNum", terminalsNum);
@@ -1329,9 +1331,9 @@ public class Config {
 
 	public static void addCustomer(Context context, String codeNumber,
 
-	String name, String password, int cityId, int agentId, String code,
+			String name, String password, int cityId, int agentId, String code,
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("codeNumber", codeNumber);
 		params.put("name", name);
@@ -1376,7 +1378,7 @@ public class Config {
 
 	public static void screeningTerminalNum(Context context, String title,
 
-	int channelsId, int minPrice, int maxPrice, int agentId, int page,
+			int channelsId, int minPrice, int maxPrice, int agentId, int page,
 			int rows, String serialNum, HttpCallback callback) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		if (title != null)
@@ -1440,7 +1442,7 @@ public class Config {
 
 	public static void getTerminalPaylist(Context context, int agentId,
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
@@ -1473,7 +1475,7 @@ public class Config {
 		params.put("page", page);
 		params.put("rows", rows);
 		new HttpRequest(context, callback)
-				.post(GET_TERMINAL_TRANS_LIST, params);
+		.post(GET_TERMINAL_TRANS_LIST, params);
 
 	}
 
@@ -1552,7 +1554,7 @@ public class Config {
 
 	public static void uploadpic(Context context, int agentsId, File img,
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentsId", agentsId);
@@ -1563,7 +1565,7 @@ public class Config {
 
 	public static void geTerminalPosList(Context context, int agentId,
 
-	HttpCallback callback) {
+			HttpCallback callback) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("agentId", agentId);
