@@ -108,24 +108,24 @@ public class Config {
 	/**
 	 * sit
 	 */
-	//	public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
-	//	public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
-	//	// 异步通知接口
-	//	public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
-	//	// 支付成功跳转页面
-	//	public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
-	//	// 异步通知接口
-	//	public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-	//	// 支付成功跳转页面
-	//	public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-	//	// 获取银联交易流水号
-	//	public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
-	//	// 支付成功回调修改订单状态
-	//	public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
-	//	/*****************************************************************
-	//	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-	//	 *****************************************************************/
-	//	public static final String UNION_MEDE = "01";
+//		public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+//		public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
+//		// 异步通知接口
+//		public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
+//		// 支付成功跳转页面
+//		public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
+//		// 异步通知接口
+//		public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+//		// 支付成功跳转页面
+//		public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+//		// 获取银联交易流水号
+//		public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
+//		// 支付成功回调修改订单状态
+//		public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
+//		/*****************************************************************
+//		 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+//		 *****************************************************************/
+//		public static final String UNION_MEDE = "01";
 
 	public static String channelId = "";// ，绑定百度推送的channelId
 	public static String notificationTitle = "";// ，绑定百度推送的title
@@ -1134,8 +1134,7 @@ public class Config {
 
 	public static void uploadPic(Context context, File img,
 			HttpCallback callback) throws FileNotFoundException {
-		//RequestParams params = new RequestParams();
-		Map<String, Object> params = new HashMap<String, Object>();
+		RequestParams params = new RequestParams();
 		params.put("img", img);
 		new HttpRequest(context, callback).post(UPLOAD_FILE, params);
 	}
@@ -1555,10 +1554,13 @@ public class Config {
 	public static void uploadpic(Context context, int agentsId, File img,
 
 			HttpCallback callback) {
-
-		Map<String, Object> params = new HashMap<String, Object>();
+		RequestParams params = new RequestParams();
 		params.put("agentsId", agentsId);
-		params.put("img", img);
+		try {
+			params.put("img", img);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		new HttpRequest(context, callback).post(UPLOAD_FILE, params);
 		Log.e("params", String.valueOf(params));
 	}

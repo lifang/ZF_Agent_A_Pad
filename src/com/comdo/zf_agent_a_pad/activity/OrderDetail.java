@@ -13,6 +13,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.R.integer;
 import android.app.Dialog;
 import android.content.Intent;
@@ -530,15 +531,23 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 				@Override
 				public void onClick(final View arg0) {
 					ad.dismiss();
-					RequestParams params = new RequestParams();
+					//RequestParams params = new RequestParams();
+					Map<String, Object> params = new HashMap<String, Object>();
 					params.put("id", id);
 					System.out.println("`getTag``" + id);
-					params.setUseJsonStreamer(true);
+					//params.setUseJsonStreamer(true);
+					JSONObject jsonParams = new JSONObject(params);
+					HttpEntity entity;
+					try {
+						entity = new StringEntity(jsonParams.toString(), "UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						return;
+					}
 					MyApplication
 							.getInstance()
 							.getClient()
-							.post(Config.ORDERDELTE, params,
-									new AsyncHttpResponseHandler() {
+							.post(getApplicationContext(),Config.ORDERDELTE, null,entity,"application/json", new AsyncHttpResponseHandler(){
+							//.post(Config.ORDERDELTE, params,new AsyncHttpResponseHandler() {
 
 										@Override
 										public void onSuccess(int statusCode,

@@ -1,10 +1,15 @@
 package com.comdo.zf_agent_a_pad.adapter;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -266,14 +271,22 @@ public class OrderAdapter extends BaseAdapter{
 					@Override
 					public void onClick(final View arg0) {
 						ad.dismiss();
-						RequestParams params = new RequestParams();
+						//RequestParams params = new RequestParams();
+						Map<String, Object> params = new HashMap<String, Object>();
 						params.put("id", v.getId());
 						 System.out.println("`getTag``"+v.getId());
 						 
-						params.setUseJsonStreamer(true);
-
+						//params.setUseJsonStreamer(true);
+							JSONObject jsonParams = new JSONObject(params);
+							HttpEntity entity;
+							try {
+								entity = new StringEntity(jsonParams.toString(), "UTF-8");
+							} catch (UnsupportedEncodingException e) {
+								return;
+							}
 						MyApplication.getInstance().getClient()
-								.post(Config.ORDERDELTE, params, new AsyncHttpResponseHandler() {
+						.post(context,Config.ORDERDELTE, null,entity,"application/json", new AsyncHttpResponseHandler(){
+								//.post(Config.ORDERDELTE, params, new AsyncHttpResponseHandler() {
 
 									@Override
 									public void onSuccess(int statusCode, Header[] headers,

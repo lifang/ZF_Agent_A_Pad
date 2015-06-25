@@ -1,9 +1,14 @@
 package com.comdo.zf_agent_a_pad.fragment;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +57,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.umeng.analytics.MobclickAgent;
 
 public class Mwdxx extends Fragment implements OnClickListener,
@@ -305,7 +311,8 @@ public class Mwdxx extends Fragment implements OnClickListener,
 	}
 
 	private void getData(final int type) {
-		RequestParams params = new RequestParams();
+		//RequestParams params = new RequestParams();
+		Map<String, Object> params = new HashMap<String, Object>();
 		Gson gson = new Gson();
 		params.put("customerId", MyApplication.NewUser.getAgentUserId());
 		if (type == 0) {
@@ -327,9 +334,18 @@ public class Mwdxx extends Fragment implements OnClickListener,
 				e.printStackTrace();
 			}
 		}	
-		params.setUseJsonStreamer(true);
+		
+		JSONObject jsonParams = new JSONObject(params);
+		HttpEntity entity;
+		try {
+			entity = new StringEntity(jsonParams.toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return;
+		}
+		//params.setUseJsonStreamer(true);
 		MyApplication.getInstance().getClient()
-				.post(Url, params, new AsyncHttpResponseHandler() {
+			.post(getActivity(),Url, null,entity,"application/json", new AsyncHttpResponseHandler(){
+			//	.post(Url, params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onStart() {
 						loadingDialog.show();

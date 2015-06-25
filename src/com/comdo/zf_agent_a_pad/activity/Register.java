@@ -1,8 +1,13 @@
 package com.comdo.zf_agent_a_pad.activity;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -457,8 +462,7 @@ public class Register extends BaseActivity implements OnClickListener {
 			AsyncHttpClient client = new AsyncHttpClient();
 			client.setTimeout(10000);// 设置超时时间
 			client.setMaxConnections(10);
-			client.post(Config.UPLOAD_REGISTER, params,
-					new AsyncHttpResponseHandler() {
+			client.post(Config.UPLOAD_REGISTER, params,new AsyncHttpResponseHandler() {
 
 						@Override
 						public void onSuccess(int statusCode, Header[] headers,
