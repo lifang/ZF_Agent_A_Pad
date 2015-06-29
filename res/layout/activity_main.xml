@@ -180,7 +180,7 @@
         </RelativeLayout>
 
     </LinearLayout>
-<fragment 
+<FrameLayout 
     android:id="@+id/m_fragment"
      android:name="com.comdo.zf_agent_a_pad.fragment.MianFragment"  
     android:layout_width="fill_parent"

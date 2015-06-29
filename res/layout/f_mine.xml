@@ -221,7 +221,7 @@
             android:background="#817f7f" />
     </LinearLayout>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/f_mine"
         android:name="com.comdo.zf_agent_a_pad.fragment.MianFragment"
         android:layout_width="match_parent"

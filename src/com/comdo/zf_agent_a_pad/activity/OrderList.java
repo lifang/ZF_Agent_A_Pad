@@ -170,6 +170,7 @@ public class OrderList extends BaseActivity implements IXListViewListener,
 		Xlistview.setPullLoadEnable(true);
 		page = 1;
 		myList.clear();
+		myAdapter.notifyDataSetChanged();
 		getData();
 	}
 

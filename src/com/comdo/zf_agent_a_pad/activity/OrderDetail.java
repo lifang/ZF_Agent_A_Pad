@@ -178,7 +178,7 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		} else {
 			new TitleMenuUtil(OrderDetail.this, "采购订单详情").show();
 		}
-
+		Log.e("===orderId===ORDERDETAIL", ""+id);
 		getData();
 	}
 

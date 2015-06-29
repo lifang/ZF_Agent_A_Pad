@@ -151,7 +151,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:background="#EBE9EA"/>
-<fragment 
+<FrameLayout 
             android:id="@+id/f_good_detail"
             android:layout_marginLeft="@dimen/titilepad"
             android:layout_marginRight="@dimen/titilepad"
