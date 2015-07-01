@@ -175,7 +175,9 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 		if (type == 5) {
 			new TitleMenuUtil(OrderDetail.this, "批购订单详情").show();
 
-		} else {
+		}else if (type == 4) {
+			new TitleMenuUtil(OrderDetail.this, "租赁订单详情").show();
+		}else {
 			new TitleMenuUtil(OrderDetail.this, "采购订单详情").show();
 		}
 		Log.e("===orderId===ORDERDETAIL", ""+id);
@@ -195,11 +197,11 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 			return;
 		}
 
-		if (type == 5) {
-			url = Config.ORDERDETAIL;
-		} else {
+//		if (type == 5) {
+//			url = Config.ORDERDETAIL;
+//		} else {
 			url = Config.ORDERDETAIL1;
-		}
+		//}
 		Log.i("url", url);
 		MyApplication
 				.getInstance()
@@ -262,7 +264,10 @@ public class OrderDetail extends BaseActivity implements OnClickListener {
 													OrderDetail.this, relist);
 											his_lv.setAdapter(reAdapter);
 										}
-
+										
+										if (ode.getOrder_type() == 4) {
+											new TitleMenuUtil(OrderDetail.this, "租赁订单详情").show();
+										}
 										handler.sendEmptyMessage(0);
 
 									} else {

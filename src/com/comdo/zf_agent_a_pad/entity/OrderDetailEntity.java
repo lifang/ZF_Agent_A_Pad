@@ -16,6 +16,17 @@ public class OrderDetailEntity {
 		return shengyu_price;
 	}
 	private int bd_cost;
+	private int order_type;
+	
+	
+	public int getOrder_type() {
+		return order_type;
+	}
+
+	public void setOrder_type(int order_type) {
+		this.order_type = order_type;
+	}
+
 	public int getBd_cost() {
 		return bd_cost;
 	}

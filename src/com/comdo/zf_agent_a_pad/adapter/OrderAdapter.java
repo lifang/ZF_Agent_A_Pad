@@ -391,9 +391,11 @@ public class OrderAdapter extends BaseAdapter{
 					}else{
 						i.putExtra("orderId",Integer.parseInt(list.get(v.getId()).getOrder_id()) );
 					}
-						
-					
-						i.putExtra("type", Integer.parseInt(OrderList.type));
+					if(OrderList.type.equals("")){
+						i.putExtra("type","");
+					}else{
+						i.putExtra("type",Integer.parseInt(OrderList.type));
+					}
 											
 					context.startActivity(i);
 				}
@@ -419,11 +421,10 @@ public class OrderAdapter extends BaseAdapter{
 					i.putExtra("goodid", list.get(index).getOrder_goodsList().get(0).getGood_id());
 				}*/	
 				if(OrderList.type.equals("")){
-					
+					i.putExtra("type","");
 				}else{
-					
+					i.putExtra("type",Integer.parseInt(OrderList.type));
 				}
-				i.putExtra("type",Integer.parseInt(OrderList.type));
 				context.startActivity(i);
 			}
 		});

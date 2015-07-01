@@ -43,7 +43,7 @@ public class OrderList extends BaseActivity implements IXListViewListener,
 	private boolean onRefresh_number = true;
 	private OrderAdapter myAdapter;
 	private int page = 1;
-	public static String type ="5";
+	public static String type ="";
 	private String search = "";
 	private String q = "";
 	List<OrderEntity> myList = new ArrayList<OrderEntity>();
@@ -89,7 +89,8 @@ public class OrderList extends BaseActivity implements IXListViewListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlist);
-		type = "3";
+		//type = "-1";
+		type = "";
 		initView();		
 		q = "";
 		// getData();
