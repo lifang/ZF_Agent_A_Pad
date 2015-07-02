@@ -57,28 +57,28 @@ public class Config {
 	 * product
 	 */
 
-	public static final String PATHS = "http://agent.ebank007.com/api/";
-	public static final String APIURL = "http://agent.ebank007.com/api";
-	//异步通知接口
-	public static final String NOTIFT_URL =
-			"http://agent.ebank007.com/app_notify_url.jsp";
-	//支付成功跳转页面
-	public static final String RETURN_URL =
-			"http://agent.ebank007.com/return_url.jsp";
-	// 异步通知接口
-	public static final String ORDER_NOTIFT_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
-	// 支付成功跳转页面
-	public static final String ORDER_RETURN_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
-	//获取银联交易流水号
-	public static final String UNION_TN_URL =
-			"http://agent.ebank007.com/unionpay.do";
-	//支付成功回调修改订单状态
-	public static final String UNION_SUCESS_URL =
-			"http://agent.ebank007.com/api/pay/alipayback";
-	/*****************************************************************
-	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-	 *****************************************************************/
-	public static final String UNION_MEDE = "00";
+//	public static final String PATHS = "http://agent.ebank007.com/api/";
+//	public static final String APIURL = "http://agent.ebank007.com/api";
+//	//异步通知接口
+//	public static final String NOTIFT_URL =
+//			"http://agent.ebank007.com/app_notify_url.jsp";
+//	//支付成功跳转页面
+//	public static final String RETURN_URL =
+//			"http://agent.ebank007.com/return_url.jsp";
+//	// 异步通知接口
+//	public static final String ORDER_NOTIFT_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
+//	// 支付成功跳转页面
+//	public static final String ORDER_RETURN_URL = "http://agent.ebank007.com/deposit_app_notify_url.jsp";
+//	//获取银联交易流水号
+//	public static final String UNION_TN_URL =
+//			"http://agent.ebank007.com/unionpay.do";
+//	//支付成功回调修改订单状态
+//	public static final String UNION_SUCESS_URL =
+//			"http://agent.ebank007.com/api/pay/alipayback";
+//	/*****************************************************************
+//	 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+//	 *****************************************************************/
+//	public static final String UNION_MEDE = "00";
 
 	/**
 	 * pre -- product
@@ -108,24 +108,24 @@ public class Config {
 	/**
 	 * sit
 	 */
-//		public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
-//		public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
-//		// 异步通知接口
-//		public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
-//		// 支付成功跳转页面
-//		public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
-//		// 异步通知接口
-//		public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-//		// 支付成功跳转页面
-//		public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
-//		// 获取银联交易流水号
-//		public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
-//		// 支付成功回调修改订单状态
-//		public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
-//		/*****************************************************************
-//		 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
-//		 *****************************************************************/
-//		public static final String UNION_MEDE = "01";
+		public static final String PATHS = "http://121.40.84.2:28080/ZFAgent/api/";
+		public static final String APIURL = "http://121.40.84.2:28080/ZFAgent/api";
+		// 异步通知接口
+		public static final String NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/app_notify_url.jsp";
+		// 支付成功跳转页面
+		public static final String RETURN_URL = "http://121.40.84.2:28080/ZFAgent/return_url.jsp";
+		// 异步通知接口
+		public static final String ORDER_NOTIFT_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+		// 支付成功跳转页面
+		public static final String ORDER_RETURN_URL = "http://121.40.84.2:28080/ZFAgent/deposit_app_notify_url.jsp";
+		// 获取银联交易流水号
+		public static final String UNION_TN_URL = "http://121.40.84.2:28080/ZFAgent/unionpay.do";
+		// 支付成功回调修改订单状态
+		public static final String UNION_SUCESS_URL = "http://121.40.84.2:28080/ZFAgent/api/pay/alipayback";
+		/*****************************************************************
+		 * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
+		 *****************************************************************/
+		public static final String UNION_MEDE = "01";
 
 	public static String channelId = "";// ，绑定百度推送的channelId
 	public static String notificationTitle = "";// ，绑定百度推送的title
