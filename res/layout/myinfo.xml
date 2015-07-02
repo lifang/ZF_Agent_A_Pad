@@ -82,7 +82,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="代理商类型:"
+                            android:text="合作伙伴类型:"
                             android:textSize="20sp" />
 
                         <TextView
